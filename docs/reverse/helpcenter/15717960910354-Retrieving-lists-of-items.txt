@@ -1,0 +1,20 @@
+Retrieving lists of items
+section: General design features · id: 15717960910354 · updated: 2026-03-30T12:12:45Z
+https://siteflow.zendesk.com/hc/fr/articles/15717960910354-Retrieving-lists-of-items
+GET endpoints for retrieving a list of objects share some common features. In general, when returning a list of items, these items are sorted by creation date in chronological order (oldest created first). There might be some exceptions where sorting could be based on another attribute or specified by the API consumer in query parameters.
+Paging
+Any list of items returned the Response Body could not exceed a pre-defined quantity, set to 100 and globally applicable to the whole API. In order to retrieve the whole list of items satisfying the query criteria, limit and offset parameters are used.
+limit specifies the maximum number of items to return. Minimum is 1, maximum is 100. Default is 20.
+offset specifies the starting element index to browse in the whole list of items. Default is 0.
+Counters
+Two custom counters are returned in the Response Header :
+X-Count indicates number of items returned in the current response
+X-Total-Count indicates the total number of items satisfying the query with selected parameters
+By construction, X-Count is capped by the value of the limit parameter.
+Specifying offset >= X-Total-Count will return an empty list.
+Date filtering
+In addition to contextual query filters which are specific to each endpoint, two date filters have been appended to allow incremental retrieval thus reducing the quantity of items returned or avoiding retrieving the data several times:
+createdAfterAt targets items which have been created after a given datetime.
+modifiedAfterAt targets items which have been modified after a given datetime.
+Functionally speaking, date filters allows to target most recent items created or modified.
+

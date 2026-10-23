@@ -1,0 +1,7 @@
+Application model
+section: Siteflow functional object model · id: 15719270717970 · updated: 2026-03-30T12:12:08Z
+https://siteflow.zendesk.com/hc/fr/articles/15719270717970-Application-model
+The first layer of the application model is composed of account parameters and dictionary of custom data values that are specific to each Siteflow Client Company.
+The second layer is composed of shared assets (forms, documents, assets, tags) available in the library and global resources (users and devices).
+The third layer is composed of structural and business objects that are used to implement a target operational process.
+

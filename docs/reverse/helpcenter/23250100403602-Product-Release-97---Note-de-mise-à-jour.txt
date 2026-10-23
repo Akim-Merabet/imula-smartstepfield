@@ -1,0 +1,76 @@
+Product Release 97 - Note de mise à jour
+section: 2025 · id: 23250100403602 · updated: 2026-03-30T12:34:55Z
+https://siteflow.zendesk.com/hc/fr/articles/23250100403602-Product-Release-97-Note-de-mise-%C3%A0-jour
+La mise à jour du 1er trimestre 2025 des applications Siteflow va bientôt sortir en préproduction. Voici toutes les nouveautés et améliorations intégrées à la Product Release 97 de février 2025.
+Pour cliquer sur les liens présents dans la note de mise à jour, il est nécessaire d'être connecté à une WebApp Siteflow et d'avoir cliqué sur "Centre d'aide" depuis le profil.
+WebApp
+Flows
+Nouvelle notion d'états de flows, au-dessus des statuts, permettant de simplifier les options et les actions liées aux statuts de flows :
+L'état “En opération” remplace l’option “Visible depuis la MobileApp”, qui a été retirée.
+L'état “En préparation” remplace l’option “Visible depuis les fenêtres d’importation”, qui a été retirée.
+⭐ L'état “Terminé” permet de masquer des flows si l’option a été sélectionnée (comme pour les états d’entités).
+Les statuts de flows existants ont été répartis automatiquement dans les nouveaux états en fonction des options sélectionnées. Une réorganisation est certainement à prévoir malgré tout.
+Amélioration du module statuts de la page paramètres avec l’affichage de ces nouvelles options si la nature “Flow” est sélectionnée.
+Amélioration de tous les composants de sélection et de recherche de statuts de flow pour prendre en compte les nouveautés.
+L’objectif à plus long terme sera de permettre l’activation de tâches automatiques en fonction de tel ou tel statut sélectionné. Par exemple la suppression automatique de flows sur la MobileApp, la pré-génération PDF des réponses de formulaire et des documents contrôles afin d’accélérer la génération finale des dossiers de clôture, ou bien la restriction des actions dans les flows depuis la WebApp. Ces tâches et règles ne sont pas encore présentes, mais pourraient maintenant être ajoutées dans le futur.
+La date de modification du flow prend maintenant en compte les modifications faites à l’intérieur du flow, et pas seulement les modifications faites sur la fenêtre d'édition du flow.
+Documents
+Amélioration de la gestion des événements de génération de fichiers depuis la cloche des événements :
+Nouveaux statuts (“En cours”, “Terminé” et “Erreur”) pour informer l’utilisateur sur l’avancement de la génération d’un fichier.
+Nouveau module disponible uniquement pour le support Siteflow (dans un premier temps) permettant de visualiser précisément tous les événements du compte et lister les erreurs potentielles.
+Diagramme
+⭐ Améliorations et nouveautés sur la vue diagramme introduite lors de la précédente release (ce module est optionnel, voir l'article dédié pour plus détails, et votre référent Siteflow pour l'activer) :
+La vue diagramme a été ajoutée aux entités projet.
+Le bouton “+“ permet désormais d’ajouter un nouveau diagramme.
+Nouveau menu déroulant permettant de sélectionner un diagramme.
+Nouveau bouton pour créer un flow, reprenant l’ancien fonctionnement du bouton “+”.
+Nouvelle option permettant de décomposer une carte de flow en cartes de phases, et une carte de phase en cartes d'étapes.
+Nouveau composant de zoom en plus de la molette de la souris qui était déjà utilisable.
+Nouvelle barre d’outils pour réaliser les actions déjà possibles avec des raccourcis claviers.
+Un flow ne peut plus être supprimé si la carte de ce flow est présente dans un diagramme.
+Une entité peut maintenant avoir plusieurs documents diagramme, à hauteur d’un document par diagramme.
+Ajout de la vue diagramme sur le module référentiel d’un projet permettant de récupérer un ou plusieurs diagrammes référentiel avec leurs flows référentiel liés si le projet à été “préparé” depuis un sous-dossier référentiel. Un bouton “Exécuter” est présent afin de transformer tous les flows référentiel présents sur un diagramme en flows utilisables sur le terrain.
+Objets
+  Nouvelle option pour les formulaires “modèle”, permettant d’ajouter des questions “attribut” liées à des objets techniques. Une fois le formulaire configuré avec des questions attribut, en fonction des objets présents sur une étape, il sera possible de directement renseigner ou modifier les valeurs de ces attributs depuis le flow au travers d’une réponse de formulaire. Pour le moment, seule la partie de configuration des questions attribut depuis l'éditeur de formulaire est possible, et la suite sera livrée dans de futures releases.
+Cette nouveauté est en phase de test, elle n'est pas encore disponible pour tout le monde.
+WebApp et MobileApp
+Documents
+⭐ Nouveau comportement lors d’une signature depuis le bloc contrôles : en signant depuis la WebApp ou la MobileApp, les indices des documents avec version liés au bloc contrôles pour cette étape seront figés automatiquement (c’est-à-dire que la montée d’indice ne sera plus dynamique pour ces documents comme c'était le cas). Ce nouveau comportement est lié à des exigences de qualité et permet donc d’être certain que les documents liés ne pourront plus évoluer sur les étapes signées et ainsi rendre le document contrôles plus fiable d’un point de vue qualité.
+MobileApp
+Gestion des
+erreurs
+⭐ Amélioration technique de la gestion des envois de données saisies dans les réponses de formulaires en mode en ligne uniquement. En cas de micro coupure du réseau internet, ou bien lorsque le réseau internet est instable ou de mauvaise qualité, un message alertera que le champ renseigné n’a pas pu être sauvegardé, ou bien que l’envoi de données vers le serveur est en cours mais prend du temps. L’opérateur ne pourra pas sortir de la réponse de formulaire tant que la donnée n’a pas été correctement sauvegardée et envoyée, afin d'éviter toute perte d’information depuis le terrain.
+Amélioration
+technique
+Amélioration technique de la gestion des enregistrements sur la base de données interne en mode en hors ligne uniquement. Ce changement de brique technologique (TypeORM vers Room) permet de rendre la sauvegarde de données en mode hors ligne plus robuste dans des cas complexes. L’ancienne brique pouvait amener à de la perte de données sur notre premier niveau de sauvegarde, qui était soutenu par 2 autres modes de sauvegarde pour éviter les pertes de données, mais ces dernières occasionnaient plus de travail pour le support en cas de problème. Ce changement majeur permet également une amélioration notable de la performance lors de la navigation et de la saisie de données, que ce soit dans les flows ou les réponses de formulaire.
+API / Connecteur
+Déployé à l’avance en production.
+Nouveaux services
+API v2
+Flows :
+Création en masse de flows dans un même projet ou dans des projets différents.
+Ajout de phases à un flow.
+Ajout d'étapes à une phase.
+Récupération de la liste des étapes d'une phase, incluant tous les attributs standards uniquement ainsi que les étiquettes.
+Liaison d'un flow à une étape d'un flow spécifique ou chapeau.
+Mise à jour du contenu d'un bloc texte.
+Mise à jour du contenu d'un bloc instructions.
+Retour à l'état “Rédaction” d'un ou plusieurs types de blocs pour l'ensemble d'un flow.
+Liaison d'un formulaire du projet au bloc formulaires d'un flow spécifique, intervention ou chapeau.
+Validation interne d'un ou plusieurs types de blocs.
+Projets :
+Création d'un projet.
+Modification en masse des propriétés d'un ou plusieurs projets.
+Remplissage en masse des attributs d'un ou plusieurs projets.
+Importation de flows d'une entité référentiel dans le module référentiels d'une entité projet.
+Import de formulaires de la bibliothèque dans un projet.
+Création d'un document externe sans version dans un projet.
+Création d'un document externe avec version dans un projet.
+Réponses de formulaire :
+Modification en masse des propriétés de réponses de formulaire (nom, statut, état).
+Collaborateurs et tablettes :
+Récupération de la liste des compétences d'un utilisateur ou d'un opérateur.
+Documents :
+Récupération des propriétés d'un document externe sans version.
+Remplacement d'un fichier PDF dans un document externe sans version.
+

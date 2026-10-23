@@ -1,0 +1,7 @@
+Organisation and account
+section: Siteflow functional object model · id: 15719034865426 · updated: 2026-03-30T12:12:18Z
+https://siteflow.zendesk.com/hc/fr/articles/15719034865426-Organisation-and-account
+The Siteflow application operates under the context of an account. Data created are attached to that account. In most cases, a Siteflow client has been assigned a single account. For large companies, it is possible to setup different accounts, all attached to a same organisation. In that configuration, some set of data could be shared between accounts of a same organisation.
+An API consumer authenticated with an account key, as well as a WebApp user or a MobileApp user, is attached to a specific account. This associated account is implicitly known when querying any API endpoint. It has access to data created for that account and to any type of shared data.
+An API consumer authenticated with an organisation key has access to any data produced within the organisation. However, in general, it cannot retrieve data owned by more than one account in a single API query. There may be exceptions, but in general, the targeted account must be specified when an organisation API key is used.
+

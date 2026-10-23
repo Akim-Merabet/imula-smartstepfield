@@ -1,0 +1,8 @@
+Response data selection with embed parameter
+section: General design features · id: 15717156311570 · updated: 2026-03-30T12:11:58Z
+https://siteflow.zendesk.com/hc/fr/articles/15717156311570-Response-data-selection-with-embed-parameter
+Some objects contain a large number of attributes and might have relationships with other objects which are included in the response data. The whole set of information might not always be useful in all contexts.
+embed parameter has been appended in order to selectively specify which group of information to target in a given query.
+Available embed keywords are specific to each API endpoint. No embed keyword is selected by default so that a minimum set of attributes are returned for any object item.
+Most functional objects have tracing information including creation and modification datetimes. They are part of management properties. When MANAGEMENT_PROPERTIES embed keyword is selected, a managementProperties item is appended in the response body.
+

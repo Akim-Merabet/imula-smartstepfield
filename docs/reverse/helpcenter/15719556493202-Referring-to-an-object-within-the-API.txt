@@ -1,0 +1,6 @@
+Referring to an object within the API
+section: Siteflow functional object model · id: 15719556493202 · updated: 2026-03-30T12:24:38Z
+https://siteflow.zendesk.com/hc/fr/articles/15719556493202-Referring-to-an-object-within-the-API
+Functional high level objects (such as projects, flows, forms, form responses, documents, users, operators, tablets) have a global unique identifier assigned to them by the Siteflow application when they are created.
+These objects can then be retrieved individually by their identifiers. When an object is associated to another object, their identifiers are used to refer to them.
+

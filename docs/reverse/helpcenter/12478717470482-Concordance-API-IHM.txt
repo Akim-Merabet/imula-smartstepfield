@@ -1,0 +1,701 @@
+Concordance API-IHM
+section: Détails des appels API · id: 12478717470482 · updated: 2026-03-30T13:03:36Z
+https://siteflow.zendesk.com/hc/fr/articles/12478717470482-Concordance-API-IHM
+Cet article permet de faire le lien entre les termes choisis dans l’API et les champs impactés sur l’IHM (Interface Homme Machine) Siteflow.
+Utiliser les touches Ctrl + F pour trouver un résultat sur cet article plus rapidement.
+ = invisible sur l’IHM mais utilisé
+ = inutilisé ou à ne pas utiliser
+Users
+ | 
+ | Dénomination API
+ | Champ IHM
+ | Emplacement IHM
+ | uuidEntity
+ | 
+ (UUID de l’entité)
+ | Collaborateurs et tablettes / Utilisateurs / Créer ou éditer un utilisateur
+ | firstName
+ | Prénom
+ | lastName
+ | Nom
+ | trigram
+ | Trigramme
+ | labelFamily
+ | 
+Famille
+Pour plus de détails, voir Label Families
+ | mobileAppVersion
+ | Version MobileApp
+ | Profil / Tablette
+ | androidVersion
+ | Version Android
+ | 
+lastLatitude
+lastLongitude
+ | Position GPS
+ | deviceStatus
+ | Etat
+ | hierarchy.uuidEntity
+ | 
+ (UUID de la hiérarchie)
+ | Paramètres / Catégories / Créer ou éditer une catégorie
+ | hierarchy.uuid
+ | 
+ | hierarchy.uuidType
+ | 
+ | hierarchy.uuidOrganization
+ | 
+ | hierarchy.name
+ | Nom court
+ | hierarchy.fullName
+ | Nom long
+ | hierarchy.color
+ | Couleur
+ | hierarchy.priority
+ | 
+ | hierarchy.nature
+ | Nature
+ | hierarchy.relativeNature
+ | Type
+ | skills.uuidEntity
+ | 
+ (UUID de la compétence)
+ | Collaborateurs et tablettes / Utilisateurs / Compétences / Ajouter ou éditer une compétence
+ | skills.name
+ | 
+ | skills.startedAt
+ | Date de début
+ | skills.endedAt
+ | Date de fin
+ | skills.updatedAt
+ | Date de mise à jour
+ | skills.comment
+ | Commentaire
+ | skills.expertise
+ | Expertise
+ | skills.description
+ | Description
+Zipped images
+ | 
+ | Dénomination API
+ | Champ IHM
+ | Emplacement IHM
+ | zipped_images
+ | Bouton “Export les photos en fichier ZIP”
+ | 
+Entité / Remontées terrain
+OU
+Entité / Remontées terrain / Voir les réponses
+Document flow
+ | 
+ | Dénomination API
+ | Champ IHM
+ | Emplacement IHM
+ | uuidEntity
+ | 
+ (UUID du document)
+ | 
+Entité / Documents / Ajouter ou éditer un document
+OU
+Bibliothèques / Documents / Ajouter ou éditer un document
+ | uuid
+ | 
+ | uuidType
+ | 
+ | uuidOrganization
+ | 
+ | documentOrigin
+ | 
+ (Source)
+ | name
+ | Nom
+ | natureFile
+ | Type
+ | projectLabelFamilyId
+ | Catégorie Liste des documents
+ | secondaryProjectLabelFamilyId
+ | Catégorie Dossier de clôture
+ | refInt
+ | Référence interne
+ | refExt
+ | Référence externe
+ | lastVersionDocumentFlowId
+ | 
+ (UUID de la dernière ligne de l’onglet suivi d’un document source flow)
+ | 
+Entité / Documents / Ajouter ou éditer un document / Suivi
+OU
+Bibliothèques / Documents / Ajouter ou éditer un document / Suivi
+ | lastVersion.uuidEntity
+ | 
+ (UUID de la dernière ligne de l’onglet suivi d’un document)
+ | lastVersion.index
+ | Indice
+ | lastVersion.state
+ | Etat
+ | diffusedAt
+ | Date
+ | index
+ | Indice
+ | 
+Entité / Documents
+OU
+Bibliothèques / Documents
+ | state
+ | Etat
+ | flow.uuidEntity
+ | 
+ (UUID du flow)
+ | Entité / Flows (Vue liste)
+ | flow.name
+ | 
+ (Nom du flow)
+ | flow.refInt
+ | N° Chrono
+ | flow.refExt
+ | 
+ | unlocked
+ | Icône “Cadenas” indiquant si un référentiel est débloqué ou non
+Clients
+ | 
+ | Dénomination API
+ | Champ IHM
+ | Emplacement IHM
+ | uuid
+ | 
+ | Paramètres / Carnet clients / Créer ou éditer un client
+ | uuidEntity
+ | 
+ (UUID du client)
+ | uuidOrganization
+ | 
+ | uuidType
+ | 
+ | createdAt
+ | 
+ (Date de création du client)
+ | modifiedAt
+ | 
+ (Date de dernière modification du client)
+ | reference
+ | 
+ | address
+ | Adresse
+ | addressComp
+ | Complément
+ | city
+ | Ville
+ | country
+ | Pays
+ | name
+ | Nom 1
+ | nameComp
+ | Nom 2
+ | nameComp2
+ | Nom 3
+ | observation
+ | Commentaire
+ | zipCode
+ | Code postal
+Label families
+ | 
+ | Dénomination API
+ | Champ IHM
+ | Emplacement IHM
+ | uuidEntity
+ | 
+ (UUID de la famille)
+ | Paramètres / Familles / Créer ou éditer une famille
+ | uuid
+ | 
+ | uuidType
+ | 
+ | uuidOrganization
+ | 
+ | createdAt
+ | 
+ (Date de création de la famille)
+ | modifiedAt
+ | 
+ (Date de dernière modification de la famille)
+ | name
+ | Nom court
+ | fullName
+ | Nom long
+ | color
+ | Couleur
+ | nature
+ | Nature
+ | code
+ | Code
+ | relativeNature
+ | Type
+ | logo
+ | 
+ | qualityReference
+ | 
+Le champ nature est lié aux “types de familles”, appelés “natures” sur la liste des familles.
+Applicabilities
+ | 
+ | Dénomination API
+ | Champ IHM
+ | Emplacement IHM
+ | uuidEntity
+ | 
+ (UUID de l’applicabilité (du compte))
+ | Paramètres / Compte
+ | uuid
+ | 
+ | uuidType
+ | 
+ | uuidOrganization
+ | 
+ | modificationDate
+ | 
+ (Date de dernière modification)
+ | name
+ | Nom du compte
+ | fullName
+ | Complément
+ | color
+ | 
+ | priority
+ | 
+Forms
+ | 
+ | Dénomination API
+ | Champ IHM
+ | Emplacement IHM
+ | uuidEntity
+ | 
+ (UUID du formulaire)
+ | 
+Entité / Formulaires / Créer un ou éditer formulaire
+OU
+Bibliothèques / Formulaires / Créer ou éditer un formulaire
+ | uuid
+ | 
+ | uuidType
+ | 
+ (UUID du formulaire ou UUID du formulaire originel (exemple : si un formulaire est importé dans un projet, alors l’uuidType correspond au formulaire dans la bibliothèque à partir duquel il a été importé))
+ | uuidOrganization
+ | 
+ | name
+ | Nom
+ | description
+ | Description
+ | indice
+ | Indice
+ | reference
+ | Référence
+ | responseReference
+ | 
+ | status
+ | Statut
+ | labelFamily
+ | 
+Famille
+Pour plus de détails, voir Label Families
+ | modificationDate
+ | Modification
+ | 
+Entité / Formulaires
+OU
+Bibliothèques / Formulaires
+ | project.uuidEntity
+ | 
+ (UUID de l’entité)
+ | Entités / Créer ou éditer une entité / Général
+ | project.uuid
+ | 
+ | project.uuidType
+ | 
+ | project.uuidOrganization
+ | 
+ | project.modificationDate
+ | 
+ (Date de dernière modification de l’entité)
+ | project.typeProject
+ | Type
+ | project.designation
+ | Nom
+ | project.description
+ | Description
+ | project.status
+ | 
+Form answers
+ | 
+ | Dénomination API
+ | Champ IHM
+ | Emplacement IHM
+ | indice
+ | Indice
+ | Entité / Remontées terrain
+ | responseReference
+ | Référence réponse
+ | status
+ | Statut
+ | modificationDate
+ | Date
+ | rubrics.name
+ | 
+Nom de la rubrique question
+OU
+Nom du tableau colonne
+ | Bibliothèques / Formulaire / Options d’une rubrique
+ | rubrics.description
+ | Description
+ | rubrics.rubricOrder
+ | Position de la rubrique dans le formulaire
+ | rubrics.rubricType
+ | Type de tableau
+ | rubrics.allowAddQuestion
+ | 
+Activer l’ajout de colonnes sur le terrain pour un tableau par colonnes
+Activer l’ajout de lignes sur le terrain pour un tableau par lignes
+ | rubrics.allowAddOption
+ | 
+Activer l’ajout de lignes sur le terrain pour un tableau par colonnes
+Activer l’ajout de colonnes sur le terrain pour un tableau par lignes
+ | rubrics.applicationFiles.uuidEntity
+ | Ajouter une / des images
+ | rubrics.applicationFiles.uuid
+ | rubrics.applicationFiles.uuidType
+ | rubrics.applicationFiles.uuidOrganization
+ | rubrics.applicationFiles.name
+ | rubrics.rubricQuestions.name
+ | Nom de la question
+ | Bibliothèques / Formulaire / Options d’une question
+ | rubrics.rubricQuestions.description
+ | Description
+ | rubrics.rubricQuestions.questionOrder
+ | Postion de la question dans la rubrique
+ | rubrics.rubricQuestions.observation
+ | Observation complémentaire (optionnel)
+ | rubrics.rubricQuestions.nature
+ | Type de question
+ | rubrics.rubricQuestions.mandatory
+ | Rendre obligatoire
+ | rubrics.rubricQuestions.backgroundColor
+ | Modifier le style
+ | rubrics.rubricQuestions.iconStyle
+ | Modifier l’icône
+ | rubrics.rubricQuestions.applicationFiles.uuidEntity
+ | Ajouter une / des image(s)
+ | rubrics.rubricQuestions.applicationFiles.uuid
+ | rubrics.rubricQuestions.applicationFiles.uuidType
+ | rubrics.rubricQuestions.applicationFiles.uuidOrganization
+ | rubrics.rubricQuestions.applicationFiles.name
+ | rubric.rubricQuestions.rubricOptions.name
+ | 
+Nom de la question
+ | 
+Bibliothèques / Formulaire / Question réponse courte / Options d’une réponse
+OU
+Bibliothèques / Formulaire / Question réponse longue / Options d’une réponse
+OU
+Bibliothèques / Formulaire / Question liste de choix unique / Options d’une réponse
+OU
+Bibliothèques / Formulaire / Question liste choix multiple / Options d’une réponse
+OU
+Bibliothèques / Formulaire / Question formule / Options d’une réponse
+ | rubric.rubricQuestions.rubricOptions.textValue
+ | Valeur de la réponse
+ | rubric.rubricQuestions.rubricOptions.name
+ | 
+Nom de la question
+ | Bibliothèques / Formulaire / Question réponse multiple / Options d’une réponse
+ | rubric.rubricQuestions.rubricOptions.textValue
+ | Valeur de la réponse
+ | rubric.rubricQuestions.rubricOptions.optionOrder
+ | Position de la réponse
+ | rubric.rubricQuestions.rubricOptions.name
+ | 
+Nom de la question
+ | 
+Bibliothèques / Formulaire / Question choix unique / Options d’une réponse
+OU
+Bibliothèques / Formulaire / Question choix multiple / Options d’une réponse
+ | rubric.rubricQuestions.rubricOptions.checkedValue
+ | Valeur de la réponse
+ | rubric.rubricQuestions.rubricOptions.optionOrder
+ | Position de la réponse
+ | rubric.rubricQuestions.rubricOptions.name
+ | 
+Nom de la question
+ | 
+Bibliothèques / Formulaire / Question date / Options d’une réponse
+OU
+Bibliothèques / Formulaire / Question date et heure / Options d’une réponse
+OU
+Bibliothèques / Formulaire / Question durée / Options d’une réponse
+ | rubric.rubricQuestions.rubricOptions.dateValue
+ | Date
+ | rubric.rubricQuestions.rubricOptions.timeValue
+ | Heure
+ | rubric.rubricQuestions.rubricOptions.dateTimeValue
+ | Date et heure
+ | rubric.rubricQuestions.rubricOptions.name
+ | 
+Nom de la question
+ | Bibliothèques / Formulaire / Question valeur et unité / Options d’une réponse
+ | rubric.rubricQuestions.rubricOptions.textValue
+ | Valeur de la réponse
+ | rubric.rubricQuestions.rubricOptions.textValueUnit
+ | Unité de la réponse
+ | rubric.rubricQuestions.rubricOptions.optionOrder
+ | Position de la réponse
+ | rubric.rubricQuestions.rubricOptions.name
+ | 
+Nom de la question
+ | Bibliothèques / Formulaire / Question prise de photo / Options d’une réponse
+ | 
+rubrics.rubricQuestions.rubricOptions.applicationFiles.uuidEntity
+ | 
+ (UUID de l’image)
+ | rubrics.rubricQuestions.rubricOptions.applicationFiles.uuid
+ | 
+ | rubrics.rubricQuestions.rubricOptions.applicationFiles.uuidType
+ | 
+ | rubrics.rubricQuestions.rubricOptions.applicationFiles.uuidOrganization
+ | 
+ | rubrics.rubricQuestions.rubricOptions.applicationFiles.name
+ | 
+ (Nom de l’image)
+ | rubric.rubricQuestions.optionSignatories.firstName
+ | Prénom du collaborateur (“Non présent dans la liste”)
+ | Bibliothèques / Formulaire / Question collaborateur et signature / Options d’une réponse
+ | rubric.rubricQuestions.optionSignatories.lastName
+ | Nom du collaborateur (“Non présent dans la liste”)
+ | rubric.rubricQuestions.optionSignatories.email
+ | Email du collaborateur (“Non présent dans la liste”)
+ | rubric.rubricQuestions.optionSignatories.companyName
+ | 
+ | rubric.rubricQuestions.optionSignatories.profession
+ | 
+ | rubric.rubricQuestions.optionSignatories.userRef
+ | Nom du collaborateur dans le menu déroulant
+ | rubric.rubricQuestions.optionSignatories.imageSignature
+ | Signature
+ | rubric.rubricQuestions.optionSignatories.hashSignature
+ | 
+ | rubric.rubricQuestions.optionSignatories.name
+ | Nom de la question
+ | rubric.rubricQuestions.optionSignatories.description
+ | Description
+ | rubric.rubricQuestions.optionSignatories.commentSignature
+ | Commentaire optionnel (“Signature par procuration”)
+ | rubric.rubricQuestions.optionSignatories.signatureDate
+ | Date de signature (“Signature par procuration”)
+ | rubric.rubricQuestions.optionSignatories.localCreateDate
+ | Date de signature (par défaut et “Non présent sur la liste”)
+ | rubric.rubricQuestions.optionSignatories.disableSignature
+ | Désactiver la demande de date et signature
+ | rubric.rubricQuestions.optionSignatories.typeContributor
+ | 
+ (Type du collaborateur (utilisateur ou opérateur))
+ | rubric.rubricQuestions.optionSignatories.optionOrder
+ | Position de la réponse
+ | rubric.rubricQuestions.rubricOptions.name
+ | 
+Nom de la question
+ | Bibliothèques / Formulaire / Question localisation / Options d’une réponse
+ | rubric.rubricQuestions.rubricOptions.altitude
+ | Altitude
+ | rubric.rubricQuestions.rubricOptions.longitude
+ | Longitude
+ | rubric.rubricQuestions.rubricOptions.altitude
+ | Altitude
+Flows
+ | 
+ | Dénomination API
+ | Champ IHM
+ | Emplacement IHM
+ | customStatusId
+ | Statut
+ | Entité / Flows (Vue liste)
+ | color
+ | 
+ | modifiedAt
+ | Modification
+ | projectLabelFamilyID
+ | Famille
+ | applicationLabelFamilyID
+ | Famille
+ | Entité / Référentiels
+ | unlocked
+ | Icône “Cadenas” indiquant si un référentiel est débloqué ou non
+ | uuid
+ | 
+ | Entité / Flows (Vue liste) / Créer ou éditer un flow / Général
+ | uuidEntity
+ | 
+ (UUID du flow)
+ | uuidOrganization
+ | 
+ | uuidType
+ | 
+ | type
+ | Type de flow
+ | name
+ | Nom
+ | projectId
+ | 
+ (“uuidEntity” du projet dans lequel se trouve le flow)
+ | projectLabelFamilyId
+ | Famille
+ | refInt
+ | N° Chrono
+ | refExt
+ | 
+ | description
+ | Description
+ | locationLocal
+ | Local
+ | Entité / Flows (Vue liste) / Créer ou éditer un flow / Général / Ajouter des informations sur la localisation
+ | elementarySystem
+ | Système élémentaire
+ | functionalMarker
+ | Repère fonctionnel
+ | technicalObject
+ | Objet
+ | 
+reporterId
+reporter.uuidEntity
+reporter.firstName
+reporter.lastName
+reporter.email
+reporter.ssoIdentifier
+reporter.registrationNumber
+ | Rapporteur
+ | Entité / Flows (Vue liste) / Créer ou éditer un flow / Affectation
+ | 
+assigneeId
+assignee.uuidEntity
+assignee.firstName
+assignee.lastName
+assignee.email
+assignee.ssoIdentifier
+assignee.registrationNumber
+ | Responsable
+ | 
+actor1Id
+actor1.uuidEntity
+actor1.firstName
+actor1.lastName
+actor1.email
+actor1.ssoIdentifier
+actor1.registrationNumber
+ | Tablette 1
+ | 
+actor2Id
+actor2.uuidEntity
+actor2.firstName
+actor2.lastName
+actor2.email
+actor2.ssoIdentifier
+actor2.registrationNumber
+ | Tablette 2
+ | 
+actor3Id
+actor3.uuidEntity
+actor3.firstName
+actor3.lastName
+actor3.email
+actor3.ssoIdentifier
+actor3.registrationNumber
+ | Tablette 3
+ | startedAt
+ | Début planifié
+ | Entité / Flows (Vue liste) / Créer un flow / Planning
+ | finishedAt
+ | Fin planifiée
+Entities
+ | 
+ | Dénomination API
+ | Champ IHM
+ | Emplacement IHM
+ | uuid
+ | 
+ | Entités / Créer ou éditer une entité / Général
+ | uuidEntity
+ | 
+ (UUID de l’entité)
+ | uuidOrganization
+ | 
+ | uuidType
+ | 
+ | createdAt
+ | 
+ (Date de création de l’entité)
+ | modifiedAt
+ | 
+ (Date de dernière modification de l’entité)
+ | name
+ | Nom
+ | type
+ | Type
+ | designation
+ | 
+ | businessRef
+ | N° d’affaire
+ | contractRef
+ | N° de contrat
+ | code
+ | 
+ | pgacActivities
+ | 
+ (PGAC)
+ | clientId
+ | Client
+ | locationLabel
+ | Localisation
+ | description
+ | Description
+ | internalCommand
+ | N° de commande interne
+ | externalCommand
+ | N° de commande externe
+ | marketNumber
+ | N° de marché
+ | technicalDeal
+ | Affaire technique
+ | keywords
+ | Mots clés
+ | businessDomain
+ | Domaine métier
+ | nationalProgram
+ | Programme national
+ | complementRef1
+ | Complément référence 1
+ | complementRef2
+ | Complément référence 2
+ | labelFamilyId
+ | Famille
+ | exportLanguage1
+ | Langue1
+ | Entités / Créer ou éditer une entité / Options
+ | exportLanguage2
+ | Langue2
+ | internSupervised
+ | 
+Bouton “Modifier les conditions de surveillance interne de l’entité” permettant de faire apparaître les options
+ | supervised
+ | Bouton “Modifier les conditions de surveillance externe de l’entité” permettant de faire apparaître les options
+ | supervisionIntern1
+ | Surveillant interne 1
+ | supervisionIntern2
+ | Surveillant interne 2
+ | supervisionIntern3
+ | Surveillant interne 3
+ | supervision1
+ | Surveillant externe 1
+ | supervision2
+ | Surveillant externe 2
+ | supervision3
+ | Surveillant externe 3
+ | startedAt
+ | Date de début
+ | endedAt
+ | Date de fin
+

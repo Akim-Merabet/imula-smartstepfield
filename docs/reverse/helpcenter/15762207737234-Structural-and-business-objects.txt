@@ -1,0 +1,128 @@
+Structural and business objects
+section: Siteflow functional object model · id: 15762207737234 · updated: 2026-03-30T12:24:57Z
+https://siteflow.zendesk.com/hc/fr/articles/15762207737234-Structural-and-business-objects
+Overall diagram
+The diagram below shows objects in projects and their relationships with objects from the library and resources.
+Projects
+Projects are the main building containers of operational data. There are 3 types of projects : CORE, STANDARD and TEMPLATE. They host the following types of objects : flows, forms and form responses, documents, categories.
+Functionally speaking, these objects could be classified into the following groups of data:
+Imported objects:
+Standard flow – imported from a standard project.
+Imported form – imported from the library.
+External document – imported from the library or from a standard project.
+Users, operators and devices are imported resources for association to projects.
+Local objects:
+Base flow – created locally from scratch.
+Imported content flow – yielded from execution of a standard flow.
+Local form – copied from imported form.
+Form response – completed from imported form or local form, in the context of PROJECT or FLOW (when a form is linked in a form block in a flow step).
+External document – added locally.
+Generated document – produced by the Siteflow application.
+Local parameters:Local category.
+Projects are created within a specific account and might be shared within the organisation.
+Projects are associated to a client and a child family.
+Flows
+Flows are created within a specific project of any type. There are 4 types of flows: CORE, HEAD, GENERIC and FORM. Note that template projects can only host core flows.
+Flow objects have many flavors : base flow, standard flow, imported content flow.
+Base Flows are locally created within project of type core, standard or template:Has “origin” attribute set to “local”.
+Standard Flows are flows imported into the core project from a standard project:
+Has “origin” attribute set to “derived from standard”.
+Has “sourcedFromFlow” attribute specifying the other flow this one is sourced from (strong relationship).
+Imported Content Flows are flows that yield from the execution of a standard flow or have content (phases and steps) imported from other flows:
+Has “origin” attribute set to “local”.
+Has “executedFromFlow” attribute specifying the other flow this one is copied from (light relationship).
+Has “contentImportedFromFlows” attribute specifying the other flows which content have been imported into that flow (light relationship).
+The diagram below shows actions applicable to different types of flows in different types of projects.
+Forms and form responses
+Metadata
+Forms are always created in the library first; they can then be imported into any type of project. There are 2 types of forms : TEMPLATE and GENERIC.
+Library forms are created in the library (“location” set to “library”).
+Project forms issued in projects (“location” set to “project”) have two origins:
+Imported forms are forms imported into the project from the library (“origin” set to “imported from library”):Has “sourcedFromForm” attribute specifying the other form this one is sourced from.
+Local forms are forms copied, locally within a project, from imported forms (“origin” set to “local”). They are independent and do not have any relationship neither with the imported form not with the library form the imported form originally was sourced from.
+A form response is the results of completing an imported form or local form:
+Directly within a project (“context” set to “project”).
+Or which is linked to a form block at a step in a flow (“context” set to “flow”).
+A form response always contain a technical reference to:
+The project form the response is issued from including its reference and index at response time.
+The library form the project form is sourced from at response time.
+Form building structure
+The form building structure is composed of a list of components.
+First level components are form rubrics of 3 built-in types : QUESTION | COLUMN_BASED_TABLE | ROW_BASED_TABLE:
+A Question Form Rubric is composed of a list of form fields (of type simple form fields and/or composite form fields).
+A Table Form Rubric is composed of a list of aggregated form fields. Each aggregated form field itself is composed of a list of form fields grouping fields within the same column or the same row.
+Form field could be simple or composite.
+A Simple Form Field contains a single simple form field option. Typical example is a text input field.
+A Composite Form Field contains one or more composite form field options. Typical examples are group of text input fields or multiple choice selection list.
+A Simple Form Field supports the following built-in types : TEXT | LONG_TEXT | DATE | DATETIME | DURATION | TAKE_PICTURE | LOCATION | FORMULA | FILE | RICH_TEXT_EDITOR. Types FILE and RICH_TEXT_EDITOR are not applicable to SimpleFormField within AggregateFormField.
+A composite form field supports the following built-in types : MULTIPLE_TEXT | SINGLE_CHOICE_LIST | MULTIPLE_CHOICE_LIST | SINGLE_CHOICE_DROPDOWN | MULTIPLE_CHOICE_DROPDOWN | VALUE_AND_UNIT | SIGNATORY. Type MULTIPLE_TEXT is not applicable to CompositeFormField within AggregateFormField.
+Simple Form Field Option and Composite Form Field Option derive from the same Field Option having the following attributes:
+An identifier (required).
+And a custom code (optional).
+The diagram below illustrates the object model described above.
+By design, there are 2 or 3 layers of object to browse into in order to reach the value of the target response item.
+Form response values
+A FormResponse contains a list of form response values modelised as FormFieldOptionValue. FormFieldOptionValue is a value of FormFieldOption, which is attached to a FormField within a FormRubric of a Form.
+The FormFieldOption could be referenced by its customCode (specified by the user).
+A FormFieldOptionValue has a valueType attribute. Built-in value types are : STRING | DATE | DATETIME | INTEGER | BOOLEAN | TEXT | COORDINATES | FILE | VALUE_AND_UNIT | SIGNATURE.
+A response value could be:
+A simple value of type string or a list of values (relevant for valueType other than COORDINATES | VALUE_AND_UNIT | SIGNATURE).
+A composite value of type coordinates (relevant for valueType COORDINATES).
+A composite value of type unit (relevant for valueType VALUE_AND_UNIT).
+A composite value of signature (relevant for valueType SIGNATURE).
+The value case (1) is exposed in JSON item “values” which contains a list of one string or several strings. The value cases (2), (3) and (4) is exposed in JSON item “objectValue” which contains a specialised object structure.
+Flow components
+A flow breaks down into phases, themselves composed of steps.
+The step is described by operational instruction/data captured in specialised functional blocks: instructions, equipment, risks, checks, forms, text, team, multi instructions. An asset functional block will be added soon.
+Forms block
+The forms block allows to associate a form to a flow. The form is first built in the library and then imported from the library into the target project.
+Checks block
+The checks block specifies the signatures expected to achieve the step.
+Multi instructions block
+The multi instructions block allows to define sub instructions and have signatures associated to each sub instruction.
+Documents and document versions
+A document has many different flavors. There are 2 main types of documents:
+External document describes a single PDF file or a set of PDF files uploaded by the user.
+Generated document describes a PDF file generated by the Siteflow application. Closing folder is a particular subtype of generated document.
+The diagram below shows a functional classification of documents.
+External documents
+External documents could be added to the library so that it is shared across the organisation or to a particular project. Documents generated by the Siteflow application are always attached to a project.
+Any external document within a given project has different origins:
+LOCAL – directly created within the project.
+IMPORTED_FROM_LIBRARY – imported from the library.
+DERIVED_FROM_STANDARD – copied from a standard project.
+Generated documents
+There are several types of generated documents.
+Documents generated from flow
+Documents could be generated from a particular flow, by including contents from a block component of a given type:
+Instructions (type is FLOW_INSTRUCTION) → MO business object.
+Equipment (type is FLOW_EQUIPMENT).
+Risks (type is FLOW_RISK) → ADR business object.
+Checks (type is FLOW_CHECKS) → DSI business object.
+Forms (type is FLOW_FORM).
+Multi instructions (type is FLOW_MULTIPLE_INSTRUCTION).
+Documents generated from form
+Documents could be generated from a particular form, by targeting:
+A given project (type is FORM_PROJECT).
+A single flow (type is FORM_ONE_FLOW).
+Or several flows (type is FORM_MANY_FLOWS).
+Their contents could include:
+All responses (contentIncluded is ALL_RESPONSES).
+A single response (contentIncluded is SELECTED_RESPONSE).
+Empty forms only (contentIncluded is EMPTY_FORMS_ONLY).
+Documents generated from module
+Documents could be generated from a particular module, by targeting:
+A list of flows (type is MODULE_FLOWS | MODULE_RISKS | MODULE_EQUIPMENTS).
+A list of documents (type is MODULE_DOCUMENTS).
+A list of collaborator skills (type is MODULE_COLLABORATORS).
+A list of form responses (type is MODULE_FEEDBACKS).
+A list of risks or equipment (type is MODULE_RISKS | MODULE_EQUIPMENTS).
+Closing folder documents
+Closing folder document is composed of sections which themselves contain the documents to be included.
+Any section is described by its type, name and description.
+Types could be : MINUTES | CERTIFICATES | REFERENCES | CLOSING_FOLDER | DOCUMENT | CLIENT_FEEDBACK | LARGE_DOCUMENT.
+Sections of type DOCUMENT | CLIENT_FEEDBACK | LARGE_DOCUMENT have additional settings : a parent document category and an option to include all document indexes.
+Document versions
+Generated documents (including closing folders) have validation workflows and versioning. External documents might optionally have versioning.
+For documents with versioning, document versions track the life cycle of the document validation workflow. A document version is uniquely identified by an index and a state. It might have contributors, distribution properties, review feedback.
+

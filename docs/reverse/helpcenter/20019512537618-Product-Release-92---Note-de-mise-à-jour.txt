@@ -1,0 +1,65 @@
+Product Release 92 - Note de mise à jour
+section: 2024 · id: 20019512537618 · updated: 2026-03-30T09:01:03Z
+https://siteflow.zendesk.com/hc/fr/articles/20019512537618-Product-Release-92-Note-de-mise-%C3%A0-jour
+La mise à jour du 3ème trimestre 2024 des applications Siteflow est désormais en production. Voici toutes les nouveautés et améliorations intégrées à la Product Release 92 de septembre 2024.
+Pour cliquer sur les liens présents dans la note de mise à jour, il est nécessaire d'être connecté à une WebApp Siteflow et d'avoir cliqué sur "Centre d'aide" depuis le profil. 
+WebApp et MobileApp
+Flows
+Nouveau type de bloc pour un flow : le bloc objets, permettant de lier des objets de la bibliothèque directement dans un flow et ainsi pouvoir les visualiser et compléter les attributs depuis le terrain (uniquement en mode en ligne pour le moment). Ainsi, il est désormais possible d'ajouter des équipements, composants, etc. dans les flows et de visualiser et modifier leurs propriétés sur le terrain.
+Nouvelle option de flow permettant d'avoir avec un QR Code imprimable donnant accès rapidement à un flow depuis le terrain. Pour cela il suffira de simplement flasher le QR Code sur la liste des entités de la MobileApp, que l’on soit en mode en ligne ou hors ligne. Pratique pour effectuer le suivi d’une multitude d'assemblages en cours de fabrication, sans avoir à rechercher dans la liste des flows depuis la MobileApp.
+Nouveau "mode lecture" côté MobileApp pour les phases et étapes d’un flow permettant de guider plus simplement l’opérateur depuis le terrain sur les phases et / ou étapes qui sont à renseigner sur le terrain et celles qui ne le sont pas. Concrètement, les phases et étapes en mode lecture restent visibles sur la MobileApp, mais ne pourront pas être signées ou complétées par des formulaires. Par contre sur la WebApp, elles peuvent toujours être signées et complétées. 
+Suppression des paramètres "Alerte point de convocation interne" et "Alerte point de convocation externe" qui étaient précédemment accessibles dans le bloc contrôles du flow.
+Formulaires
+Les photos ajoutées dans une question prise de photo apparaissent maintenant dans l'ordre d'ajout lors de l’exportation au format PDF.
+WebApp
+Documents
+La notion d'attributs de phases et étapes est désormais prise en charge par le document contrôles. Ainsi, il est désormais possible d’afficher des informations annexes (telles que la nuance d’acier à utiliser, le type de soudure, etc.) à chaque étape d’un plan de suivi de fabrication. L'affichage était déjà disponible sur le terrain depuis la MobileApp.
+Formulaires
+Nouvelle option de formulaire depuis un flow permettant d’importer des réponses existantes à une étape depuis autre flow du projet. Une recherche avancée est disponible pour simplifier la recherche de flows et de réponses de formulaire existants.
+Les réponses de formulaire créées au niveau du projet apparaissent désormais dans le module remontées terrain.
+Ergonomie
+Améliorations des vues listes des entités, documents, collaborateurs, tablettes et flows avec la visualisation en surbrillance du dernier élément sélectionné. Avant, le dernier élément sélectionné apparaissait tout en haut de la liste.
+Réduction du temps de chargement des longues listes notamment sur les flows.
+Nouveaux filtres "Société" à différents endroits de l’application pour les formulaires et les collaborateurs et tablettes.
+Refonte du champ de sélection d'étiquette depuis le flow (ainsi que les phases et étapes) afin de visualiser l’arborescence directement depuis le menu déroulant et ainsi simplifier la recherche et la sélection.
+Nouveau filtre “Applicabilité” sur le module étiquettes de la bibliothèque ainsi que dans la fenêtre “Flow(s) lié(s)”.
+Amélioration des filtres par date à travers la WebApp afin de ne pouvoir renseigner qu’une date de début (tous les éléments à partir du ...) ou bien une date de fin (tous les éléments jusqu'au ...).
+Droits et rôles
+Le rôle peut désormais limiter les actions d'un utilisateur sur une entité. Pour en savoir plus, voir les nouveaux articles sur les droits et rôles.
+Du fait de ce changement, le rôle des admins et admins globaux importés sur toutes les entités a été paramétré à responsable. De plus, importer un admin ou admin global lui affectera désormais par défaut le rôle responsable.
+Autres 
+améliorations
+Amélioration de l’option "Déverrouiller le suivi" sur un document qui pouvait causer des problèmes de cohérence de qualité documentaire dans certains cas spécifiques.
+Amélioration de l’option de génération de fichiers ZIP du document “Liste de documents” avec tous les documents liés en version “terrain” suite à un partage par mail à un utilisateur externe (notamment en réalisant le traitement de manière asynchrone si le temps d’exécution est trop long).
+Amélioration de la gestion des champs PDF d’une page de garde avec la gestion multi-indice si l’on ajoute un suffixe “Indice”.
+Amélioration de la gestion des références de formulaires liés à un flow chapeau si l’option “Afficher les références des documents, des formulaires et réponses de formulaires associés des flows liés” est cochée.
+Mise à jour de tous les liens vers le centre d’aide depuis les modules et fenêtres de la WebApp.
+MobileApp
+Formulaires
+Nouveau bandeau de raccourci depuis une réponse de formulaire permettant de créer une nouvelle réponse de formulaire générique dès qu’une valeur est non-conforme, pour simplifier la déclaration de non-conformité. Pour rappel, vérifier si une valeur est conforme ou non revient à utiliser l’option de réponse “Validation de données”. 
+Nouveaux filtres "Etat de la réponse" et "Date" sur la liste des réponses de formulaires depuis la fenêtre de vérification des données non-conformes.
+Ergonomie
+Amélioration de la carte de flow pour tout le temps afficher les boutons “Ouvrir” et “Mode lecture”, même une fois le flow ouvert. Le mode lecture était précédemment masqué dès que le flow était ouvert.
+Modification du style et de l’emplacement du bouton “Tout sélectionner” avant de télécharger depuis la liste des flows.
+Amélioration de la compatibilité des téléphones avec des écrans inférieurs à 6 pouces.
+Autres 
+améliorations
+Amélioration de la gestion des langues de la MobileApp avec le démarrage par défaut dans la langue de la tablette.
+API
+Nouveaux services 
+API v2
+Consultation du dictionnaire des catégories globales.
+Consultation des propriétés d'une phase, d'un flow, incluant les valeurs des attributs personnalisés.
+Exécution d'un flow importé dans le module référentiels d'un projet; opération asynchrone pilotée par deux services API :
+Lancement de l'opération synchrone (obtention d'une référence de travail).
+Consultation de l'avancement de l'opération asynchrone (à partir d'une référence de travail) et récupération du ou des flows créés si le travail est achevé.
+Gestion des flows :
+Modification en masse des propriétés.
+Valorisation en masse des attributs custom.
+Evolutions des 
+services API v2 
+existants
+Exposition de la société d'un utilisateur, d'un opérateur et d'une tablette et possibilité de filtrer la liste des utilisateurs, opérateurs et tablettes par société.
+Exposition des sociétés associées à un formulaire de la bibliothèque et possibilité de filtrer la liste des formulaires de la bibliothèque par société.
+Exposition de la société des signataires dans la récupération des signatures des blocs contrôles.
+

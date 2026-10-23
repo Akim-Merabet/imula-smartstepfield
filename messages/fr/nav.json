@@ -1,0 +1,93 @@
+{
+  "rail": {
+    "home": "Revenir à la liste des entités",
+    "add": "Ajouter un nouvel élément",
+    "entities": "Entités",
+    "library": "Bibliothèques",
+    "contributors": "Collaborateurs et tablettes",
+    "events": "Événements",
+    "settings": "Paramètres",
+    "account": "Compte",
+    "lastEntities": "Dernières entités consultées"
+  },
+  "account": {
+    "profile": "Profil",
+    "quickConnection": "Connexion rapide",
+    "help": "Centre d'aide",
+    "terms": "Conditions et politiques",
+    "version": "{app} WebApp {version}"
+  },
+  "menu": {
+    "collapse": "Réduire le menu",
+    "expand": "Agrandir le menu"
+  },
+  "events": {
+    "title": "Événements",
+    "empty": "Aucun document généré sur la session en cours"
+  },
+  "dashboard": {
+    "flows": "Flows",
+    "viewList": "Vue liste",
+    "viewPlan": "Vue plan",
+    "viewMap": "Vue carte",
+    "viewDiagram": "Vue diagramme",
+    "viewKanban": "Vue kanban",
+    "documents": "Documents",
+    "forms": "Formulaires",
+    "referentials": "Référentiels",
+    "lists": "Listes",
+    "schedule": "Planification",
+    "collaborators": "Collaborateurs",
+    "tablets": "Tablettes",
+    "followUp": "Suivi et clôture",
+    "metrics": "Avancement",
+    "signatures": "Signatures",
+    "fieldFeedback": "Remontées terrain",
+    "closingFolder": "Dossier de clôture",
+    "configuration": "Configuration",
+    "information": "Informations",
+    "categories": "Catégories"
+  },
+  "library": {
+    "title": "Bibliothèques",
+    "risks": "Risques",
+    "equipments": "Moyens",
+    "documents": "Documents",
+    "forms": "Formulaires",
+    "objects": "Objets",
+    "tags": "Étiquettes"
+  },
+  "contributors": {
+    "title": "Collaborateurs et tablettes",
+    "users": "Utilisateurs",
+    "operators": "Opérateurs",
+    "externalUsers": "Utilisateurs externes",
+    "tablets": "Tablettes",
+    "authorizedDevices": "Appareils autorisés"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "account": "Compte",
+    "clients": "Carnet clients",
+    "companies": "Sociétés",
+    "families": "Familles",
+    "categories": "Catégories",
+    "statuses": "Statuts",
+    "references": "Références",
+    "customFields": "Attributs",
+    "sections": "Dossiers",
+    "trash": "Corbeille",
+    "backgroundTasks": "Tâches de fond",
+    "platform": "Administration plateforme",
+    "general": "Général",
+    "organization": "Organisation",
+    "wording": "Suivi",
+    "usage": "Usage"
+  },
+  "profile": {
+    "title": "Profil",
+    "info": "Informations",
+    "password": "Mot de passe",
+    "tablet": "Tablette"
+  }
+}

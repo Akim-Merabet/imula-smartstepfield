@@ -1,0 +1,53 @@
+Product Release 105 - Note de mise à jour
+section: 2025 · id: 29170929082642 · updated: 2026-03-30T08:20:55Z
+https://siteflow.zendesk.com/hc/fr/articles/29170929082642-Product-Release-105-Note-de-mise-%C3%A0-jour
+La mise à jour du 3e trimestre 2025 des applications Siteflow est disponible. Voici toutes les nouveautés et améliorations intégrées à la Product Release 105 d'octobre 2025.
+Pour cliquer sur les liens présents dans la note de mise à jour, il est nécessaire d'être connecté à une WebApp Siteflow et d'avoir cliqué sur "Centre d'aide" depuis le profil. L'accès à cette note de mise à jour n'indique pas que vous êtes actuellement connecté.
+WebApp et MobileApp
+Documents
+  Nouvelle option pour ajouter et gérer les documents instructions des flows enfants en annexe d'un document instructions chapeau.
+Flows
+Les signatures du bloc contrôles sont désormais obligatoires par défaut lors de la création du bloc, pour des raisons de qualité. Ce paramétrage peut être modifié manuellement si nécessaire.
+Les blocs contrôles créés en amont de ce changement ne sont pas impactés.
+Tablettes
+Fiabilisation de l’envoi des caractéristiques de chaque tablette sur la WebApp (Date de dernier envoi, Numéro de version…).
+WebApp
+Flows
+  Nouvelle "vue structure" dans l'éditeur du flow permettant de paramétrer le séquencement d’un flow.
+Ce paramétrage aura à terme pour objectif de conditionner le remplissage des flows sur le terrain (par exemple : ne pas pouvoir signer l'étape n si l'étape n-1 n’est pas terminée).
+Cette livraison ne concerne que le paramétrage du séquencement sur la WebApp. Le paramétrage sera par la suite répercuté avec des changements additionnels sur la MobileApp dans une livraison future.
+Améliorations mineures sur la gestion du copier/coller dans les éditeurs de texte pour des volumes importants de texte et images.
+Objets
+    Nouvelle fonctionnalité de liaison d'un objet réel à un formulaire sur une étape de flow.
+Cette nouveauté fait suite à la fonctionnalité permettant de paramétrer des questions à partir d'attributs d’objets dans un formulaire (livrée en version beta en Product Release 97). 
+Elle permettra à terme aux opérateurs de voir et de modifier des attributs d'objets dynamiquement via des réponses de formulaire.
+La modification des attributs d'objet par une réponse de formulaire et le développement MobileApp feront l'objet d'une livraison future.
+Si vous souhaitez tester cette nouveauté en avance, veuillez contacter l'équipe Customer.
+La vue "Arborescence" du module objets a été supprimée au profit de la vue "Tableau", plus complète, qui a pris la place du module objets entier. Les données de la bibliothèque des objets ne sont pas impactées.
+Documents
+Le déverrouillage de suivi d’un document peut maintenant être autorisé pour les co-traitants.
+Ce droit complémentaire reste désactivé par défaut et doit être activé manuellement.
+Nouveau format de compteur d’indice de document.
+Nouveaux champs PDF pour exploiter les données de dates de planning d’un flow dans les documents.
+Ergonomie
+Amélioration de l’interface de création des documents lors de la création ou de l'édition d’un flow.
+Amélioration de l’interface de paramétrage des statuts de flow et d’entité.
+MobileApp
+      Pour plus d'informations sur les nouveautés exclusives à la MobileApp,
+      voir le guide MobileApp disponible
+      sur la page d'accueil
+      du centre d'aide.
+-->
+Ergonomie
+Nouveau bouton "Valider et passer à l'étape suivante" en bas d'étape pour remplacer les flèches de navigation qui ont été supprimées.
+Ce changement porte le même objectif que la nouvelle notion de séquencement : pouvoir à terme mieux guider la navigation des opérateurs dans un flow.
+La logique d'évolution des pastilles d'avancement sur la MobileApp a évolué :
+Gris : L'étape n'a pas encore été ouverte.
+Bleu : L'étape a été ouverte, mais aucun élément n'a été réalisé.
+Orange : Au moins un élément a été réalisé, mais l'étape n'a pas encore été validée. A noter que si tous les éléments obligatoires ont été réalisés, la couleur reste au orange.
+Vert : L'étape a été validée en cliquant sur le bouton "Valider et passer à l'étape suivante". Pour valider une étape, tous les éléments obligatoires présents sur une étape doivent être réalisés (signatures obligatoires dans le bloc signatures, statuts/signatures obligatoires dans le bloc instructions multiples, formulaires obligatoires dans le bloc formulaires).
+Objets
+Nouveau bouton pour accéder au document objets depuis le bloc objets d'une étape.
+API / Connecteur
+Les nouveautés liées aux API ont déjà été livrées en production. Pour en savoir plus, voir la note de mise à jour des API à partir de juin 2025.
+

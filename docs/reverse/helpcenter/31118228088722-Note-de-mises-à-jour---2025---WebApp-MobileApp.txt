@@ -1,0 +1,48 @@
+Note de mises à jour - 2025 - WebApp & MobileApp
+section: 2025 · id: 31118228088722 · updated: 2026-03-30T08:33:05Z
+https://siteflow.zendesk.com/hc/fr/articles/31118228088722-Note-de-mises-%C3%A0-jour-2025-WebApp-MobileApp
+A partir de la mise à jour du 15 décembre, la solution sera mise à jour toutes les 2 semaines. Vous retrouverez ici tous les changements prévus pour cette fin d'année.
+Les nouveautés liées aux API sont détaillées sur une note de mise à jour dédiée.
+R.2.1.0 - 15 décembre 2025
+        Responsables 
+        d'un flow
+            Il est désormais possible d'assigner plusieurs responsables
+            à un flow. Sur la MobileApp, lorsqu'un utilisateur est assigné
+            à un flow en tant que responsable, il voit le flow dans sa
+            liste de flows et peut signer sans avoir à être assigné dans
+            le champ "collaborateurs".
+        Gestion des 
+        documents 
+        volumineux
+            La génération des dossiers de clôture est plus robuste. Une
+            limite de 10 Go a aussi été ajoutée pour contribuer à cette
+            robustesse. Précédemment, il n'y avait aucune limite.
+            Les documents volumineux sont maintenant générés à l'intérieur
+            du dossier de clôture. Auparavant ils étaient systématiquement
+            générés à part dans un fichier ZIP. Pour cette raison, une
+            limite de taille des documents importés a été ajoutée :
+                2 Go pour les documents externes (dans la bibliothèque
+                ou source ordinateur dans un projet).
+                40 Mo pour les documents importés dans une question
+                de type fichier du côté des formulaires.
+            Un nouveau panneau "Imports de documents" a été ajouté à
+            la WebApp, il permet de traquer l'import des documents externes,
+            de la même manière que la cloche permet de traquer la génération
+            des documents.
+            La gestion des imports de documents externes a été améliorée
+            :
+                Vous pouvez maintenant laisser l'import se réaliser
+                en tâche de fond sans avoir à rester sur la fenêtre
+                d'édition du document.
+              Plusieurs documents peuvent être importés simultanément.
+                Un message d'erreur a été ajouté pour empêcher la
+                fermeture de l'onglet du navigateur tant qu'au moins
+                un import est en cours.
+                  Quelques précisions :
+                        La vitesse d'import dépend du débit
+                        montant de l'utilisateur. Si la connexion
+                        est interrompue, alors l'import n'aboutira
+                        pas et devra être relancé.
+                        L'import d'un document n'est visible
+                        que par l'utilisateur qui l'a initié.
+  

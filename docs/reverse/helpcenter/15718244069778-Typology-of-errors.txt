@@ -1,0 +1,38 @@
+Typology of errors
+section: General design features · id: 15718244069778 · updated: 2026-03-30T12:56:27Z
+https://siteflow.zendesk.com/hc/fr/articles/15718244069778-Typology-of-errors
+For successful requests, HTTP status code 200 OK is returned with the response body containing a “data” JSON root item (except for POST authenticate). Otherwise, a specific standard HTTP status code is returned according to the type of error. Structure of error message is:
+{
+   "path": "",      → relative path to the API endpoint URI
+   "key": "",       → pre-defined enumeration for typology of error
+   "message": ""    → contextual description of the error
+}Typology of errors is described in the table below:
+ | 
+ | HTTP Status Code
+ | Key
+ | Message
+ | Comment
+ | 400 Bad Request
+ | REQUIRED-MISSING
+ | Required parameter is missing in the query
+ | In query parameters or query body
+ | VALUE-NOT-VALID
+ | Value of parameter is not valid
+ | In query parameters or query body
+ | 401 Unauthorized
+ | UNAUTHORIZED
+ | Access token is invalid or has expired
+ | Invalid credentials used while querying the API endpoint 
+ | 403 Forbidden
+ | NO-RIGHT
+ | API Consumer does not have the adequate privilege to execute the query
+ | Account key used is not allowed to execute a query targeting a different account
+ | 404 Not Found
+ | OBJECT-NOT-FOUND
+ | Object identifier could not be found
+ |  
+ | 409 Conflict
+ | CONSTRAINT-NOT-SATISFIED
+ | Parameter values are inconsistent or do not satisfy business rules
+ |  
+

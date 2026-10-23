@@ -1,0 +1,56 @@
+Product Release 110 - Note de mise à jour
+section: 2025 · id: 30647584379410 · updated: 2026-03-30T08:22:29Z
+https://siteflow.zendesk.com/hc/fr/articles/30647584379410-Product-Release-110-Note-de-mise-%C3%A0-jour
+La mise à jour de décembre 2025 des applications Siteflow est disponible en production. Voici toutes les nouveautés et améliorations intégrées à cette Product Release 110.
+      Pour cliquer sur les liens présents dans la note de mise à jour, il est
+      nécessaire d'être connecté à une WebApp Siteflow et d'avoir cliqué sur
+      "Centre d'aide" depuis le profil. L'accès à cette note de mise à jour
+      n'indique pas que vous êtes actuellement connecté.
+-->
+Cette note de mise à jour est disponible publiquement. Pour naviguer sur le reste du centre d'aide, il est nécessaire d'être connecté à une WebApp Siteflow et d'avoir cliqué sur "Centre d'aide" depuis le profil. L'accès à cette note de mise à jour n'indique pas que vous êtes actuellement connecté.
+WebApp et MobileApp
+Séquencement
+La MobileApp Siteflow intègre désormais le séquencement des étapes défini par le préparateur :
+Les opérateurs ne peuvent plus compléter une étape tant que les éléments obligatoires des étapes précédentes ne sont pas remplis.
+Les étapes non accessibles restent visibles en lecture seule, permettant à l’opérateur d’anticiper la suite de son intervention.
+En cas de besoin, les chefs de chantier peuvent désormais déverrouiller une étape bloquée après authentification — chaque action étant tracée automatiquement dans l’application.
+Documents
+Sur les documents de formulaires, lorsqu'une photo est ajoutée en réponse à une rubrique tableau, elle est également ajoutée en plus grand format à la suite de la rubrique. Cliquer sur la photo dans la rubrique tableau renvoie désormais immédiatement à l'image en grand format correspondante.
+Pour rappel, une photo est ajoutée à la suite d'un tableau uniquement si l'option suivante est décochée à l'édition du formulaire :
+WebApp
+Recherche
+avancée
+Les combinaisons de champs et d'actions suivantes ont été ajoutées :
+Les actions "Vide" et "N'est pas vide" pour les champs suivants : "Responsable", "Collaborateurs", "Affectation", "Tablette 1", "Tablette 2", "Tablette 3".
+L'action « Vide » pour la date de modification.
+Les combinaisons de champs et d'actions suivantes ont été supprimées :
+Les actions "Égal à" et "Différent de" pour les champs "Nom", "Référence" et "Description".
+Le champ "Étiquette" dans sa totalité.
+Améliorations de l'ergonomie :
+Appuyer sur la touche "Entrée" du clavier permet de lancer la recherche.
+Les attributs "Vrai ou Faux" peuvent maintenant être ciblés comme non paramétrés.
+Corrections :
+Les dates prévues et les dates estimées ne sont plus mélangées dans les colonnes personnalisées.
+La recherche par collaborateur(s)/affectation(s) avec les actions "Vide" et "N'est pas vide" a été corrigée.
+Les actions "Contient", "Recherche" et "Commence par" acceptent désormais les symboles suivants : [\*+;\”<></>
+Documents
+A la création d’un document, l’indice de départ peut être optionellement saisi dans un nouveau champ, et ce pour tous les types de documents avec suivi.
+L'indice doit correspondre à l’un des formats disponibles :
+Indice numérique (0, 1, 2, …)
+Indice numérique (1, 2, 3, …)
+Indice numérique (00, 01, 02, …)
+Indice numérique (01, 02, 03, …)
+Indice décimal (0.0, 0.1, 0.2, …)
+Indice décimal (1.0, 1.1, 1.2, …)
+Indice alphabétique (A, B, C, ..)
+Chaque changement d’indice ultérieur du document respectera ensuite cette incrémentation.
+La saisie d’un indice de départ est également possible à l'édition d’un document à condition qu’il n’existe qu’une seule version de ce document et qu’elle soit à l'état “PREL”.
+L'option "Modifier le type d'indice du document" a été masquée, car remplacée par cette nouveauté. Le contenu des documents existants n'est pas impacté.
+MobileApp
+Diagramme
+  Le diagramme préparé sur le web est désormais accessible directement depuis la Mobile App :
+Les opérateurs et chefs de chantier peuvent ainsi consulter la structure complète du projet, visualiser l’état d’avancement des flows, phases et étapes, et naviguer facilement vers les éléments correspondants.
+Les éléments non disponibles (flows non assignés, statuts non opérationnels ou non téléchargés hors ligne) restent visibles mais grisés, permettant une vue d’ensemble du chantier même hors connexion.
+Flows
+Les phases et étapes désactivées sont désormais visibles depuis le tableau récapitulatif des signatures.
+

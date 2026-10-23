@@ -1,0 +1,81 @@
+{
+  "appDescription": "Préparation et exécution des interventions terrain",
+  "actions": {
+    "save": "Sauvegarder",
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "confirm": "Confirmer",
+    "delete": "Supprimer",
+    "edit": "Éditer",
+    "add": "Ajouter",
+    "create": "Créer",
+    "duplicate": "Dupliquer",
+    "properties": "Propriétés",
+    "history": "Historique",
+    "activate": "Activer",
+    "deactivate": "Désactiver",
+    "search": "Rechercher",
+    "clearFilters": "Effacer le(s) filtre(s)",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "more": "Plus d'actions",
+    "loadMore": "Charger plus",
+    "open": "Ouvrir",
+    "import": "Importer",
+    "export": "Exporter",
+    "select": "Sélectionner",
+    "reset": "Réinitialiser",
+    "validate": "Valider"
+  },
+  "list": {
+    "counter": "{current, plural, =0 {Aucun élément} one {# élément} other {# éléments}} dans la liste / {total} au total",
+    "emptyTitle": "Aucun élément dans la liste",
+    "emptySubtitle": "Créez un élément ou revoyez vos filtres",
+    "emptySearch": "Votre recherche ne mène nulle part",
+    "searchPlaceholder": "Rechercher",
+    "selected": "{count, plural, one {# élément sélectionné} other {# éléments sélectionnés}}",
+    "actions": "Actions",
+    "customizeColumns": "Personnaliser les colonnes"
+  },
+  "toast": {
+    "saved": "Modification(s) enregistrée(s) avec succès",
+    "created": "Élément créé avec succès",
+    "deleted": "Élément supprimé avec succès",
+    "error": "Oups ! Une erreur est survenue !",
+    "forbidden": "Vous n'avez pas le niveau de droit ou rôle suffisant pour effectuer cette action",
+    "rightsTitle": "Droit et rôle"
+  },
+  "confirm": {
+    "unsavedTitle": "Modifications non sauvegardées",
+    "unsavedText": "Les modifications seront perdues si vous ne sauvegardez pas.",
+    "deleteTitle": "Êtes-vous certain(e) de vouloir supprimer cet élément ?",
+    "noTrash": "Il n'y a pas de corbeille pour cet élément. Vous ne pourrez pas le restaurer par la suite.",
+    "typeToConfirm": "Écrire « {word} » pour confirmer"
+  },
+  "validators": {
+    "required": "Champ obligatoire",
+    "minLength": "{min} caractères minimum",
+    "maxLength": "{max} caractères maximum",
+    "email": "Adresse email invalide",
+    "date": "Date invalide"
+  },
+  "status": {
+    "acknowledged": "En attente",
+    "inProgress": "En cours",
+    "done": "Terminé",
+    "error": "Erreur"
+  },
+  "yes": "Oui",
+  "no": "Non",
+  "none": "Aucun",
+  "all": "Tous",
+  "createdOn": "Date de création",
+  "updatedOn": "Dernière modification",
+  "by": "par {name}",
+  "notFound": {
+    "title": "Page introuvable",
+    "back": "Revenir à l'accueil"
+  },
+  "permissionPage": "Vous n'avez pas les droits pour accéder à cette page, contactez votre administrateur."
+}

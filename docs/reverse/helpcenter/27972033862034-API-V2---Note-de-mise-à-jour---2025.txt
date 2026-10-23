@@ -1,0 +1,430 @@
+API V2 - Note de mise à jour - 2025
+section: 2025 · id: 27972033862034 · updated: 2026-01-23T13:51:02Z
+https://siteflow.zendesk.com/hc/fr/articles/27972033862034-API-V2-Note-de-mise-%C3%A0-jour-2025
+Cet article liste tous les services API V2 livrés depuis mars 2025, pour l'année 2025. Il sera alimenté dès que possible au fur et à mesure des livraisons.
+20 octobre 2025
+      /forms/build-form
+            Fonctionnement
+            Permet de créer et d'alimenter un formulaire modèle. Les
+            formulaires
+            sont structurés comme suit :
+                Le premier niveau est représenté par les rubriques
+                (rubrics). Elles peuvent être de type question (QUESTION),
+                tableau par colonnes (COLUMN_BASED_TABLE) ou tableau
+                par lignes (ROW_BASED_TABLE).
+              Le deuxième niveau dépend du type de rubrique choisie :
+                    Sur une rubrique question, on retrouve des
+                    questions (form fields).
+                    Sur une rubrique tableau, on retrouve des
+                    lignes ou des colonnes (aggregated form fields).
+                Chaque "form field" peut être soit "simple" (= ne
+                contient qu'un champ), soit "composite" (= peut contenir
+                plusieurs champs). Les types de questions, lignes
+                et colonnes disponibles sont détaillés plus bas.
+                Le dernier niveau correpond aux options de réponses
+                pour chaque question, ligne ou colonne. Les options
+                disponibles sont : figer l'option (readOnly), pré-remplissage
+                (defaultValue) et nom de l'option (name, uniquement
+                pour des "composite form fields").
+            Types de questions, lignes et colonnes disponibles
+               | 
+                   | Type
+                   | Simple ou composite ?
+                   | Rubrique question
+                   | Rubrique tableau
+                   | 
+                    Réponse courte
+                    (TEXT)
+                   | Simple
+                   | ✅
+                   | ✅
+                   | 
+                    Réponse longue
+                    (LONG_TEXT)
+                   | Simple
+                   | ✅
+                   | ✅
+                   | 
+                    Réponse multiple
+                    (MULTIPLE_TEXT)
+                   | Composite
+                   | ✅
+                   | ❌
+                   | 
+                    Choix unique
+                    (SINGLE_CHOICE_LIST)
+                   | Composite
+                   | ✅
+                   | ❌
+                   | 
+                    Choix multiple
+                    (MULTIPLE_CHOICE_LIST)
+                   | Composite
+                   | ✅
+                   | ❌
+                   | 
+                    Liste à choix unique
+                    (SINGLE_CHOICE_DROPDOWN)
+                   | Composite
+                   | ❌
+                   | ❌
+                   | 
+                    Liste à choix multiple
+                    (MULTIPLE_CHOICE_DROPDOWN)
+                   | Composite
+                   | ❌
+                   | ❌
+                   | 
+                    Date
+                    (DATE)
+                   | Simple
+                   | ✅
+                   | ✅
+                   | 
+                    Date et heure
+                    (DATETIME)
+                   | Simple
+                   | ✅
+                   | ✅
+                   | 
+                    Durée
+                    (DURATION)
+                   | Simple
+                   | ✅
+                   | ✅
+                   | 
+                    Valeur et unité
+                    (VALUE_AND_UNIT)
+                   | Composite
+                   | ❌
+                   | ❌
+                   | 
+                    Prise de photo
+                    (TAKE_PICTURE)
+                   | Simple
+                   | ✅
+                   | ✅
+                   | 
+                    Fichier
+                    (FILE)
+                   | Simple
+                   | ❌
+                   | ❌
+                   | 
+                    Collaborateur et signature
+                    (SIGNATURE)
+                   | Composite
+                   | ❌
+                   | ❌
+                   | 
+                    Localisation
+                    (LOCATION)
+                   | Simple
+                   | ❌
+                   | ❌
+                   | 
+                    Formule
+                    (FORMULA)
+                   | Simple
+                   | ❌
+                   | ❌
+                   | 
+                    Editeur de texte
+                    (RICH_TEXT_EDITOR)
+                   | Simple
+                   | ❌
+                   | ❌
+        Placeholder
+    -->
+Evolutions des services existants
+/forms
+Nouveau paramètre "deletedOnly=true" pour cibler des formulaires supprimés depuis la bibliothèque.
+/library/forms
+Nouveau paramètre "deletedOnly=true" pour cibler des formulaires supprimés depuis une entité.
+4 / 5 septembre 2025
+      /flows/associations/bulk-update
+            Fonctionnement
+            Permet d'assigner et / ou de dissocier des collaborateurs,
+            tablettes et étiquettes pour un flow donné.  Ces modifications
+            n'auront lieu qu'une fois que l'intégralité de la requête
+            aura été correctement formulée.
+        Placeholder
+-->
+Evolutions des services existants
+GET /projects/{project-id}
+Nouveau paramètre "isDeleted=true" pour cibler un projet supprimé. De plus, il est maintenant possible d'extraire les collaborateurs et tablettes importés dans le projet.
+GET /projects
+Nouveau paramètre "deletedOnly=true" pour cibler les projets supprimés.
+GET /form-responses/{form-response-id}
+Il est désormais possible d'extraire l'identifiant d'une option de réponse sous format "RxQyOz" (rubrique x / question y / option z).
+1er août 2025
+Evolutions des services existants
+PUT /flows/{flow-id}/update-instruction-block
+Le service permet désormais d'inclure des images envoyées au préalable dans l'espace de stockage avec le service POST "/files/upload".
+GET /form-responses
+Nouveau paramètre "isDeleted=true" pour cibler des réponses de formulaire supprimées.
+GET /form-responses/from-source-form
+Nouveau paramètre "isDeleted=true" pour cibler des réponses de formulaire supprimées.
+GET /form-responses/{form-response-id}
+Nouveau paramètre "isDeleted=true" pour cibler une réponse de formulaire supprimée.
+22 juillet 2025
+Evolutions des services existants
+GET /flows/{flow-id}/rich-text-content-in-block
+Nouveau paramètre "embedPictograms=true" pour récupérer les icônes créées par l'éditeur Froala.
+15 juillet 2025
+      /flows/{flow-id}/form-linked-to-steps
+            Fonctionnement
+            Pour un flow donné, permet de savoir à quelles étapes un
+            formulaire a été lié.
+        Placeholder
+    -->
+      /form-responses/{form-response-id}
+            Fonctionnement
+            Permet de récupérer les propriétés d'une réponse de formulaire.
+        Placeholder
+    -->
+      /flows/{flow-id}/history-status-changes
+            Fonctionnement
+            Pour un flow donné, permet de récupérer l'historique des
+            changements de statut. L'historique détaille :
+              La date du changement de statut.
+                L'utilisateur ou le profil tablette responsable du
+                changement de statut.
+              L'ancien statut.
+              Le nouveau statut.
+                La plateforme utilisée pour changer le statut (WebApp
+                ou MobileApp).
+        Placeholder
+    -->
+      /standard-projects/{project-id}/async-prepare
+            Fonctionnement
+            Permet de préparer un sous-dossier référentiel en entité
+            projet.
+            Limites
+            Contrairement à la WebApp, le nom de la nouvelle entité projet
+            doit être spécifié.
+        Placeholder
+    -->
+      /jobs/prepare-standard-projects/status
+            Fonctionnement
+            Permet de récupérer le statut de traitement du service "[POST]
+            : /standard-projects/{project-id}/async-prepare". Le statut
+            renvoyé sera l'un des suivants : TO_DO (à faire), IN_PROGRESS
+            (en cours), DONE (fait), FAILED (échec).
+            Limites
+            Le statut de traitement peut uniquement être récupéré par
+            l'utilisateur API ayant initié le service POST mentionné
+            ci-dessus.
+        Placeholder
+    -->
+      /documents/{document-id}
+            Fonctionnement
+            Permet de récupérer une partie des propriétés d'un document.
+            Limites
+            Ce service ne permet pas encore de récupérer toutes les propriétés
+            d'un document. Pour l'instant, il se focalise essentiellement
+            sur les attributs du document.
+        Placeholder
+    -->
+      /documents/custom-attributes/bulk-update
+            Fonctionnement
+            Pour un ou plusieurs document(s) donné(s), permet de modifier
+            les valeurs des attributs liés à chaque document. La modification
+            de toutes ces valeurs n'aura lieu qu'une fois que l'intégralité
+            de la requête aura été correctement formulée.
+            Astuce
+            Les valeurs d'attributs de type DATE (date), DATETIME (date
+            et heure), FILE (fichier) et IMAGE (image) peuvent être supprimées
+            en laissant la valeur vide (listValues : [""]).
+            Limites
+            Comme les noms d'attributs ne sont pas forcément uniques,
+            c'est l'identifiant qui doit être spécifié pour sélectionner
+            un attribut.
+        Placeholder
+    -->
+      /dictionary/custom-attributes/create
+            Fonctionnement
+            Permet de créer un attribut sur la page paramètres.
+            Toutes les natures sont disponibles : PROJECT (projet), FLOW
+            (flow), PHASE (phase), STEP (étape), ASSET (objet), DOCUMENT
+            (document).
+            Les types d'attributs disponibles sont les suivants :
+              TEXT
+            (texte).
+              TEXT_AREA (texte long).
+              INTEGER (nombre entier).
+              DECIMAL (nombre décimal).
+              BOOLEAN (vrai ou faux).
+              DATE (date).
+              DATETIME (date et heure).
+              FILE (fichier).
+              IMAGE (image).
+              SINGLE_SELECT (liste à choix unique).
+              MULTI_SELECT (liste
+            à choix multiple).
+              HYPERTEXT_LINK (lien hypertexte).
+              METADATA
+            (métadonnée).
+            Limites
+          Le type d'attribut "Titre" n'est pas disponible.
+        Placeholder
+    -->
+19 juin 2025
+      /projects/{project-id}/update-resources
+            Fonctionnement
+            Permet d'importer ou de supprimer des collaborateurs (utilsateurs
+            et opérateurs) et des profils tablette dans une entité.
+            Limites
+            Les règles d'import sont les mêmes que sur la WebApp. Les
+            utilisateurs peuvent être importés sur tous les types d'entités
+            (projet, référentiel, modèle). Les opérateurs peuvent être
+            importés soit sur des entités projet, soit sur des entités
+            référentiel. Les profils tablette peuvent uniquement être
+            importées
+            sur les entités projet.
+        Placeholder
+    -->
+28 mars 2025
+      /steps/{step-id}/update
+            Fonctionnement
+            Permet de mettre à jour les propriétés d'une étape, et notamment
+            de l'activer ou de la désactiver.
+            Limites
+            Le repositionnement des étapes dans une phase (possible en
+            faisant
+            un glisser-déposer sur la WebApp) n'est pas encore disponible.
+          Placeholder
+          step-id: 9f36e4a7-7ecb-445e-a2ec-4d9481a6e52a
+{
+  "additionalName": "string",
+  "customOrderingNumber": "string",
+  "internalInformation": "string",
+  "managementProperties": {
+    "commentOnStateChange": "string",
+    "isEnabled": true,
+    "listEnabledThematicBlocks": [
+      "INSTRUCTION"
+    ]
+  },
+  "name": "string",
+  "usageProperties": {
+    "isCustomOrderingNumberExcludedFromNumbering": false,
+    "isNameHiddenInInstructionDocument": false,
+    "listTagsIdentifiers": [
+      "string"
+    ],
+    "toBeFilledOnWebappOnly": false
+  }
+}
+-->
+Evolutions des services existants
+GET /flows
+Nouveau paramètre "deletedOnly=true" pour cibler les flows supprimés.
+GET /flows/{flow-id}
+Nouveau paramètre "isDeleted=true" pour cibler un flow supprimé.
+18 mars 2025
+      /form-responses/create-in-flow-context
+            Fonctionnement
+            Permet de créer une réponse de formulaire dans le
+            contexte d'un
+            flow.
+            Limites
+            Le nom de la réponse de formulaire doit être renseigné,
+            en effet
+            la référence automatique n'est pas encore implémentée.
+          Placeholder
+          formID : xxxx-xxxx-xxxx
+{
+  "name": "string",
+  "statusIdentifier": "string"
+}
+      -->
+      /form-responses/{form-response-id}/values
+            Fonctionnement
+            Permet de remplir une réponse de formulaire. Le remplissage
+            ne
+            fonctionnera qu'une fois que toutes les valeurs renseignées
+            sont
+            adéquates.
+            Limites
+            Les types de questions suivants ne sont pas encore
+            implémentés
+            : question à choix unique, question à choix multiple,
+            liste à
+            choix unique, liste à choix multiple, collaborateur
+            et signature
+            et éditeur de texte.
+            Les question verrouillées ne peuvent pas être modifiées.
+            De même,
+            les réponses de formulaire à l'état "Complété" ne
+            peuvent pas
+            être remplies.
+          Placeholder
+          form-response-id: xxxx-xxxx-xxxx
+{
+  "data": [
+    {
+      "coordinatesValue": {
+        "latitude": 0.1,
+        "longitude": 0.1
+      },
+      "fieldIdentifier": "string",
+      "listStringValues": [
+        "string"
+      ],
+      "optionIdentifier": "string",
+      "valueAndUnitValue": {
+        "decimalValue": 0.1,
+        "unitText": "string"
+      }
+    }
+  ]
+}
+      -->
+      /files/upload
+            Fonctionnement
+            Permet d'envoyer un fichier image ou PDF vers le
+            stockage d'un
+            compte.
+            Limites
+            Le fichier ne sera pas visible directement dans la
+            WebApp. Pour
+            ce faire, il faut l'ajouter à une réponse de formulaire
+            ou à
+            un attribut de flow via le service approprié.
+            Les fichiers PDF peuvent peser jusqu'à 20 MB. Les
+            fichiers image
+            peuvent peser jusqu'à 40 MB.
+6 mars 2025
+      /flows/{flow-id}/rich-text-content-in-block
+            Fonctionnement
+            Permet de récupérer le contenu texte riche d'un bloc
+            instructions
+            ou texte.
+            Limites
+            Si le contenu contient des images, alors le résultat
+            de la requête
+            proposera une autre requête (avec les IDs en paramètre)
+            à exécuter
+            pour récupérer ces images. Voir "[GET] :
+            files/{file-id}/download".
+          Placeholder
+          flow-id: xxxx-xxxx-xxxx
+stepId: xxxx-xxxx-xxxx
+thematicBlock: INSTRUCTION
+      -->
+      /files/{file-id}/download
+            Fonctionnement
+            Permet de récupérer un fichier image ou PDF à partir
+            de son identifiant.
+            Astuce
+            Le paramètre optionnel "Want-Digest" renvoie une
+            empreinte qui
+            permet d’assurer la conformité de l’image depuis
+            son stockage
+            jusqu’à son téléchargement.
+          Placeholder
+          file-id: xxxx-xxxx-xxxx
+Want-Digest: SHA-256
+      -->
+

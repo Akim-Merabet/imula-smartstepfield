@@ -1,0 +1,19 @@
+API V2 - Note de mise à jour - 2026
+section: 2026 · id: 32773731582738 · updated: 2026-01-23T13:48:38Z
+https://siteflow.zendesk.com/hc/fr/articles/32773731582738-API-V2-Note-de-mise-%C3%A0-jour-2026
+Cet article liste tous les services API V2 livrés depuis en 2026. Il sera alimenté dès que possible au fur et à mesure des livraisons. Pour en savoir plus sur les services livrés en 2025, cliquer ici.
+09 février 2026
+      Evolutions des services existants
+            /flows/custom-attributes/bulk-update
+            Nouveau message d'erreur lorsqu'un attribut est renseigné
+            alors qu'il n'appartient pas à la même applicabilité que
+            le flow :
+          ERREUR 404 :
+"Flow having identifier '<flowidentifier>' | 
+Attribute having identifier '<listcustomattributesvalues.identifier>' | 
+Attribut does not belong to the flow's account"
+            Un message d'erreur équivalent a été ajouté aux API V1.5
+            :
+          ERREUR 404 - Not Found.
+"code": "ATTRIBUTE_NOT_IN_SAME_ACCOUNT"./code
+

@@ -1,0 +1,13 @@
+Introduction to Siteflow API version 2
+section: Overview · id: 14490650890514 · updated: 2026-03-30T12:24:23Z
+https://siteflow.zendesk.com/hc/fr/articles/14490650890514-Introduction-to-Siteflow-API-version-2
+Siteflow API version 2 provides an enriched set of service endpoints which allows to retrieve data, create and modify data, and trigger some specific actions on data. The purpose of the API is to address two main use-cases:
+Data analysis:
+Query data to populate a datalake.
+Create operational dashboard for statistics and/or operational monitoring.
+Transactional exchanges:
+Integrate interactions between client applications with Siteflow application.
+Automate the creation / update of data in the Siteflow database.
+This version of API has been designed to expose the data under a functional prism based on a functional object model.
+It is a work in progress and services will be released batch by batch.
+

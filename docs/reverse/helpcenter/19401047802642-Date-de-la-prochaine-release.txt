@@ -1,0 +1,25 @@
+Date de la prochaine release
+section: 2026 · id: 19401047802642 · updated: 2026-09-15T09:16:12Z
+https://siteflow.zendesk.com/hc/fr/articles/19401047802642-Date-de-la-prochaine-release
+Cette page vous permet de connaître la date de la prochaine release (mise à jour). La date communiquée sera affinée à l'approche de la release, et peut être sujette à changements.
+      La Product Release 105 est actuellement en préproduction, retrouvez les
+      nouvelles fonctionnalités
+      sur la note de mise à jour.
+-->
+ | 
+ |  
+ | Préproduction
+ | Production
+ | Mise à jour 2.19.0
+ | 25 août 2026
+ | 7 septembre 2026
+ | Mise à jour 2.20.0
+ | 8 septembre 2026
+ | 21 septembre 2026
+ | Mise à jour 2.21.0
+ | 22 septembre 2026
+ | 5 octobre 2026
+ | Mise à jour 2.22.0
+ | 6 octobre 2026
+ | 19 octobre 2026
+

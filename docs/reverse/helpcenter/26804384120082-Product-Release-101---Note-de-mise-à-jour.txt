@@ -1,0 +1,63 @@
+Product Release 101 - Note de mise à jour
+section: 2025 · id: 26804384120082 · updated: 2026-03-30T12:37:05Z
+https://siteflow.zendesk.com/hc/fr/articles/26804384120082-Product-Release-101-Note-de-mise-%C3%A0-jour
+La mise à jour du 2e trimestre 2025 des applications Siteflow va bientôt sortir en préproduction. Voici toutes les nouveautés et améliorations intégrées à la Product Release 101 de mai/juin 2025.
+Pour cliquer sur les liens présents dans la note de mise à jour, il est nécessaire d'être connecté à une WebApp Siteflow et d'avoir cliqué sur "Centre d'aide" depuis le profil. L'accès à cette note de mise à jour n'indique pas que vous êtes actuellement connecté.
+WebApp et MobileApp
+Nouvel onglet 
+"Référentiel et 
+Modèle"
+Un nouvel onglet "Référentiel et Modèle" est désormais disponible dans la liste des projets sur l'application mobile. Il est visible uniquement pour les profils utilisateurs et permet de consulter en lecture seule les différents flows référentiels et modèles en phase de conception. Cette fonctionnalité remplace la “Vue MobileApp" anciennement visible sur la WebApp et offre une meilleure visibilité du rendu terrain pour les opérateurs.
+La “Vue MobileApp” de l'éditeur de flow sur la WebApp a de ce fait été supprimée.
+      Nouveau module
+      de gestion des
+      appareils
+          Un nouveau module est disponible dans la page "Collaborateurs
+          et tablettes". Il permet de configurer les tablettes ou smartphones
+          autorisés à se connecter à la MobileApp Siteflow (via identifiant/mot
+          de passe ou QR Code). Cette fonctionnalité optionnelle mais recommandée
+          offre une couche de sécurité supplémentaire pour maîtriser le
+          parc d'appareils autorisés, en permettant d'attribuer un identifiant
+          unique à chaque appareil. Par défaut, sans configuration spécifique,
+          tout appareil peut se connecter à la MobileApp avec des identifiants
+          Siteflow valides.
+  -->
+WebApp
+Améliorations des 
+objets techniques
+Deux nouveaux champs dans la fenêtre de création/édition d'objet :
+“Numéro d'identification”, qui est unique à chaque objet.
+“Certificat de conformité”, pour lier un document à l’objet.
+Le champ “Référence interne” des objets a été renommé “Code article” à travers la solution. Ce changement n'impacte que les objets.
+Nouveau type de document de flow “objets” permettant d'exporter une liste des objets présents dans un flow. Une option permet également d’inclure les certificats de conformité en annexe, s’ils ont été renseignés.
+Amélioration 
+des diagrammes
+Il est maintenant possible d'éditer le style des cartes de flows, de phases et d'étapes.
+MobileApp
+Restriction de 
+signature sur 
+la MobileApp
+Les restrictions de collaborateurs paramétrées au niveau d'un flow depuis la WebApp sont désormais prises en compte lors des signatures depuis la MobileApp. Par défaut, tous les collaborateurs du projet peuvent signer depuis un flow ou un formulaire. Cependant, si une liste restreinte est définie via la fenêtre d'affectation d'un flow, seuls les collaborateurs de cette liste seront visibles au moment de signer sur la MobileApp, que l'appareil soit en ligne ou hors ligne.
+API / Connecteur
+Certains de ces changements ont déjà été déployé à l’avance en production.
+Nouveaux services 
+API v2
+Flows :
+Liaison d’un document à un bloc thématique éligible.
+Récupération de la liste des documents liés à un bloc thématique.
+Mise à jour des propriétés d'une étape (notamment son activation / sa désactivation).
+Récupération du contenu texte riche d'un bloc instructions ou texte.
+Réponses de formulaire :
+Récupération des images / fichiers dans les réponses de formulaire, permettant de les associer aux rubriques et questions du formulaire.
+Création d'une réponse de formulaire dans le contexte d'un flow.
+Remplissage d'une réponse de formulaire.
+Fichiers :
+Envoi d'un fichier image ou PDF vers l’espace de stockage d'un compte, sans qu’il ne soit visible dans la WebApp. Le document ou image pourra ensuite être ajouté à une réponse de formulaire ou à un attribut de flow via le service approprié.
+Récupération d'un fichier image ou PDF à partir de son identifiant.
+Evolutions des 
+services API v2 
+existants
+Flows :
+Evolution du service de récupération des flows, permettant de cibler les flows supprimés (avec le paramètre deletedOnly=true).
+Evolution du service de récupération d'un flow, permettant de cibler un flow supprimé (avec le paramètre isDeleted=true).
+

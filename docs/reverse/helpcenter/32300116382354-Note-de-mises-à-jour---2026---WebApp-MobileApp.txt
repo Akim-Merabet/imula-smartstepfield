@@ -1,0 +1,607 @@
+Note de mises à jour - 2026 - WebApp & MobileApp
+section: 2026 · id: 32300116382354 · updated: 2026-10-19T16:54:04Z
+https://siteflow.zendesk.com/hc/fr/articles/32300116382354-Note-de-mises-%C3%A0-jour-2026-WebApp-MobileApp
+Depuis le 15 décembre 2025, la solution est mise à jour toutes les 2 semaines. Tous les changements liés aux mises à jour de l'année 2026 seront renseignés ici.
+Les nouveautés liées aux API sont détaillées sur une note de mise à jour dédiée.
+R.2.23.0 - Production : 19 octobre 2026
+  Pour des raisons d'organisation de nos releases, il n'y a pas de version R2.22 dont le contenu est dans la version R2.23. Préproduction le 6 octobre
+      Génération PDF
+          Le traitement des images lors de la compression du PDF a été
+          optimisé afin de réduire le temps de génération des documents
+          DSI et RFI. Le parcours utilisateur reste identique : le document
+          est généré comme avant, et le PDF est produit plus rapidement.
+          Points d'attention :
+            Les images JPEG et PNG intégrées au document restent
+            visuellement identiques à l'original, sans perte de qualité.
+            Le gain est surtout perceptible sur les documents contenant
+            plusieurs images.
+    Corrections
+          [Ticket #SFP-21474] L'utilisation du module fichier pour créer
+          des flows spécifiques à partir d'un flow référentiel reprend
+          désormais correctement les séquences de ce flow référentiel.
+          [Ticket #2679] La génération du fichier .zip lors de l'export
+          des photos ne produit plus aléatoirement un fichier qui ne
+          s'ouvre pas.
+R.2.21.0 - Production : 5 octobre 2026
+        En préproduction dès le 22 septembre 2026
+      Formulaires
+                Lorsqu'une mise à jour d'un formulaire est disponible,
+                une
+                nouvelle icône de mise à jour apparaît désormais
+                directement
+                dans la colonne Actions, à gauche
+                des autres
+                actions disponibles. Cette évolution harmonise l'expérience
+                entre les modules Formulaires et Documents.
+                Les principales évolutions sont les suivantes :
+                  L'icône est affichée en orange afin de signaler
+                  qu'une action
+                  est disponible, et affiche au survol un tooltip
+                  Mettre à jour.
+                  Elle permet d'accéder à la modale de mise à jour
+                  existante,
+                  dont le fonctionnement et le contenu restent
+                  inchangés.
+                  Le point d'exclamation présent dans la colonne
+                  de modification
+                  est retiré.
+                  L'action Mettre à jour est retirée
+                  du menu
+                  ellipse, l'action étant désormais directement
+                  accessible
+                  depuis la colonne Actions.
+                  Cette évolution concerne les formulaires génériques
+                  ainsi
+                  que les formulaires modèles.
+          Corrections
+                [Ticket #2087] Sur la MobileApp, l'affichage des
+                valeurs
+                décimales n'est plus tronqué.
+      R.2.20.0 - Production : 21 septembre 2026
+    En préproduction dès le 08 septembre 2026
+      Modales d'import
+            Dans les modales d'import (collaborateurs, formulaires, etc.),
+            les éléments déjà cochés restent désormais sélectionnés après
+            l'application ou le retrait d'un filtre, une recherche ou
+            un
+            tri. Cette évolution concerne toutes les modales d'import
+            de
+            la plateforme.
+      Corrections
+            [Ticket #2493] La date de mise à jour d'un flow est désormais
+            cohérente avec l'identité du dernier modificateur.
+            [Ticket #1944] Le pré-remplissage des réponses de formulaires
+            est désormais visible en mode lecture sur la MobileApp.
+  R.2.19.0 - Production : 7 septembre 2026
+    En préproduction dès le 25 août 2026
+      Formules
+          La validation des formules a été renforcée pour
+          les questions
+          de type Formule, ainsi que pour les tableaux
+          en ligne et en colonne. Les formules sont désormais validées
+          avant sauvegarde ; une formule invalide est bloquée et un
+          message d'erreur est affiché directement sous le champ concerné.
+          Règles de saisie :
+            Les paramètres d'une fonction doivent être séparés par un
+            point-virgule ";", par exemple
+            min(2;6).
+            Les nombres décimaux respectent le format numérique configuré
+            :
+            1,5 en français et 1.5
+            en anglais.
+            La syntaxe et les références utilisées dans la formule sont
+            contrôlées après une courte pause dans la saisie.
+          Les valeurs sont ensuite normalisées lors du stockage en base
+          de données, avec . comme séparateur décimal
+          et sans espaces superflus. À l'affichage, elles sont
+          automatiquement présentées selon le format numérique configuré
+          pour l'utilisateur.
+          Points d'attention :
+            Le séparateur entre les paramètres d'une fonction est
+            désormais ";".
+            Le séparateur décimal dépend du format numérique configuré
+            :
+            "," en français et "."
+            en anglais.
+            Les formules existantes présentant une syntaxe incorrecte
+            peuvent désormais être signalées lors de leur affichage ou
+            de leur évaluation.
+            Les contrôles sont réalisés avant sauvegarde afin d'éviter
+            l'enregistrement de formules invalides.
+            La documentation utilisateur devra être mise à jour afin
+            de
+            présenter les nouvelles règles de saisie des formules.
+      Formulaires
+          Lorsqu'une nouvelle rubrique est ajoutée à un formulaire
+          disposant déjà de flows de navigation configurés, elle n'est
+          désormais plus ajoutée automatiquement dans aucun flow existant.
+          Les flows déjà configurés restent strictement inchangés.
+          Le même comportement s'applique lors de la duplication d'une
+          rubrique.
+          Si l'utilisateur souhaite intégrer la nouvelle rubrique à un
+          parcours, il doit l'ajouter manuellement depuis la configuration
+          de la navigation.
+          Points d'attention :
+            Cette évolution ne modifie pas les flows déjà configurés.
+            Après la création ou la duplication d'une rubrique, son ajout
+            à la navigation d'un flow doit être réalisé manuellement
+            si nécessaire.
+            La possibilité de choisir directement, lors de la création
+            d'une rubrique, le ou les flows auxquels elle doit appartenir
+            reste hors périmètre et pourra faire l'objet d'une évolution
+            dédiée.
+  R.2.18.0 - Production : 24 août 2026
+    En préproduction dès le 11 août 2026
+      Signatures
+            La suppression d'un bloc, d'une étape ou d'une phase
+            est
+            désormais refusée dès qu'une signature est présente
+            sur le
+            périmètre concerné.
+            Côté interface, l'utilisateur reçoit un message explicite
+            lui indiquant que la suppression est impossible et
+            la raison pour laquelle la suppression n'est pas possible.
+            La réinitialisation d'un flow est également bloquée
+            lorsqu'une
+            signature existe sur un bloc multi-instruction et/ou
+            contrôles.
+      Documents
+            Lorsqu'une nouvelle version d'un document est disponible
+            dans
+            la bibliothèque, une icône de mise à jour apparaît
+            désormais
+            directement dans la colonne Actions,
+            à gauche
+            des autres actions disponibles. Au survol, un tooltip
+            Mettre à jour est affiché.
+            En cliquant sur l'icône, une fenêtre de confirmation
+            s'ouvre
+            pour valider la mise à jour. Une fois effectuée,
+            un message
+            de confirmation
+            Mise à jour effectuée avec succès
+            est affiché. L'action "Mettre à jour" a par ailleurs
+            été retirée
+            du menu ... afin d'éviter les doublons.
+            Points d'attention :
+              L'indicateur n'est affiché que lorsqu'une
+              nouvelle
+            version
+            du document est réellement disponible dans
+              la
+              bibliothèque.
+              La largeur de la colonne Actions a été
+              adaptée
+              afin
+              d'intégrer cette nouvelle icône sans dégrader
+              l'affichage
+              des autres actions.
+              Cette évolution concerne uniquement l'interface
+              Web du module
+              Documents et ne modifie pas le comportement fonctionnel
+              de
+              la mise à jour des documents.
+  R.2.17.0 - Production : 10 août 2026
+    En préproduction dès le 28 juillet 2026
+      Attribut image
+            Le champ attribut image permet désormais d'ajouter
+            jusqu'à
+            6 images au sein d'un même attribut,
+            sans
+            remplacer celles déjà présentes. Les images sont
+            affichées
+            dans une galerie horizontale, dans l'ordre de leur
+            ajout.
+            Les principales évolutions sont les suivantes :
+              Possibilité d'agrandir ou de supprimer individuellement
+              une image.
+              Affichage d'un compteur d'images et désactivation
+              du bouton
+              d'ajout lorsque la limite de 6 images est atteinte.
+              Conservation du libellé Ajouter des images
+              quelle que soit la quantité d'images déjà importées.
+              Prise en charge automatique des attributs multi-images
+              dans
+              les variables dynamiques, les documents de réponse
+              de
+              formulaire et les champs PDF.
+              Les attributs existants contenant une seule image
+              restent
+              compatibles : cette image devient automatiquement
+              le premier
+              élément de la galerie.
+            Points d'attention :
+              Les règles existantes concernant les formats
+              et la taille
+              maximale des fichiers restent inchangées.
+              Les champs obligatoires nécessitent toujours
+              au moins une
+              image.
+              Cette évolution est entièrement compatible avec
+              les attributs
+              image existants et ne nécessite aucune migration
+              utilisateur.
+      Corrections
+            [Ticket #1793] La référence de réponse d'un formulaire
+            créé
+            via "déclarer un aléa" est désormais correctement
+            générée.
+  R.2.16.0 - Production : 27 juillet 2026
+    En préproduction dès le 16 juillet 2026
+      Attribut Image
+          Il est désormais possible de définir une
+          variable dynamique
+          sur
+          un attribut de type Image (de nature Flow
+          ou
+          Entité), depuis la modale de configuration de l'attribut.
+          Cette
+          évolution aligne le comportement des attributs image sur
+          celui
+          déjà disponible pour les autres types d'attributs supportant
+          les
+          variables dynamiques.
+          Dans la configuration d'une question de type
+          Prise de photo, le préparateur méthode peut
+          activer l'option
+          Pré-remplissage avec une variable
+          dynamique
+          et renseigner une variable pointant vers un
+          attribut image.
+          Lorsqu'un opérateur ouvre un formulaire ou une réponse de
+          formulaire sur la WebApp, l'image issue de la variable dynamique
+          est automatiquement affichée dans la question
+          Prise de photo.
+          L'utilisateur peut ensuite continuer à utiliser le champ
+          normalement : ajout de nouvelles images, agrandissement,
+          annotation, suppression.
+          Points d'attention :
+            Si des images avaient été ajoutées manuellement dans
+            la zone
+            de pré-remplissage, elles sont supprimées
+            dès lors que
+            le
+            pré-remplissage par variable dynamique est activé.
+            Si la variable renseignée ne correspond pas à un attribut
+            image, aucune image n'est affichée.
+            Si la variable dynamique ne retourne aucune image, le
+            champ
+            reste vide et peut toujours être complété manuellement
+            si la
+            configuration de la question le permet.
+            La définition d'une variable dynamique sur un attribut
+            image
+            est réservée aux profils disposant au minimum d'un droit
+            Admin.
+            L'ajout de plusieurs images au sein d'un attribut image
+            sera
+            disponible dans une version ultérieure.
+  R.2.15.0 - Production : 15 juillet 2026
+    En préproduction dès le 30 juin 2026
+      Vue liste des entités
+            Il est désormais possible de personnaliser les colonnes
+            affichées
+            dans la liste des Entités sur la WebApp. Depuis cette
+            page, un
+            nouveau bouton Personnaliser les colonnes
+            est
+            disponible à gauche de la barre de recherche.
+            Au clic sur ce bouton, une modale s'ouvre. Lorsque
+            l'utilisateur
+            sélectionne Personnalisé, il peut
+            configurer
+            les colonnes affichées :
+            Les colonnes suivantes sont verrouillées
+            et ne
+            peuvent pas être retirées :
+            Famille
+            Nom
+            Statut
+            Les colonnes suivantes sont optionnelles
+            et
+            peuvent être sélectionnées ou désélectionnées selon
+            les besoins :
+            Client
+            Référence
+            Localisation
+            Responsable
+            Description
+            N° de contrat
+            N° de commande interne
+            N° de commande externe
+            N° de marché
+            Affaire technique
+            Mots clefs
+            Domaine métier
+            Programme national
+            Complément référence 1
+            Complément référence 2
+            Les attributs disponibles sont regroupés par famille,
+            selon le
+            comportement existant sur la liste des Flows. La
+            configuration
+            sélectionnée est enregistrée dans le navigateur et
+            réutilisée
+            lors des prochaines connexions de l'utilisateur sur
+            ce même
+            navigateur.
+      Corrections
+            [Ticket #2115] La redirection de rubrique est désormais
+            correctement
+            prise en compte lors de la reprise d'un formulaire.
+            [Ticket #SFP-20387] La valeur par défaut des attributs
+            n'est plus
+            limitée à 255 caractères.
+            [Ticket #2188] La visualisation des flows sur la
+            MobileApp
+            s'affiche à nouveau correctement.
+  R.2.14.0 - Production : 29 juin 2026
+En préproduction dès le 16 juin 2026
+      Corrections
+            [Ticket #1822] Il est de nouveau possible de zoomer sur toutes
+            les images accessibles sur l'application mobile (flow, formulaire,
+            etc..)
+            [Ticket #2045] Sur l'application mobile, en mode lecture,
+            les
+            réponses sont de nouveau visibles lorsqu'il y en a moins
+            de 3.
+  R.2.13.0 - Production : 15 juin 2026
+En préproduction dès le 02 juin 2026
+     Documents
+          Il est désormais possible de masquer les questions sans réponses
+          dans les documents générés de type DSI, PR et PR-Multi.
+          Depuis la page /documents d'un projet, lors
+          de la création ou de l'édition d'un document de ce type,
+          une nouvelle option est disponible dans l'onglet
+          Contenu :
+          Afficher le(s) choix non renseigné(s) des réponses.
+          Cette option apparaît uniquement lorsque la section
+          Afficher les formulaires est configurée
+          sur
+          :
+          En annexe
+          Réponse(s) de formulaire liés en annexe
+          Lorsque l'option est cochée, toutes les
+          questions
+          restent affichées dans le PDF, y compris celles sans réponse
+          (comportement actuel conservé).
+          Lorsque l'option est décochée, les questions
+          non renseignées sont exclues du rendu PDF. Seules les questions
+          contenant une donnée utile restent visibles. La numérotation
+          reste cohérente.
+          Une question est considérée comme non renseignée lorsqu'elle
+          ne contient aucune réponse utilisateur, aucune valeur calculée,
+          aucun commentaire et aucune pièce jointe.
+      Logigramme
+            Un nouveau composant de navigation de type "zoomer" est désormais
+            disponible dans le logigramme des séquences sur la WebApp,
+            dans le coin inférieur gauche de l'écran. Son comportement
+            et
+            son interface reprennent ceux déjà présents dans le diagramme.
+        Le zoomer permet :
+            De zoomer via le bouton +.
+            De dézoomer via le bouton −.
+            De déplacer le centre de la vue via le mini plan de navigation.
+            Les phases désactivées d'un flow disposent désormais d'un
+            état
+            visuel spécifique dans le logigramme des séquences,
+            permettant de les identifier rapidement. Cette évolution
+            concerne
+            uniquement les cartes de phases affichées dans le logigramme.
+          <>
+      Vue entité
+            Dans les vues entités, flows et documents contenant des tableaux,
+            la dernière colonne figée (Action)
+            dispose désormais d'une ombre visuelle sur son bord gauche.
+            Cette
+            ombre indique clairement que le tableau peut être
+            scrollé horizontalement et que les colonnes situées à gauche
+            passent sous la colonne fixe.
+      Corrections
+            [Ticket #1640] Avec un droit "Avancé", il est désormais possible
+            d'exécuter
+            un référentiel dès lors que l'utilisateur possède
+            le rôle Rédacteur, Expert ou Responsable de l'entité
+            Projet.
+            [Ticket #1994] La création d'un flow sur un environnement
+            training
+            ne retourne
+            plus d'erreur 400 liée à un attribut DateTime.
+            [Ticket #1954] Le déplacement de certains attributs, précédemment
+            impossible,
+            fonctionne à nouveau correctement.
+            [Ticket #2055] La mise à jour d'un opérateur ne retourne
+            plus d'erreur
+            400
+            "User
+            must have an authority".
+            [Ticket #2093] La mise à jour d'un document de la bibliothèque
+            depuis
+            un
+            fichier
+            source PC ne génère plus de duplication de contenu.
+  R.2.12.0 - Production : 01 juin 2026
+En préproduction dès le 19 mai 2026
+      Améliorations
+          Pour une meilleure lisibilité et expérience utilisateur,
+          il est désormais possible d'ajuster la taille des colonnes sur
+          plusieurs modules de la WebApp.
+            Les modules concernés sont les suivants :
+            Liste des entités.
+            Module flows (vue liste).
+            Module référentiels (vue liste).
+            Module documents sur un projet.
+            Bibliothèque des documents.
+      Corrections
+            Les en-têtes de colonnes restent à nouveau sur l'écran au
+            moment de défiler une liste.
+            Cliquer sur "Annuler" au moment de mettre à jour un formulaire
+            ne met plus à jour le formulaire.
+            Le rôle rédacteur permet maintenant d'éditer un dossier de
+            clôture.
+            Correction d'une anomalie qui empéchait la référence d'une
+            réponse de formulaire déjà créée d'être modifiée sur la MobileApp.
+            Le suivi des signatures sur le module avancement d'un projet
+            ne prend plus en compte les flows référentiel.
+  R.2.11.0 - Production : 18 mai 2026
+En préproduction dès le 05 mai 2026
+      Améliorations
+            Améliorations mineures.
+  R.2.10.0 - Production : 04 mai 2026
+En préproduction dès le 21 avril 2026
+      Vue séquences
+            Sortie officielle des séquences sur la WebApp et la MobileApp.
+            Activation le 05 mai.
+            Pour tout savoir sur les séquences,
+            voir l'article dédié.
+      Corrections
+            Correction d'une anomalie qui empéchait les étapes avec redirection
+            d'être validées.
+            Sur le module remontées terrain, les statuts disponibles
+            apparaissent désormais dans la liste des filtres par statut.
+            La MobileApp affiche à nouveau tous les flows lorsqu'il y
+            en a plus de 200 dans un seul projet.
+            Correction d'une anomalie qui empéchait de valider le flow
+            à la dernière étape visible sur la MobileApp lorsqu'une étape
+            ultérieure existait, mais n'était pas visible sur la MobileApp
+            (bloc texte en visiblité "document").
+            Désormais, c'est la
+            dernière étape visible sur la MobileApp qui affiche le
+            bouton "Valider et terminer le flow".
+  R.2.9.0 - Production : 20 avril 2026
+En préproduction dès le 08 avril 2026
+      Améliorations
+            Améliorations mineures.
+  R.2.8.0 - Production : 07 avril 2026
+En préproduction dès le 24 mars 2026
+      Téléchargements
+            Au cours des prochaines semaines, le temps de téléchargement
+            va être optimisé pour les flows
+            partageant des ressources communes (formulaires
+            présents dans plusieurs flows).
+                Pour savoir quand votre organisation
+                sera concernée par cette optimisation, vous pouvez
+                contacter votre référent
+                Siteflow.
+            Les gains observés sont les
+            suivants :
+                  Temps de téléchargement
+                :
+                Réduction
+                moyenne d'environ
+                20%, pouvant atteindre jusqu'à 50% dans les cas les
+                plus favorables.
+                  Volume de données échangées
+                :
+                Réduction
+                moyenne d'environ
+                60%, avec un bénéfice particulièrement sensible sur
+                les connexions lentes ou à faible débit.
+            Concernant les flows partageant peu de ressources
+            communes : les gains observés sont marginaux, et le temps
+            de téléchargement restera donc sensiblement similaire.
+            Un nouveau message d'erreur peut apparaître au moment de
+            télécharger un flow et bloquer le téléchargement.
+            Il permet d'identifier et d'aider à résoudre le cas suivant
+            :
+                Sur une tablette, le profil X a téléchargé des flows
+                du projet P1.
+                Le profil X a été déconnecté de la MobileApp alors
+                que ses flows sont toujours téléchargés.
+                Sur la même tablette, un profil Y se connecte à sa
+                place mais il n'a pas accès au projet P1.
+              Le profil Y tente de télécharger des flows du projet P2. 
+                Le téléchargement était bloqué avec le message "un
+                erreur est survenue lors du téléchargement".
+            Désormais, le téléchargement sera bloqué en affichant le
+            nouveau message d'erreur : il indique à l'opérateur de s'adresser
+            à un administrateur en mesure de résoudre le problème.
+Pour ce faire, il faudra :
+                Soit ajouter le profil tablette Y au projet P1 depuis
+                la WebApp.
+                Soit se reconnecter avec le profil tablette X, vérifier
+                que les données du projet P1 ont été renvoyées à
+                la WebApp, supprimer les données locales et se reconnecter
+                avec le profil tablette Y.
+  R.2.7.0 - Production : 23 mars 2026
+En préproduction dès le 10 mars 2026
+      Mots de passe
+            Le choix d'un nouveau mot de passe est maintenant plus exigeant
+            conformément
+            aux recommandations ANSSI. Les nouveaux critères sont détaillés
+            sur l'interface au moment de choisir le nouveau mot de passe.
+            Ce changement a aussi été appliqué sur la fenêtre de création
+            de compte ainsi que sur la fenêtre de réinitialisation de
+            mot de passe (visible lors d'un oubli).
+          Les mots de passe existants ne sont pas impactés.
+      Corrections
+            Correction d'une anomalie qui empéchait l'ajout d'un responsable
+            sur la fenêtre d'édition d'un flow.
+            L'affichage dans la corbeille d'un flow supprimé prend désormais
+            en compte la date de suppression, et non plus la date de
+            dernière modification.
+          Correction d'anomalies liées aux formules :
+                Il est à nouveau possible de calculer des sommes
+                de nombre décimaux sur les rubriques tableau depuis
+                la WebApp.
+                Les divisions comportant des nombres décimaux ou
+                des nombres supérieurs à 999 fonctionnent à nouveau.
+  R.2.6.0 - Production : 09 mars 2026
+En préproduction dès le 24 février 2026
+      Améliorations
+            Améliorations mineures.
+  R.2.5.0 - Production : 23 février 2026
+En préproduction dès le 09 février 2026
+      Diagrammes
+            Les phases et étapes désactivées sont désormais visibles
+            sur les diagrammes (WebApp et MobileApp).
+            Elles apparaissent
+            barrées, comme dans le reste de l’application, afin d’assurer
+            une meilleure cohérence visuelle.
+            Cette amélioration renforce la lisibilité des diagrammes
+            et permet de bénéficier d’une vision globale
+            plus claire des interventions.
+            En sortant d'un diagramme à l'aide de l’onglet "Projets"
+            de la MobileApp, l’état du diagramme est gardé en mémoire
+            (diagramme dernièrement affiché, niveau de zoom et position).
+            Cette amélioration facilite les allers-retours entre le flow
+            et le diagramme et permet aux utilisateurs de garder, à tout
+            moment de l’intervention, une vision macro claire de l’état
+            d’avancement de leur projet.
+      Corrections
+          Un utilisateur avec des droits avancés et un rôle rédacteur peut
+          maintenant correctement éditer une réponse de formulaire.
+            L'option "Passer le bloc contrôles en mode simplifié" a été
+            ajoutée
+            aux flows référentiel. Elle était précédemment grisée.
+  R.2.4.0 - Production : 09 février 2026
+En préproduction dès le 27 janvier 2026
+      API V2 / API V1.5
+          Un
+          message d'erreur
+          a été ajouté au service
+          flows/custom-attributes/bulk-update lorsqu'un
+          attribut est renseigné alors qu'il n'appartient pas à la même
+          applicabilité que le flow.
+  R.2.3.0 - Production : 26 janvier 2026
+En préproduction dès le 13 janvier 2026
+      Corrections
+          Résolution d'un conflit de droits et rôles qui empéchait les
+          utilisateurs
+          avec des droits avancés d'accéder à l'onglet suivi d'un document
+          via l’URL directement.
+          La détection des attributs sur la recherche avancée a été améliorée
+          : désormais seuls les attributs appartenant à la même
+          applicabilité
+          qu'un projet sont visibles dans la fenêtre de recherche avancée.
+  R.2.2.0 - Production : 12 janvier 2026
+En préproduction dès le 29 décembre 2026
+      MobileApp
+            Sur la MobileApp, le bouton “Valider et passer à l'étape
+            suivante”
+            est désormais accessible peu importe l'état de validation
+            interne
+            des blocs (paramétré depuis la WebApp). Précédemment, il
+            n'était
+            accessible que si le bloc était validé.
+  

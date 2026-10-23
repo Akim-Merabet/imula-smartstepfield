@@ -1,0 +1,33 @@
+Configuration data
+section: Siteflow functional object model · id: 15760382699538 · updated: 2026-03-30T13:01:05Z
+https://siteflow.zendesk.com/hc/fr/articles/15760382699538-Configuration-data
+Parameters: accounts and clients
+This data should be configured by administrators before onboarding application end-users.
+Accounts are managed by Siteflow administrators.
+Application clients (clients of Siteflow client company) are created and managed by client administrators. They are account-specific and are not shared within the organisation.
+Dictionaries
+Siteflow application allows to define the client company’s own data values for Families, Categories, Statuses, Custom Attributes.
+The table below describes which objects these dictionaries applies to (called relatedObject in the API) and whether they are private within the account or shared across all accounts in the organisation.
+ | 
+ |  
+ | Shared across the organisation
+ | Applicable to
+ | Families
+ | YES
+ | 
+Projects, flows, documents, forms
+Risks, equipment, devices, assets
+Collaborator groups, functions, skills, contracts, legal
+Skills, areas of expertise
+ | Categories
+ | NO
+ | Flows, documents, listing, collaborator hierarchies
+ | Statuses
+ | YES
+ | Forms, form responses, assets of type technical
+ | NO
+ | Flows, flow multi instructions blocks
+ | Custom attributes
+ | NO
+ | Projects, flows, phases, steps, documents, assets
+

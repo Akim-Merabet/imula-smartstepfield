@@ -1,0 +1,471 @@
+{
+  "title": "Éditeur de formulaire",
+  "defaults": {
+    "rubric": "Rubrique {n}",
+    "table": "Tableau {n}",
+    "question": "Question {n}",
+    "column": "Colonne {n}",
+    "row": "Ligne {n}",
+    "option": "Option {n}",
+    "collaborator": "Collaborateur {n}",
+    "copyOf": "Copie de {name}"
+  },
+  "errors": {
+    "unauthenticated": "Votre session a expiré",
+    "not_found": "Élément introuvable",
+    "forbidden": "Vous ne disposez pas des droits nécessaires à cette action",
+    "invalid": "Les données saisies sont invalides",
+    "duplicate": "Cette valeur est déjà utilisée dans ce formulaire",
+    "description_too_long": "La description ne peut pas dépasser 255 caractères",
+    "unit_too_long": "L'unité ne peut pas dépasser 20 caractères",
+    "type_not_allowed": "Ce type n'est pas disponible pour ce type de rubrique",
+    "last_question": "Une rubrique doit contenir au moins une question",
+    "last_column": "Un tableau doit contenir au moins une colonne",
+    "last_row": "Un tableau doit contenir au moins une ligne",
+    "last_option": "Une question doit contenir au moins une option",
+    "last_cell": "Impossible de dupliquer la dernière cellule",
+    "table_target": "Impossible de déplacer une question vers ou depuis un tableau",
+    "formula_invalidSyntax": "La syntaxe de la formule est invalide",
+    "formula_invalidVariable": "Une référence utilisée dans la formule est invalide",
+    "formula_invalidParameters": "Les paramètres d'une fonction de la formule sont invalides",
+    "pdf_duplicate": "Ce champ PDF est déjà utilisé dans ce formulaire",
+    "export_duplicate": "Cette valeur exportable a déjà été sélectionnée",
+    "code_duplicate": "Ce code est déjà utilisé dans ce formulaire",
+    "version": "La publication de la version a échoué"
+  },
+  "menu": {
+    "title": "Navigation",
+    "identifiers": "Identifiants",
+    "collapse": "Réduire le menu",
+    "expand": "Agrandir le menu",
+    "addRubric": "Ajouter une rubrique",
+    "drag": "Glisser pour déplacer",
+    "toggle": "Afficher / masquer les questions",
+    "optionIdentifier": "Identifiant d'option",
+    "cellIdentifier": "Identifiant de cellule",
+    "copy": "Copier",
+    "copied": "Copié dans le presse-papier"
+  },
+  "actions": {
+    "more": "Plus d'actions",
+    "duplicate": "Dupliquer",
+    "move": "Déplacer",
+    "delete": "Supprimer",
+    "cancel": "Annuler",
+    "apply": "Appliquer"
+  },
+  "noTrash": "Il n'y a pas de corbeille pour cet élément : il ne pourra pas être restauré.",
+  "natures": {
+    "model": "Modèle",
+    "generic": "Générique",
+    "other": "Autre",
+    "local": "Local",
+    "archived": "Archivé"
+  },
+  "types": {
+    "short_answer": "Réponse courte",
+    "long_answer": "Réponse longue",
+    "multiple_answers": "Réponse multiple",
+    "unique_choice": "Choix unique",
+    "multiple_choices": "Choix multiple",
+    "single_choice_list": "Liste de choix unique",
+    "multiple_choice_list": "Liste à choix multiple",
+    "date": "Date",
+    "datetime": "Date et heure",
+    "duration": "Durée",
+    "value_unit": "Valeur et unité",
+    "photo": "Prise de photo",
+    "collaborator": "Collaborateur et signature",
+    "location": "Localisation",
+    "formula": "Formule",
+    "file": "Fichier (PDF)",
+    "text_editor": "Éditeur de texte",
+    "checkbox": "Case à cocher"
+  },
+  "mode": {
+    "view": "Mode aperçu",
+    "build": "Mode édition",
+    "goToBuild": "Passer en mode édition",
+    "goToView": "Passer en mode aperçu",
+    "switchError": "Vous ne disposez pas des droits nécessaires à cette action"
+  },
+  "header": {
+    "back": "Retour",
+    "library": "Bibliothèque",
+    "index": "Indice {index}",
+    "previousRubric": "Rubrique précédente",
+    "nextRubric": "Rubrique suivante",
+    "rubricCounter": "{current} / {total}",
+    "versionPublished": "Version {n} publiée",
+    "unpublished": "Modifications non publiées",
+    "publish": "Publier la version",
+    "published": "Version {n} publiée avec succès",
+    "variables": "Variables dynamiques"
+  },
+  "empty": {
+    "title": "Ce formulaire est vide",
+    "subtitle": "Ajoutez une première rubrique pour commencer"
+  },
+  "rubric": {
+    "number": "Rubrique {n}",
+    "types": {
+      "question": "Rubrique question",
+      "table_column": "Tableau par colonnes",
+      "table_row": "Tableau par lignes"
+    },
+    "hiddenInMobileBadge": "Masquée sur la MobileApp",
+    "addAfter": "Ajouter après cette rubrique",
+    "add": {
+      "question": "Ajouter une rubrique",
+      "table_column": "Ajouter un tableau par colonnes",
+      "table_row": "Ajouter un tableau par lignes"
+    },
+    "duplicated": "Rubrique dupliquée avec succès (les attributs d'objets ne sont pas dupliqués)",
+    "settings": "Paramètres de la rubrique",
+    "name": {
+      "question": "Nom de la rubrique question",
+      "tableColumn": "Nom du tableau par colonnes",
+      "tableRow": "Nom du tableau par lignes"
+    },
+    "description": "Description",
+    "descriptionMax": "255 caractères maximum",
+    "additionalComment": "Mention complémentaire",
+    "additionalObservation": "Observation complémentaire (info-bulle)",
+    "pdfFormat": "Format de l'export PDF",
+    "portrait": "Portrait (vertical)",
+    "landscape": "Paysage (horizontal)",
+    "attachmentWidth": "Largeur des images (PDF)",
+    "attachmentHeight": "Hauteur des images (PDF)",
+    "hiddenInMobile": "Masquer sur la MobileApp",
+    "hideInPdf": "Masquer sur l'export PDF",
+    "exportImagesInAppendix": "Exporter les images en annexe lors de l'export PDF",
+    "allowAddRow": "Activer l'ajout de lignes sur le terrain",
+    "allowAddColumn": "Activer l'ajout de colonnes sur le terrain",
+    "firstColumnHidden": "Masquer la colonne d'en-têtes",
+    "importXlsx": "Activer l'importation de valeurs (XLS)",
+    "importXlsxInfo": "Disponible uniquement si toutes les colonnes sont de type « Réponse courte »",
+    "deleteTitle": "Supprimer la rubrique « {name} » ?",
+    "move": {
+      "title": "Déplacer la rubrique",
+      "before": "Positionnée avant la rubrique",
+      "last": "En dernière position"
+    }
+  },
+  "question": {
+    "number": "Question {n}",
+    "mandatory": "Rendre obligatoire",
+    "actions": {
+      "configure": "Paramétrer",
+      "addOption": "Ajouter une option",
+      "addContributor": "Ajouter une demande de collaborateur",
+      "massParams": "Paramétrer en masse",
+      "insertBelow": "Insérer une question en dessous"
+    },
+    "duplicated": "Question dupliquée avec succès",
+    "webappOnly": "La réponse à ce type de question n'est possible que depuis la WebApp",
+    "signatories": "{count, plural, one {# demande de collaborateur} other {# demandes de collaborateur}}",
+    "options": "{count, plural, one {# option de réponse} other {# options de réponse}}",
+    "deleteTitle": "Supprimer la question « {name} » ?",
+    "add": "Ajouter une question",
+    "changeType": {
+      "question": "Êtes-vous certain(e) de vouloir modifier le type de la question ?",
+      "column": "Êtes-vous certain(e) de vouloir modifier le type de la colonne ?",
+      "row": "Êtes-vous certain(e) de vouloir modifier le type de la ligne ?",
+      "subtitle": "Cette modification entraîne la perte du paramétrage des options."
+    },
+    "description": "Description (optionnel)",
+    "additionalComment": "Mention complémentaire (optionnel)",
+    "additionalObservation": "Observation complémentaire (optionnel)",
+    "additionalObservationInfo": "Affichée en info-bulle",
+    "photoSize": "Taille de l'image lors de l'export",
+    "withObservation": "Possibilité d'ajouter une observation",
+    "lockable": "Activer le verrouillage de la réponse",
+    "lockableForm": "Verrouillage automatique activé sur le formulaire",
+    "allowBackdating": "Autoriser l'antidatage",
+    "shared": "Autoriser la réponse lors du partage",
+    "hideInPdf": "Masquer sur l'export PDF",
+    "hideImagesBelowTable": "Masquer les images sous le tableau dans l'export PDF",
+    "style": {
+      "title": "Style",
+      "color": "Couleur",
+      "noColor": "Sans couleur",
+      "colors": {
+        "alert1": "Alerte — niveau 1",
+        "alert2": "Alerte — niveau 2",
+        "warning1": "Attention — niveau 1",
+        "warning2": "Attention — niveau 2",
+        "success1": "Succès — niveau 1",
+        "success2": "Succès — niveau 2",
+        "highlight1": "Mise en valeur — niveau 1",
+        "highlight2": "Mise en valeur — niveau 2"
+      },
+      "icon": "Icône",
+      "noIcon": "Aucune"
+    },
+    "move": {
+      "title": "Déplacer la question",
+      "rubric": "Vers la rubrique",
+      "before": "Positionnée avant la question",
+      "last": "En dernière position"
+    },
+    "mass": {
+      "title": {
+        "question": "Paramétrage de la question en masse",
+        "column": "Paramétrage de la colonne en masse",
+        "row": "Paramétrage de la ligne en masse"
+      },
+      "subtitle": "Le paramétrage de l'option choisie sera appliqué à toutes les options : tout paramétrage appliqué au préalable sera perdu.",
+      "source": "Option de référence",
+      "done": "Paramétrage appliqué à toutes les options"
+    }
+  },
+  "slot": {
+    "title": "Collaborateur {n}",
+    "name": "Nom",
+    "description": "Description",
+    "disableSignature": "Désactiver la demande de date et de signature"
+  },
+  "option": {
+    "title": "Question {q} / Option {o}",
+    "tableColumnTitle": "Colonne {q} / Ligne {o}",
+    "tableRowTitle": "Ligne {q} / Colonne {o}",
+    "copyIdentifier": "Copier l'identifiant",
+    "optionName": "Nom ligne / colonne",
+    "optionNameInfo": "Pour les tableaux, la 1re position définit le nom de la ligne / colonne",
+    "name": "Nom de l'option",
+    "description": "Description",
+    "placeholder": "Champ indicatif",
+    "valueHint": "Texte indicatif",
+    "unit": "Unité",
+    "unitPlaceholder": "U",
+    "choices": "Texte des options",
+    "choicesInfo": "Séparez vos options avec « __ » (deux tirets bas, sans espace)",
+    "photoSize": "Dimension de l'image (PDF)",
+    "code": "Code (optionnel)",
+    "codeInfo": "Identifiant libre, unique dans le formulaire",
+    "freeze": "Figer l'option",
+    "freezeCell": "Figer la cellule",
+    "freezeInfo": "La valeur pré-remplie ne pourra plus être modifiée",
+    "prefill": {
+      "title": "Pré-remplissage",
+      "validationError": "La valeur de pré-remplissage ne correspond pas aux limitations de validation des données.",
+      "details": "Détails des variables",
+      "textInfo": "Tapez « @@ » pour insérer une variable dynamique",
+      "withVariable": "Pré-remplir avec une variable dynamique",
+      "variable": "Variable",
+      "photoInfo": "Une photo est pré-remplie à partir d'un attribut image ; si la variable ne renvoie rien, la question reste vide.",
+      "checked": "Coché par défaut",
+      "value": "Valeur",
+      "hours": "Heures",
+      "minutes": "Minutes",
+      "lat": "Latitude",
+      "lng": "Longitude",
+      "alt": "Altitude",
+      "textPlaceholder": "Texte pré-rempli, ex. @@ProjectDesignation"
+    },
+    "validation": {
+      "title": "Validation des données",
+      "operator": "Condition",
+      "ops": {
+        "gt": "Supérieur à",
+        "gte": "Supérieur ou égal à",
+        "lt": "Inférieur à",
+        "lte": "Inférieur ou égal à",
+        "eq": "Égal à",
+        "neq": "Différent de",
+        "between": "Entre",
+        "not_between": "Non compris entre",
+        "before": "Avant le",
+        "after": "Après le",
+        "between_dates": "Entre",
+        "not_between_dates": "Non compris entre"
+      },
+      "min": "Valeur minimale",
+      "max": "Valeur maximale",
+      "value": "Valeur",
+      "decimalInfoFr": "Séparateur décimal : virgule (1,5)",
+      "decimalInfoEn": "Séparateur décimal : point (1.5)",
+      "message": "Message d'erreur personnalisé",
+      "defaultMessage": "La valeur saisie n'est pas comprise dans la plage de données attendue",
+      "block": "Bloquer la saisie hors limite",
+      "info": {
+        "single": "Valeur attendue : {op} {min}",
+        "between": "Valeur attendue : {op} {min} et {max}"
+      }
+    },
+    "alert": {
+      "title": "Alerte",
+      "type": "Nature de l'alerte",
+      "types": {
+        "error": "Blocage",
+        "warning": "Danger",
+        "info": "Information",
+        "trace": "Trace"
+      },
+      "text": "Texte d'alerte",
+      "preview": "Déclencher un aperçu de l'alerte"
+    },
+    "redirect": {
+      "title": "Conditions de redirection",
+      "info": "Si cette option est remplie, l'opérateur sera redirigé vers :",
+      "rubric": "Rubrique",
+      "question": "Question",
+      "none": "Début de la rubrique"
+    },
+    "exportKey": {
+      "title": "Valeur exportable",
+      "empty": "Aucune valeur exportable n'est paramétrée pour l'organisation",
+      "link": "Lien de la valeur exportable"
+    },
+    "pdf": {
+      "title": "Champ PDF",
+      "name": "Nom du champ PDF"
+    },
+    "xls": {
+      "title": "Export XLS",
+      "label": "Libellé (optionnel)"
+    },
+    "formula": {
+      "label": "Formule",
+      "variables": "Variables",
+      "placeholder": "Saisissez votre formule ici, ex. $$R1Q1OJ+$$R1Q2OJ",
+      "noteFr": "Références $$RxQyOz (h, i, j = position courante), variables @@Nom, arguments séparés par « ; », décimales avec une virgule.",
+      "noteEn": "Références $$RxQyOz (h, i, j = position courante), variables @@Nom, arguments séparés par « ; », décimales avec un point.",
+      "errors": {
+        "invalidSyntax": "La syntaxe de la formule est invalide",
+        "invalidVariable": "Une référence utilisée dans la formule est invalide",
+        "invalidParameters": "Les paramètres d'une fonction de la formule sont invalides"
+      }
+    }
+  },
+  "table": {
+    "unified": "unifiée",
+    "divide": "Diviser les cellules",
+    "unify": "Unifier toutes les cellules",
+    "insert": {
+      "column": "Insérer une colonne après",
+      "row": "Insérer une ligne après"
+    },
+    "delete": {
+      "column": "Supprimer la colonne",
+      "row": "Supprimer la ligne"
+    },
+    "addRow": "Ligne",
+    "addColumn": "Colonne",
+    "selectHint": "Sélectionnez un en-tête pour paramétrer une ligne / colonne, ou une cellule pour paramétrer son option.",
+    "name": {
+      "column": "Nom de la colonne",
+      "row": "Nom de la ligne"
+    },
+    "firstColumnHidden": "Masquée",
+    "unifiedInfo": "cellules unifiées : le paramétrage s'applique à toutes les cellules",
+    "deleteTitle": {
+      "column": "Supprimer la colonne « {name} » ?",
+      "row": "Supprimer la ligne « {name} » ?"
+    }
+  },
+  "images": {
+    "title": "Images",
+    "count": "{count, plural, =0 {aucune image} one {# image ajoutée} other {# images ajoutées}}",
+    "typeError": "Le fichier sélectionné doit être une image",
+    "uploadError": "L'envoi de l'image a échoué",
+    "remove": "Retirer l'image",
+    "add": "Ajouter"
+  },
+  "variables": {
+    "title": "Détails des variables dynamiques",
+    "info": "Pour ajouter un champ dynamique, copiez-collez le nom de la variable dans un champ de réponse.",
+    "tabs": {
+      "project": "Projet",
+      "flow": "Flow",
+      "form": "Formulaire",
+      "attribute": "Attribut"
+    },
+    "empty": "Aucune variable disponible",
+    "columns": {
+      "name": "Nom de la variable",
+      "description": "Description",
+      "action": "Action"
+    },
+    "copy": "Copier",
+    "attribute": "Attribut {name}",
+    "items": {
+      "ProjectDesignation": "Nom du projet",
+      "ProjectNoCase": "Référence du projet",
+      "ProjectNoContract": "N° de contrat du projet",
+      "ProjectClientName1": "Nom 1 du client du projet",
+      "ProjectClientName2": "Nom 2 du client du projet",
+      "ProjectClientName3": "Nom 3 du client du projet",
+      "ProjectLocation": "Localisation du projet",
+      "ProjectDescription": "Description du projet",
+      "ProjectSupervision1": "Surveillant externe 1 du projet",
+      "ProjectSupervision2": "Surveillant externe 2 du projet",
+      "ProjectSupervision3": "Surveillant externe 3 du projet",
+      "ProjectInternalSupervision1": "Surveillant interne 1 du projet",
+      "ProjectInternalSupervision2": "Surveillant interne 2 du projet",
+      "ProjectInternalSupervision3": "Surveillant interne 3 du projet",
+      "ProjectInternalOrder": "N° de commande interne du projet",
+      "ProjectExternalOrder": "N° de commande externe du projet",
+      "ProjectNoMarket": "N° de marché du projet",
+      "ProjectTechnicalCase": "Affaire technique du projet",
+      "ProjectKeywords": "Mots-clés du projet",
+      "ProjectBusinessField": "Domaine métier du projet",
+      "ProjectNationalProgram": "Programme national du projet",
+      "ProjectFamily": "Famille du projet",
+      "FlowName": "Nom du flow",
+      "FlowDescription": "Description du flow",
+      "FlowFamily": "Famille du flow",
+      "FlowCategory": "Catégorie du flow",
+      "FlowStatus": "Statut du flow",
+      "FlowSite": "Site du flow",
+      "FlowUnit": "Tranche du flow",
+      "FlowLocal": "Local du flow",
+      "FlowElementarySystem": "Système élémentaire du flow",
+      "FlowFunctionalLandmark": "Repère fonctionnel du flow",
+      "FlowTechnicalObject": "Objet technique du flow",
+      "FlowChrono": "Référence du flow",
+      "FlowEpsilonFolderRef": "Référence de dossier du flow",
+      "FlowRapporteur": "Rapporteur affecté au flow",
+      "FlowResponsable": "Responsable affecté au flow",
+      "FlowTablette1": "Tablette 1 affectée au flow",
+      "FlowTablette2": "Tablette 2 affectée au flow",
+      "FlowTablette3": "Tablette 3 affectée au flow",
+      "FlowDateDebut": "Date de début du flow",
+      "FlowDateFin": "Date de fin du flow",
+      "FlowGeometryCoordinateLat": "Latitude liée au flow",
+      "FlowGeometryCoordinateLng": "Longitude liée au flow",
+      "FlowGeometryCoordinateAlt": "Altitude liée au flow",
+      "FlowInternalSupervision1": "Surveillant interne 1 du flow",
+      "FlowInternalSupervision2": "Surveillant interne 2 du flow",
+      "FlowInternalSupervision3": "Surveillant interne 3 du flow",
+      "FlowExternalSupervision1": "Surveillant externe 1 du flow",
+      "FlowExternalSupervision2": "Surveillant externe 2 du flow",
+      "FlowExternalSupervision3": "Surveillant externe 3 du flow",
+      "CurrPhaseNumber": "Numéro de la phase actuelle",
+      "CurrPhaseName": "Nom de la phase actuelle",
+      "CurrPhaseDescription": "Information de la phase actuelle",
+      "CurrStepNumber": "Numéro de l'étape actuelle",
+      "CurrStepName": "Nom de l'étape actuelle",
+      "CurrStepDescription": "Information de l'étape actuelle",
+      "AdditionalStatementPhase": "Mention complémentaire de la phase",
+      "AdditionalStatementStep": "Mention complémentaire de l'étape",
+      "refResponse": "Référence de la réponse",
+      "currentCollaborator": "Collaborateur actuel",
+      "externalCollaboratorLastName": "Nom du collaborateur externe",
+      "externalCollaboratorFirstName": "Prénom du collaborateur externe",
+      "externalCollaboratorCompany": "Entreprise du collaborateur externe",
+      "externalCollaboratorJob": "Fonction du collaborateur externe",
+      "AdditionalStatementForm": "Mention complémentaire du formulaire"
+    }
+  },
+  "preview": {
+    "select": "Sélectionner",
+    "hours": "hh",
+    "minutes": "mm",
+    "photo": "Prendre une photo",
+    "file": "Ajouter un fichier PDF",
+    "location": "Localisation",
+    "signature": "Signature",
+    "observation": "Ajouter une observation si besoin"
+  }
+}

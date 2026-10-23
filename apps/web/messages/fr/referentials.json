@@ -1,0 +1,117 @@
+{
+  "crumb": "Référentiels",
+  "title": "Liste des flows référentiels applicables au projet",
+  "subtitle": "{current} élément(s) dans la liste / {total} au total",
+  "emptyTitle": "Aucun flow référentiel importé",
+  "emptySubtitle": "Importez des flows depuis une entité référentiel avec le bouton « Importer depuis un référentiel ».",
+  "filters": {
+    "type": "Type",
+    "family": "Famille",
+    "status": "Statut",
+    "entity": "Entité référentiel"
+  },
+  "columns": {
+    "type": "Type",
+    "name": "Nom",
+    "reference": "Référence",
+    "family": "Famille",
+    "status": "Statut",
+    "index": "Indice",
+    "entity": "Entité référentiel",
+    "lastImport": "Dernière importation",
+    "executions": "Exécutions"
+  },
+  "lockedTooltip": "Flow référentiel verrouillé : synchronisé avec sa source",
+  "unlockedTooltip": "Ce flow a été débloqué",
+  "updateAvailable": "Nouvelle version disponible",
+  "sourceMissing": "Source indisponible",
+  "actions": {
+    "open": "Ouvrir le contenu",
+    "execute": "Exécuter",
+    "executeSelection": "Exécuter ({count})",
+    "refresh": "Mettre à jour",
+    "refreshAll": "Mettre à jour tous les référentiels",
+    "unlock": "Débloquer"
+  },
+  "import": {
+    "title": "Importer depuis un référentiel",
+    "subtitle": "Seuls les flows au statut « En préparation » sont proposés (10 au maximum). Les blocs Contrôle et Formulaire ne sont pas importés.",
+    "entity": "Entité référentiel",
+    "selectEntity": "Sélectionner une entité référentiel",
+    "noEntity": "Aucune entité référentiel accessible",
+    "empty": "Aucun flow en préparation dans cette entité",
+    "alreadyImported": "Déjà importé",
+    "selected": "{count} / {max} sélectionné(s)",
+    "updateExisting": "Mettre à jour tous les référentiels déjà importés",
+    "conflict": "{count, plural, one {# flow est déjà importé et sera ignoré} other {# flows sont déjà importés et seront ignorés}}",
+    "conflictUpdate": "{count, plural, one {# flow déjà importé sera mis à jour} other {# flows déjà importés seront mis à jour}}",
+    "success": "Importation effectuée avec succès",
+    "summary": "{created} importé(s), {updated} mis à jour, {skipped} ignoré(s)",
+    "inProgress": "L'import du référentiel est en cours",
+    "inProgressDescription": "Le traitement sera terminé lorsque le flow importé sera visible dans la liste."
+  },
+  "execute": {
+    "title": {
+      "referential": "Exécuter depuis un flow référentiel",
+      "group": "Exécuter depuis un flow référentiel chapeau",
+      "intervention": "Exécuter depuis un flow référentiel intervention"
+    },
+    "selection": "{count} flow(s) référentiel(s) sélectionné(s)",
+    "copies": "Nombre de copies",
+    "options": "Options sur les flows et les documents qui vont être générés suite à l'exécution",
+    "resetInternal": "Réinitialiser la validation interne",
+    "resetInternalHelp": "Retour à l'état « Rédaction » pour tous les blocs des flows générés",
+    "resetExternal": "Réinitialiser la validation externe des documents",
+    "documentsUnavailable": "Disponible avec le module Documents",
+    "info": "Chaque copie crée un flow utilisable (Spécifique, Générique, Chapeau ou Intervention) avec son contenu et ses séquences.",
+    "success": "Flow référentiel exécuté avec succès",
+    "successList": "{count} flow(s) référentiel(s) exécuté(s) avec succès",
+    "created": "{count, plural, one {# flow créé} other {# flows créés}}",
+    "inProgress": "L'exécution du référentiel est en cours",
+    "inProgressDescription": "Les flows générés apparaîtront dans le module Flows à la fin du traitement."
+  },
+  "refresh": {
+    "title": "Êtes-vous certain(e) de vouloir mettre à jour votre flow référentiel ?",
+    "titleAll": "Êtes-vous certain(e) de vouloir mettre à jour les flows référentiels déjà importés ?",
+    "subtitle": "Tous les contenus seront écrasés par ceux de la source, sans retour en arrière possible. Les flows déjà exécutés ne sont pas affectés.",
+    "success": "Le flow référentiel a été mis à jour avec succès",
+    "successAll": "{count} flow(s) mis à jour avec succès",
+    "inProgress": "La mise à jour des référentiels est en cours",
+    "inProgressDescription": "La liste sera rafraîchie à la fin du traitement."
+  },
+  "unlock": {
+    "title": {
+      "referential": "Êtes-vous certain(e) de vouloir débloquer le flow référentiel ?",
+      "group": "Êtes-vous certain(e) de vouloir débloquer le flow référentiel chapeau ?",
+      "intervention": "Êtes-vous certain(e) de vouloir débloquer le flow référentiel intervention ?"
+    },
+    "subtitle": "Plus aucune mise à jour ne sera possible par la suite.",
+    "options": "Options sur les flows et les documents débloqués",
+    "resetInternal": "Réinitialiser la validation interne du flow référentiel",
+    "resetInternalHelp": "Retour à l'état « Rédaction » pour tous les blocs du flow débloqué",
+    "success": "Le flow référentiel a été débloqué"
+  },
+  "errors": {
+    "has_signatures_or_responses": "Impossible de mettre à jour le contenu car le flow contient au moins une signature ou une réponse de formulaire",
+    "source_missing": "Le flow référentiel source n'est plus disponible",
+    "not_refreshable": "Ce flow a été débloqué : il ne peut plus être mis à jour",
+    "size_limit": "Impossible de sélectionner plus de 10 éléments. Veuillez faire le traitement par lots",
+    "no_selection": "Aucun flow sélectionné",
+    "not_lockable": "Ce flow n'est pas un référentiel verrouillé",
+    "invalid_copies": "Le nombre de copies doit être compris entre 1 et 50",
+    "invalid_target": "L'import n'est possible que dans une entité Projet ou PGAC",
+    "job_failed": "Le traitement en tâche de fond a échoué",
+    "timeout": "Le traitement est toujours en cours : consultez la cloche des événements"
+  },
+  "diagram": {
+    "title": "Liste des diagrammes référentiels applicables au projet",
+    "comingSoon": "Bientôt disponible",
+    "comingSoonDescription": "Les diagrammes référentiels ne sont pas encore disponibles.",
+    "subtitle": "{count, plural, =0 {Aucun diagramme référentiel : ils sont repris lors de la préparation d'un sous-dossier référentiel} one {# diagramme référentiel (lecture seule)} other {# diagrammes référentiels (lecture seule)}}"
+  },
+  "jobs": {
+    "import": "Import de {count} flow(s) référentiel(s)",
+    "execute": "Exécution de {count} flow(s) référentiel(s)",
+    "refresh": "Mise à jour de {count} flow(s) référentiel(s)"
+  }
+}

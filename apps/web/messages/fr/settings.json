@@ -1,0 +1,773 @@
+{
+  "menu": {
+    "title": "Paramètres",
+    "account": "Compte",
+    "clients": "Carnet clients",
+    "companies": "Sociétés",
+    "families": "Familles",
+    "categories": "Catégories",
+    "statuses": "Statuts",
+    "references": "Références",
+    "customFields": "Attributs",
+    "files": "Fichiers",
+    "filesModels": "Modèles",
+    "filesCells": "Cellules",
+    "sections": "Dossiers",
+    "trash": "Corbeille",
+    "backgroundTasks": "Tâches de fond",
+    "platform": "Administration plateforme",
+    "general": "Général",
+    "generalAccount": "Compte",
+    "generalOrganization": "Organisation",
+    "trams": "Trames",
+    "wording": "Suivi",
+    "backups": "Sauvegardes MobileApp",
+    "logsPush": "Journaux d'envoi",
+    "usage": "Usage"
+  },
+  "comingSoon": {
+    "title": "Bientôt disponible",
+    "description": "Cet écran sera livré dans une prochaine version de l'application."
+  },
+  "errors": {
+    "inUse": "Impossible d'effectuer la suppression : l'élément est utilisé",
+    "usage": {
+      "projects": "{count, plural, one {# entité} other {# entités}}",
+      "flows": "{count, plural, one {# flow} other {# flows}}",
+      "forms": "{count, plural, one {# formulaire} other {# formulaires}}",
+      "responses": "{count, plural, one {# réponse} other {# réponses}}",
+      "statuses": "{count, plural, one {# statut} other {# statuts}}",
+      "attributes": "{count, plural, one {# attribut} other {# attributs}}",
+      "references": "{count, plural, one {# référence} other {# références}}",
+      "tablets": "{count, plural, one {# tablette} other {# tablettes}}",
+      "collaborators": "{count, plural, one {# collaborateur.trice} other {# collaborateurs.trices}}",
+      "skills": "{count, plural, one {# compétence} other {# compétences}}",
+      "hierarchies": "{count, plural, one {# affectation de hiérarchie} other {# affectations de hiérarchie}}",
+      "equipments": "{count, plural, one {# moyen} other {# moyens}}",
+      "risks": "{count, plural, one {# risque} other {# risques}}",
+      "objects": "{count, plural, one {# objet} other {# objets}}",
+      "blocks": "{count, plural, one {# bloc} other {# blocs}}",
+      "families": "{count, plural, one {# famille} other {# familles}}"
+    },
+    "duplicate": "Nom(s) renseigné(s) déjà utilisé(s)",
+    "duplicate_code": "Code renseigné déjà utilisé",
+    "duplicate_name": "Nom renseigné déjà utilisé",
+    "duplicate_variable": "Un attribut utilise déjà cette variable dynamique",
+    "duplicate_wording": "Une configuration portant le même nom existe déjà",
+    "invalid": "Certaines informations saisies ne sont pas valides",
+    "invalid_parent": "Le parent choisi n'est pas valide pour cet élément",
+    "parent_inactive": "Impossible d'activer cet élément tant que son parent est désactivé !",
+    "has_children": "Impossible de supprimer un élément qui possède des enfants",
+    "imported": "Impossible de supprimer une catégorie déjà importée dans un projet",
+    "wording_required": "Une configuration de suivi est requise pour une famille Document",
+    "default_status": "Impossible de désactiver ou de supprimer un statut par défaut",
+    "attribute_in_use": "Suppression impossible — L'attribut est déjà utilisé",
+    "choice_in_use": "La valeur d'attribut est déjà utilisée",
+    "nomenclature_invalid": "Nomenclature non conforme",
+    "reference_exists": "Impossible de créer une référence déjà existante",
+    "default_reference_exists": "Une référence par défaut de ce champ existe déjà",
+    "reference_twin_active": "Impossible d'activer cette référence alors qu'une autre porte les mêmes caractéristiques",
+    "parent_company": "La société principale ne peut pas être supprimée",
+    "not_found": "Élément introuvable",
+    "pgac_not_restorable": "Une entité PGAC ne peut pas être restaurée",
+    "parent_deleted": "Impossible de restaurer cet élément : son parent est supprimé",
+    "response_parent_deleted": "Impossible de restaurer la réponse : son flow ou son formulaire est supprimé",
+    "category_imported": "Impossible de restaurer une catégorie importée dans un projet",
+    "read_only": "Cette configuration n'est pas modifiable",
+    "last_default_translation": "Impossible de supprimer l'unique traduction d'une configuration paramétrée par défaut",
+    "wording_entry_required": "Chaque état doit avoir une valeur et un tooltip",
+    "unauthenticated": "Session expirée, veuillez vous reconnecter"
+  },
+  "account": {
+    "subtitle": "Informations du compte (applicabilité) utilisées dans les documents générés",
+    "sections": {
+      "identity": "Identité",
+      "address": "Adresse",
+      "contact": "Contact"
+    },
+    "fields": {
+      "name": "Nom du compte",
+      "full_name": "Complément",
+      "organization": "Organisation",
+      "subdomain": "Sous-domaine",
+      "organizationId": "UUID de l'organisation",
+      "address_line_1": "Adresse",
+      "address_line_2": "Complément d'adresse",
+      "postal_code": "Code postal",
+      "city": "Ville",
+      "country": "Pays",
+      "phone": "Téléphone",
+      "fax": "Fax",
+      "contact_email": "Email de contact",
+      "website": "Site internet"
+    }
+  },
+  "clients": {
+    "title": "Carnet clients",
+    "add": "Ajouter un client",
+    "columns": {
+      "name": "Nom",
+      "address": "Adresse",
+      "zipCode": "Code postal",
+      "city": "Ville",
+      "country": "Pays"
+    },
+    "delete": {
+      "title": "Supprimer le client « {name} » ?"
+    },
+    "created": "Client créé avec succès",
+    "editTitle": "Édition du client {name}",
+    "createTitle": "Nouveau client",
+    "tabs": {
+      "general": "Général",
+      "options": "Options"
+    },
+    "createAnother": "Créer un autre client",
+    "fields": {
+      "name": "Nom 1",
+      "name_2": "Nom 2",
+      "name_3": "Nom 3",
+      "address": "Adresse",
+      "address_comp": "Complément",
+      "zip_code": "Code postal",
+      "city": "Ville",
+      "country": "Pays",
+      "observation": "Commentaire",
+      "reference": "Référence",
+      "cover_page_enabled": "Ajouter une page de garde spécifique au client",
+      "cover_page_pdf": "Trame PDF",
+      "page_number_x": "Position du numéro de page X",
+      "page_number_y": "Position du numéro de page Y",
+      "index_max": "Nombre d'indices précédents"
+    },
+    "coverHelp": "La page de garde spécifique du client sera ajoutée par défaut en première page de chacun des documents générés.",
+    "coverPdfUnavailable": "Le dépôt de la trame PDF sera disponible avec le module Fichiers.",
+    "editWarning": "Attention : les modifications vont impacter les entités auxquelles ce client est affecté !"
+  },
+  "companies": {
+    "title": "Sociétés",
+    "add": "Ajouter une société",
+    "parent": "Société principale",
+    "columns": {
+      "name": "Nom",
+      "activityArea": "Secteur d'activité"
+    },
+    "errors": {
+      "parentNotDeletable": "La société principale ne peut pas être supprimée"
+    },
+    "delete": {
+      "title": "Supprimer la société « {name} » ?",
+      "subtitle": "Il n'y a pas de corbeille pour cet élément. Les collaborateurs d'une autre société que la société principale deviennent co-traitants."
+    },
+    "created": "Société créée avec succès",
+    "editTitle": "Édition de la société {name}",
+    "createTitle": "Nouvelle société",
+    "createAnother": "Créer une autre société",
+    "fields": {
+      "name": "Nom",
+      "activityArea": "Secteur d'activité",
+      "comment": "Commentaire"
+    }
+  },
+  "families": {
+    "title": "Familles",
+    "subtitle": "Les familles parents et enfants vous permettent de structurer vos données ; elles sont partagées dans toute l'organisation.",
+    "add": "Ajouter une famille",
+    "addCategory": "Ajouter une catégorie",
+    "actions": {
+      "addChild": "Ajouter une famille enfant",
+      "addChildCategory": "Ajouter une catégorie enfant"
+    },
+    "collapse": "Réduire",
+    "expand": "Agrandir",
+    "expandAll": "Tout agrandir",
+    "collapseAll": "Tout réduire",
+    "noClientFeedback": "Sans retour client sur l'indice / sous-indice",
+    "relative": {
+      "parent": "Parent",
+      "child": "Enfant"
+    },
+    "provenance": {
+      "default": "Défaut",
+      "entity": "Entité"
+    },
+    "active": "Actif",
+    "inactive": "Inactif",
+    "filters": {
+      "nature": "Nature"
+    },
+    "columns": {
+      "name": "Nature / Nom",
+      "code": "Code",
+      "type": "Type",
+      "provenance": "Provenance",
+      "state": "État"
+    },
+    "delete": {
+      "title": "Supprimer « {name} » ?",
+      "toTrash": "La catégorie sera placée dans la corbeille pendant 30 jours."
+    },
+    "created": "Famille créée avec succès",
+    "createdCategory": "Catégorie créée avec succès",
+    "createAnother": "Créer une autre famille",
+    "createAnotherCategory": "Créer une autre catégorie",
+    "createTitle": "Nouvelle famille",
+    "editTitle": "Édition de la famille {name}",
+    "createCategoryTitle": "Nouvelle catégorie",
+    "editCategoryTitle": "Édition de la catégorie {name}",
+    "fields": {
+      "nature": "Nature",
+      "type": "Type",
+      "parent": "Enfant de…",
+      "shortName": "Nom court",
+      "longName": "Nom long",
+      "code": "Code",
+      "priority": "Ordre d'affichage",
+      "color": "Couleur",
+      "qualityReference": "Référence qualité",
+      "wording": "Suivi",
+      "clientSupervision": "Retour client sur l'indice",
+      "clientSupervisionSubIndex": "Retour client sur le sous-indice"
+    },
+    "frozen": "Impossible de changer le parent / la nature de cet élément après sa création.",
+    "noParent": "Aucun parent dans cette nature : créez d'abord un élément parent.",
+    "placeholders": {
+      "shortName": "Ex. : FAM, SECU, MO"
+    },
+    "noWording": "Aucune configuration de suivi n'existe encore.",
+    "supervisionWarning": "La modification des conditions de retour client impactera les documents déjà créés."
+  },
+  "natures": {
+    "project": "Entité",
+    "flow": "Flow",
+    "document": "Document",
+    "form": "Formulaire",
+    "risk": "Risque",
+    "equipment": "Moyen",
+    "device": "Tablettes",
+    "team": "Groupe de collaborateurs",
+    "function": "Fonction de collaborateur",
+    "legal": "Administratif",
+    "skill": "Compétence",
+    "contract": "Contrat",
+    "technical_object": "Objet",
+    "activity_domain": "Domaine d'activité de compétence",
+    "list": "Liste",
+    "hierarchy": "Hiérarchie de collaborateurs"
+  },
+  "categories": {
+    "title": "Catégories par défaut",
+    "subtitle": "Modèle de catégories recopié dans chaque entité.",
+    "projectTitle": "Catégories",
+    "projectSubtitle": "Catégories locales de l'entité et catégories issues des catégories par défaut.",
+    "sync": "Mettre à jour les catégories par défaut",
+    "syncHelp": "Les différentes catégories seront mises à jour en fonction des catégories par défaut définies dans les paramètres.",
+    "syncConfirm": "Mettre à jour",
+    "assignAll": "Affecter à tous les projets",
+    "assignAllHelp": "Les catégories par défaut seront ajoutées ou mises à jour dans toutes les entités du compte.",
+    "assignAllConfirm": "Affecter",
+    "synced": "Catégories mises à jour avec succès"
+  },
+  "color": {
+    "palette": {
+      "0": "Bleu",
+      "1": "Orange foncé",
+      "2": "Vert",
+      "3": "Gris",
+      "4": "Orange",
+      "5": "Rose",
+      "6": "Violet",
+      "7": "Turquoise"
+    },
+    "custom": "Couleur personnalisée"
+  },
+  "statuses": {
+    "title": "Liste des statuts de nature {nature}",
+    "subtitle": "Chaque statut appartient à un état et peut être lié à une famille.",
+    "add": "Ajouter un statut",
+    "linkDefault": "Défaut",
+    "familyLetter": {
+      "parent": "(P)",
+      "child": "(E)"
+    },
+    "defaultSuffix": "- Statut par défaut",
+    "columns": {
+      "family": "Famille",
+      "name": "Nom",
+      "importable": "Importation",
+      "exportable": "Exportation",
+      "mobile": "MobileApp",
+      "hidden": "Masqué",
+      "category": "État",
+      "active": "Activation"
+    },
+    "categories": {
+      "todo": "À faire",
+      "in_preparation": "En préparation",
+      "in_operation": "En opération",
+      "in_progress": "En cours",
+      "done": "Terminé"
+    },
+    "active": "Actif",
+    "inactive": "Inactif",
+    "filters": {
+      "all": "Tous",
+      "active": "Actifs",
+      "inactive": "Inactifs"
+    },
+    "delete": {
+      "title": "Supprimer le statut « {name} » ?"
+    },
+    "created": "Statut créé avec succès",
+    "createTitle": "Nouveau statut ({nature})",
+    "editTitle": "Édition du statut {name}",
+    "createAnother": "Créer un autre statut",
+    "fields": {
+      "name": "Nom",
+      "description": "Commentaire",
+      "color": "Couleur",
+      "category": "État",
+      "linkType": "Type de lien",
+      "familyParent": "Famille parent",
+      "familyChild": "Famille enfant",
+      "isDefault": "Rendre ce statut sélectionné par défaut à la création",
+      "downloadable": "Visible depuis la MobileApp (uniquement type générique)",
+      "importable": "Visible dans les fenêtres d'importation depuis la WebApp",
+      "exportable": "Visible lors de l'exportation",
+      "hideFlow": "Masquer le flow pour ce statut à un état terminé",
+      "hideEntity": "Masquer l'entité pour ce statut à un état terminé"
+    },
+    "descriptionHelp": "Visible au moment de la sélection d'un statut, mais aussi au survol.",
+    "frozen": "Le type de lien et la famille ne sont plus modifiables après la création.",
+    "links": {
+      "default": "Défaut",
+      "entity_family_parent": "Famille parente de l'entité",
+      "entity_family": "Famille de l'entité",
+      "entity_parent_family_parent": "Famille parent de l'entité parente",
+      "entity_parent_family": "Famille enfant de l'entité parente",
+      "object_default": "Défaut",
+      "object_entity_family_parent": "Famille parent",
+      "object_entity_family": "Famille enfant"
+    },
+    "options": "Options",
+    "noOptions": "Les statuts de bloc instructions multiples n'ont pas d'option."
+  },
+  "statusNatures": {
+    "project": "Entité",
+    "flow": "Flow",
+    "form": "Formulaire",
+    "form_response": "Réponse de formulaire",
+    "technical_object": "Objet",
+    "multi_pr": "Bloc instructions multiples"
+  },
+  "customFields": {
+    "title": "Liste des attributs de nature {nature}",
+    "add": "Ajouter un attribut",
+    "columns": {
+      "name": "Nom - Type",
+      "family": "Lien",
+      "variable": "Variable dynamique",
+      "required": "Obligatoire",
+      "active": "Activation"
+    },
+    "types": {
+      "text": "Texte",
+      "textarea": "Texte long",
+      "label": "Titre",
+      "integer": "Nombre entier",
+      "double": "Nombre décimal",
+      "boolean": "Vrai ou faux",
+      "date": "Date",
+      "datetime": "Date et heure",
+      "select": "Liste à choix unique",
+      "multiselect": "Liste à choix multiple",
+      "file": "Fichier",
+      "image": "Image",
+      "metadata": "Métadonnée",
+      "link": "Lien hypertexte"
+    },
+    "linkDefault": "Défaut",
+    "active": "Actif",
+    "inactive": "Inactif",
+    "filters": {
+      "all": "Tous",
+      "active": "Actifs",
+      "inactive": "Inactifs"
+    },
+    "activateAll": "Activer tout",
+    "delete": {
+      "title": "Supprimer l'attribut « {name} » ?"
+    },
+    "created": "Attribut créé avec succès",
+    "createTitle": "Nouvel attribut ({nature})",
+    "editTitle": "Édition de l'attribut {name}",
+    "createAnother": "Créer un autre attribut",
+    "fields": {
+      "type": "Type d'attribut",
+      "name": "Nom",
+      "link_type": "Type de lien",
+      "familyParent": "Famille parent",
+      "familyChild": "Famille enfant",
+      "choices": "Liste de choix",
+      "default_value": "Valeur par défaut",
+      "placeholder": "Texte indicatif",
+      "tooltip": "Infobulle",
+      "description": "Aide",
+      "pdf_field_name": "Champ PDF",
+      "variable_name": "Variable dynamique",
+      "text_display": "Texte affiché sur la MobileApp",
+      "required": "Obligatoire",
+      "read_only": "Lecture seule",
+      "display_in_flow_card": "MobileApp - Afficher dans la carte d'un flow",
+      "display_in_flow_banner": "MobileApp - Afficher dans le bandeau d'un flow",
+      "display_on_flow_opening": "MobileApp - Afficher à l'ouverture du flow"
+    },
+    "frozen": "Le type, le lien et la famille ne sont plus modifiables après la création.",
+    "linkHelp": "Attribut spécifique à une famille parent ou enfant, ou bien par défaut.",
+    "links": {
+      "default": "Défaut",
+      "entity_family_parent": "Famille parent",
+      "entity_family": "Famille enfant"
+    },
+    "choicesHelp": "Séparez les valeurs par « __ » ({count, plural, =0 {aucune valeur} one {# valeur} other {# valeurs}})",
+    "variableHelp": "Lettres, chiffres et « _ » ; unique dans le compte.",
+    "textDisplayHelp": "Par défaut : « Veuillez cliquer sur ce lien ».",
+    "options": "Options",
+    "errors": {
+      "duplicateChoice": "La liste contient des valeurs en double",
+      "variablePattern": "Utilisez uniquement des lettres, des chiffres et « _ »"
+    }
+  },
+  "fieldNatures": {
+    "project": "Entité",
+    "flow": "Flow",
+    "phase": "Phase",
+    "step": "Étape",
+    "technical_object": "Objet",
+    "document": "Document"
+  },
+  "references": {
+    "title": "Références",
+    "subtitle": "Nomenclatures de génération automatique des références.",
+    "add": "Ajouter une référence",
+    "columns": {
+      "nature": "Nature",
+      "field": "Champ",
+      "link": "Lien",
+      "nomenclature": "Nomenclature",
+      "counter": "Compteur",
+      "active": "Activation"
+    },
+    "fieldsByNature": {
+      "project": {
+        "ref_int": "Référence",
+        "ref_ext": "N° de contrat"
+      },
+      "flow": {
+        "ref_int": "Référence"
+      },
+      "form": {
+        "ref_int": "Référence"
+      },
+      "document": {
+        "ref_int": "Référence interne",
+        "ref_ext": "Référence externe",
+        "complement_ref_int": "Complément référence interne",
+        "complement_ref_ext": "Complément référence externe"
+      },
+      "technical_object": {
+        "ref_int": "Référence interne",
+        "ref_ext": "Référence externe",
+        "complement_ref_int": "Complément référence interne",
+        "complement_ref_ext": "Complément référence externe"
+      }
+    },
+    "links": {
+      "default": "Défaut",
+      "entity_family_parent": "Famille parent",
+      "entity_family": "Famille enfant",
+      "entity_parent_family_parent": "Famille parent de l'entité parente",
+      "entity_parent_family": "Famille enfant de l'entité parente"
+    },
+    "counterSummary": "{type} · {digits} chiffres",
+    "counterTypes": {
+      "global": "Compteur général",
+      "local": "Compteur local"
+    },
+    "counterHelp": {
+      "global": "Compteur général à toutes les entités",
+      "local": "Compteur local à chacune des entités"
+    },
+    "active": "Active",
+    "inactive": "Inactive",
+    "delete": {
+      "title": "Supprimer cette référence ?"
+    },
+    "created": "Référence créée avec succès",
+    "createTitle": "Nouvelle référence",
+    "editTitle": "Édition de la référence",
+    "familyParent": "Famille parent",
+    "familyChild": "Famille enfant",
+    "frozen": "Seuls la nomenclature et le compteur sont modifiables après la création.",
+    "nomenclatureHelp": "Variables disponibles : {variables} ('{counter}' obligatoire).",
+    "errors": {
+      "nomenclature": "Nomenclature non conforme : la variable '{counter}' est obligatoire"
+    },
+    "fields": {
+      "counterType": "Type de compteur",
+      "counterFormat": "Format du compteur (nombre de chiffres)",
+      "startValue": "Valeur de départ du compteur"
+    },
+    "formatPreview": "Aperçu : {value}"
+  },
+  "referenceNatures": {
+    "project": "Entité",
+    "flow": "Flow",
+    "document": "Document",
+    "form": "Formulaire",
+    "technical_object": "Objet"
+  },
+  "trash": {
+    "title": "Corbeille",
+    "subtitle": "Liste des éléments supprimés ces 30 derniers jours",
+    "columns": {
+      "nature": "Nature",
+      "name": "Nom",
+      "deletedAt": "Date de suppression",
+      "user": "Utilisateur.trice"
+    },
+    "natures": {
+      "entity": "Entité",
+      "flow": "Flow",
+      "category": "Catégorie",
+      "form": "Formulaire",
+      "form_response": "Réponse de formulaire"
+    },
+    "restore": "Restaurer",
+    "restored": "Élément restauré avec succès",
+    "empty": "Aucun élément supprimé ces 30 derniers jours"
+  },
+  "backgroundTasks": {
+    "title": "Tâches de fond",
+    "columns": {
+      "kind": "Tâche",
+      "type": "Type",
+      "name": "Nom",
+      "status": "Statut",
+      "user": "Utilisateur",
+      "project": "Projet",
+      "createdAt": "Date de création",
+      "startedAt": "Début de traitement",
+      "finishedAt": "Fin de traitement",
+      "duration": "Durée",
+      "delay": "Délai de traitement",
+      "attempts": "Tentatives",
+      "error": "Erreur"
+    },
+    "kinds": {
+      "document_generation": "Génération documentaire",
+      "legacy": "Ancienne tâche",
+      "duplicate_project": "Duplication d'entité",
+      "prepare_folder": "Préparation de sous-dossier",
+      "import_referential": "Import de référentiels",
+      "execute_referential": "Exécution de référentiels",
+      "refresh_referential": "Mise à jour de référentiels"
+    },
+    "statuses": {
+      "acknowledged": "En attente",
+      "in_progress": "En cours",
+      "to_retry": "Nouvelle tentative",
+      "done": "Terminé",
+      "error": "Erreur"
+    },
+    "seconds": "{s} s",
+    "minutes": "{m} min {s} s",
+    "empty": "Aucune tâche de fond",
+    "propertiesTitle": "Propriétés de la tâche de fond",
+    "debug": "Débogage"
+  },
+  "generalAccount": {
+    "title": "Général - Compte",
+    "accountCreated": "Compte créé avec succès",
+    "sections": {
+      "accounts": "Comptes",
+      "modules": "Configuration des modules",
+      "documents": "Configuration des documents"
+    },
+    "fields": {
+      "account": "Compte configuré",
+      "newAccount": "Ajouter un compte",
+      "pgac_enabled": "Module PGAC",
+      "pgac_subcontractors": "Sous-traitants PGAC",
+      "file_module_enabled": "Module Fichiers",
+      "freeze_signature_date": "Figer la date de signature",
+      "local_form_creation": "Autoriser la création de formulaire local",
+      "auto_lock_form_responses": "Activer le verrouillage automatique des réponses de formulaires",
+      "hide_multi_pr_titles": "Cacher les titres du bloc instructions multiples",
+      "default_sequence_type": "Type de séquence à la création",
+      "default_phase_type": "Type de phase à la création",
+      "doc_language_1": "Langue 1",
+      "doc_language_2": "Langue 2",
+      "doc_index_format": "Type d'indice",
+      "doc_watermark": "Filigrane",
+      "time_zone": "Fuseau horaire"
+    },
+    "subcontractorsHelp": "Séparez les sous-traitants par « __ ».",
+    "sequencing": {
+      "linear": "Linéaire",
+      "parallel": "Parallèle"
+    },
+    "languages": {
+      "none": "Aucune",
+      "fr": "Français",
+      "en": "Anglais",
+      "de": "Allemand",
+      "it": "Italien"
+    },
+    "indexFormats": {
+      "alpha": "Alphabétique (A, B…)",
+      "numeric": "Numérique (1, 2…)",
+      "numeric_zero": "Numérique depuis 0 (0, 1…)",
+      "numeric_all_zero": "Numérique sur 2 chiffres (01, 02…)",
+      "numeric_all_zero_start_zero": "Numérique sur 2 chiffres depuis 00",
+      "numeric_decimal": "Décimal (1.0, 1.1…)",
+      "numeric_decimal_start_zero": "Décimal depuis 0 (0.0, 0.1…)"
+    }
+  },
+  "organization": {
+    "title": "Général - Organisation",
+    "sections": {
+      "mobile": "MobileApp",
+      "features": "Fonctionnalités",
+      "sharing": "Partage et affichage"
+    },
+    "fields": {
+      "allowed_download_response": "Nombre de réponses terminées téléchargées par défaut sur la MobileApp",
+      "block_form_response_edition": "Les réponses à l'état terminé ne peuvent pas être modifiées sur la MobileApp",
+      "diagram_enabled": "Activer la vue diagramme",
+      "links_form_attributes_enabled": "Activer l'ajout d'attribut d'objet dans un formulaire",
+      "local_form_allowed": "Activer les copies locales de formulaires",
+      "rubric_permissions_enabled": "Activer la restriction de navigation dans les formulaires",
+      "support_chat_enabled": "Activer le chat d'assistance",
+      "link_expiration_days": "Durée d'expiration des liens lors du partage de formulaire et/ou document (jours)",
+      "number_format": "Formatage des valeurs numériques"
+    },
+    "localFormIrreversible": "Une fois activée, cette option ne peut plus être désactivée.",
+    "supportChatHelp": "La page est rechargée après l'enregistrement.",
+    "daysHelp": "Entre 1 et 90 jours.",
+    "numberFormats": {
+      "fr": "12 345,67",
+      "en": "12,345.67"
+    },
+    "pdfTranslationsUnavailable": "La personnalisation des traductions PDF (téléchargement / chargement) sera disponible avec le module Trames."
+  },
+  "wording": {
+    "title": "Suivi",
+    "subtitle": "Configuration du vocabulaire des états documentaires, liée aux familles Document.",
+    "add": "Ajouter une configuration",
+    "fields": {
+      "name": "Nom",
+      "description": "Description",
+      "hide_bpa": "Masquer l'ajout de sous-indice (BPA)",
+      "hide_bpe_valid": "Masquer la validation bis d'un indice (BPE*)",
+      "hide_vso_sr": "Masquer l'ajout de retour avec réserve (VSO-SR)",
+      "is_default": "Rendre cette configuration sélectionnée par défaut à la création d'une nouvelle famille"
+    },
+    "columns": {
+      "default": "Par défaut",
+      "languages": "Traductions"
+    },
+    "delete": {
+      "title": "Supprimer la configuration « {name} » ?"
+    },
+    "createTitle": "Nouvelle configuration de suivi",
+    "editTitle": "Configuration de suivi {name}",
+    "tabs": {
+      "configuration": "Configuration",
+      "translation": "Traduction"
+    },
+    "languages": {
+      "fr": "Français",
+      "en": "Anglais",
+      "de": "Allemand",
+      "it": "Italien"
+    },
+    "addLanguage": "Ajouter une langue",
+    "noTranslation": "Aucune traduction : ajoutez une langue.",
+    "sections": {
+      "default": "Par défaut",
+      "validationBis": "Validation bis",
+      "subIndex": "Sous-indice",
+      "reserve": "Retour avec réserve"
+    },
+    "states": {
+      "prel": "Préliminaire",
+      "bpoAd": "Bon pour observation en attente de diffusion",
+      "bpoRc": "Bon pour observation - retour client",
+      "bpoModification": "Modification",
+      "vso": "Vu sans observation",
+      "vsoSr": "Vu sans observation avec réserve",
+      "vao": "Vu avec observation",
+      "bpe": "Bon pour exécution",
+      "bpeTemp": "Bon pour exécution temporaire",
+      "bpeValid": "Validation bis de l'indice",
+      "bpa": "Sous-indice",
+      "bpaAd": "Sous-indice en attente de diffusion",
+      "bpaRc": "Sous-indice - retour client",
+      "bpaOk": "Sous-indice validé",
+      "bpaKo": "Sous-indice refusé",
+      "bpaRefused": "Sous-indice rejeté",
+      "bpaModification": "Ajout de sous-indice"
+    },
+    "value": "Valeur",
+    "tooltip": "Infobulle",
+    "color": "Couleur de l'étiquette",
+    "entriesRequired": "Chaque état doit avoir une valeur et une infobulle.",
+    "deleteLanguage": "Supprimer cette traduction",
+    "saveTranslation": "Enregistrer la traduction",
+    "readOnly": "Cette configuration n'est pas modifiable."
+  },
+  "kpi": {
+    "title": "Usage",
+    "subtitle": "Indicateurs d'utilisation sur la période (nouveaux / total).",
+    "frequencies": {
+      "day": "Jour",
+      "week": "Semaine",
+      "month": "Mois",
+      "quarter": "Trimestre",
+      "year": "Année"
+    },
+    "previous": "Période précédente",
+    "next": "Période suivante",
+    "accounts": "Comptes disponibles",
+    "globalUse": "Utilisation globale",
+    "counters": {
+      "entities": "Entités",
+      "flows": "Flows",
+      "phases": "Phases",
+      "steps": "Étapes",
+      "blocks": "Blocs",
+      "forms": "Formulaires",
+      "responses": "Réponses de formulaires",
+      "signatures": "Signatures",
+      "users": "Utilisateurs",
+      "operators": "Opérateurs"
+    },
+    "totalOn": "{total} au total",
+    "licences": "Licences",
+    "licenceCounters": {
+      "webActivated": "Utilisateurs web activés",
+      "webActive": "Utilisateurs web actifs",
+      "mobileOperators": "Opérateurs MobileApp",
+      "tablets": "Tablettes activées",
+      "tabletsActive": "Tablettes actives"
+    },
+    "licenceHelp": {
+      "webActivated": "Utilisateurs au statut Activé (hors comptes désactivés ou supprimés)",
+      "webActive": "Utilisateurs connectés au moins une fois sur la période",
+      "mobileOperators": "Opérateurs au statut Activé",
+      "tablets": "Profils tablettes au statut Activé",
+      "tabletsActive": "Tablettes ayant envoyé des données au moins une fois sur la période"
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "applicability": "Applicability",
+  "family": "Family",
+  "actions": "Action",
+  "search": "Search",
+  "counter": "{current, plural, =0 {No item} one {# item} other {# items}} / {total} in total",
+  "pictogram": {
+    "label": "Pictogram",
+    "none": "No pictogram",
+    "number": "Pictogram #{n}",
+    "choose": "Choose a pictogram",
+    "clear": "Remove pictogram",
+    "title": "Pictogram selection",
+    "groups": {
+      "danger": "Hazards",
+      "measure": "Measures and protective equipment",
+      "equipment": "Machines and equipment",
+      "theme": "Topics and certifications",
+      "ppe": "Personal protective equipment"
+    }
+  },
+  "file": {
+    "choose": "Choose a file",
+    "replace": "Replace",
+    "remove": "Remove",
+    "view": "Open",
+    "none": "No file",
+    "pdfOnly": "Only PDF files are accepted",
+    "imageOnly": "Only images are accepted",
+    "tooLarge": "The file exceeds the maximum allowed size ({max} MB)"
+  },
+  "properties": {
+    "createdOn": "Created on {date} by {name}",
+    "updatedOn": "Last modified on {date} by {name}",
+    "unknownUser": "unknown user",
+    "applicability": "Applicability: {name}",
+    "family": "Family: {name}",
+    "name": "Name: {name}",
+    "reference": "Reference: {value}"
+  },
+  "reorganize": {
+    "button": "Reorganize",
+    "footerChange": "Change family to",
+    "footerTotal": "for the {count} selected item(s)",
+    "confirm": "Confirm changing the family to “{name}” for {count} selected item(s)?",
+    "success": "Reorganization completed"
+  },
+  "import": {
+    "button": "Import from an Excel file",
+    "file": "File to import",
+    "template": "Download the template",
+    "templateHint": "The Excel import file to fill in (one row per item; the family is identified by its short name).",
+    "run": "Import",
+    "processing": "Processing",
+    "success": "{count, plural, one {# item imported} other {# items imported}}",
+    "invalidType": "Invalid file type (xlsx expected)",
+    "invalidTemplate": "Invalid template",
+    "empty": "No item found or invalid template",
+    "tooLong": "Text too long in one or more cells of the file",
+    "rowErrors": "Skipped row(s): {rows}"
+  },
+  "errors": {
+    "in_use": "Cannot delete",
+    "duplicate": "Name or number already used",
+    "invalid": "Invalid data",
+    "not_found": "Item not found",
+    "upload_failed": "File upload failed",
+    "too_large": "The file exceeds 20 MB",
+    "pdf_only": "Only PDF files are accepted",
+    "image_only": "Only images are accepted",
+    "invalid_type": "Invalid file type (xlsx expected)",
+    "invalid_template": "Invalid template",
+    "empty": "No item found or invalid template",
+    "too_long": "Text too long in one or more cells of the file"
+  },
+  "active": "Active",
+  "inactive": "Inactive",
+  "deactivated": "Deactivated",
+  "status": {
+    "all": "All",
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+  "createAnother": "Create another item",
+  "unsaved": "Changes will be lost if you do not save"
+}

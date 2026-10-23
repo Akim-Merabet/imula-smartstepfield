@@ -1,0 +1,71 @@
+{
+  "title": "Bibliothèque des étiquettes",
+  "add": "Nouvelle étiquette",
+  "columns": {
+    "name": "Nom",
+    "applicability": "Applicabilité",
+    "links": "Liens",
+    "actions": "Action"
+  },
+  "organization": "Organisation",
+  "tree": {
+    "expand": "Agrandir",
+    "reduce": "Réduire",
+    "expandAll": "Tout agrandir",
+    "reduceAll": "Tout réduire"
+  },
+  "actions": {
+    "addChild": "Créer une sous-étiquette",
+    "edit": "Éditer",
+    "linkedFlows": "Flow(s) lié(s) à l'étiquette",
+    "delete": "Supprimer"
+  },
+  "dialog": {
+    "createTitle": "Créer une nouvelle étiquette",
+    "createChildTitle": "Créer une sous-étiquette de {parentName}",
+    "editTitle": "Édition de l'étiquette",
+    "previous": "Étiquette précédente",
+    "next": "Étiquette suivante",
+    "fields": {
+      "name": "Nom",
+      "applicability": "Applicabilité",
+      "parent": "Étiquette parente",
+      "noParent": "Aucune (étiquette racine)",
+      "color": "Couleur",
+      "description": "Description"
+    },
+    "createAnother": "Créer une autre étiquette",
+    "created": "Étiquette créée avec succès"
+  },
+  "linkedFlows": {
+    "title": "Flow(s) lié(s) à l'étiquette {name}",
+    "empty": "Aucun flow lié à cette étiquette",
+    "filter": "Filtrer par nom de flow",
+    "columns": {
+      "project": "Entité",
+      "flow": "Flow",
+      "phase": "Phase",
+      "step": "Étape",
+      "action": "Action"
+    },
+    "see": "Voir",
+    "levels": {
+      "flow": "Flow",
+      "phase": "Phase",
+      "step": "Étape"
+    }
+  },
+  "delete": {
+    "title": "Supprimer l'étiquette {name} ?",
+    "success": "Étiquette supprimée avec succès"
+  },
+  "errors": {
+    "has_children": "Suppression impossible",
+    "has_childrenSubtitle": "Supprimez d'abord la ou les sous-étiquettes.",
+    "in_use": "Suppression impossible",
+    "in_useSubtitle": "Retirez d'abord l'étiquette des éléments où elle est utilisée.",
+    "duplicate": "Création impossible",
+    "duplicateSubtitle": "Une étiquette de même nom existe déjà à ce niveau.",
+    "cycle": "Une étiquette ne peut pas être sa propre parente"
+  }
+}

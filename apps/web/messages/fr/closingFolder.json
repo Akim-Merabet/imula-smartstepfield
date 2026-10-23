@@ -1,0 +1,91 @@
+{
+  "crumb": "Dossier de clôture",
+  "title": "Dossiers de clôture",
+  "subtitle": "{count, plural, =0 {Aucun dossier} one {# dossier} other {# dossiers}} dans la liste",
+  "sectionsCount": "{count, plural, =0 {Aucune section} one {# section} other {# sections}} dans le dossier",
+  "documentsCount": "{count, plural, =0 {Aucun document} one {# document} other {# documents}} dans la section",
+  "expand": "Agrandir", "collapse": "Réduire",
+  "largeFile": "Document volumineux",
+  "notDiffused": "Non diffusé",
+  "lastGenerated": "Dernière génération : {date}",
+  "arrangementSaved": "Arrangement enregistré avec succès",
+  "sectionReordered": "Section réorganisée",
+  "notDiffusedWarning": "Impossible d'afficher certains documents dans le dossier : ils ne sont pas diffusés ({list}). Diffusez-les pour qu'ils apparaissent dans le dossier.",
+  "columns": { "name": "Nom", "refInt": "Référence interne", "index": "Indice", "status": "Statut", "diffusion": "Diffusion", "actions": "Action" },
+  "empty": {
+    "title": "Aucun dossier de clôture",
+    "description": "Créez un dossier depuis le bouton « + »",
+    "sections": "Ajoutez une section afin de compléter le dossier",
+    "items": "Ajoutez un document afin de compléter la section"
+  },
+  "actions": {
+    "create": "Créer un dossier", "addSection": "Ajouter une section", "edit": "Éditer", "generate": "Générer le dossier", "preview": "Aperçu",
+    "previewSection": "Prévisualiser la section en PDF", "verify": "Vérification", "properties": "Propriétés", "up": "Monter", "down": "Descendre"
+  },
+  "generate": {
+    "started": "La génération du document a bien été lancée",
+    "heavy": "Le dossier est en cours de génération : vous pouvez continuer à travailler et le retrouver depuis la cloche (en bas à gauche)."
+  },
+  "delete": {
+    "folder": "Êtes-vous certain(e) de vouloir supprimer ce dossier ?",
+    "section": "Êtes-vous certain(e) de vouloir supprimer cette section ?"
+  },
+  "errors": {
+    "largeInSection": "Une section Document ne peut pas contenir de document volumineux (> 20 Mo)"
+  },
+  "types": {
+    "document": "Document", "report": "Compte rendu", "certificate": "Certificat", "reference": "Référence",
+    "client_response": "Retour client", "document_large_file": "Document volumineux", "closing_folder": "Dossier de clôture"
+  },
+  "typesLong": {
+    "document": "Document - Compilation de documents sélectionnés dans l'entité",
+    "report": "Compte rendu - Compte rendu rédigé depuis un flow",
+    "certificate": "Certificat - Compilation des certificats des moyens d'un flow",
+    "reference": "Référence - Compilation des références des moyens d'un flow",
+    "client_response": "Retour client - Compilation de retours clients sélectionnés dans l'entité",
+    "document_large_file": "Document volumineux - Compilation de documents volumineux sélectionnés dans l'entité",
+    "closing_folder": "Dossier de clôture - Compilation de dossiers de clôture validés de l'entité"
+  },
+  "dialog": {
+    "createTitle": "Créer un nouveau dossier de clôture",
+    "editTitle": "Edition du dossier de clôture {folderName}",
+    "name": "Nom du dossier",
+    "template": "Type de modèle",
+    "familyRequired": "Veuillez définir la famille du dossier",
+    "refRequired": "Renseignez au moins une référence (interne ou externe)",
+    "created": "Dossier de clôture créé avec succès"
+  },
+  "section": {
+    "createTitle": "Créer une nouvelle section",
+    "editTitle": "Edition de la section {name}",
+    "createAnother": "Créer une autre section",
+    "tabs": { "general": "Général", "content": "Contenu", "order": "Ordre" },
+    "type": "Type", "name": "Désignation", "description": "Description", "category": "Catégorie (dossier de clôture)",
+    "categoryHelp": "Les documents de cette catégorie sont cochés automatiquement à la création de la section",
+    "position": "Position", "lastPosition": "Dernière position", "observation": "Observation",
+    "flow": "Flow", "reportFlow": "Flow de compte rendu", "flowRequired": "Veuillez sélectionner un flow",
+    "family": "Famille", "includePrevious": "Intégrer les différents indices disponibles par document",
+    "lastDiffused": "Dernier indice diffusé",
+    "reportHelp": "Le compte rendu reprend le tableau récapitulatif des signatures du flow sélectionné.",
+    "allCertificates": "Chaque certificat des moyens présents dans le flow",
+    "allReferences": "Chaque référence des moyens présents dans le flow",
+    "someEquipments": "Un ou plusieurs moyens en particulier",
+    "reference": "Référence", "provider": "Fournisseur", "quantity": "Quantité",
+    "sortBy": "Réorganiser par :",
+    "refreshFromContent": "Rafraîchir la sélection depuis l'onglet « Contenu »",
+    "sortModes": {
+      "1": "Date de création (chronologique)", "2": "Date de création (antéchronologique)",
+      "3": "Date de modification (chronologique)", "4": "Date de modification (antéchronologique)",
+      "5": "Date d'ajout dans la section (chronologique)", "6": "Date d'ajout dans la section (antéchronologique)",
+      "7": "Nom (A → Z)", "8": "Nom (Z → A)", "9": "Référence interne (A → Z)", "10": "Référence interne (Z → A)"
+    }
+  },
+  "verification": {
+    "title": "Vérification du contenu du dossier",
+    "subtitle": "Catégories parents appelées dans le dossier de clôture :",
+    "line": "{name} ({used} / {total} catégories enfants utilisées)",
+    "noCategory": "Aucune catégorie dans les sections",
+    "allUsed": "Toutes vos catégories sont liées à des documents",
+    "notAllUsed": "Certaines catégories ne sont pas utilisées : utilisez toutes les catégories dans les documents sélectionnés"
+  }
+}

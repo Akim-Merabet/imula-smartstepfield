@@ -1,0 +1,28 @@
+{
+  "footer": "This email was sent automatically by {app}. Please do not reply. If it does not concern you, you can ignore it.",
+  "share": {
+    "subject": {
+      "form": "{sender} sent you a form to fill in",
+      "response": "{sender} invites you to complete a form response",
+      "document": "{sender} sent you a document"
+    },
+    "intro": {
+      "form": "{sender} invites you to fill in the form \"{name}\".",
+      "response": "{sender} invites you to complete the response to the form \"{name}\".",
+      "document": "{sender} has made the document \"{name}\" available to you."
+    },
+    "reference": "Reference",
+    "commentFrom": "Message from {sender}",
+    "button": {
+      "form": "Open the form",
+      "response": "Complete the response",
+      "document": "Access the document"
+    },
+    "validity": "This link is personal and remains valid until {date}. To confirm your identity, a secret code will be emailed to you when you open the link."
+  },
+  "code": {
+    "subject": "Your {app} secret code",
+    "intro": "Here is your secret code to access \"{name}\":",
+    "validity": "This code is valid for {minutes} minutes and can only be used once. Do not share it with anyone."
+  }
+}

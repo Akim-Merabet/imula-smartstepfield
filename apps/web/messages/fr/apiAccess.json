@@ -1,0 +1,142 @@
+{
+  "menu": {
+    "api": "API",
+    "v1": "Accès API V1",
+    "v2": "Accès API V2",
+    "docs": "Documentation API V2"
+  },
+  "v1": {
+    "title": "Accès API V1",
+    "subtitle": "Ancienne version de l'API",
+    "notRebuilt": "La version 1 (1.5) de l'API n'est pas reconstruite dans cette application.",
+    "explanation": "Les services utiles de la v1.5 (entités, flows, phases et étapes, formulaires et réponses, familles, statuts, attributs, clients, utilisateurs, documents, indicateurs) sont proposés par l'API v2, avec le même vocabulaire (uuidEntity, embed, pagination limit / offset).",
+    "goV2": "Gérer les accès API V2",
+    "goDocs": "Consulter la documentation V2"
+  },
+  "v2": {
+    "title": "Accès API V2",
+    "subtitle": "Clés d'accès des consommateurs de l'API. Le secret n'est affiché qu'une seule fois, à la création ou à la rotation.",
+    "create": "Créer une clé",
+    "docs": "Documentation",
+    "openapi": "OpenAPI (JSON)"
+  },
+  "columns": {
+    "name": "Nom",
+    "type": "Type de clé",
+    "account": "Compte cible",
+    "class": "Classe",
+    "clientId": "Identifiant client",
+    "state": "État",
+    "expiresAt": "Expiration",
+    "lastUsedAt": "Dernière authentification",
+    "calls": "Appels (24 h)",
+    "createdAt": "Création"
+  },
+  "keyType": {
+    "account": "Compte",
+    "organization": "Organisation"
+  },
+  "keyTypeHelp": {
+    "account": "Accès aux données du compte cible et aux données partagées dans l'organisation (entités publiées).",
+    "organization": "Accès à tous les comptes de l'organisation, interrogés compte par compte (paramètre accountId obligatoire)."
+  },
+  "class": {
+    "L1": "L1 — Base",
+    "L2": "L2 — Avancé",
+    "L3": "L3 — Expert"
+  },
+  "classHelp": {
+    "L1": "Lectures (toutes les requêtes GET).",
+    "L2": "L1 + créations et modifications unitaires, exports (réponse JSON, PDF).",
+    "L3": "L2 + opérations en masse (création, mise à jour, attributs)."
+  },
+  "state": {
+    "active": "Active",
+    "inactive": "Inactive",
+    "expired": "Expirée",
+    "revoked": "Révoquée"
+  },
+  "never": "Jamais",
+  "noExpiry": "Sans expiration",
+  "allAccounts": "Tous (paramètre accountId)",
+  "copy": "Copier",
+  "copied": "Copié dans le presse-papiers",
+  "actions": {
+    "edit": "Modifier",
+    "rotate": "Régénérer le secret",
+    "revoke": "Révoquer",
+    "delete": "Supprimer"
+  },
+  "dialog": {
+    "createTitle": "Créer une clé API",
+    "editTitle": "Modifier la clé {name}",
+    "name": "Nom",
+    "nameHelp": "Nom du consommateur (application cliente, intégration…).",
+    "keyType": "Type de clé",
+    "account": "Compte cible",
+    "accountPlaceholder": "Choisir un compte",
+    "class": "Classe de service",
+    "expiresAt": "Date d'expiration",
+    "expiresAtHelp": "Laisser vide pour une clé sans expiration. La clé expire à la fin de la journée choisie.",
+    "active": "Clé active",
+    "activeHelp": "Une clé inactive ne peut plus s'authentifier ; ses jetons en cours sont invalidés.",
+    "frozen": "Le type de clé et le compte cible ne sont plus modifiables après la création.",
+    "create": "Créer et afficher le secret"
+  },
+  "secret": {
+    "title": "Identifiants de la clé {name}",
+    "warning": "Copiez le secret maintenant : il ne sera plus jamais affiché. Transmettez-le par un canal sécurisé (coffre de mots de passe partagé).",
+    "clientId": "Identifiant client (clientId)",
+    "clientSecret": "Secret client (clientSecret)",
+    "usage": "Authentification : POST {url} avec le corps JSON {body}. Le jeton obtenu est valable 24 h (en-tête Authorization: Bearer …).",
+    "done": "J'ai copié le secret"
+  },
+  "confirm": {
+    "rotateTitle": "Régénérer le secret de « {name} » ?",
+    "rotateText": "L'ancien secret et tous les jetons en cours seront immédiatement invalidés. Le nouveau secret ne sera affiché qu'une fois.",
+    "rotate": "Régénérer",
+    "revokeTitle": "Révoquer la clé « {name} » ?",
+    "revokeText": "La révocation est définitive : la clé ne pourra plus s'authentifier. Elle reste listée pour la traçabilité.",
+    "revoke": "Révoquer",
+    "deleteTitle": "Supprimer la clé « {name} » ?",
+    "deleteText": "La clé est supprimée définitivement (pas de corbeille). Le journal des appels est conservé.",
+    "word": "SUPPRIMER"
+  },
+  "toast": {
+    "created": "Clé créée",
+    "saved": "Clé enregistrée",
+    "rotated": "Nouveau secret généré",
+    "revoked": "Clé révoquée",
+    "deleted": "Clé supprimée"
+  },
+  "errors": {
+    "expiry_past": "La date d'expiration doit être dans le futur.",
+    "account_invalid": "Le compte cible n'appartient pas à l'organisation.",
+    "revoked": "Cette clé est révoquée.",
+    "account_required": "Le compte cible est obligatoire pour une clé de type compte.",
+    "nameLength": "Le nom doit contenir entre 3 et 100 caractères."
+  },
+  "docs": {
+    "title": "Documentation de l'API V2",
+    "subtitle": "Services REST de l'API externe, générés à partir du même catalogue que le document OpenAPI 3.1.",
+    "baseUrl": "URL de base",
+    "openapi": "Document OpenAPI 3.1",
+    "general": "Principes généraux",
+    "auth": "Authentification : POST /authenticate avec clientId et clientSecret ; jeton opaque valable 24 h à envoyer dans l'en-tête Authorization (schéma Bearer).",
+    "scope": "Périmètre : une clé compte voit les données de son compte et les données partagées dans l'organisation (entités publiées) ; une clé organisation doit cibler un compte par requête avec le paramètre accountId (ou l'en-tête X-Account-Id).",
+    "classes": "Classes de service : L1 = lectures, L2 = écritures unitaires et exports, L3 = opérations en masse (L1 ⊂ L2 ⊂ L3).",
+    "lists": "Listes : limit (1 à 100, 20 par défaut), offset, createdAfterAt, modifiedAfterAt ; en-têtes X-Count et X-Total-Count ; tri par date de création (plus ancien d'abord). Réponses sous la racine « data ».",
+    "embed": "Paramètre embed : mots-clés propres à chaque service (répétables ou séparés par des virgules) ; aucun par défaut.",
+    "errors": "Erreurs : corps JSON avec path, key, code, message et details ; 400 REQUIRED-MISSING / VALUE-NOT-VALID, 401 UNAUTHORIZED, 403 NO-RIGHT, 404 OBJECT-NOT-FOUND, 409 CONSTRAINT-NOT-SATISFIED, 429 TOO-MANY-REQUESTS.",
+    "rateLimit": "Limitation de débit : {perClient} requêtes par minute et par clé, {auth} authentifications par minute et par adresse IP.",
+    "class": "Classe {level}",
+    "public": "Public",
+    "parameters": "Paramètres",
+    "embedKeywords": "Mots-clés embed",
+    "body": "Corps de la requête (schéma JSON)",
+    "paginated": "Liste paginée",
+    "accountParam": "accountId requis (clé organisation)",
+    "required": "obligatoire",
+    "showBody": "Afficher le schéma"
+  }
+}

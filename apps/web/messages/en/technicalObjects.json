@@ -1,0 +1,153 @@
+{
+  "title": "Object list",
+  "add": "New object",
+  "columns": {
+    "name": "Name",
+    "family": "Family",
+    "itemCode": "Item code",
+    "externalReference": "External reference",
+    "identificationNumber": "Identification no.",
+    "index": "Index",
+    "status": "Status",
+    "lastUpdate": "Modified",
+    "actions": "Action"
+  },
+  "filters": {
+    "status": "Status"
+  },
+  "tree": {
+    "expand": "Expand",
+    "reduce": "Collapse",
+    "expandAll": "Expand all",
+    "reduceAll": "Collapse all"
+  },
+  "actions": {
+    "edit": "Edit",
+    "addChild": "Add a child object",
+    "duplicate": "Duplicate",
+    "properties": "Properties",
+    "delete": "Delete"
+  },
+  "dialog": {
+    "createTitle": "Create a new object",
+    "createChildTitle": "Create a new child object of {parentName}",
+    "editTitle": "Edit object {name}",
+    "viewTitle": "Object preview {name}",
+    "previous": "Previous object",
+    "next": "Next object",
+    "tabs": {
+      "general": "General",
+      "attributes": "Attributes",
+      "history": "History"
+    },
+    "fields": {
+      "family": "Family",
+      "applicability": "Applicability",
+      "parent": "Parent object",
+      "noParent": "None (root object)",
+      "name": "Name",
+      "itemCode": "Item code",
+      "externalReference": "External reference",
+      "identificationNumber": "Identification number",
+      "index": "Index",
+      "status": "Status",
+      "certificate": "Certificate of conformity",
+      "noCertificate": "No certificate",
+      "description": "Description"
+    },
+    "statusHint": "Without a chosen status, the “default” status is assigned.",
+    "certificateHint": "Library PDF document, appended to the flows “Objects” document.",
+    "noAttributes": "No Object attribute applies to this family.",
+    "familyFirst": "Choose a family first to display its attributes.",
+    "createAnother": "Create another object",
+    "created": "Object created"
+  },
+  "history": {
+    "empty": "No attribute change recorded",
+    "columns": {
+      "date": "Date",
+      "attribute": "Attribute",
+      "old": "Previous value",
+      "new": "New value",
+      "by": "By",
+      "source": "Origin"
+    },
+    "sources": {
+      "webapp": "WebApp entry",
+      "form_response": "Form response",
+      "api": "API",
+      "mobile": "MobileApp"
+    }
+  },
+  "delete": {
+    "title": "Delete the object “{name}”?",
+    "success": "Object deleted"
+  },
+  "duplicate": {
+    "title": "Duplicate object {name}",
+    "name": "Name of the copy",
+    "identificationNumber": "Identification number of the copy",
+    "copySuffix": "(copy)",
+    "success": "Object duplicated",
+    "withAttributes": "Attribute values are copied; child objects are not."
+  },
+  "properties": {
+    "title": "Object properties",
+    "family": "Family",
+    "applicability": "Applicability",
+    "name": "Name",
+    "itemCode": "Item code",
+    "externalReference": "External reference",
+    "identificationNumber": "Identification number",
+    "parent": "Parent object"
+  },
+  "errors": {
+    "in_use": "Cannot delete",
+    "in_useSubtitle": "The object is already used (Object block, flow or linked form)",
+    "has_children": "Action cancelled",
+    "has_childrenSubtitle": "An object with sub-objects cannot be deleted.",
+    "identification_exists": "Cannot create",
+    "identification_existsSubtitle": "The identification number is already used.",
+    "no_default_status": "Cannot save",
+    "no_default_statusSubtitle": "Missing default status: create an Object status in the settings.",
+    "cycle": "An object cannot be its own parent",
+    "object_attributes_disabled": "Object attributes are not enabled on this form"
+  },
+  "formAttributes": {
+    "add": "Add an object attribute",
+    "title": "Add object attribute",
+    "list": "Attribute list",
+    "confirm": "Add",
+    "empty": "No object attribute available",
+    "defaultGroup": "Default attributes",
+    "added": "{count, plural, one {# linked question created} other {# linked questions created}}",
+    "linkedBadge": "Object attribute",
+    "types": {
+      "text": "Text",
+      "textarea": "Long text",
+      "integer": "Integer",
+      "double": "Decimal",
+      "boolean": "True or false",
+      "date": "Date",
+      "datetime": "Date and time",
+      "select": "Single choice list",
+      "multiselect": "Multiple choice list",
+      "link": "Link",
+      "metadata": "Metadata"
+    }
+  },
+  "linkForms": {
+    "action": "Link a form",
+    "title": "Link object “{name}” to forms",
+    "hint": "Step forms that contain “object attribute” questions. The Form block must be in drafting.",
+    "empty": "No form of the step contains an object attribute question.",
+    "linkedTo": "Linked to: {name}",
+    "notRedaction": "Form block not in drafting",
+    "confirm": "Save",
+    "saved": "Link(s) saved",
+    "errors": {
+      "form_bloc_not_in_redaction": "The Form block must be in drafting",
+      "has_responses": "Responses already exist on this linked form"
+    }
+  }
+}

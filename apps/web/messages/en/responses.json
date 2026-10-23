@@ -1,0 +1,181 @@
+{
+  "title": "Form response",
+  "empty": "This form has no section.",
+  "state": { "in_progress": "In progress", "done": "Completed" },
+  "rubricTypes": { "question": "Question section", "table_column": "Column-based table", "table_row": "Row-based table" },
+  "menu": { "rubrics": "{count, plural, =0 {No section} one {# section} other {# sections}}", "readOnly": "Read only" },
+  "header": {
+    "index": "Index {index}",
+    "flow": "Flow: {name} ({ref})",
+    "mode": "Response mode",
+    "reference": "Response reference",
+    "referenceMin": "The reference must be at least 3 characters long"
+  },
+  "nav": { "previous": "Previous section", "next": "Next section" },
+  "rubric": {
+    "withoutResponse": "Section without answer",
+    "hasLocked": "Contains at least one locked answer",
+    "seeMore": "See more",
+    "seeLess": "See less"
+  },
+  "actions": {
+    "saveLater": "Save and continue later",
+    "saveNext": "Save and go to the next section",
+    "finish": "Complete the response"
+  },
+  "finish": {
+    "confirmTitle": "Complete the response?",
+    "confirmText": "The response will be set to \"Completed\" and can no longer be edited unless it is set back to \"In progress\"."
+  },
+  "leave": {
+    "title": "Leave without saving?",
+    "text": "What you entered in this section will not be saved. Do you want to continue?"
+  },
+  "done": {
+    "banner": "This response is completed: it is displayed read-only.",
+    "backToInProgress": "Set back to \"In progress\"",
+    "resetTitle": "Set the response back to \"In progress\"?",
+    "resetText": "The response will become editable again."
+  },
+  "readOnly": { "all": "All sections of this form are read-only for this step." },
+  "status": { "none": "No status", "edit": "Edit status", "label": "Status", "comment": "Comment" },
+  "toast": {
+    "saved": "The response has been saved",
+    "savedLater": "Your entries are saved: you can complete the response later.",
+    "finished": "The response is completed"
+  },
+  "errors": {
+    "saveFail": "Saving the response failed",
+    "response_done": "A completed response cannot be edited",
+    "signature_required": "Changing a locked value must be signed",
+    "backdating": "The date entered is earlier than the response creation date",
+    "backdatingSubtitle": "Fix this date and save again.",
+    "invalid_value": "A value does not respect the expected limits",
+    "forbidden": "You do not have the required rights for this action"
+  },
+  "formula": {
+    "evaluationFail": "The formula could not be calculated",
+    "missingValues": "Some values used by the formula have not been entered yet",
+    "evalError": "The formula cannot be evaluated with the current values"
+  },
+  "lock": {
+    "invalid": "Enter a valid value before locking",
+    "done": "Answer locked",
+    "confirmTitle": "Lock the answer?",
+    "confirmText": "This is permanent: the value can no longer be changed without a signed unlock."
+  },
+  "unlock": {
+    "confirmTitle": "Unlock the answer?",
+    "confirmText": "Any change will have to be validated by a change signature."
+  },
+  "question": {
+    "locked": "Locked answer",
+    "lock": "Lock",
+    "unlock": "Unlock",
+    "history": "Change history",
+    "observation": "Observation",
+    "observationPlaceholder": "Add an observation if needed",
+    "webappOnly": "This question can only be answered from the WebApp",
+    "defaultOption": "Option {order}"
+  },
+  "table": { "row": "Row {n}", "column": "Column {n}", "addRow": "Row", "addColumn": "Column" },
+  "fields": {
+    "choose": "Choose…",
+    "clear": "Clear",
+    "hours": "h",
+    "minutes": "min",
+    "lat": "Lat.",
+    "lng": "Long.",
+    "alt": "Alt.",
+    "locate": "My location",
+    "geolocUnavailable": "Geolocation is not available on this device",
+    "geolocFail": "Unable to get your location",
+    "notCalculated": "Not calculated",
+    "calculate": "Calculate",
+    "true": "True",
+    "false": "False",
+    "checked": "Checked",
+    "addPhoto": "Add a photo",
+    "addFile": "Add a PDF file",
+    "removeFile": "Remove file",
+    "pdfOnly": "The selected file must be a PDF",
+    "imageOnly": "The selected file must be an image",
+    "fileTooLarge": "The file exceeds the 40 MB limit",
+    "uploadFail": "File upload failed"
+  },
+  "validation": {
+    "defaultText": "The value entered is outside the expected range",
+    "backdating": "A date earlier than the response creation is not allowed",
+    "notANumber": "Enter a valid number",
+    "outOfBounds": "Value out of bounds (min: {min}, max: {max})",
+    "expected": {
+      "gt": "Expected value: greater than {min}",
+      "gte": "Expected value: greater than or equal to {min}",
+      "lt": "Expected value: less than {min}",
+      "lte": "Expected value: less than or equal to {min}",
+      "eq": "Expected value: equal to {min}",
+      "neq": "Expected value: different from {min}",
+      "between": "Expected value: between {min} and {max}",
+      "not_between": "Expected value: outside {min} and {max}",
+      "before": "Expected date: before {min}",
+      "after": "Expected date: after {min}",
+      "between_dates": "Expected date: between {min} and {max}",
+      "not_between_dates": "Expected date: outside {min} to {max}"
+    }
+  },
+  "signature": {
+    "defaultName": "Collaborator {order}",
+    "sign": "Sign",
+    "identify": "Identify",
+    "signSubtitle": "Identify the collaborator, then add their signature.",
+    "identifySubtitle": "Identify the collaborator (no signature required).",
+    "signedOn": "{name} signed on {date}",
+    "identified": "{name}",
+    "byProxyShort": "on behalf of {principal}",
+    "view": "View signature",
+    "viewTitle": "Signature of {name}",
+    "delete": "Delete",
+    "deleteTitle": "Delete this signature?",
+    "deleteSubtitle": "The signature will be removed from the response at the next save.",
+    "collaborator": "Collaborator",
+    "selectCollaborator": "Choose a collaborator",
+    "notListed": "Not in the list",
+    "selectRequired": "Choose a collaborator",
+    "identityRequired": "Enter at least first and last name (and the job if no signature is required)",
+    "signatureRequired": "The signature is required",
+    "fields": { "firstName": "First name", "lastName": "Last name", "email": "Email", "function": "Job", "companyName": "Company" },
+    "byProxy": "Signature by proxy",
+    "principal": "Principal",
+    "principalHint": "Person giving the proxy",
+    "signature": "Signature",
+    "clear": "Clear",
+    "comment": "Comment (optional)"
+  },
+  "failed": {
+    "title": "Failed questions",
+    "subtitle": "To save, complete or fix the following questions:",
+    "rubric": "Section {position} — {name}",
+    "mandatory": "required",
+    "invalid": "invalid"
+  },
+  "history": {
+    "title": "Change history",
+    "empty": "No change yet",
+    "changed": "<b>{name}</b> changed the answer on <b>{date}</b> from the <b>{provenance}</b>",
+    "provenance": { "webapp": "WebApp", "mobile": "MobileApp", "api": "API" },
+    "fromTo": "from \"{old}\" to \"{new}\"",
+    "empty_value": "(empty)",
+    "fileAdded": "{name} added.",
+    "fileRemoved": "{name} removed.",
+    "comment": "Comment: \"{comment}\""
+  },
+  "changes": {
+    "title": "Change signature",
+    "subtitle": "{name}, sign to validate the change of locked answers.",
+    "signature": "Signature",
+    "clear": "Clear",
+    "comment": "Comment (optional)",
+    "validate": "Sign and save",
+    "signatureRequired": "The signature is required"
+  }
+}

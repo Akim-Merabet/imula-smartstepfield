@@ -1,0 +1,40 @@
+{
+  "title": "Profil",
+  "menu": { "info": "Informations", "password": "Mot de passe", "tablet": "Tablette" },
+  "info": {
+    "title": "Informations",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "trigram": "Trigramme",
+    "trigramMin": "Le trigramme doit contenir au moins 3 caractères",
+    "email": "Email",
+    "sso": "Identifiant SSO",
+    "function": "Fonction",
+    "complement": "Complément",
+    "profession": "Poste dans l'entreprise",
+    "professionPlaceholder": "Par exemple Ingénieur méthode…",
+    "language": "Langue",
+    "languages": { "fr": "Français", "en": "English" },
+    "signature": "Signature",
+    "signatureHelp": "Ceci sera votre signature lors de l'exportation des documents",
+    "signatureRequired": "La signature est obligatoire",
+    "clearSignature": "Effacer",
+    "none": "Aucune"
+  },
+  "password": {
+    "title": "Mot de passe",
+    "old": "Ancien mot de passe",
+    "confirm": "Confirmation du nouveau mot de passe",
+    "mismatch": "Les mots de passe ne correspondent pas",
+    "invalid": "Le mot de passe est invalide",
+    "weak": "Le nouveau mot de passe ne respecte pas les exigences",
+    "same": "Le nouveau mot de passe doit être différent de l'ancien",
+    "success": "Votre mot de passe a été changé avec succès",
+    "submit": "Changer le mot de passe"
+  },
+  "tablet": {
+    "title": "Tablette",
+    "empty": "Aucune tablette associée",
+    "emptyHelp": "Les informations de la tablette apparaîtront ici après une connexion rapide depuis la MobileApp."
+  }
+}

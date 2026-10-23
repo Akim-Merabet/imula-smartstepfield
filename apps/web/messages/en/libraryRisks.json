@@ -1,0 +1,121 @@
+{
+  "title": "Risk library",
+  "add": "New risk",
+  "columns": {
+    "family": "Family",
+    "name": "Risk",
+    "source": "Source",
+    "major": "Major",
+    "pictogram": "Pictogram",
+    "parades": "Countermeasures"
+  },
+  "filters": {
+    "family": "Family",
+    "applicability": "Applicability"
+  },
+  "actions": {
+    "edit": "Edit",
+    "duplicate": "Duplicate",
+    "properties": "Properties",
+    "activate": "Activate",
+    "deactivate": "Deactivate",
+    "delete": "Delete",
+    "import": "Import from an Excel file"
+  },
+  "dialog": {
+    "createTitle": "Create a new risk",
+    "editTitle": "Edit risk",
+    "viewTitle": "Risk preview",
+    "previous": "Previous risk",
+    "next": "Next risk",
+    "tabs": {
+      "general": "General",
+      "parades": "Countermeasures"
+    },
+    "fields": {
+      "family": "Family",
+      "applicability": "Applicability",
+      "name": "Name",
+      "reference": "Reference",
+      "source": "Source",
+      "landmark": "Landmark",
+      "pictogram": "Pictogram",
+      "major": "Major risk",
+      "frequency": "Frequency",
+      "occurrence": "Occurrence",
+      "severity": "Severity"
+    },
+    "createAnother": "Create another risk",
+    "nextStep": "Next",
+    "created": "Risk created",
+    "saveFirst": "Save the risk before adding countermeasures."
+  },
+  "parades": {
+    "title": "Generic countermeasures",
+    "add": "Add a countermeasure",
+    "empty": "No countermeasure for this risk",
+    "columns": {
+      "name": "Countermeasure",
+      "pictogram": "Pictogram",
+      "pdf": "PDF",
+      "actions": "Action"
+    },
+    "dialog": {
+      "createTitle": "Add a countermeasure",
+      "editTitle": "Edit a countermeasure",
+      "risk": "Risk",
+      "name": "Countermeasure",
+      "description": "Description",
+      "pictogram": "Pictogram",
+      "file": "Attachment (PDF)"
+    },
+    "created": "Countermeasure created",
+    "duplicated": "Countermeasure duplicated",
+    "deleted": "Countermeasure deleted",
+    "deleteTitle": "Delete the countermeasure “{name}”?",
+    "duplicateTitle": "Duplicate the countermeasure “{name}”?",
+    "viewPdf": "Preview"
+  },
+  "delete": {
+    "title": "Delete the risk “{name}”?",
+    "success": "Risk deleted"
+  },
+  "duplicate": {
+    "title": "Duplicate the risk “{name}”?",
+    "success": "Risk duplicated",
+    "copySuffix": "(copy)"
+  },
+  "activated": "Risk activated",
+  "deactivated": "Risk deactivated",
+  "properties": {
+    "title": "Risk properties",
+    "family": "Family",
+    "applicability": "Applicability",
+    "name": "Name",
+    "reference": "Reference",
+    "source": "Source"
+  },
+  "import": {
+    "title": "Import risks from an Excel file"
+  },
+  "template": {
+    "sheet": "Risks",
+    "families": "Families",
+    "columns": {
+      "family": "Family (short name)",
+      "name": "Name",
+      "reference": "Reference",
+      "source": "Source",
+      "landmark": "Landmark",
+      "pictogram": "Pictogram (1-240)",
+      "major": "Major (Yes/No)",
+      "frequency": "Frequency",
+      "occurrence": "Occurrence",
+      "severity": "Severity"
+    }
+  },
+  "errors": {
+    "in_use": "Cannot delete",
+    "in_useSubtitle": "The risk is already used (flow block or risk list)"
+  }
+}

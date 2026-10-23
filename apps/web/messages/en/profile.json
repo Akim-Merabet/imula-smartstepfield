@@ -1,0 +1,40 @@
+{
+  "title": "Profile",
+  "menu": { "info": "Information", "password": "Password", "tablet": "Tablet" },
+  "info": {
+    "title": "Information",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "trigram": "Trigram",
+    "trigramMin": "The trigram must contain at least 3 characters",
+    "email": "Email",
+    "sso": "SSO identifier",
+    "function": "Function",
+    "complement": "Complement",
+    "profession": "Job title",
+    "professionPlaceholder": "For example Methods engineer…",
+    "language": "Language",
+    "languages": { "fr": "Français", "en": "English" },
+    "signature": "Signature",
+    "signatureHelp": "This will be your signature when exporting documents",
+    "signatureRequired": "The signature is required",
+    "clearSignature": "Clear",
+    "none": "None"
+  },
+  "password": {
+    "title": "Password",
+    "old": "Current password",
+    "confirm": "Confirm new password",
+    "mismatch": "Passwords do not match",
+    "invalid": "The password is invalid",
+    "weak": "The new password does not meet the requirements",
+    "same": "The new password must be different from the current one",
+    "success": "Your password has been changed successfully",
+    "submit": "Change password"
+  },
+  "tablet": {
+    "title": "Tablet",
+    "empty": "No associated tablet",
+    "emptyHelp": "Tablet information will appear here after a quick login from the MobileApp."
+  }
+}

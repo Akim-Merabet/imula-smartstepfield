@@ -1,0 +1,165 @@
+{
+  "actions": {
+    "share": "Share"
+  },
+  "public": {
+    "secured": "Access secured by a secret code",
+    "unavailable": {
+      "title": "Link unavailable",
+      "not_found": "This sharing link does not exist or is no longer valid.",
+      "expired": "This sharing link has expired. Ask your contact to send the share again.",
+      "revoked": "This sharing link was removed by its sender: it is no longer valid.",
+      "blocked": "This share is blocked after too many incorrect codes. Ask your contact to send the share again."
+    },
+    "init": {
+      "formTitle": "{sender} sent you a form to fill in",
+      "responseTitle": "{sender} invites you to complete a form response",
+      "documentTitle": "{sender} sent you a document to download",
+      "someone": "A colleague",
+      "reference": "Reference",
+      "project": "Entity",
+      "message": "Message",
+      "explain": "To secure access, a secret code will be sent to {email}.",
+      "startForm": "Start my response",
+      "startResponse": "Complete my response",
+      "startDocument": "Access the document"
+    },
+    "login": {
+      "title": "Enter your secret code",
+      "sent": "A second email has just been sent to {email} with a 6-digit secret code.",
+      "code": "Secret code",
+      "submit": "Confirm",
+      "resend": "Resend the code",
+      "resendIn": "Resend the code ({seconds} s)",
+      "resent": "A new code has been sent to you",
+      "remaining": "{count, plural, =0 {No attempts left} one {# attempt left} other {# attempts left}}"
+    },
+    "contributor": {
+      "title": "Your details",
+      "subtitle": "Please fill in the form below to continue.",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "company": "Company",
+      "job": "Job title",
+      "required": "Required field",
+      "submit": "Continue"
+    },
+    "fill": {
+      "send": "Send the response",
+      "confirmTitle": "Send the response?",
+      "confirmText": "Once sent, your response can no longer be changed from this link.",
+      "banner": "Only the questions intended for you can be edited; the others are shown read-only.",
+      "as": "{name} · {email}"
+    },
+    "finish": {
+      "title": "Your response has been sent",
+      "text": "Click the link below to download the summary document of your response.",
+      "download": "Download the summary document"
+    },
+    "later": {
+      "title": "Response saved",
+      "text": "All your answers are saved; you can come back and complete them later using the link received by email.",
+      "summary": "Click the link below to download a summary of your response.",
+      "download": "Download the summary",
+      "resume": "Resume my response"
+    },
+    "document": {
+      "text": "You can download the document below.",
+      "download": "Download my document",
+      "versions": "Issued versions",
+      "index": "Index {index}",
+      "diffusedOn": "Issued on {date}",
+      "noPdf": "No PDF is available for this document."
+    },
+    "errors": {
+      "invalid_code": "The code entered is incorrect",
+      "code_expired": "This code has expired: request a new one.",
+      "no_code": "Request a code first.",
+      "blocked": "This share is blocked after too many attempts.",
+      "cooldown": "Please wait a few seconds before requesting a new code.",
+      "email_failed": "The email could not be sent. Try again later.",
+      "unauthenticated": "Your session has expired: please sign in again.",
+      "already_sent": "This response has already been sent.",
+      "expired": "This sharing link has expired.",
+      "revoked": "This sharing link is no longer valid.",
+      "generic": "An error occurred."
+    }
+  },
+  "dialog": {
+    "titleForm": "Share a form",
+    "titleResponse": "Share a form response",
+    "titleDocument": "Share a document",
+    "emails": "Emails",
+    "addEmail": "Add an email",
+    "emailPlaceholder": "name@company.com",
+    "removeEmail": "Remove {email}",
+    "invalidEmail": "Invalid email address",
+    "comment": "Comment",
+    "commentHint": "The comment will be visible in the sharing email",
+    "language": "Language",
+    "languages": {
+      "fr": "Français",
+      "en": "English"
+    },
+    "send": "Share",
+    "access": "People with access",
+    "empty": {
+      "form": "This form has never been shared before.",
+      "response": "This response has never been shared before.",
+      "document": "This document has never been shared before."
+    },
+    "sentOn": "Sent on {date}",
+    "status": {
+      "pending": "Awaiting response",
+      "responded": "Response received on: {datetime}",
+      "downloaded": "Viewed on: {datetime}",
+      "blocked": "Blocked",
+      "expired": "Expired"
+    },
+    "resend": "Resend",
+    "revoke": "Delete",
+    "revokeTitle": "Delete the share?",
+    "revokeText": "The sharing link will no longer be valid.",
+    "resent": "The share has been sent again",
+    "revoked": "The share has been deleted",
+    "sent": "{count, plural, one {Share sent} other {# shares sent}}",
+    "forbidden": "You are not allowed to share this item.",
+    "blockers": {
+      "response_done": "This response is completed: set it back to \"in progress\" before sharing it",
+      "no_shared_question": "No question is open to sharing: enable \"Allow answering when shared\" on at least one question of the form.",
+      "disabled": "Item disabled, sharing is not possible",
+      "no_pdf": "No PDF available: this document cannot be shared yet."
+    },
+    "errors": {
+      "already_shared": "You have already shared this with this email address",
+      "inactive_email": "This address belongs to an inactive user",
+      "email_failed": "The email could not be sent",
+      "forbidden": "Action not allowed",
+      "not_found": "Item not found",
+      "generic": "An error occurred"
+    }
+  },
+  "emails": {
+    "title": "Outgoing emails",
+    "subtitle": "Log of the emails sent by the application (development tool).",
+    "smtpOn": "SMTP configured: emails are actually sent; sensitive content is masked in this log.",
+    "smtpOff": "SMTP not configured: emails are only logged here.",
+    "date": "Date",
+    "to": "Recipient",
+    "subject": "Subject",
+    "kind": "Type",
+    "status": "Status",
+    "statuses": {
+      "logged": "Logged",
+      "sending": "Sending",
+      "sent": "Sent",
+      "failed": "Failed"
+    },
+    "empty": "No emails.",
+    "view": "View",
+    "redacted": "Content masked",
+    "html": "Preview",
+    "text": "Plain text"
+  }
+}

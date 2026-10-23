@@ -1,0 +1,142 @@
+{
+  "menu": {
+    "api": "API",
+    "v1": "API access V1",
+    "v2": "API access V2",
+    "docs": "API V2 documentation"
+  },
+  "v1": {
+    "title": "API access V1",
+    "subtitle": "Previous API version",
+    "notRebuilt": "Version 1 (1.5) of the API is not rebuilt in this application.",
+    "explanation": "The useful v1.5 services (entities, flows, phases and steps, forms and responses, families, statuses, attributes, clients, users, documents, KPIs) are provided by API v2, with the same vocabulary (uuidEntity, embed, limit / offset paging).",
+    "goV2": "Manage API V2 access",
+    "goDocs": "Read the V2 documentation"
+  },
+  "v2": {
+    "title": "API access V2",
+    "subtitle": "Access keys of API consumers. The secret is shown only once, at creation or rotation.",
+    "create": "Create a key",
+    "docs": "Documentation",
+    "openapi": "OpenAPI (JSON)"
+  },
+  "columns": {
+    "name": "Name",
+    "type": "Key type",
+    "account": "Target account",
+    "class": "Class",
+    "clientId": "Client identifier",
+    "state": "State",
+    "expiresAt": "Expiration",
+    "lastUsedAt": "Last authentication",
+    "calls": "Calls (24 h)",
+    "createdAt": "Created"
+  },
+  "keyType": {
+    "account": "Account",
+    "organization": "Organization"
+  },
+  "keyTypeHelp": {
+    "account": "Access to the target account data and to data shared in the organization (published entities).",
+    "organization": "Access to every account of the organization, queried one account at a time (accountId parameter required)."
+  },
+  "class": {
+    "L1": "L1 — Base",
+    "L2": "L2 — Advanced",
+    "L3": "L3 — Expert"
+  },
+  "classHelp": {
+    "L1": "Reads (all GET requests).",
+    "L2": "L1 + unit creations and updates, exports (JSON response, PDF).",
+    "L3": "L2 + bulk operations (create, update, attributes)."
+  },
+  "state": {
+    "active": "Active",
+    "inactive": "Inactive",
+    "expired": "Expired",
+    "revoked": "Revoked"
+  },
+  "never": "Never",
+  "noExpiry": "No expiration",
+  "allAccounts": "All (accountId parameter)",
+  "copy": "Copy",
+  "copied": "Copied to clipboard",
+  "actions": {
+    "edit": "Edit",
+    "rotate": "Regenerate secret",
+    "revoke": "Revoke",
+    "delete": "Delete"
+  },
+  "dialog": {
+    "createTitle": "Create an API key",
+    "editTitle": "Edit key {name}",
+    "name": "Name",
+    "nameHelp": "Consumer name (client application, integration…).",
+    "keyType": "Key type",
+    "account": "Target account",
+    "accountPlaceholder": "Choose an account",
+    "class": "Service class",
+    "expiresAt": "Expiration date",
+    "expiresAtHelp": "Leave empty for a key without expiration. The key expires at the end of the chosen day.",
+    "active": "Active key",
+    "activeHelp": "An inactive key can no longer authenticate; its current tokens are invalidated.",
+    "frozen": "Key type and target account cannot be changed after creation.",
+    "create": "Create and show the secret"
+  },
+  "secret": {
+    "title": "Credentials of key {name}",
+    "warning": "Copy the secret now: it will never be shown again. Share it through a secure channel (shared password vault).",
+    "clientId": "Client identifier (clientId)",
+    "clientSecret": "Client secret (clientSecret)",
+    "usage": "Authentication: POST {url} with JSON body {body}. The token is valid for 24 h (header Authorization: Bearer …).",
+    "done": "I have copied the secret"
+  },
+  "confirm": {
+    "rotateTitle": "Regenerate the secret of “{name}”?",
+    "rotateText": "The previous secret and all current tokens are invalidated immediately. The new secret is shown only once.",
+    "rotate": "Regenerate",
+    "revokeTitle": "Revoke key “{name}”?",
+    "revokeText": "Revocation is permanent: the key can no longer authenticate. It stays listed for traceability.",
+    "revoke": "Revoke",
+    "deleteTitle": "Delete key “{name}”?",
+    "deleteText": "The key is permanently deleted (no trash). The call log is kept.",
+    "word": "DELETE"
+  },
+  "toast": {
+    "created": "Key created",
+    "saved": "Key saved",
+    "rotated": "New secret generated",
+    "revoked": "Key revoked",
+    "deleted": "Key deleted"
+  },
+  "errors": {
+    "expiry_past": "The expiration date must be in the future.",
+    "account_invalid": "The target account does not belong to the organization.",
+    "revoked": "This key is revoked.",
+    "account_required": "A target account is required for an account key.",
+    "nameLength": "The name must contain between 3 and 100 characters."
+  },
+  "docs": {
+    "title": "API V2 documentation",
+    "subtitle": "REST services of the external API, generated from the same catalog as the OpenAPI 3.1 document.",
+    "baseUrl": "Base URL",
+    "openapi": "OpenAPI 3.1 document",
+    "general": "General principles",
+    "auth": "Authentication: POST /authenticate with clientId and clientSecret; opaque token valid 24 h, sent in the Authorization header (Bearer scheme).",
+    "scope": "Scope: an account key sees its account data and data shared in the organization (published entities); an organization key must target one account per query with the accountId parameter (or the X-Account-Id header).",
+    "classes": "Service classes: L1 = reads, L2 = unit writes and exports, L3 = bulk operations (L1 ⊂ L2 ⊂ L3).",
+    "lists": "Lists: limit (1 to 100, default 20), offset, createdAfterAt, modifiedAfterAt; X-Count and X-Total-Count headers; sorted by creation date (oldest first). Responses under the “data” root.",
+    "embed": "embed parameter: keywords specific to each service (repeatable or comma separated); none by default.",
+    "errors": "Errors: JSON body with path, key, code, message and details; 400 REQUIRED-MISSING / VALUE-NOT-VALID, 401 UNAUTHORIZED, 403 NO-RIGHT, 404 OBJECT-NOT-FOUND, 409 CONSTRAINT-NOT-SATISFIED, 429 TOO-MANY-REQUESTS.",
+    "rateLimit": "Rate limiting: {perClient} requests per minute per key, {auth} authentications per minute per IP address.",
+    "class": "Class {level}",
+    "public": "Public",
+    "parameters": "Parameters",
+    "embedKeywords": "Embed keywords",
+    "body": "Request body (JSON schema)",
+    "paginated": "Paginated list",
+    "accountParam": "accountId required (organization key)",
+    "required": "required",
+    "showBody": "Show schema"
+  }
+}

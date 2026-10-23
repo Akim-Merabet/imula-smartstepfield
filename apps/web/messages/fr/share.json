@@ -1,0 +1,165 @@
+{
+  "actions": {
+    "share": "Partager"
+  },
+  "public": {
+    "secured": "Accès sécurisé par code secret",
+    "unavailable": {
+      "title": "Lien indisponible",
+      "not_found": "Ce lien de partage n'existe pas ou n'est plus valable.",
+      "expired": "Ce lien de partage a expiré. Demandez à votre interlocuteur de vous renvoyer le partage.",
+      "revoked": "Ce lien de partage a été supprimé par son émetteur : il n'est plus valide.",
+      "blocked": "Ce partage est bloqué suite à un trop grand nombre de codes incorrects. Demandez à votre interlocuteur de vous renvoyer le partage."
+    },
+    "init": {
+      "formTitle": "{sender} vous a envoyé un formulaire à remplir",
+      "responseTitle": "{sender} vous invite à compléter une réponse de formulaire",
+      "documentTitle": "{sender} vous a envoyé un document à télécharger",
+      "someone": "Un collaborateur",
+      "reference": "Référence",
+      "project": "Entité",
+      "message": "Message",
+      "explain": "Pour sécuriser l'accès, un code secret va être envoyé à l'adresse {email}.",
+      "startForm": "Commencer ma réponse",
+      "startResponse": "Compléter ma réponse",
+      "startDocument": "Accéder au document"
+    },
+    "login": {
+      "title": "Saisissez votre code secret",
+      "sent": "Un second e-mail vient de vous être envoyé à {email} contenant un code secret à 6 chiffres.",
+      "code": "Code secret",
+      "submit": "Valider",
+      "resend": "Renvoyer le code",
+      "resendIn": "Renvoyer le code ({seconds} s)",
+      "resent": "Un nouveau code vous a été envoyé",
+      "remaining": "{count, plural, =0 {Plus aucun essai} one {# essai restant} other {# essais restants}}"
+    },
+    "contributor": {
+      "title": "Vos informations",
+      "subtitle": "Veuillez compléter le formulaire ci-dessous afin d'y accéder.",
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "email": "E-mail",
+      "company": "Entreprise",
+      "job": "Fonction",
+      "required": "Champ obligatoire",
+      "submit": "Continuer"
+    },
+    "fill": {
+      "send": "Envoyer la réponse",
+      "confirmTitle": "Envoyer la réponse ?",
+      "confirmText": "Une fois envoyée, votre réponse ne pourra plus être modifiée depuis ce lien.",
+      "banner": "Seules les questions qui vous sont destinées sont modifiables ; les autres sont affichées en lecture seule.",
+      "as": "{name} · {email}"
+    },
+    "finish": {
+      "title": "Votre réponse a bien été envoyée",
+      "text": "Veuillez cliquer sur le lien ci-dessous pour télécharger le document récapitulatif de votre réponse.",
+      "download": "Télécharger le document récapitulatif"
+    },
+    "later": {
+      "title": "Réponse sauvegardée",
+      "text": "Toutes vos réponses sont sauvegardées, vous pourrez venir les compléter plus tard à l'aide du lien reçu par e-mail.",
+      "summary": "Cliquez sur le lien ci-dessous pour télécharger un résumé de votre réponse.",
+      "download": "Télécharger le résumé",
+      "resume": "Reprendre ma réponse"
+    },
+    "document": {
+      "text": "Vous pouvez télécharger le document ci-dessous.",
+      "download": "Télécharger mon document",
+      "versions": "Versions diffusées",
+      "index": "Indice {index}",
+      "diffusedOn": "Diffusé le {date}",
+      "noPdf": "Aucun PDF n'est disponible pour ce document."
+    },
+    "errors": {
+      "invalid_code": "Le code saisi est incorrect",
+      "code_expired": "Ce code a expiré : demandez un nouveau code.",
+      "no_code": "Demandez d'abord l'envoi d'un code.",
+      "blocked": "Ce partage est bloqué suite à un trop grand nombre d'essais.",
+      "cooldown": "Veuillez patienter quelques secondes avant de redemander un code.",
+      "email_failed": "L'e-mail n'a pas pu être envoyé. Réessayez plus tard.",
+      "unauthenticated": "Votre session a expiré : veuillez vous identifier à nouveau.",
+      "already_sent": "Cette réponse a déjà été envoyée.",
+      "expired": "Ce lien de partage a expiré.",
+      "revoked": "Ce lien de partage n'est plus valide.",
+      "generic": "Une erreur est survenue."
+    }
+  },
+  "dialog": {
+    "titleForm": "Partage de formulaire",
+    "titleResponse": "Partager une réponse de formulaire",
+    "titleDocument": "Partager un document",
+    "emails": "E-mails",
+    "addEmail": "Ajouter un e-mail",
+    "emailPlaceholder": "nom@entreprise.com",
+    "removeEmail": "Retirer {email}",
+    "invalidEmail": "Adresse e-mail invalide",
+    "comment": "Commentaire",
+    "commentHint": "Le commentaire saisi sera visible dans le mail de partage",
+    "language": "Langue",
+    "languages": {
+      "fr": "Français",
+      "en": "English"
+    },
+    "send": "Partager",
+    "access": "Personnes ayant accès",
+    "empty": {
+      "form": "Ce formulaire n'a jamais été partagé auparavant.",
+      "response": "Cette réponse n'a jamais été partagée auparavant.",
+      "document": "Ce document n'a jamais été partagé auparavant."
+    },
+    "sentOn": "Envoyé le {date}",
+    "status": {
+      "pending": "En attente de réponse",
+      "responded": "Réponse reçue le : {datetime}",
+      "downloaded": "Consulté le : {datetime}",
+      "blocked": "Bloqué",
+      "expired": "Expiré"
+    },
+    "resend": "Renvoyer",
+    "revoke": "Supprimer",
+    "revokeTitle": "Supprimer le partage ?",
+    "revokeText": "Le lien de partage ne sera plus valide.",
+    "resent": "Le partage a été renvoyé",
+    "revoked": "Le partage a été supprimé",
+    "sent": "{count, plural, one {Partage envoyé} other {# partages envoyés}}",
+    "forbidden": "Vous n'avez pas le droit de partager cet élément.",
+    "blockers": {
+      "response_done": "Cette réponse est terminée : veuillez passer la réponse à l'état « en cours » avant de la partager",
+      "no_shared_question": "Aucune question n'est ouverte au partage : activez « Autoriser la réponse lors du partage » sur au moins une question du formulaire.",
+      "disabled": "Élément désactivé, partage impossible",
+      "no_pdf": "Aucun PDF disponible : ce document ne peut pas encore être partagé."
+    },
+    "errors": {
+      "already_shared": "Vous avez déjà effectué ce partage avec cette adresse mail",
+      "inactive_email": "Cette adresse correspond à un utilisateur inactif",
+      "email_failed": "L'e-mail n'a pas pu être envoyé",
+      "forbidden": "Action non autorisée",
+      "not_found": "Élément introuvable",
+      "generic": "Une erreur est survenue"
+    }
+  },
+  "emails": {
+    "title": "E-mails sortants",
+    "subtitle": "Journal des e-mails émis par l'application (outil de développement).",
+    "smtpOn": "SMTP configuré : les e-mails sont réellement envoyés ; le contenu sensible est masqué dans ce journal.",
+    "smtpOff": "SMTP non configuré : les e-mails sont uniquement journalisés ici.",
+    "date": "Date",
+    "to": "Destinataire",
+    "subject": "Sujet",
+    "kind": "Type",
+    "status": "Statut",
+    "statuses": {
+      "logged": "Journalisé",
+      "sending": "En cours d'envoi",
+      "sent": "Envoyé",
+      "failed": "Échec"
+    },
+    "empty": "Aucun e-mail.",
+    "view": "Afficher",
+    "redacted": "Contenu masqué",
+    "html": "Aperçu",
+    "text": "Texte brut"
+  }
+}

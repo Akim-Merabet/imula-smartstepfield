@@ -1,0 +1,773 @@
+{
+  "menu": {
+    "title": "Settings",
+    "account": "Account",
+    "clients": "Client book",
+    "companies": "Companies",
+    "families": "Families",
+    "categories": "Categories",
+    "statuses": "Statuses",
+    "references": "References",
+    "customFields": "Attributes",
+    "files": "Files",
+    "filesModels": "Templates",
+    "filesCells": "Cells",
+    "sections": "Folders",
+    "trash": "Trash",
+    "backgroundTasks": "Background tasks",
+    "platform": "Platform administration",
+    "general": "General",
+    "generalAccount": "Account",
+    "generalOrganization": "Organization",
+    "trams": "Page templates",
+    "wording": "Tracking",
+    "backups": "MobileApp backups",
+    "logsPush": "Push logs",
+    "usage": "Usage"
+  },
+  "comingSoon": {
+    "title": "Coming soon",
+    "description": "This screen will be delivered in an upcoming version of the application."
+  },
+  "errors": {
+    "inUse": "Deletion impossible: the item is in use",
+    "usage": {
+      "projects": "{count, plural, one {# entity} other {# entities}}",
+      "flows": "{count, plural, one {# flow} other {# flows}}",
+      "forms": "{count, plural, one {# form} other {# forms}}",
+      "responses": "{count, plural, one {# response} other {# responses}}",
+      "statuses": "{count, plural, one {# status} other {# statuses}}",
+      "attributes": "{count, plural, one {# attribute} other {# attributes}}",
+      "references": "{count, plural, one {# reference} other {# references}}",
+      "tablets": "{count, plural, one {# tablet} other {# tablets}}",
+      "collaborators": "{count, plural, one {# collaborator} other {# collaborators}}",
+      "skills": "{count, plural, one {# skill} other {# skills}}",
+      "hierarchies": "{count, plural, one {# hierarchy assignment} other {# hierarchy assignments}}",
+      "equipments": "{count, plural, one {# equipment} other {# equipments}}",
+      "risks": "{count, plural, one {# risk} other {# risks}}",
+      "objects": "{count, plural, one {# object} other {# objects}}",
+      "blocks": "{count, plural, one {# block} other {# blocks}}",
+      "families": "{count, plural, one {# family} other {# families}}"
+    },
+    "duplicate": "Name(s) already in use",
+    "duplicate_code": "Code already in use",
+    "duplicate_name": "Name already in use",
+    "duplicate_variable": "An attribute already uses this dynamic variable",
+    "duplicate_wording": "A configuration with the same name already exists",
+    "invalid": "Some of the information entered is invalid",
+    "invalid_parent": "The selected parent is not valid for this item",
+    "parent_inactive": "This item cannot be activated while its parent is deactivated!",
+    "has_children": "An item that has children cannot be deleted",
+    "imported": "A category already imported into a project cannot be deleted",
+    "wording_required": "A tracking configuration is required for a Document family",
+    "default_status": "A default status cannot be deactivated or deleted",
+    "attribute_in_use": "Deletion impossible — the attribute is already in use",
+    "choice_in_use": "The attribute value is already in use",
+    "nomenclature_invalid": "Invalid nomenclature",
+    "reference_exists": "This reference already exists",
+    "default_reference_exists": "A default reference already exists for this field",
+    "reference_twin_active": "This reference cannot be activated while another one has the same characteristics",
+    "parent_company": "The main company cannot be deleted",
+    "not_found": "Item not found",
+    "pgac_not_restorable": "A PGAC entity cannot be restored",
+    "parent_deleted": "This item cannot be restored: its parent is deleted",
+    "response_parent_deleted": "The response cannot be restored: its flow or form is deleted",
+    "category_imported": "A category imported into a project cannot be restored",
+    "read_only": "This configuration cannot be modified",
+    "last_default_translation": "The only translation of a default configuration cannot be deleted",
+    "wording_entry_required": "Each state needs a value and a tooltip",
+    "unauthenticated": "Session expired, please sign in again"
+  },
+  "account": {
+    "subtitle": "Account (applicability) information used in generated documents",
+    "sections": {
+      "identity": "Identity",
+      "address": "Address",
+      "contact": "Contact"
+    },
+    "fields": {
+      "name": "Account name",
+      "full_name": "Additional name",
+      "organization": "Organization",
+      "subdomain": "Subdomain",
+      "organizationId": "Organization UUID",
+      "address_line_1": "Address",
+      "address_line_2": "Address line 2",
+      "postal_code": "Postal code",
+      "city": "City",
+      "country": "Country",
+      "phone": "Phone",
+      "fax": "Fax",
+      "contact_email": "Contact email",
+      "website": "Website"
+    }
+  },
+  "clients": {
+    "title": "Client book",
+    "add": "Add a client",
+    "columns": {
+      "name": "Name",
+      "address": "Address",
+      "zipCode": "Postal code",
+      "city": "City",
+      "country": "Country"
+    },
+    "delete": {
+      "title": "Delete client “{name}”?"
+    },
+    "created": "Client created successfully",
+    "editTitle": "Edit client {name}",
+    "createTitle": "New client",
+    "tabs": {
+      "general": "General",
+      "options": "Options"
+    },
+    "createAnother": "Create another client",
+    "fields": {
+      "name": "Name 1",
+      "name_2": "Name 2",
+      "name_3": "Name 3",
+      "address": "Address",
+      "address_comp": "Address line 2",
+      "zip_code": "Postal code",
+      "city": "City",
+      "country": "Country",
+      "observation": "Comment",
+      "reference": "Reference",
+      "cover_page_enabled": "Add a client-specific cover page",
+      "cover_page_pdf": "PDF template",
+      "page_number_x": "Page number position X",
+      "page_number_y": "Page number position Y",
+      "index_max": "Number of previous indexes"
+    },
+    "coverHelp": "The client-specific cover page will be added by default as the first page of every generated document.",
+    "coverPdfUnavailable": "Uploading the PDF template will be available with the Files module.",
+    "editWarning": "Warning: changes will impact the entities this client is assigned to!"
+  },
+  "companies": {
+    "title": "Companies",
+    "add": "Add a company",
+    "parent": "Main company",
+    "columns": {
+      "name": "Name",
+      "activityArea": "Business sector"
+    },
+    "errors": {
+      "parentNotDeletable": "The main company cannot be deleted"
+    },
+    "delete": {
+      "title": "Delete company “{name}”?",
+      "subtitle": "There is no trash for this item. Collaborators from a company other than the main company become co-contractors."
+    },
+    "created": "Company created successfully",
+    "editTitle": "Edit company {name}",
+    "createTitle": "New company",
+    "createAnother": "Create another company",
+    "fields": {
+      "name": "Name",
+      "activityArea": "Business sector",
+      "comment": "Comment"
+    }
+  },
+  "families": {
+    "title": "Families",
+    "subtitle": "Parent and child families let you structure your data; they are shared across the whole organization.",
+    "add": "Add a family",
+    "addCategory": "Add a category",
+    "actions": {
+      "addChild": "Add a child family",
+      "addChildCategory": "Add a child category"
+    },
+    "collapse": "Collapse",
+    "expand": "Expand",
+    "expandAll": "Expand all",
+    "collapseAll": "Collapse all",
+    "noClientFeedback": "No client feedback on index / sub-index",
+    "relative": {
+      "parent": "Parent",
+      "child": "Child"
+    },
+    "provenance": {
+      "default": "Default",
+      "entity": "Entity"
+    },
+    "active": "Active",
+    "inactive": "Inactive",
+    "filters": {
+      "nature": "Nature"
+    },
+    "columns": {
+      "name": "Nature / Name",
+      "code": "Code",
+      "type": "Type",
+      "provenance": "Origin",
+      "state": "State"
+    },
+    "delete": {
+      "title": "Delete “{name}”?",
+      "toTrash": "The category will be kept in the trash for 30 days."
+    },
+    "created": "Family created successfully",
+    "createdCategory": "Category created successfully",
+    "createAnother": "Create another family",
+    "createAnotherCategory": "Create another category",
+    "createTitle": "New family",
+    "editTitle": "Edit family {name}",
+    "createCategoryTitle": "New category",
+    "editCategoryTitle": "Edit category {name}",
+    "fields": {
+      "nature": "Nature",
+      "type": "Type",
+      "parent": "Child of…",
+      "shortName": "Short name",
+      "longName": "Long name",
+      "code": "Code",
+      "priority": "Display order",
+      "color": "Color",
+      "qualityReference": "Quality reference",
+      "wording": "Tracking",
+      "clientSupervision": "Client feedback on index",
+      "clientSupervisionSubIndex": "Client feedback on sub-index"
+    },
+    "frozen": "The parent / nature of this item cannot be changed after creation.",
+    "noParent": "No parent for this nature: create a parent item first.",
+    "placeholders": {
+      "shortName": "E.g. FAM, SAFE, OP"
+    },
+    "noWording": "No tracking configuration exists yet.",
+    "supervisionWarning": "Changing the client feedback conditions will impact documents already created."
+  },
+  "natures": {
+    "project": "Entity",
+    "flow": "Flow",
+    "document": "Document",
+    "form": "Form",
+    "risk": "Risk",
+    "equipment": "Equipment",
+    "device": "Tablets",
+    "team": "Collaborator group",
+    "function": "Collaborator function",
+    "legal": "Administrative",
+    "skill": "Skill",
+    "contract": "Contract",
+    "technical_object": "Object",
+    "activity_domain": "Skill activity domain",
+    "list": "List",
+    "hierarchy": "Collaborator hierarchy"
+  },
+  "categories": {
+    "title": "Default categories",
+    "subtitle": "Category template copied into every entity.",
+    "projectTitle": "Categories",
+    "projectSubtitle": "Local categories of the entity and categories coming from the default categories.",
+    "sync": "Update default categories",
+    "syncHelp": "Categories will be updated according to the default categories defined in the settings.",
+    "syncConfirm": "Update",
+    "assignAll": "Assign to all projects",
+    "assignAllHelp": "Default categories will be added or updated in every entity of the account.",
+    "assignAllConfirm": "Assign",
+    "synced": "Categories updated successfully"
+  },
+  "color": {
+    "palette": {
+      "0": "Blue",
+      "1": "Dark orange",
+      "2": "Green",
+      "3": "Grey",
+      "4": "Orange",
+      "5": "Pink",
+      "6": "Purple",
+      "7": "Turquoise"
+    },
+    "custom": "Custom color"
+  },
+  "statuses": {
+    "title": "{nature} statuses",
+    "subtitle": "Each status belongs to a state and can be linked to a family.",
+    "add": "Add a status",
+    "linkDefault": "Default",
+    "familyLetter": {
+      "parent": "(P)",
+      "child": "(C)"
+    },
+    "defaultSuffix": "- Default status",
+    "columns": {
+      "family": "Family",
+      "name": "Name",
+      "importable": "Import",
+      "exportable": "Export",
+      "mobile": "MobileApp",
+      "hidden": "Hidden",
+      "category": "State",
+      "active": "Activation"
+    },
+    "categories": {
+      "todo": "To do",
+      "in_preparation": "In preparation",
+      "in_operation": "In operation",
+      "in_progress": "In progress",
+      "done": "Done"
+    },
+    "active": "Active",
+    "inactive": "Inactive",
+    "filters": {
+      "all": "All",
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "delete": {
+      "title": "Delete status “{name}”?"
+    },
+    "created": "Status created successfully",
+    "createTitle": "New status ({nature})",
+    "editTitle": "Edit status {name}",
+    "createAnother": "Create another status",
+    "fields": {
+      "name": "Name",
+      "description": "Comment",
+      "color": "Color",
+      "category": "State",
+      "linkType": "Link type",
+      "familyParent": "Parent family",
+      "familyChild": "Child family",
+      "isDefault": "Select this status by default on creation",
+      "downloadable": "Visible from the MobileApp (generic type only)",
+      "importable": "Visible in WebApp import windows",
+      "exportable": "Visible when exporting",
+      "hideFlow": "Hide the flow for this status when done",
+      "hideEntity": "Hide the entity for this status when done"
+    },
+    "descriptionHelp": "Shown when selecting a status and on hover.",
+    "frozen": "The link type and family can no longer be changed after creation.",
+    "links": {
+      "default": "Default",
+      "entity_family_parent": "Entity parent family",
+      "entity_family": "Entity family",
+      "entity_parent_family_parent": "Parent entity's parent family",
+      "entity_parent_family": "Parent entity's child family",
+      "object_default": "Default",
+      "object_entity_family_parent": "Parent family",
+      "object_entity_family": "Child family"
+    },
+    "options": "Options",
+    "noOptions": "Multiple instructions block statuses have no options."
+  },
+  "statusNatures": {
+    "project": "Entity",
+    "flow": "Flow",
+    "form": "Form",
+    "form_response": "Form response",
+    "technical_object": "Object",
+    "multi_pr": "Multiple instructions block"
+  },
+  "customFields": {
+    "title": "{nature} attributes",
+    "add": "Add an attribute",
+    "columns": {
+      "name": "Name - Type",
+      "family": "Link",
+      "variable": "Dynamic variable",
+      "required": "Required",
+      "active": "Activation"
+    },
+    "types": {
+      "text": "Text",
+      "textarea": "Long text",
+      "label": "Title",
+      "integer": "Integer",
+      "double": "Decimal number",
+      "boolean": "True or false",
+      "date": "Date",
+      "datetime": "Date and time",
+      "select": "Single choice list",
+      "multiselect": "Multiple choice list",
+      "file": "File",
+      "image": "Image",
+      "metadata": "Metadata",
+      "link": "Hyperlink"
+    },
+    "linkDefault": "Default",
+    "active": "Active",
+    "inactive": "Inactive",
+    "filters": {
+      "all": "All",
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "activateAll": "Activate all",
+    "delete": {
+      "title": "Delete attribute “{name}”?"
+    },
+    "created": "Attribute created successfully",
+    "createTitle": "New attribute ({nature})",
+    "editTitle": "Edit attribute {name}",
+    "createAnother": "Create another attribute",
+    "fields": {
+      "type": "Attribute type",
+      "name": "Name",
+      "link_type": "Link type",
+      "familyParent": "Parent family",
+      "familyChild": "Child family",
+      "choices": "Choice list",
+      "default_value": "Default value",
+      "placeholder": "Placeholder",
+      "tooltip": "Tooltip",
+      "description": "Help",
+      "pdf_field_name": "PDF field",
+      "variable_name": "Dynamic variable",
+      "text_display": "Text displayed in the MobileApp",
+      "required": "Required",
+      "read_only": "Read only",
+      "display_in_flow_card": "MobileApp - Show in the flow card",
+      "display_in_flow_banner": "MobileApp - Show in the flow banner",
+      "display_on_flow_opening": "MobileApp - Show when opening the flow"
+    },
+    "frozen": "Type, link and family can no longer be changed after creation.",
+    "linkHelp": "Attribute specific to a parent or child family, or default.",
+    "links": {
+      "default": "Default",
+      "entity_family_parent": "Parent family",
+      "entity_family": "Child family"
+    },
+    "choicesHelp": "Separate values with “__” ({count, plural, =0 {no value} one {# value} other {# values}})",
+    "variableHelp": "Letters, digits and “_”; unique within the account.",
+    "textDisplayHelp": "Default: “Please click this link”.",
+    "options": "Options",
+    "errors": {
+      "duplicateChoice": "The list contains duplicate values",
+      "variablePattern": "Use letters, digits and “_” only"
+    }
+  },
+  "fieldNatures": {
+    "project": "Entity",
+    "flow": "Flow",
+    "phase": "Phase",
+    "step": "Step",
+    "technical_object": "Object",
+    "document": "Document"
+  },
+  "references": {
+    "title": "References",
+    "subtitle": "Nomenclatures used to generate references automatically.",
+    "add": "Add a reference",
+    "columns": {
+      "nature": "Nature",
+      "field": "Field",
+      "link": "Link",
+      "nomenclature": "Nomenclature",
+      "counter": "Counter",
+      "active": "Activation"
+    },
+    "fieldsByNature": {
+      "project": {
+        "ref_int": "Reference",
+        "ref_ext": "Contract no."
+      },
+      "flow": {
+        "ref_int": "Reference"
+      },
+      "form": {
+        "ref_int": "Reference"
+      },
+      "document": {
+        "ref_int": "Internal reference",
+        "ref_ext": "External reference",
+        "complement_ref_int": "Internal reference complement",
+        "complement_ref_ext": "External reference complement"
+      },
+      "technical_object": {
+        "ref_int": "Internal reference",
+        "ref_ext": "External reference",
+        "complement_ref_int": "Internal reference complement",
+        "complement_ref_ext": "External reference complement"
+      }
+    },
+    "links": {
+      "default": "Default",
+      "entity_family_parent": "Parent family",
+      "entity_family": "Child family",
+      "entity_parent_family_parent": "Parent entity's parent family",
+      "entity_parent_family": "Parent entity's child family"
+    },
+    "counterSummary": "{type} · {digits} digits",
+    "counterTypes": {
+      "global": "Global counter",
+      "local": "Local counter"
+    },
+    "counterHelp": {
+      "global": "Counter shared by all entities",
+      "local": "Counter local to each entity"
+    },
+    "active": "Active",
+    "inactive": "Inactive",
+    "delete": {
+      "title": "Delete this reference?"
+    },
+    "created": "Reference created successfully",
+    "createTitle": "New reference",
+    "editTitle": "Edit reference",
+    "familyParent": "Parent family",
+    "familyChild": "Child family",
+    "frozen": "Only the nomenclature and counter can be changed after creation.",
+    "nomenclatureHelp": "Available variables: {variables} ('{counter}' is required).",
+    "errors": {
+      "nomenclature": "Invalid nomenclature: the '{counter}' variable is required"
+    },
+    "fields": {
+      "counterType": "Counter type",
+      "counterFormat": "Counter format (number of digits)",
+      "startValue": "Counter start value"
+    },
+    "formatPreview": "Preview: {value}"
+  },
+  "referenceNatures": {
+    "project": "Entity",
+    "flow": "Flow",
+    "document": "Document",
+    "form": "Form",
+    "technical_object": "Object"
+  },
+  "trash": {
+    "title": "Trash",
+    "subtitle": "Items deleted in the last 30 days",
+    "columns": {
+      "nature": "Nature",
+      "name": "Name",
+      "deletedAt": "Deletion date",
+      "user": "User"
+    },
+    "natures": {
+      "entity": "Entity",
+      "flow": "Flow",
+      "category": "Category",
+      "form": "Form",
+      "form_response": "Form response"
+    },
+    "restore": "Restore",
+    "restored": "Item restored successfully",
+    "empty": "No item deleted in the last 30 days"
+  },
+  "backgroundTasks": {
+    "title": "Background tasks",
+    "columns": {
+      "kind": "Task",
+      "type": "Type",
+      "name": "Name",
+      "status": "Status",
+      "user": "User",
+      "project": "Project",
+      "createdAt": "Created on",
+      "startedAt": "Processing start",
+      "finishedAt": "Processing end",
+      "duration": "Duration",
+      "delay": "Processing delay",
+      "attempts": "Attempts",
+      "error": "Error"
+    },
+    "kinds": {
+      "document_generation": "Document generation",
+      "legacy": "Legacy task",
+      "duplicate_project": "Entity duplication",
+      "prepare_folder": "Sub-folder preparation",
+      "import_referential": "Referential import",
+      "execute_referential": "Referential execution",
+      "refresh_referential": "Referential update"
+    },
+    "statuses": {
+      "acknowledged": "Pending",
+      "in_progress": "In progress",
+      "to_retry": "Retrying",
+      "done": "Done",
+      "error": "Error"
+    },
+    "seconds": "{s} s",
+    "minutes": "{m} min {s} s",
+    "empty": "No background task",
+    "propertiesTitle": "Background task properties",
+    "debug": "Debug"
+  },
+  "generalAccount": {
+    "title": "General - Account",
+    "accountCreated": "Account created successfully",
+    "sections": {
+      "accounts": "Accounts",
+      "modules": "Module configuration",
+      "documents": "Document configuration"
+    },
+    "fields": {
+      "account": "Configured account",
+      "newAccount": "Add an account",
+      "pgac_enabled": "PGAC module",
+      "pgac_subcontractors": "PGAC subcontractors",
+      "file_module_enabled": "Files module",
+      "freeze_signature_date": "Freeze signature date",
+      "local_form_creation": "Allow local form creation",
+      "auto_lock_form_responses": "Enable automatic locking of form responses",
+      "hide_multi_pr_titles": "Hide multiple instructions block titles",
+      "default_sequence_type": "Sequence type on creation",
+      "default_phase_type": "Phase type on creation",
+      "doc_language_1": "Language 1",
+      "doc_language_2": "Language 2",
+      "doc_index_format": "Index type",
+      "doc_watermark": "Watermark",
+      "time_zone": "Time zone"
+    },
+    "subcontractorsHelp": "Separate subcontractors with “__”.",
+    "sequencing": {
+      "linear": "Linear",
+      "parallel": "Parallel"
+    },
+    "languages": {
+      "none": "None",
+      "fr": "French",
+      "en": "English",
+      "de": "German",
+      "it": "Italian"
+    },
+    "indexFormats": {
+      "alpha": "Alphabetic (A, B…)",
+      "numeric": "Numeric (1, 2…)",
+      "numeric_zero": "Numeric from 0 (0, 1…)",
+      "numeric_all_zero": "Two-digit numeric (01, 02…)",
+      "numeric_all_zero_start_zero": "Two-digit numeric from 00",
+      "numeric_decimal": "Decimal (1.0, 1.1…)",
+      "numeric_decimal_start_zero": "Decimal from 0 (0.0, 0.1…)"
+    }
+  },
+  "organization": {
+    "title": "General - Organization",
+    "sections": {
+      "mobile": "MobileApp",
+      "features": "Features",
+      "sharing": "Sharing and display"
+    },
+    "fields": {
+      "allowed_download_response": "Number of completed responses downloaded by default to the MobileApp",
+      "block_form_response_edition": "Completed responses cannot be modified in the MobileApp",
+      "diagram_enabled": "Enable diagram view",
+      "links_form_attributes_enabled": "Enable adding object attributes to a form",
+      "local_form_allowed": "Enable local copies of forms",
+      "rubric_permissions_enabled": "Enable navigation restrictions in forms",
+      "support_chat_enabled": "Enable support chat",
+      "link_expiration_days": "Link expiration when sharing forms and/or documents (days)",
+      "number_format": "Number formatting"
+    },
+    "localFormIrreversible": "Once enabled, this option can no longer be disabled.",
+    "supportChatHelp": "The page reloads after saving.",
+    "daysHelp": "Between 1 and 90 days.",
+    "numberFormats": {
+      "fr": "12 345,67",
+      "en": "12,345.67"
+    },
+    "pdfTranslationsUnavailable": "Customizing PDF translations (download / upload) will be available with the Page templates module."
+  },
+  "wording": {
+    "title": "Tracking",
+    "subtitle": "Vocabulary configuration of document states, linked to Document families.",
+    "add": "Add a configuration",
+    "fields": {
+      "name": "Name",
+      "description": "Description",
+      "hide_bpa": "Hide sub-index addition (BPA)",
+      "hide_bpe_valid": "Hide second index validation (BPE*)",
+      "hide_vso_sr": "Hide feedback with reservations (VSO-SR)",
+      "is_default": "Select this configuration by default when creating a new family"
+    },
+    "columns": {
+      "default": "Default",
+      "languages": "Translations"
+    },
+    "delete": {
+      "title": "Delete configuration “{name}”?"
+    },
+    "createTitle": "New tracking configuration",
+    "editTitle": "Tracking configuration {name}",
+    "tabs": {
+      "configuration": "Configuration",
+      "translation": "Translation"
+    },
+    "languages": {
+      "fr": "French",
+      "en": "English",
+      "de": "German",
+      "it": "Italian"
+    },
+    "addLanguage": "Add a language",
+    "noTranslation": "No translation: add a language.",
+    "sections": {
+      "default": "Default",
+      "validationBis": "Second validation",
+      "subIndex": "Sub-index",
+      "reserve": "Feedback with reservations"
+    },
+    "states": {
+      "prel": "Preliminary",
+      "bpoAd": "Issued for comments, awaiting distribution",
+      "bpoRc": "Issued for comments - client feedback",
+      "bpoModification": "Modification",
+      "vso": "Reviewed without comments",
+      "vsoSr": "Reviewed without comments, with reservations",
+      "vao": "Reviewed with comments",
+      "bpe": "Approved for execution",
+      "bpeTemp": "Temporarily approved for execution",
+      "bpeValid": "Second validation of the index",
+      "bpa": "Sub-index",
+      "bpaAd": "Sub-index awaiting distribution",
+      "bpaRc": "Sub-index - client feedback",
+      "bpaOk": "Sub-index approved",
+      "bpaKo": "Sub-index refused",
+      "bpaRefused": "Sub-index rejected",
+      "bpaModification": "Sub-index addition"
+    },
+    "value": "Value",
+    "tooltip": "Tooltip",
+    "color": "Label color",
+    "entriesRequired": "Each state needs a value and a tooltip.",
+    "deleteLanguage": "Delete this translation",
+    "saveTranslation": "Save translation",
+    "readOnly": "This configuration cannot be modified."
+  },
+  "kpi": {
+    "title": "Usage",
+    "subtitle": "Usage indicators for the period (new / total).",
+    "frequencies": {
+      "day": "Day",
+      "week": "Week",
+      "month": "Month",
+      "quarter": "Quarter",
+      "year": "Year"
+    },
+    "previous": "Previous period",
+    "next": "Next period",
+    "accounts": "Available accounts",
+    "globalUse": "Global usage",
+    "counters": {
+      "entities": "Entities",
+      "flows": "Flows",
+      "phases": "Phases",
+      "steps": "Steps",
+      "blocks": "Blocks",
+      "forms": "Forms",
+      "responses": "Form responses",
+      "signatures": "Signatures",
+      "users": "Users",
+      "operators": "Operators"
+    },
+    "totalOn": "{total} in total",
+    "licences": "Licences",
+    "licenceCounters": {
+      "webActivated": "Activated web users",
+      "webActive": "Active web users",
+      "mobileOperators": "MobileApp operators",
+      "tablets": "Activated tablets",
+      "tabletsActive": "Active tablets"
+    },
+    "licenceHelp": {
+      "webActivated": "Users with the Activated status (excluding deactivated or deleted accounts)",
+      "webActive": "Users who signed in at least once during the period",
+      "mobileOperators": "Operators with the Activated status",
+      "tablets": "Tablet profiles with the Activated status",
+      "tabletsActive": "Tablets that sent data at least once during the period"
+    }
+  }
+}

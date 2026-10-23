@@ -1,0 +1,25 @@
+{
+  "title": "Dossier référentiel {name}",
+  "subtitle": "{count, plural, =0 {Aucun sous-dossier} one {# sous-dossier référentiel} other {# sous-dossiers référentiels}} · Client : {client}",
+  "subFolder": "Sous-dossier référentiel",
+  "addSubFolder": "Ajouter un sous-dossier",
+  "columns": {
+    "index": "Indice",
+    "flows": "Flows"
+  },
+  "emptyTitle": "Aucun sous-dossier référentiel",
+  "emptySubtitle": "Créez un sous-dossier avec le bouton « + » pour y ajouter des flows référentiels.",
+  "backToFolder": "Revenir au dossier",
+  "prepare": {
+    "action": "Préparer",
+    "title": "Préparation du sous-dossier référentiel {title} - {index}",
+    "info": "{count, plural, one {Le flow référentiel du sous-dossier sera importé} other {Les # flows référentiels du sous-dossier seront importés}} dans le module Référentiels d'une nouvelle entité Projet (verrouillés et synchronisables avec leur source), avec les diagrammes référentiels.",
+    "noFlowsTitle": "La préparation est impossible",
+    "noFlows": "Veuillez d'abord ajouter un ou plusieurs flows au sous-dossier.",
+    "inProgress": "Préparation en cours, traitement en tâche de fond",
+    "inProgressDescription": "L'entité Projet apparaîtra dans la liste des entités à la fin du traitement (suivi dans la cloche des événements).",
+    "done": "L'entité {name} a été préparée avec succès",
+    "failed": "La préparation du sous-dossier a échoué",
+    "taskLabel": "Préparation du sous-dossier {name} - {index}"
+  }
+}

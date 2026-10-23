@@ -1,0 +1,471 @@
+{
+  "title": "Form editor",
+  "defaults": {
+    "rubric": "Section {n}",
+    "table": "Table {n}",
+    "question": "Question {n}",
+    "column": "Column {n}",
+    "row": "Row {n}",
+    "option": "Option {n}",
+    "collaborator": "Collaborator {n}",
+    "copyOf": "Copy of {name}"
+  },
+  "errors": {
+    "unauthenticated": "Your session has expired",
+    "not_found": "Item not found",
+    "forbidden": "You do not have the rights required for this action",
+    "invalid": "The entered data is invalid",
+    "duplicate": "This value is already used in this form",
+    "description_too_long": "The description cannot exceed 255 characters",
+    "unit_too_long": "The unit cannot exceed 20 characters",
+    "type_not_allowed": "This type is not available for this kind of section",
+    "last_question": "A section must contain at least one question",
+    "last_column": "A table must contain at least one column",
+    "last_row": "A table must contain at least one row",
+    "last_option": "A question must contain at least one option",
+    "last_cell": "The last cell cannot be duplicated",
+    "table_target": "A question cannot be moved to or from a table",
+    "formula_invalidSyntax": "The formula syntax is invalid",
+    "formula_invalidVariable": "A reference used in the formula is invalid",
+    "formula_invalidParameters": "The parameters of a formula function are invalid",
+    "pdf_duplicate": "This PDF field is already used in this form",
+    "export_duplicate": "This exportable value has already been selected",
+    "code_duplicate": "This code is already used in this form",
+    "version": "Publishing the version failed"
+  },
+  "menu": {
+    "title": "Navigation",
+    "identifiers": "Identifiers",
+    "collapse": "Collapse menu",
+    "expand": "Expand menu",
+    "addRubric": "Add a section",
+    "drag": "Drag to move",
+    "toggle": "Show / hide questions",
+    "optionIdentifier": "Option identifier",
+    "cellIdentifier": "Cell identifier",
+    "copy": "Copy",
+    "copied": "Copied to clipboard"
+  },
+  "actions": {
+    "more": "More actions",
+    "duplicate": "Duplicate",
+    "move": "Move",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "apply": "Apply"
+  },
+  "noTrash": "There is no trash for this item: it cannot be restored.",
+  "natures": {
+    "model": "Template",
+    "generic": "Generic",
+    "other": "Other",
+    "local": "Local",
+    "archived": "Archived"
+  },
+  "types": {
+    "short_answer": "Short answer",
+    "long_answer": "Long answer",
+    "multiple_answers": "Multiple answers",
+    "unique_choice": "Single choice",
+    "multiple_choices": "Multiple choice",
+    "single_choice_list": "Single-choice list",
+    "multiple_choice_list": "Multiple-choice list",
+    "date": "Date",
+    "datetime": "Date and time",
+    "duration": "Duration",
+    "value_unit": "Value and unit",
+    "photo": "Photo",
+    "collaborator": "Collaborator and signature",
+    "location": "Location",
+    "formula": "Formula",
+    "file": "File (PDF)",
+    "text_editor": "Text editor",
+    "checkbox": "Checkbox"
+  },
+  "mode": {
+    "view": "Preview mode",
+    "build": "Edit mode",
+    "goToBuild": "Switch to edit mode",
+    "goToView": "Switch to preview mode",
+    "switchError": "You do not have the rights required for this action"
+  },
+  "header": {
+    "back": "Back",
+    "library": "Library",
+    "index": "Index {index}",
+    "previousRubric": "Previous section",
+    "nextRubric": "Next section",
+    "rubricCounter": "{current} / {total}",
+    "versionPublished": "Version {n} published",
+    "unpublished": "Unpublished changes",
+    "publish": "Publish version",
+    "published": "Version {n} published successfully",
+    "variables": "Dynamic variables"
+  },
+  "empty": {
+    "title": "This form is empty",
+    "subtitle": "Add a first section to get started"
+  },
+  "rubric": {
+    "number": "Section {n}",
+    "types": {
+      "question": "Question section",
+      "table_column": "Column-based table",
+      "table_row": "Row-based table"
+    },
+    "hiddenInMobileBadge": "Hidden on the MobileApp",
+    "addAfter": "Add after this section",
+    "add": {
+      "question": "Add a section",
+      "table_column": "Add a column-based table",
+      "table_row": "Add a row-based table"
+    },
+    "duplicated": "Section duplicated (object attributes are not duplicated)",
+    "settings": "Section settings",
+    "name": {
+      "question": "Question section name",
+      "tableColumn": "Column-based table name",
+      "tableRow": "Row-based table name"
+    },
+    "description": "Description",
+    "descriptionMax": "255 characters maximum",
+    "additionalComment": "Additional statement",
+    "additionalObservation": "Additional observation (tooltip)",
+    "pdfFormat": "PDF export format",
+    "portrait": "Portrait (vertical)",
+    "landscape": "Landscape (horizontal)",
+    "attachmentWidth": "Image width (PDF)",
+    "attachmentHeight": "Image height (PDF)",
+    "hiddenInMobile": "Hide on the MobileApp",
+    "hideInPdf": "Hide in the PDF export",
+    "exportImagesInAppendix": "Export images as appendix in the PDF export",
+    "allowAddRow": "Allow adding rows in the field",
+    "allowAddColumn": "Allow adding columns in the field",
+    "firstColumnHidden": "Hide the header column",
+    "importXlsx": "Enable value import (XLS)",
+    "importXlsxInfo": "Only available when every column is a “Short answer”",
+    "deleteTitle": "Delete the section “{name}”?",
+    "move": {
+      "title": "Move the section",
+      "before": "Placed before the section",
+      "last": "In last position"
+    }
+  },
+  "question": {
+    "number": "Question {n}",
+    "mandatory": "Make mandatory",
+    "actions": {
+      "configure": "Configure",
+      "addOption": "Add an option",
+      "addContributor": "Add a collaborator request",
+      "massParams": "Bulk configure",
+      "insertBelow": "Insert a question below"
+    },
+    "duplicated": "Question duplicated successfully",
+    "webappOnly": "This question type can only be answered from the WebApp",
+    "signatories": "{count, plural, one {# collaborator request} other {# collaborator requests}}",
+    "options": "{count, plural, one {# answer option} other {# answer options}}",
+    "deleteTitle": "Delete the question “{name}”?",
+    "add": "Add a question",
+    "changeType": {
+      "question": "Are you sure you want to change the question type?",
+      "column": "Are you sure you want to change the column type?",
+      "row": "Are you sure you want to change the row type?",
+      "subtitle": "This change discards the option settings."
+    },
+    "description": "Description (optional)",
+    "additionalComment": "Additional statement (optional)",
+    "additionalObservation": "Additional observation (optional)",
+    "additionalObservationInfo": "Displayed as a tooltip",
+    "photoSize": "Image size in export",
+    "withObservation": "Allow adding an observation",
+    "lockable": "Enable answer locking",
+    "lockableForm": "Automatic locking enabled on the form",
+    "allowBackdating": "Allow backdating",
+    "shared": "Allow answering when shared",
+    "hideInPdf": "Hide in the PDF export",
+    "hideImagesBelowTable": "Hide images below the table in the PDF export",
+    "style": {
+      "title": "Style",
+      "color": "Colour",
+      "noColor": "No colour",
+      "colors": {
+        "alert1": "Alert — level 1",
+        "alert2": "Alert — level 2",
+        "warning1": "Warning — level 1",
+        "warning2": "Warning — level 2",
+        "success1": "Success — level 1",
+        "success2": "Success — level 2",
+        "highlight1": "Highlight — level 1",
+        "highlight2": "Highlight — level 2"
+      },
+      "icon": "Icon",
+      "noIcon": "None"
+    },
+    "move": {
+      "title": "Move the question",
+      "rubric": "To the section",
+      "before": "Placed before the question",
+      "last": "In last position"
+    },
+    "mass": {
+      "title": {
+        "question": "Bulk question configuration",
+        "column": "Bulk column configuration",
+        "row": "Bulk row configuration"
+      },
+      "subtitle": "The chosen option settings will be applied to every option: any previous settings will be lost.",
+      "source": "Reference option",
+      "done": "Settings applied to every option"
+    }
+  },
+  "slot": {
+    "title": "Collaborator {n}",
+    "name": "Name",
+    "description": "Description",
+    "disableSignature": "Disable the date and signature request"
+  },
+  "option": {
+    "title": "Question {q} / Option {o}",
+    "tableColumnTitle": "Column {q} / Row {o}",
+    "tableRowTitle": "Row {q} / Column {o}",
+    "copyIdentifier": "Copy identifier",
+    "optionName": "Row / column name",
+    "optionNameInfo": "For tables, the first position defines the row / column name",
+    "name": "Option name",
+    "description": "Description",
+    "placeholder": "Placeholder",
+    "valueHint": "Hint text",
+    "unit": "Unit",
+    "unitPlaceholder": "U",
+    "choices": "Options text",
+    "choicesInfo": "Separate your options with “__” (two underscores, no space)",
+    "photoSize": "Image size (PDF)",
+    "code": "Code (optional)",
+    "codeInfo": "Free identifier, unique within the form",
+    "freeze": "Freeze the option",
+    "freezeCell": "Freeze the cell",
+    "freezeInfo": "The prefilled value can no longer be changed",
+    "prefill": {
+      "title": "Prefill",
+      "validationError": "The prefill value does not match the data validation limits.",
+      "details": "Variable details",
+      "textInfo": "Type “@@” to insert a dynamic variable",
+      "withVariable": "Prefill with a dynamic variable",
+      "variable": "Variable",
+      "photoInfo": "A photo is prefilled from an image attribute; if the variable returns nothing, the question stays empty.",
+      "checked": "Checked by default",
+      "value": "Value",
+      "hours": "Hours",
+      "minutes": "Minutes",
+      "lat": "Latitude",
+      "lng": "Longitude",
+      "alt": "Altitude",
+      "textPlaceholder": "Prefilled text, e.g. @@ProjectDesignation"
+    },
+    "validation": {
+      "title": "Data validation",
+      "operator": "Condition",
+      "ops": {
+        "gt": "Greater than",
+        "gte": "Greater than or equal to",
+        "lt": "Less than",
+        "lte": "Less than or equal to",
+        "eq": "Equal to",
+        "neq": "Different from",
+        "between": "Between",
+        "not_between": "Not between",
+        "before": "Before",
+        "after": "After",
+        "between_dates": "Between",
+        "not_between_dates": "Not between"
+      },
+      "min": "Minimum value",
+      "max": "Maximum value",
+      "value": "Value",
+      "decimalInfoFr": "Decimal separator: comma (1,5)",
+      "decimalInfoEn": "Decimal separator: point (1.5)",
+      "message": "Custom error message",
+      "defaultMessage": "The entered value is not within the expected range",
+      "block": "Block out-of-range input",
+      "info": {
+        "single": "Expected value: {op} {min}",
+        "between": "Expected value: {op} {min} and {max}"
+      }
+    },
+    "alert": {
+      "title": "Alert",
+      "type": "Alert type",
+      "types": {
+        "error": "Blocking",
+        "warning": "Danger",
+        "info": "Information",
+        "trace": "Trace"
+      },
+      "text": "Alert text",
+      "preview": "Trigger an alert preview"
+    },
+    "redirect": {
+      "title": "Redirection conditions",
+      "info": "If this option is filled in, the operator will be redirected to:",
+      "rubric": "Section",
+      "question": "Question",
+      "none": "Start of the section"
+    },
+    "exportKey": {
+      "title": "Exportable value",
+      "empty": "No exportable value is configured for the organisation",
+      "link": "Exportable value link"
+    },
+    "pdf": {
+      "title": "PDF field",
+      "name": "PDF field name"
+    },
+    "xls": {
+      "title": "XLS export",
+      "label": "Label (optional)"
+    },
+    "formula": {
+      "label": "Formula",
+      "variables": "Variables",
+      "placeholder": "Enter your formula here, e.g. $$R1Q1OJ+$$R1Q2OJ",
+      "noteFr": "References $$RxQyOz (h, i, j = current position), @@Name variables, arguments separated by “;”, comma decimals.",
+      "noteEn": "References $$RxQyOz (h, i, j = current position), @@Name variables, arguments separated by “;”, point decimals.",
+      "errors": {
+        "invalidSyntax": "The formula syntax is invalid",
+        "invalidVariable": "A reference used in the formula is invalid",
+        "invalidParameters": "The parameters of a formula function are invalid"
+      }
+    }
+  },
+  "table": {
+    "unified": "unified",
+    "divide": "Split cells",
+    "unify": "Unify all cells",
+    "insert": {
+      "column": "Insert a column after",
+      "row": "Insert a row after"
+    },
+    "delete": {
+      "column": "Delete the column",
+      "row": "Delete the row"
+    },
+    "addRow": "Row",
+    "addColumn": "Column",
+    "selectHint": "Select a header to configure a row / column, or a cell to configure its option.",
+    "name": {
+      "column": "Column name",
+      "row": "Row name"
+    },
+    "firstColumnHidden": "Hidden",
+    "unifiedInfo": "unified cells: settings apply to every cell",
+    "deleteTitle": {
+      "column": "Delete the column “{name}”?",
+      "row": "Delete the row “{name}”?"
+    }
+  },
+  "images": {
+    "title": "Images",
+    "count": "{count, plural, =0 {no image} one {# image added} other {# images added}}",
+    "typeError": "The selected file must be an image",
+    "uploadError": "Image upload failed",
+    "remove": "Remove image",
+    "add": "Add"
+  },
+  "variables": {
+    "title": "Dynamic variable details",
+    "info": "To add a dynamic field, copy and paste the variable name into an answer field.",
+    "tabs": {
+      "project": "Project",
+      "flow": "Flow",
+      "form": "Form",
+      "attribute": "Attribute"
+    },
+    "empty": "No variable available",
+    "columns": {
+      "name": "Variable name",
+      "description": "Description",
+      "action": "Action"
+    },
+    "copy": "Copy",
+    "attribute": "Attribute {name}",
+    "items": {
+      "ProjectDesignation": "Project name",
+      "ProjectNoCase": "Project reference",
+      "ProjectNoContract": "Project contract number",
+      "ProjectClientName1": "Project client name 1",
+      "ProjectClientName2": "Project client name 2",
+      "ProjectClientName3": "Project client name 3",
+      "ProjectLocation": "Project location",
+      "ProjectDescription": "Project description",
+      "ProjectSupervision1": "Project external supervisor 1",
+      "ProjectSupervision2": "Project external supervisor 2",
+      "ProjectSupervision3": "Project external supervisor 3",
+      "ProjectInternalSupervision1": "Project internal supervisor 1",
+      "ProjectInternalSupervision2": "Project internal supervisor 2",
+      "ProjectInternalSupervision3": "Project internal supervisor 3",
+      "ProjectInternalOrder": "Project internal order number",
+      "ProjectExternalOrder": "Project external order number",
+      "ProjectNoMarket": "Project market number",
+      "ProjectTechnicalCase": "Project technical case",
+      "ProjectKeywords": "Project keywords",
+      "ProjectBusinessField": "Project business field",
+      "ProjectNationalProgram": "Project national program",
+      "ProjectFamily": "Project family",
+      "FlowName": "Flow name",
+      "FlowDescription": "Flow description",
+      "FlowFamily": "Flow family",
+      "FlowCategory": "Flow category",
+      "FlowStatus": "Flow status",
+      "FlowSite": "Flow site",
+      "FlowUnit": "Flow unit",
+      "FlowLocal": "Flow room",
+      "FlowElementarySystem": "Flow elementary system",
+      "FlowFunctionalLandmark": "Flow functional landmark",
+      "FlowTechnicalObject": "Flow technical object",
+      "FlowChrono": "Flow reference",
+      "FlowEpsilonFolderRef": "Flow folder reference",
+      "FlowRapporteur": "Flow reporter",
+      "FlowResponsable": "Flow manager",
+      "FlowTablette1": "Flow tablet 1",
+      "FlowTablette2": "Flow tablet 2",
+      "FlowTablette3": "Flow tablet 3",
+      "FlowDateDebut": "Flow start date",
+      "FlowDateFin": "Flow end date",
+      "FlowGeometryCoordinateLat": "Flow latitude",
+      "FlowGeometryCoordinateLng": "Flow longitude",
+      "FlowGeometryCoordinateAlt": "Flow altitude",
+      "FlowInternalSupervision1": "Flow internal supervisor 1",
+      "FlowInternalSupervision2": "Flow internal supervisor 2",
+      "FlowInternalSupervision3": "Flow internal supervisor 3",
+      "FlowExternalSupervision1": "Flow external supervisor 1",
+      "FlowExternalSupervision2": "Flow external supervisor 2",
+      "FlowExternalSupervision3": "Flow external supervisor 3",
+      "CurrPhaseNumber": "Current phase number",
+      "CurrPhaseName": "Current phase name",
+      "CurrPhaseDescription": "Current phase information",
+      "CurrStepNumber": "Current step number",
+      "CurrStepName": "Current step name",
+      "CurrStepDescription": "Current step information",
+      "AdditionalStatementPhase": "Phase additional statement",
+      "AdditionalStatementStep": "Step additional statement",
+      "refResponse": "Response reference",
+      "currentCollaborator": "Current collaborator",
+      "externalCollaboratorLastName": "External collaborator last name",
+      "externalCollaboratorFirstName": "External collaborator first name",
+      "externalCollaboratorCompany": "External collaborator company",
+      "externalCollaboratorJob": "External collaborator job",
+      "AdditionalStatementForm": "Form additional statement"
+    }
+  },
+  "preview": {
+    "select": "Select",
+    "hours": "hh",
+    "minutes": "mm",
+    "photo": "Take a photo",
+    "file": "Add a PDF file",
+    "location": "Location",
+    "signature": "Signature",
+    "observation": "Add an observation if needed"
+  }
+}

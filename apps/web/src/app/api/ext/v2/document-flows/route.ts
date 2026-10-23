@@ -1,0 +1,3 @@
+import { listDocuments } from "@/features/api-access/rest/resources/documents";
+
+export const GET = listDocuments;

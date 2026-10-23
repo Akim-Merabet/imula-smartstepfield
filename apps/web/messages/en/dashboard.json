@@ -1,0 +1,152 @@
+{
+  "crumbs": { "entities": "Entities" },
+  "roles": {
+    "readonly": "Guest",
+    "operator": "Operator",
+    "writer": "Writer",
+    "expert": "Expert",
+    "responsible": "Manager"
+  },
+  "kinds": { "user": "User", "operator": "Operator" },
+  "members": {
+    "title": "Collaborators",
+    "columns": {
+      "type": "Type", "lastName": "Last name", "firstName": "First name", "function": "Function", "group": "Group",
+      "role": "Role", "hierarchy": "Hierarchy", "company": "Company"
+    },
+    "filters": { "type": "Type", "role": "Role", "function": "Function", "group": "Group", "hierarchy": "Hierarchy", "company": "Company", "withoutHierarchy": "No hierarchy" },
+    "actions": {
+      "import": "Import from the collaborators database",
+      "reorganize": "Reorganize",
+      "edit": "Edit",
+      "skills": "View skills",
+      "delete": "Remove from entity"
+    },
+    "import": {
+      "title": "Import collaborators into the entity",
+      "subtitle": "Select the collaborators to add to the entity",
+      "search": "Search for a collaborator",
+      "selectAll": "Select all",
+      "alreadyImported": "Already imported",
+      "operatorNotAllowed": "Operators can only be imported into a project or a referential",
+      "defaultRole": "Default role (except for administrators)",
+      "submit": "Import",
+      "success": "{count, plural, =0 {No collaborator imported} one {# collaborator imported} other {# collaborators imported}}",
+      "empty": "No collaborator available"
+    },
+    "edit": {
+      "title": "Edit collaborator {name}",
+      "role": "Role",
+      "operatorRole": "An operator's role cannot be changed",
+      "hierarchies": "Hierarchies",
+      "noHierarchy": "No hierarchy available. Create Hierarchy categories in the entity.",
+      "hierarchyLocked": "This hierarchy cannot be removed because it is already attached to this collaborator restricted in one or more flows"
+    },
+    "skills": {
+      "title": "Skills overview of {name}",
+      "skill": "Skill",
+      "updatedAt": "Update date",
+      "endedAt": "End date",
+      "state": "State",
+      "pdf": "PDF",
+      "active": "Active",
+      "inactive": "Inactive",
+      "empty": "This collaborator has no skills"
+    },
+    "reorganize": {
+      "title": "Reorganize collaborators",
+      "category": "Change",
+      "value": "New value",
+      "sentence": "Change the {category} of {count, plural, one {the selected collaborator} other {the # selected collaborators}}",
+      "confirm": "Confirm reorganization",
+      "noSelection": "Select at least one collaborator in the list",
+      "operatorsSkipped": "Operators' roles are not changed"
+    },
+    "delete": {
+      "title": "Remove {name} from the entity?",
+      "subtitle": "The collaborator will no longer have access to this entity.",
+      "inFlows": "Deletion impossible: the collaborator is assigned to the following flows: {flows}"
+    }
+  },
+  "tablets": {
+    "title": "Tablets",
+    "columns": { "family": "Family", "name": "Name", "battery": "Battery level", "position": "Position", "company": "Company", "status": "Status" },
+    "status": { "active": "Enabled", "disabled": "Disabled", "broken": "Broken", "down": "Out of order", "maintenance": "Under maintenance" },
+    "showOnMap": "Show position on map",
+    "actions": {
+      "import": "Import from the tablets database",
+      "qr": "QR code login",
+      "qrUnavailable": "QR code login is not available yet",
+      "delete": "Remove from entity"
+    },
+    "import": {
+      "title": "Import tablets into the entity",
+      "submit": "Import",
+      "empty": "No enabled tablet available",
+      "alreadyImported": "Already imported",
+      "success": "{count, plural, =0 {No tablet imported} one {# tablet imported} other {# tablets imported}}"
+    },
+    "delete": {
+      "title": "Remove tablet {name} from the entity?",
+      "subtitle": "The tablet will no longer be able to download this entity's data.",
+      "inFlows": "Deletion impossible: the tablet is assigned to the following flows: {flows}"
+    }
+  },
+  "information": {
+    "title": "Information",
+    "edit": "Edit",
+    "tabs": { "general": "General", "attributes": "Attribute(s)", "options": "Options" },
+    "fields": {
+      "designation": "Name", "type": "Type", "family": "Family", "client": "Client", "status": "Status",
+      "reference": "Reference", "codeProject": "Project code", "location": "Location", "description": "Description",
+      "index": "Index", "contract": "Contract information", "contractRef": "Contract no.",
+      "internalCommand": "Internal order no.", "externalCommand": "External order no.", "marketNumber": "Market no.",
+      "technicalDeal": "Technical deal", "keywords": "Keywords", "businessDomain": "Business domain",
+      "nationalProgram": "National program", "complementRef1": "Reference complement 1", "complementRef2": "Reference complement 2",
+      "language1": "Language 1", "language2": "Language 2", "internSupervision": "Internal supervision",
+      "externSupervision": "External supervision", "internSupervisor": "Internal supervisor {n}", "externSupervisor": "External supervisor {n}",
+      "startDate": "Start date", "endDate": "End date", "pgacActivities": "PGAC activities"
+    },
+    "languages": { "none": "None", "fr": "French", "en": "English", "de": "German", "it": "Italian" },
+    "noContract": "No contract information",
+    "disabled": "Disabled",
+    "noAttributes": "No custom attribute for this entity family",
+    "pgac": "PGAC project specific options"
+  },
+  "metrics": {
+    "title": "Progress",
+    "filters": { "family": "Family", "category": "Category" },
+    "flows": {
+      "title": "Flows progress",
+      "total": "{count, plural, =0 {No flow} one {# flow in total} other {# flows in total}}",
+      "byStatus": "Flow statuses",
+      "byCategory": "Flow states",
+      "noStatus": "No status"
+    },
+    "categories": { "todo": "To do", "in_preparation": "In preparation", "in_operation": "In operation", "in_progress": "In progress", "done": "Done", "none": "No state" },
+    "blocks": {
+      "stateTitle": "Blocks state",
+      "typeTitle": "Blocks usage",
+      "states": { "redaction": "Drafting", "verification": "Verification", "approbation": "Approval", "validated": "Validated" },
+      "types": { "pr": "Instructions", "emm": "Equipment", "adr": "Risks", "dsi": "Controls", "form": "Forms", "txt": "Texts", "rhp": "Teams", "multi_pr": "Multiple instructions", "object": "Objects" },
+      "usage": "{blocks} blocks over {flows} flows"
+    },
+    "signatures": {
+      "title": "Signatures",
+      "done": "{signed} signatures out of {total}",
+      "percent": "{value}% of signatures done",
+      "mobile": "MobileApp",
+      "web": "WebApp",
+      "intern": "Internal",
+      "extern": "External",
+      "notListed": "Not listed"
+    },
+    "project": {
+      "title": "Entity statistics",
+      "members": "Collaborators",
+      "flowTypes": { "specific": "Specific flows", "generic": "Generic flows", "referential": "Referential flows" },
+      "other": "Other flows"
+    },
+    "empty": "No data"
+  }
+}

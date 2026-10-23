@@ -1,0 +1,81 @@
+{
+  "crumbList": "Signatures - List view",
+  "crumbTemporal": "Signatures - Timeline view",
+  "list": { "title": "Signatures", "view": "List view" },
+  "temporal": { "title": "Timeline view" },
+  "pad": { "area": "Signature area", "hint": "Sign in the box above", "clear": "Clear" },
+  "natures": {
+    "realisation": "Operation completed",
+    "tech_control": "Technical check",
+    "breakpoint_int": "Internal hold point - {name}",
+    "breakpoint_intMono": "Internal hold point",
+    "convocation_int": "Internal witness point - {name}",
+    "convocation_intMono": "Internal witness point",
+    "breakpoint_ext": "External hold point - {name}",
+    "breakpoint_extMono": "External hold point",
+    "convocation_ext": "External witness point - {name}",
+    "convocation_extMono": "External witness point"
+  },
+  "states": {
+    "signed": "Signed", "waiting": "Pending", "free": "Not signed", "not_possible": "Signature not applicable",
+    "mandatoryFree": "Not signed - mandatory signature"
+  },
+  "badges": { "proxied": "By proxy (principal: {name})", "proxiedShort": "Signature by proxy", "strong": "Signature with strong authentication" },
+  "sources": { "webapp": "Signed from the WebApp", "mobile": "Signed from the MobileApp", "api": "Signed through the API" },
+  "block": {
+    "title": "Step signatures",
+    "image": "Signature image",
+    "sign": "Sign",
+    "delete": "Delete signature",
+    "deleteTitle": "Delete signature",
+    "deleteSubtitle": "The deletion will be recorded in the block history.",
+    "deleted": "Signature deleted"
+  },
+  "dialog": {
+    "title": "Signature \"{nature}\"",
+    "sign": "Sign",
+    "success": "Signature saved",
+    "modes": { "person": "Sign in person", "proxy": "Sign by proxy", "not_applicable": "Signature not applicable" },
+    "proxyInfo": "You are signing as the proxy holder: {name}",
+    "principal": "Principal: the person granting the proxy",
+    "proxyDate": "Proxy date",
+    "contributors": { "intern": "Collaborator", "extern": "External (client)", "not_listed_intern": "Unlisted collaborator" },
+    "collaborator": "Collaborator",
+    "firstName": "First name", "lastName": "Last name", "email": "Email", "profession": "Position",
+    "date": "Date", "company": "Company", "signature": "Signature", "comment": "Comment"
+  },
+  "errors": {
+    "stepDisabled": "Cannot sign: the step is disabled",
+    "notInRestrictedList": "You are not in the list of collaborators restricted to this flow",
+    "signature_required": "The signature is required",
+    "comment_required": "A comment is required",
+    "proxy_date_after": "The proxy date must be before the signature date",
+    "sign_twice": "The same collaborator cannot sign twice on the same step",
+    "already_signed": "This signature is already filled in",
+    "not_in_restricted_list": "You are not in the list of collaborators restricted to this flow",
+    "step_disabled": "Cannot sign: the step is disabled",
+    "nature_not_available": "This signature type is not available",
+    "comment_required_na": "A comment is required"
+  },
+  "summary": {
+    "title": "Signature summary table - {progress}% progress",
+    "selectFlow": "Select a flow",
+    "filterState": "State",
+    "noFlowTitle": "No flow selected yet",
+    "noFlowSubtitle": "Please use the filters to get started",
+    "open": "Open flow",
+    "expandAll": "Expand all",
+    "collapseAll": "Collapse all",
+    "counters": "{total} expected signature(s) · {filtered} filtered · {signed} signed",
+    "prefixPhase": "P",
+    "prefixStep": "S",
+    "columns": {
+      "number": "No.", "name": "Name", "execution": "Operation completed / Technical check",
+      "supervision": "Witness / hold points release", "comments": "Comments"
+    },
+    "noDsi": "No active check block on this step",
+    "dsiDisabled": "Check block disabled",
+    "required": "Mandatory check block",
+    "observation": "Observation: {text}"
+  }
+}

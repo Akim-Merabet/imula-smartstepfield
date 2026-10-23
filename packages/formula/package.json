@@ -1,0 +1,22 @@
+{
+  "name": "@imula/formula",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "mathjs": "^15.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "vitest": "^5.0.5"
+  }
+}

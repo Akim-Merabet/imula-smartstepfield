@@ -1,0 +1,95 @@
+{
+  "rail": {
+    "home": "Back to the entity list",
+    "add": "Add a new item",
+    "back": "Back to the entity menu",
+    "entities": "Entities",
+    "library": "Libraries",
+    "contributors": "Collaborators and tablets",
+    "events": "Events",
+    "settings": "Settings",
+    "account": "Account",
+    "lastEntities": "Recently viewed entities"
+  },
+  "account": {
+    "profile": "Profile",
+    "quickConnection": "Quick connection",
+    "help": "Help center",
+    "terms": "Terms and policies",
+    "version": "{app} WebApp {version}"
+  },
+  "menu": {
+    "collapse": "Collapse menu",
+    "expand": "Expand menu"
+  },
+  "events": {
+    "title": "Events",
+    "empty": "No document generated during this session",
+    "open": "Open"
+  },
+  "dashboard": {
+    "flows": "Flows",
+    "viewList": "List view",
+    "viewPlan": "Plan view",
+    "viewMap": "Map view",
+    "viewDiagram": "Diagram view",
+    "viewKanban": "Kanban view",
+    "documents": "Documents",
+    "forms": "Forms",
+    "referentials": "Referentials",
+    "lists": "Lists",
+    "schedule": "Scheduling",
+    "collaborators": "Collaborators",
+    "tablets": "Tablets",
+    "followUp": "Follow-up and closing",
+    "metrics": "Progress",
+    "signatures": "Signatures",
+    "fieldFeedback": "Field feedback",
+    "closingFolder": "Closing folder",
+    "configuration": "Configuration",
+    "information": "Information",
+    "categories": "Categories"
+  },
+  "library": {
+    "title": "Libraries",
+    "risks": "Risks",
+    "equipments": "Equipment",
+    "documents": "Documents",
+    "forms": "Forms",
+    "objects": "Objects",
+    "tags": "Tags"
+  },
+  "contributors": {
+    "title": "Collaborators and tablets",
+    "users": "Users",
+    "operators": "Operators",
+    "externalUsers": "External users",
+    "tablets": "Tablets",
+    "authorizedDevices": "Authorized devices"
+  },
+  "settings": {
+    "title": "Settings",
+    "account": "Account",
+    "clients": "Client book",
+    "companies": "Companies",
+    "families": "Families",
+    "categories": "Categories",
+    "statuses": "Statuses",
+    "references": "References",
+    "customFields": "Attributes",
+    "sections": "Folders",
+    "trash": "Trash",
+    "backgroundTasks": "Background tasks",
+    "platform": "Platform administration",
+    "general": "General",
+    "organization": "Organization",
+    "wording": "Tracking",
+    "usage": "Usage"
+  },
+  "profile": {
+    "title": "Profile",
+    "info": "Information",
+    "password": "Password",
+    "tablet": "Tablet"
+  }
+}

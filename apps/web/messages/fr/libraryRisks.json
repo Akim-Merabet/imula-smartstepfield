@@ -1,0 +1,121 @@
+{
+  "title": "Bibliothèque des risques",
+  "add": "Nouveau risque",
+  "columns": {
+    "family": "Famille",
+    "name": "Risque",
+    "source": "Source",
+    "major": "Majeur",
+    "pictogram": "Pictogramme",
+    "parades": "Parades"
+  },
+  "filters": {
+    "family": "Famille",
+    "applicability": "Applicabilité"
+  },
+  "actions": {
+    "edit": "Éditer",
+    "duplicate": "Dupliquer",
+    "properties": "Propriétés",
+    "activate": "Activer",
+    "deactivate": "Désactiver",
+    "delete": "Supprimer",
+    "import": "Importer depuis un fichier Excel"
+  },
+  "dialog": {
+    "createTitle": "Créer un nouveau risque",
+    "editTitle": "Édition du risque",
+    "viewTitle": "Aperçu du risque",
+    "previous": "Risque précédent",
+    "next": "Risque suivant",
+    "tabs": {
+      "general": "Général",
+      "parades": "Parades"
+    },
+    "fields": {
+      "family": "Famille",
+      "applicability": "Applicabilité",
+      "name": "Nom",
+      "reference": "Référence",
+      "source": "Source",
+      "landmark": "Repère",
+      "pictogram": "Pictogramme",
+      "major": "Risque majeur",
+      "frequency": "Fréquence",
+      "occurrence": "Occurrence",
+      "severity": "Gravité"
+    },
+    "createAnother": "Créer un autre risque",
+    "nextStep": "Suivant",
+    "created": "Risque créé avec succès",
+    "saveFirst": "Enregistrez le risque pour lui ajouter des parades."
+  },
+  "parades": {
+    "title": "Parades génériques",
+    "add": "Ajouter une parade au risque",
+    "empty": "Aucune parade pour ce risque",
+    "columns": {
+      "name": "Parade",
+      "pictogram": "Pictogramme",
+      "pdf": "PDF",
+      "actions": "Action"
+    },
+    "dialog": {
+      "createTitle": "Ajouter une parade au risque",
+      "editTitle": "Éditer une parade au risque",
+      "risk": "Rappel du risque",
+      "name": "Parade au risque",
+      "description": "Description",
+      "pictogram": "Pictogramme",
+      "file": "Pièce jointe (PDF)"
+    },
+    "created": "Parade créée avec succès",
+    "duplicated": "Parade dupliquée avec succès",
+    "deleted": "Parade supprimée avec succès",
+    "deleteTitle": "Voulez-vous vraiment supprimer la parade « {name} » ?",
+    "duplicateTitle": "Dupliquer la parade « {name} » ?",
+    "viewPdf": "Aperçu"
+  },
+  "delete": {
+    "title": "Supprimer le risque « {name} » ?",
+    "success": "Risque supprimé avec succès"
+  },
+  "duplicate": {
+    "title": "Dupliquer le risque « {name} » ?",
+    "success": "Risque dupliqué avec succès",
+    "copySuffix": "(copie)"
+  },
+  "activated": "Risque activé",
+  "deactivated": "Risque désactivé",
+  "properties": {
+    "title": "Propriétés du risque",
+    "family": "Famille",
+    "applicability": "Applicabilité",
+    "name": "Nom",
+    "reference": "Référence",
+    "source": "Source"
+  },
+  "import": {
+    "title": "Importer des risques depuis un fichier Excel"
+  },
+  "template": {
+    "sheet": "Risques",
+    "families": "Familles",
+    "columns": {
+      "family": "Famille (nom court)",
+      "name": "Nom",
+      "reference": "Référence",
+      "source": "Source",
+      "landmark": "Repère",
+      "pictogram": "Pictogramme (1-240)",
+      "major": "Majeur (Oui/Non)",
+      "frequency": "Fréquence",
+      "occurrence": "Occurrence",
+      "severity": "Gravité"
+    }
+  },
+  "errors": {
+    "in_use": "Suppression impossible",
+    "in_useSubtitle": "Le risque est déjà utilisé (bloc de flow ou liste de risques)"
+  }
+}

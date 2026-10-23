@@ -1,0 +1,233 @@
+{
+  "letters": {
+    "specific": "S", "generic": "G", "group": "H", "flow_form": "I", "template": "T", "referential": "R",
+    "referential_generic": "RG", "group_referential": "RH", "referential_intervention": "RI", "local_referential": "L"
+  },
+  "types": {
+    "specific": "Specific", "generic": "Generic", "group": "Head", "flow_form": "Intervention", "template": "Template",
+    "referential": "Standard", "referential_generic": "Generic standard", "group_referential": "Head standard",
+    "referential_intervention": "Intervention standard", "local_referential": "Local standard"
+  },
+  "typeHelp": {
+    "specific": "Core of a project; it can also associate one or more generic flows with various steps",
+    "generic": "Flow that can be reused several times in one or more specific flows",
+    "group": "Links several flows together to group them and follow the sequence of interventions",
+    "flow_form": "Lets you quickly go on site with forms only",
+    "template": "Flow of a Template entity, importable as content into other flows",
+    "referential": "Standard flow of a Standard entity, importable into projects",
+    "referential_generic": "Generic standard flow of a Standard entity",
+    "group_referential": "Head standard flow of a Standard entity",
+    "referential_intervention": "Intervention standard flow of a Standard entity",
+    "local_referential": "Local copy of a standard flow"
+  },
+  "statusCategories": {
+    "todo": "To do", "in_preparation": "In preparation", "in_operation": "In operation", "in_progress": "In progress", "done": "Done"
+  },
+  "statusPopover": { "title": "Status change", "status": "Status", "comment": "Comment" },
+  "views": { "list": "List view", "plan": "Plan view", "map": "Map view", "diagram": "Diagram view", "kanban": "Kanban view" },
+  "crumbView": "Flows - {view}",
+  "comingSoon": {
+    "title": "Coming soon",
+    "description": "This view is not available yet. Use the list view to manage the entity's flows."
+  },
+  "list": {
+    "title": "Flow list",
+    "subtitle": "{current, plural, =0 {No item} one {# item} other {# items}} in the list / {total} in total",
+    "emptyTitle": "No item in the table",
+    "emptySubtitle": "You can add a flow from the dashboard \"Flow management\" module with the \"+\" button"
+  },
+  "filters": {
+    "byType": "Filter by {type} flow",
+    "family": "Family",
+    "category": "Category",
+    "status": "Status"
+  },
+  "columns": {
+    "type": "Type", "name": "Name", "status": "Status", "reference": "Reference", "description": "Description",
+    "family": "Family", "category": "Category", "reporter": "Reporter", "assignees": "Assignee(s)",
+    "collaborators": "Collaborator(s)", "tablet1": "Tablet 1", "tablet2": "Tablet 2", "tablet3": "Tablet 3",
+    "startDate": "Planned start date", "finishDate": "Planned end date",
+    "estimatedStartDate": "Estimated start date", "estimatedEndDate": "Estimated end date",
+    "achievedStartDate": "Actual start date", "achievedEndDate": "Actual end date",
+    "modification": "Modified",
+    "internalSupervisor1": "Internal supervisor 1", "internalSupervisor2": "Internal supervisor 2", "internalSupervisor3": "Internal supervisor 3",
+    "externalSupervisor1": "External supervisor 1", "externalSupervisor2": "External supervisor 2", "externalSupervisor3": "External supervisor 3",
+    "site": "Site", "area": "Unit", "local": "Room", "elementarySystem": "Elementary system", "functionalMarker": "Functional marker",
+    "object": "Object", "tags": "Tag(s)"
+  },
+  "actions": {
+    "edit": "Edit flow", "openContent": "Open content", "properties": "Properties", "history": "Flow history",
+    "duplicate": "Duplicate", "delete": "Delete"
+  },
+  "delete": {
+    "title": "Are you sure you want to delete the flow {name}?",
+    "subtitle": "The flow will be kept in the trash for 30 days.",
+    "errors": {
+      "linked_to_steps": "Cannot delete: the flow is linked to steps of other flows",
+      "in_diagram": "Cannot delete: the flow appears in a diagram view",
+      "imported": "Cannot delete: the flow is imported in another project"
+    }
+  },
+  "validators": {
+    "trim": "The name must not start or end with a space",
+    "dateOrder": "The end date must be after the start date"
+  },
+  "advancedSearch": {
+    "title": "Advanced search",
+    "subtitle": "Combine several criteria; values of the same criterion are combined with \"or\". Press Enter to search.",
+    "field": "Field", "action": "Action", "values": "Value(s)", "and": "and", "or": "or",
+    "addValue": "Add a possible value", "addCriterion": "Add another search criterion", "reset": "Reset",
+    "fields": {
+      "flow_type": "Flow type", "name": "Name", "ref_int": "Reference", "description": "Description", "family": "Family",
+      "category": "Category", "status": "Status", "reporter": "Reporter", "tablet1": "Tablet 1", "tablet2": "Tablet 2",
+      "tablet3": "Tablet 3", "start_date": "Planned start date", "finish_date": "Planned end date",
+      "estimated_start_date": "Estimated start date", "estimated_end_date": "Estimated end date",
+      "achieved_start_date": "Actual start date", "achieved_end_date": "Actual end date",
+      "updated_at": "Modification date", "location_site": "Site", "location_area": "Unit", "location_local": "Room",
+      "elementary_system": "Elementary system", "functional_marker": "Functional marker"
+    },
+    "operators": {
+      "contains": "Contains", "starts_with": "Starts with", "equals": "Equals", "not_equals": "Not equal to",
+      "gte": "Greater than or equal to", "lte": "Less than or equal to", "between": "Between",
+      "empty": "Is empty", "not_empty": "Is not empty", "current_day": "Current day", "current_week": "Current week",
+      "current_month": "Current month"
+    }
+  },
+  "reorganize": {
+    "button": "Reorganize flows",
+    "clearSelection": "Clear selection",
+    "title": "Reorganize flows",
+    "subtitle": "{count, plural, one {# selected flow} other {# selected flows}}",
+    "field": "Field to change",
+    "value": "New value",
+    "confirm": "Are you sure you want to change the \"{type}\" to \"{name}\" for {count, plural, one {the selected flow} other {the # selected flows}}?",
+    "success": "{count, plural, one {# flow reorganized} other {# flows reorganized}} successfully",
+    "fields": {
+      "category": "Category", "status": "Status", "reporter": "Reporter", "assignee": "Assignee",
+      "tablet1": "Tablet 1", "tablet2": "Tablet 2", "tablet3": "Tablet 3",
+      "plannedStart": "Planned start date", "plannedEnd": "Planned end date",
+      "estimatedStart": "Estimated start date", "estimatedEnd": "Estimated end date",
+      "achievedStart": "Actual start date", "achievedEnd": "Actual end date"
+    }
+  },
+  "documents": {
+    "instructions": "Instructions", "equipments": "Equipment", "risks": "Risks", "controls": "Checks",
+    "forms": "Forms", "multiInstructions": "Multiple instructions", "objects": "Objects"
+  },
+  "dialog": {
+    "createTitle": "Create a flow",
+    "editTitle": "Edit {type} flow {name}",
+    "tabs": { "general": "General", "attribute": "Attribute(s)", "document": "Document", "assignment": "Assignment", "planning": "Planning", "options": "Options" },
+    "type": "Flow type",
+    "name": "Name",
+    "namePlaceholder": "Name of the flow in the application",
+    "description": "Description",
+    "descriptionHelp": "Flow description, only visible inside the company",
+    "reference": "Reference (chrono no.)",
+    "generated": "Automatically generated",
+    "refExt": "External reference",
+    "family": "Family",
+    "category": "Category",
+    "categoryHelp": "To add a category, go to the entity \"Categories\" module",
+    "status": "Status",
+    "statusHistory": "Status history",
+    "statusDefaultInfo": "If no status is selected, the \"default\" status will be assigned",
+    "statusComment": "Status change comment",
+    "tags": "Tag(s)",
+    "location": "Location",
+    "locationHelp": "Turn on to add location information",
+    "site": "Site", "area": "Unit", "local": "Room", "elementarySystem": "Elementary system", "functionalMarker": "Functional marker", "object": "Object",
+    "noAttributes": "No attribute configured for flows",
+    "requiredAttributes": "Some required attributes are missing",
+    "documentsInfo": "Flow documents that can be generated from the content blocks. Generation is handled by the Documents module.",
+    "documentNotGenerated": "No document generated",
+    "reporter": "Reporter",
+    "assignees": "Assignee(s)",
+    "assigneesHelp": "An assignee sees the flow on the MobileApp and can sign without being among the collaborators",
+    "tablet": "Tablet {n}",
+    "collaborators": "Collaborators restricted to the flow",
+    "collaboratorsHelp": "By default, every collaborator of the entity can sign. When a list is defined, only they are offered for signing.",
+    "hierarchies": "Hierarchy(ies)",
+    "hierarchyRequired": "Select at least one hierarchy per collaborator",
+    "legend": { "planned": "Planned date", "estimated": "Estimated date", "achieved": "Actual date" },
+    "dates": {
+      "plannedStart": "Planned start", "plannedEnd": "Planned end",
+      "estimatedStart": "Estimated start", "estimatedEnd": "Estimated end",
+      "achievedStart": "Actual start", "achievedEnd": "Actual end"
+    },
+    "simplifiedMode": "Switch the Check block to simplified mode",
+    "simplifiedModeHelp": "Only the \"Completion\" and \"Technical check\" signatures are offered. Not possible if a signature exists or if a Check block is not in drafting.",
+    "supervisors": {
+      "intern": "Applicable internal supervisor(s)",
+      "extern": "Applicable external supervisor(s)",
+      "internN": "Internal supervisor {n}",
+      "externN": "External supervisor {n}",
+      "name": "Supervisor name"
+    },
+    "created": "Flow created successfully",
+    "createdWithRef": "A new flow has been created with identifier {param}",
+    "errors": {
+      "save": "An error occurred while saving the flow",
+      "has_signatures": "Cannot enable this option, at least one signature exists in the flow",
+      "dsi_not_redaction": "Check blocks cannot be changed because at least one of them is not in drafting",
+      "invalid_type": "This flow type is not available for this entity type"
+    }
+  },
+  "properties": {
+    "title": "Flow properties",
+    "name": "Name", "type": "Type", "family": "Family", "applicability": "Applicability",
+    "refInt": "Internal reference", "refExt": "External reference", "entitySource": "Source entity", "entityIndex": "Source index", "uuid": "Uuid"
+  },
+  "duplicate": {
+    "title": "Duplicate a {type} flow",
+    "copyPrefix": "Copy",
+    "reference": "Identification no.",
+    "info": "Duplicating resets internal and external validation circuits: all blocks go back to \"Drafting\". Signatures and form responses are not copied.",
+    "success": "Flow duplicated successfully"
+  },
+  "history": {
+    "title": "History of flow {name}",
+    "tabs": { "events": "Events", "status": "Status changes" },
+    "filterType": "Event type",
+    "filterDate": "Filter by date",
+    "system": "System",
+    "empty": "No event recorded",
+    "seeComment": "See comment",
+    "loadMore": "Load more",
+    "statusCreated": "{user} created the flow with status {status}",
+    "statusChanged": "{user} changed the status from {from} to {to}",
+    "statusComment": "and added the comment \"{comment}\"",
+    "sources": { "webapp": "WebApp", "mobile": "MobileApp", "api": "API" },
+    "types": {
+      "create": "Creation", "delete": "Deletion", "reset_flow": "Reset", "activate_phase": "Phase activation",
+      "deactivate_phase": "Phase deactivation", "activate_step": "Step activation", "deactivate_step": "Step deactivation",
+      "validate_step": "Step validation", "devalidate_step": "Step invalidation",
+      "add_user_hierarchy_in_flow": "Collaborator added", "delete_user_hierarchy_from_flow": "Collaborator removed",
+      "deactivate_signature": "Signature deactivation"
+    },
+    "actions": {
+      "create": "{user} created the flow",
+      "delete": "{user} deleted the flow",
+      "import_content_referential": "{user} imported content from a standard",
+      "import_content_template": "{user} imported content from a template",
+      "reset_flow": "{user} reset the flow",
+      "delete_and_re_import_content": "{user} deleted and re-imported the content",
+      "update_library": "{user} updated library items",
+      "detach_fbl": "{user} detached a form",
+      "activate_phase": "{user} activated phase {phase}",
+      "activate_step": "{user} activated step {step} of phase {phase}",
+      "activate_form": "{user} activated a form of step {step}",
+      "deactivate_phase": "{user} deactivated phase {phase}",
+      "deactivate_step": "{user} deactivated step {step} of phase {phase}",
+      "deactivate_form": "{user} deactivated a form of step {step}",
+      "deactivate_and_link_new_form": "{user} deactivated and replaced a form",
+      "detach_and_link_new_form": "{user} deleted and replaced a form",
+      "add_user_hierarchy_in_flow": "{user} added a collaborator restricted to the flow",
+      "delete_user_hierarchy_from_flow": "{user} removed a collaborator restricted to the flow",
+      "deactivate_signature": "{user} deactivated a signature type ({nature}) on step {step}",
+      "skip_fill_restriction": "{user} unlocked step {step}",
+      "validate_step": "{user} validated step {step} of phase {phase}",
+      "devalidate_step": "{user} invalidated step {step} of phase {phase}"
+    }
+  }
+}

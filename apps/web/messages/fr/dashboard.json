@@ -1,0 +1,152 @@
+{
+  "crumbs": { "entities": "Entités" },
+  "roles": {
+    "readonly": "Invité",
+    "operator": "Opérateur",
+    "writer": "Rédacteur",
+    "expert": "Expert",
+    "responsible": "Responsable"
+  },
+  "kinds": { "user": "Utilisateur", "operator": "Opérateur" },
+  "members": {
+    "title": "Collaborateurs",
+    "columns": {
+      "type": "Type", "lastName": "Nom", "firstName": "Prénom", "function": "Fonction", "group": "Groupe",
+      "role": "Rôle", "hierarchy": "Hiérarchie(s)", "company": "Société"
+    },
+    "filters": { "type": "Type", "role": "Rôle", "function": "Fonction", "group": "Groupe", "hierarchy": "Hiérarchie", "company": "Société", "withoutHierarchy": "Sans hiérarchie" },
+    "actions": {
+      "import": "Importer depuis la base des collaborateurs",
+      "reorganize": "Réorganiser",
+      "edit": "Éditer",
+      "skills": "Voir les compétences",
+      "delete": "Retirer de l'entité"
+    },
+    "import": {
+      "title": "Importer des collaborateurs dans l'entité",
+      "subtitle": "Sélectionnez les collaborateurs à ajouter à l'entité",
+      "search": "Rechercher un collaborateur",
+      "selectAll": "Tout sélectionner",
+      "alreadyImported": "Déjà importé",
+      "operatorNotAllowed": "Les opérateurs ne peuvent être importés que dans un projet ou un référentiel",
+      "defaultRole": "Rôle par défaut (sauf pour les administrateurs)",
+      "submit": "Importer",
+      "success": "{count, plural, =0 {Aucun collaborateur importé} one {# collaborateur importé} other {# collaborateurs importés}}",
+      "empty": "Aucun collaborateur disponible"
+    },
+    "edit": {
+      "title": "Édition du collaborateur {name}",
+      "role": "Rôle",
+      "operatorRole": "Le rôle d'un opérateur n'est pas modifiable",
+      "hierarchies": "Hiérarchie(s)",
+      "noHierarchy": "Aucune hiérarchie disponible. Créez des catégories de nature Hiérarchie dans l'entité.",
+      "hierarchyLocked": "Cette hiérarchie ne peut pas être supprimée car elle est déjà rattachée à ce collaborateur restreint au sein d'un ou plusieurs flows"
+    },
+    "skills": {
+      "title": "Aperçu des compétences de {name}",
+      "skill": "Compétence",
+      "updatedAt": "Date de MAJ",
+      "endedAt": "Date de fin",
+      "state": "État",
+      "pdf": "PDF",
+      "active": "Actif",
+      "inactive": "Inactif",
+      "empty": "Le collaborateur n'a pas de compétences"
+    },
+    "reorganize": {
+      "title": "Réorganiser les collaborateurs",
+      "category": "Modifier",
+      "value": "Nouvelle valeur",
+      "sentence": "Changer le ou la {category} sur {count, plural, one {le collaborateur sélectionné} other {les # collaborateurs sélectionnés}}",
+      "confirm": "Confirmer la réorganisation",
+      "noSelection": "Sélectionnez au moins un collaborateur dans la liste",
+      "operatorsSkipped": "Le rôle des opérateurs n'est pas modifié"
+    },
+    "delete": {
+      "title": "Retirer {name} de l'entité ?",
+      "subtitle": "Le collaborateur n'aura plus accès à cette entité.",
+      "inFlows": "Impossible d'effectuer la suppression : le collaborateur est affecté aux flows suivants : {flows}"
+    }
+  },
+  "tablets": {
+    "title": "Tablettes",
+    "columns": { "family": "Famille", "name": "Nom", "battery": "Niveau de batterie", "position": "Position", "company": "Société", "status": "Statut" },
+    "status": { "active": "Activé", "disabled": "Désactivé", "broken": "Cassé", "down": "En panne", "maintenance": "En maintenance" },
+    "showOnMap": "Afficher la position sur la carte",
+    "actions": {
+      "import": "Importer depuis la base des tablettes",
+      "qr": "Connexion avec QR code",
+      "qrUnavailable": "La connexion par QR code n'est pas encore disponible",
+      "delete": "Retirer de l'entité"
+    },
+    "import": {
+      "title": "Importer des tablettes dans l'entité",
+      "submit": "Importer",
+      "empty": "Aucune tablette activée disponible",
+      "alreadyImported": "Déjà importée",
+      "success": "{count, plural, =0 {Aucune tablette importée} one {# tablette importée} other {# tablettes importées}}"
+    },
+    "delete": {
+      "title": "Retirer la tablette {name} de l'entité ?",
+      "subtitle": "La tablette ne pourra plus télécharger les données de cette entité.",
+      "inFlows": "Impossible d'effectuer la suppression : la tablette est affectée aux flows suivants : {flows}"
+    }
+  },
+  "information": {
+    "title": "Informations",
+    "edit": "Éditer",
+    "tabs": { "general": "Général", "attributes": "Attribut(s)", "options": "Options" },
+    "fields": {
+      "designation": "Nom", "type": "Type", "family": "Famille", "client": "Client", "status": "Statut",
+      "reference": "Référence", "codeProject": "Code projet", "location": "Localisation", "description": "Description",
+      "index": "Indice", "contract": "Informations sur le contrat", "contractRef": "N° de contrat",
+      "internalCommand": "N° de commande interne", "externalCommand": "N° de commande externe", "marketNumber": "N° de marché",
+      "technicalDeal": "Affaire technique", "keywords": "Mots clés", "businessDomain": "Domaine métier",
+      "nationalProgram": "Programme national", "complementRef1": "Complément référence 1", "complementRef2": "Complément référence 2",
+      "language1": "Langue 1", "language2": "Langue 2", "internSupervision": "Surveillance interne",
+      "externSupervision": "Surveillance externe", "internSupervisor": "Surveillant interne {n}", "externSupervisor": "Surveillant externe {n}",
+      "startDate": "Date de début", "endDate": "Date de fin", "pgacActivities": "Activités PGAC"
+    },
+    "languages": { "none": "Aucune", "fr": "Français", "en": "Anglais", "de": "Allemand", "it": "Italien" },
+    "noContract": "Aucune information sur le contrat",
+    "disabled": "Désactivée",
+    "noAttributes": "Aucun attribut personnalisé pour cette famille d'entité",
+    "pgac": "Options spécifiques aux projets de PGAC"
+  },
+  "metrics": {
+    "title": "Avancement",
+    "filters": { "family": "Famille", "category": "Catégorie" },
+    "flows": {
+      "title": "Avancement des flows",
+      "total": "{count, plural, =0 {Aucun flow} one {# flow au total} other {# flows au total}}",
+      "byStatus": "Statuts des flows",
+      "byCategory": "États des flows",
+      "noStatus": "Sans statut"
+    },
+    "categories": { "todo": "À faire", "in_preparation": "En préparation", "in_operation": "En opération", "in_progress": "En cours", "done": "Terminé", "none": "Sans état" },
+    "blocks": {
+      "stateTitle": "État des blocs",
+      "typeTitle": "Utilisation des blocs",
+      "states": { "redaction": "En rédaction", "verification": "En vérification", "approbation": "En approbation", "validated": "Validés" },
+      "types": { "pr": "Instructions", "emm": "Moyens", "adr": "Risques", "dsi": "Contrôles", "form": "Formulaires", "txt": "Textes", "rhp": "Équipes", "multi_pr": "Instructions multiples", "object": "Objets" },
+      "usage": "{blocks} blocs sur {flows} flows"
+    },
+    "signatures": {
+      "title": "Signatures",
+      "done": "{signed} signatures sur {total}",
+      "percent": "{value} % des signatures réalisées",
+      "mobile": "MobileApp",
+      "web": "WebApp",
+      "intern": "Internes",
+      "extern": "Externes",
+      "notListed": "Non listées"
+    },
+    "project": {
+      "title": "Statistiques de l'entité",
+      "members": "Collaborateurs",
+      "flowTypes": { "specific": "Flows spécifiques", "generic": "Flows génériques", "referential": "Flows référentiels" },
+      "other": "Autres flows"
+    },
+    "empty": "Aucune donnée"
+  }
+}

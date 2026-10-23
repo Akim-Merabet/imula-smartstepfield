@@ -1,0 +1,81 @@
+{
+  "crumbList": "Signatures - Vue liste",
+  "crumbTemporal": "Signatures - Vue temporelle",
+  "list": { "title": "Signatures", "view": "Vue liste" },
+  "temporal": { "title": "Vue temporelle" },
+  "pad": { "area": "Zone de signature", "hint": "Signez dans le cadre ci-dessus", "clear": "Effacer" },
+  "natures": {
+    "realisation": "Réalisation de l'opération",
+    "tech_control": "Contrôle technique",
+    "breakpoint_int": "Point d'arrêt interne - {name}",
+    "breakpoint_intMono": "Point d'arrêt interne",
+    "convocation_int": "Point de convocation interne - {name}",
+    "convocation_intMono": "Point de convocation interne",
+    "breakpoint_ext": "Point d'arrêt externe - {name}",
+    "breakpoint_extMono": "Point d'arrêt externe",
+    "convocation_ext": "Point de convocation externe - {name}",
+    "convocation_extMono": "Point de convocation externe"
+  },
+  "states": {
+    "signed": "Signé", "waiting": "En attente", "free": "Non signé", "not_possible": "Signature non applicable",
+    "mandatoryFree": "Non signé - signature obligatoire"
+  },
+  "badges": { "proxied": "Par procuration (mandant : {name})", "proxiedShort": "Signature par procuration", "strong": "Signature avec authentification forte" },
+  "sources": { "webapp": "Signature réalisée depuis la WebApp", "mobile": "Signature réalisée depuis la MobileApp", "api": "Signature réalisée par API" },
+  "block": {
+    "title": "Signatures de l'étape",
+    "image": "Image de la signature",
+    "sign": "Signer",
+    "delete": "Supprimer la signature",
+    "deleteTitle": "Supprimer la signature",
+    "deleteSubtitle": "La suppression sera tracée dans l'historique du bloc.",
+    "deleted": "Signature supprimée"
+  },
+  "dialog": {
+    "title": "Signature « {nature} »",
+    "sign": "Signer",
+    "success": "Signature enregistrée",
+    "modes": { "person": "Signer en personne", "proxy": "Signer par procuration", "not_applicable": "Signature non applicable" },
+    "proxyInfo": "Vous signez en tant que mandataire : {name}",
+    "principal": "Mandant : la personne donnant procuration",
+    "proxyDate": "Date de procuration",
+    "contributors": { "intern": "Collaborateur.trice", "extern": "Externe (client)", "not_listed_intern": "Collaborateur.trice non listé(e)" },
+    "collaborator": "Collaborateur.trice",
+    "firstName": "Prénom", "lastName": "Nom", "email": "Email", "profession": "Fonction",
+    "date": "Date", "company": "Société", "signature": "Signature", "comment": "Commentaire"
+  },
+  "errors": {
+    "stepDisabled": "Impossible de signer : l'étape est désactivée",
+    "notInRestrictedList": "Vous n'êtes pas présent dans la liste des collaborateur.trice(s) restreint(e)s à ce flow",
+    "signature_required": "La signature est obligatoire",
+    "comment_required": "Le commentaire est obligatoire",
+    "proxy_date_after": "La date de procuration doit être antérieure à la date de signature",
+    "sign_twice": "Impossible de signer 2 fois avec le même collaborateur.trice à la même étape",
+    "already_signed": "Cette signature est déjà renseignée",
+    "not_in_restricted_list": "Vous n'êtes pas présent dans la liste des collaborateur.trice(s) restreint(e)s à ce flow",
+    "step_disabled": "Impossible de signer : l'étape est désactivée",
+    "nature_not_available": "Ce type de signature n'est pas disponible",
+    "comment_required_na": "Le commentaire est obligatoire"
+  },
+  "summary": {
+    "title": "Tableau récapitulatif des signatures - {progress} % d'avancement",
+    "selectFlow": "Sélection flow",
+    "filterState": "État",
+    "noFlowTitle": "Aucun flow sélectionné pour le moment",
+    "noFlowSubtitle": "Veuillez utiliser les filtres pour commencer",
+    "open": "Ouvrir le flow",
+    "expandAll": "Tout agrandir",
+    "collapseAll": "Tout réduire",
+    "counters": "{total} signature(s) attendue(s) · {filtered} filtrée(s) · {signed} signée(s)",
+    "prefixPhase": "P",
+    "prefixStep": "E",
+    "columns": {
+      "number": "N°", "name": "Nom", "execution": "Réalisation de l'opération / Contrôle technique",
+      "supervision": "Levée des points de convocation / arrêt", "comments": "Commentaires"
+    },
+    "noDsi": "Aucun bloc contrôle actif à cette étape",
+    "dsiDisabled": "Bloc contrôle désactivé",
+    "required": "Bloc contrôle obligatoire",
+    "observation": "Observation : {text}"
+  }
+}

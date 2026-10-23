@@ -1,0 +1,181 @@
+{
+  "title": "Réponse de formulaire",
+  "empty": "Ce formulaire ne contient aucune rubrique.",
+  "state": { "in_progress": "En cours", "done": "Terminé" },
+  "rubricTypes": { "question": "Rubrique question", "table_column": "Tableau par colonnes", "table_row": "Tableau par lignes" },
+  "menu": { "rubrics": "{count, plural, =0 {Aucune rubrique} one {# rubrique} other {# rubriques}}", "readOnly": "Lecture seule" },
+  "header": {
+    "index": "Indice {index}",
+    "flow": "Flow : {name} ({ref})",
+    "mode": "Mode réponse",
+    "reference": "Référence de la réponse",
+    "referenceMin": "La référence doit comporter au moins 3 caractères"
+  },
+  "nav": { "previous": "Rubrique précédente", "next": "Rubrique suivante" },
+  "rubric": {
+    "withoutResponse": "Rubrique sans réponse",
+    "hasLocked": "Contient au moins une réponse verrouillée",
+    "seeMore": "Voir plus",
+    "seeLess": "Voir moins"
+  },
+  "actions": {
+    "saveLater": "Sauvegarder et continuer plus tard",
+    "saveNext": "Sauvegarder et passer à la rubrique suivante",
+    "finish": "Terminer la réponse"
+  },
+  "finish": {
+    "confirmTitle": "Terminer la réponse ?",
+    "confirmText": "La réponse passera à l'état « Terminé » et ne sera plus modifiable, sauf retour à l'état « En cours »."
+  },
+  "leave": {
+    "title": "Quitter sans sauvegarder ?",
+    "text": "Les informations saisies dans cette rubrique ne seront pas enregistrées. Voulez-vous continuer ?"
+  },
+  "done": {
+    "banner": "Cette réponse est terminée : elle est consultable en lecture seule.",
+    "backToInProgress": "Revenir à l'état « En cours »",
+    "resetTitle": "Repasser la réponse « En cours » ?",
+    "resetText": "La réponse redeviendra modifiable."
+  },
+  "readOnly": { "all": "Toutes les rubriques de ce formulaire sont en lecture seule pour cette étape." },
+  "status": { "none": "Aucun statut", "edit": "Modifier le statut", "label": "Statut", "comment": "Commentaire" },
+  "toast": {
+    "saved": "La réponse a bien été enregistrée",
+    "savedLater": "Vos saisies sont sauvegardées : vous pourrez compléter la réponse plus tard.",
+    "finished": "La réponse est terminée"
+  },
+  "errors": {
+    "saveFail": "L'enregistrement de la réponse a échoué",
+    "response_done": "Une réponse terminée ne peut pas être modifiée",
+    "signature_required": "La modification d'une valeur verrouillée doit être signée",
+    "backdating": "La date saisie est antérieure à la date de création de la réponse",
+    "backdatingSubtitle": "Corrigez cette date puis enregistrez de nouveau.",
+    "invalid_value": "Une valeur saisie ne respecte pas les limites attendues",
+    "forbidden": "Vous n'avez pas les droits nécessaires pour cette action"
+  },
+  "formula": {
+    "evaluationFail": "Le calcul de la formule a échoué",
+    "missingValues": "Certaines valeurs utilisées par la formule ne sont pas encore saisies",
+    "evalError": "La formule ne peut pas être évaluée avec les valeurs actuelles"
+  },
+  "lock": {
+    "invalid": "Saisissez une valeur valide avant de verrouiller",
+    "done": "Réponse verrouillée",
+    "confirmTitle": "Verrouiller la réponse ?",
+    "confirmText": "Cette action est définitive : la valeur ne pourra plus être modifiée sans déverrouillage signé."
+  },
+  "unlock": {
+    "confirmTitle": "Déverrouiller la réponse ?",
+    "confirmText": "Toute modification devra être validée par une signature des changements."
+  },
+  "question": {
+    "locked": "Réponse verrouillée",
+    "lock": "Verrouiller",
+    "unlock": "Déverrouiller",
+    "history": "Historique des modifications",
+    "observation": "Observation",
+    "observationPlaceholder": "Ajoutez une observation si nécessaire",
+    "webappOnly": "Cette question ne peut être renseignée que depuis la WebApp",
+    "defaultOption": "Option {order}"
+  },
+  "table": { "row": "Ligne {n}", "column": "Colonne {n}", "addRow": "Ligne", "addColumn": "Colonne" },
+  "fields": {
+    "choose": "Choisir…",
+    "clear": "Effacer",
+    "hours": "h",
+    "minutes": "min",
+    "lat": "Lat.",
+    "lng": "Long.",
+    "alt": "Alt.",
+    "locate": "Ma position",
+    "geolocUnavailable": "La géolocalisation n'est pas disponible sur cet appareil",
+    "geolocFail": "Impossible d'obtenir votre position",
+    "notCalculated": "Non calculé",
+    "calculate": "Calculer",
+    "true": "Vrai",
+    "false": "Faux",
+    "checked": "Coché",
+    "addPhoto": "Ajouter une photo",
+    "addFile": "Ajouter un fichier PDF",
+    "removeFile": "Retirer le fichier",
+    "pdfOnly": "Le fichier choisi doit être un PDF",
+    "imageOnly": "Le fichier choisi doit être une image",
+    "fileTooLarge": "Le fichier dépasse la taille maximale de 40 Mo",
+    "uploadFail": "L'envoi du fichier a échoué"
+  },
+  "validation": {
+    "defaultText": "La valeur saisie est hors de la plage attendue",
+    "backdating": "Une date antérieure à la création de la réponse n'est pas autorisée",
+    "notANumber": "Saisissez un nombre valide",
+    "outOfBounds": "Valeur hors limites (min : {min}, max : {max})",
+    "expected": {
+      "gt": "Valeur attendue : supérieure à {min}",
+      "gte": "Valeur attendue : supérieure ou égale à {min}",
+      "lt": "Valeur attendue : inférieure à {min}",
+      "lte": "Valeur attendue : inférieure ou égale à {min}",
+      "eq": "Valeur attendue : égale à {min}",
+      "neq": "Valeur attendue : différente de {min}",
+      "between": "Valeur attendue : entre {min} et {max}",
+      "not_between": "Valeur attendue : en dehors de {min} et {max}",
+      "before": "Date attendue : avant le {min}",
+      "after": "Date attendue : après le {min}",
+      "between_dates": "Date attendue : entre le {min} et le {max}",
+      "not_between_dates": "Date attendue : en dehors du {min} au {max}"
+    }
+  },
+  "signature": {
+    "defaultName": "Collaborateur {order}",
+    "sign": "Signer",
+    "identify": "Identifier",
+    "signSubtitle": "Identifiez le collaborateur puis apposez sa signature.",
+    "identifySubtitle": "Identifiez le collaborateur (aucune signature demandée).",
+    "signedOn": "{name} a signé le {date}",
+    "identified": "{name}",
+    "byProxyShort": "par procuration de {principal}",
+    "view": "Voir la signature",
+    "viewTitle": "Signature de {name}",
+    "delete": "Supprimer",
+    "deleteTitle": "Supprimer cette signature ?",
+    "deleteSubtitle": "La signature sera retirée de la réponse lors du prochain enregistrement.",
+    "collaborator": "Collaborateur",
+    "selectCollaborator": "Choisir un collaborateur",
+    "notListed": "Absent de la liste",
+    "selectRequired": "Choisissez un collaborateur",
+    "identityRequired": "Renseignez au minimum le prénom, le nom (et la fonction si aucune signature n'est demandée)",
+    "signatureRequired": "La signature est obligatoire",
+    "fields": { "firstName": "Prénom", "lastName": "Nom", "email": "E-mail", "function": "Fonction", "companyName": "Entreprise" },
+    "byProxy": "Signature par procuration",
+    "principal": "Mandant",
+    "principalHint": "Personne qui donne procuration",
+    "signature": "Signature",
+    "clear": "Effacer",
+    "comment": "Commentaire (facultatif)"
+  },
+  "failed": {
+    "title": "Questions échouées",
+    "subtitle": "Pour enregistrer, complétez ou corrigez les questions suivantes :",
+    "rubric": "Rubrique {position} — {name}",
+    "mandatory": "obligatoire",
+    "invalid": "invalide"
+  },
+  "history": {
+    "title": "Historique des modifications",
+    "empty": "Aucune modification pour le moment",
+    "changed": "<b>{name}</b> a modifié la réponse le <b>{date}</b> depuis la <b>{provenance}</b>",
+    "provenance": { "webapp": "WebApp", "mobile": "MobileApp", "api": "API" },
+    "fromTo": "de « {old} » à « {new} »",
+    "empty_value": "(vide)",
+    "fileAdded": "{name} ajouté.",
+    "fileRemoved": "{name} supprimé.",
+    "comment": "Commentaire : « {comment} »"
+  },
+  "changes": {
+    "title": "Signature des changements",
+    "subtitle": "{name}, signez pour valider la modification des réponses verrouillées.",
+    "signature": "Signature",
+    "clear": "Effacer",
+    "comment": "Commentaire (facultatif)",
+    "validate": "Signer et enregistrer",
+    "signatureRequired": "La signature est obligatoire"
+  }
+}

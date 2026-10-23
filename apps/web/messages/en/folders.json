@@ -1,0 +1,25 @@
+{
+  "title": "Referential folder {name}",
+  "subtitle": "{count, plural, =0 {No sub-folder} one {# referential sub-folder} other {# referential sub-folders}} · Client: {client}",
+  "subFolder": "Referential sub-folder",
+  "addSubFolder": "Add a sub-folder",
+  "columns": {
+    "index": "Index",
+    "flows": "Flows"
+  },
+  "emptyTitle": "No referential sub-folder",
+  "emptySubtitle": "Create a sub-folder with the “+” button to add referential flows to it.",
+  "backToFolder": "Back to folder",
+  "prepare": {
+    "action": "Prepare",
+    "title": "Preparing referential sub-folder {title} - {index}",
+    "info": "{count, plural, one {The referential flow of the sub-folder will be imported} other {The # referential flows of the sub-folder will be imported}} into the Referentials module of a new Project entity (locked and kept in sync with their source), along with the referential diagrams.",
+    "noFlowsTitle": "Preparation is not possible",
+    "noFlows": "Please add one or more flows to the sub-folder first.",
+    "inProgress": "Preparation in progress, running in the background",
+    "inProgressDescription": "The Project entity will appear in the entity list once processing is over (follow it in the events bell).",
+    "done": "The entity {name} has been prepared",
+    "failed": "The sub-folder preparation failed",
+    "taskLabel": "Preparation of sub-folder {name} - {index}"
+  }
+}

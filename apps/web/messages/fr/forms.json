@@ -1,0 +1,383 @@
+{
+  "libraryTitle": "Bibliothèque des formulaires",
+  "projectTitle": "Liste des formulaires",
+  "emptyProject": "Importez un formulaire depuis la bibliothèque pour commencer",
+  "letters": {
+    "model": "M",
+    "generic": "G",
+    "other": "O",
+    "local": "L",
+    "archived": "A"
+  },
+  "natures": {
+    "model": "Modèle",
+    "generic": "Générique",
+    "other": "Autre",
+    "local": "Local",
+    "archived": "Archivé"
+  },
+  "columns": {
+    "family": "Famille",
+    "name": "Nom",
+    "reference": "Référence",
+    "index": "Indice",
+    "updatedAt": "Modification",
+    "status": "Statut",
+    "company": "Société",
+    "state": "État"
+  },
+  "filters": {
+    "account": "Applicabilité",
+    "company": "Société",
+    "family": "Famille",
+    "status": "Statut",
+    "type": "Type",
+    "all": "Tous",
+    "archivedState": {
+      "active": "Actifs",
+      "archived": "Archivés",
+      "all": "Tous"
+    }
+  },
+  "provenance": {
+    "imported": "Importé",
+    "local": "Local",
+    "library": "Bibliothèque"
+  },
+  "state": {
+    "enabled": "Actif",
+    "disabled": "Inactif"
+  },
+  "tooltips": {
+    "formWeft": "Formulaire avec trame PDF personnalisée",
+    "toBeLinkedToObject": "Formulaire à lier avec un objet",
+    "updateAvailable": "Une version plus récente est disponible dans la bibliothèque",
+    "archived": "Archivé",
+    "index": "Indice du formulaire au moment de la réponse"
+  },
+  "actions": {
+    "reply": "Répondre",
+    "editInfo": "Éditer les informations",
+    "editContent": "Éditer le contenu",
+    "overview": "Aperçu",
+    "duplicate": "Dupliquer",
+    "archive": "Archiver",
+    "unarchive": "Désarchiver",
+    "history": "Historique",
+    "properties": "Propriétés",
+    "delete": "Supprimer",
+    "refresh": "Mettre à jour",
+    "refreshAll": "Mettre à jour les formulaires importés ({count})",
+    "import": "Importer depuis la bibliothèque",
+    "localCopy": "Créer une copie locale",
+    "activate": "Activer",
+    "deactivate": "Désactiver"
+  },
+  "toasts": {
+    "created": "Formulaire créé avec succès",
+    "createFail": "La création du formulaire a échoué",
+    "duplicated": "Formulaire dupliqué avec succès",
+    "archived": "Formulaire archivé",
+    "unarchived": "Formulaire désarchivé",
+    "deleted": "Formulaire supprimé avec succès",
+    "localCopy": "Copie locale créée avec succès",
+    "refreshed": "Formulaire mis à jour",
+    "refreshedMany": "{count, plural, =0 {Aucun formulaire mis à jour} one {# formulaire mis à jour} other {# formulaires mis à jour}}",
+    "enabled": "Formulaire activé",
+    "disabled": "Formulaire désactivé",
+    "imported": "{count, plural, one {# formulaire importé} other {# formulaires importés}}"
+  },
+  "errors": {
+    "disabled": "Élément désactivé, impossible d'ajouter une réponse",
+    "disabled_refresh": "Impossible de mettre à jour un élément désactivé",
+    "unique_response": "Impossible d'ajouter une autre réponse : ce formulaire est à réponse unique",
+    "size_limit": "Impossible de sélectionner plus de 10 éléments. Veuillez procéder par lots",
+    "form_imported": "Impossible de supprimer un formulaire déjà affecté à une entité",
+    "form_in_use": "Ce formulaire est utilisé et ne peut pas être supprimé",
+    "source_missing": "Le formulaire source n'existe plus dans la bibliothèque",
+    "duplicate": "Cette valeur est déjà utilisée",
+    "in_use": "Élément utilisé, opération impossible",
+    "reference_too_short": "La référence doit contenir au moins 3 caractères",
+    "not_found": "Élément introuvable",
+    "version": "Impossible de figer la version du formulaire"
+  },
+  "delete": {
+    "title": "Êtes-vous certain(e) de vouloir supprimer le formulaire « {name} » ?",
+    "subtitleLibrary": "Le formulaire sera placé dans la corbeille pendant 30 jours.",
+    "importedTitle": "Impossible de supprimer un formulaire déjà affecté à une entité",
+    "importedBody": "Le formulaire « {name} » est importé dans les entités suivantes :",
+    "inUseTitle": "Suppression impossible",
+    "inUseResponses": "Impossible de supprimer ce formulaire car il contient des réponses en cours et/ou terminées",
+    "inUseSteps": "Le formulaire « {name} » est déjà affecté aux étapes ci-dessous :",
+    "flow": "Flow",
+    "phase": "Phase",
+    "step": "Étape"
+  },
+  "refresh": {
+    "title": "Êtes-vous certain(e) de vouloir mettre à jour le formulaire ?",
+    "subtitle": "Les réponses « En cours » et « Terminé » qui utilisent ce formulaire ne seront pas modifiées par la mise à jour.",
+    "flows": "Toutes les utilisations de ce formulaire dans les flows seront mises à jour ; une réponse en cours de saisie conserve sa version."
+  },
+  "dialog": {
+    "createTitle": "Créer un formulaire",
+    "editTitle": "Éditer le formulaire « {name} »",
+    "tabs": {
+      "general": "Général",
+      "options": "Options"
+    },
+    "noCreatableType": "Vous n'avez aucun droit complémentaire (formulaire modèle ou générique) permettant de créer un formulaire.",
+    "templateOnlyPdf": "Le fichier sélectionné doit être au format PDF",
+    "uploadTemplate": "Importer le fichier",
+    "fields": {
+      "type": "Type",
+      "name": "Nom",
+      "description": "Description",
+      "reference": "Référence",
+      "index": "Indice",
+      "family": "Famille",
+      "account": "Applicabilité",
+      "companies": "Société(s) autorisée(s)",
+      "status": "Statut",
+      "statusComment": "Commentaire de changement de statut",
+      "additionalComment": "Mention complémentaire",
+      "additionalObservation": "Observation complémentaire",
+      "additionalObservationHelp": "Affichée en info-bulle sur le formulaire",
+      "lockResponses": "Verrouiller automatiquement les réponses enregistrées",
+      "objectAttributes": "Ajout d'attributs d'objet dans le formulaire",
+      "objectAttributesOptions": {
+        "disabled": "Désactivé",
+        "default_family": "Famille par défaut",
+        "other_family": "Autre famille d'objet"
+      },
+      "objectAttributesModelOnly": "Disponible uniquement pour les formulaires de type Modèle",
+      "objectFamily": "Famille d'objet",
+      "useTemplate": "Exporter ce formulaire avec une trame de fond PDF personnalisée",
+      "templateFile": "Fichier de trame",
+      "pageNumberX": "Position du numéro de page X",
+      "pageNumberY": "Position du numéro de page Y",
+      "hideIn": {
+        "title": "Masquer le formulaire dans les documents",
+        "control_doc": "Document Contrôles",
+        "forms_doc": "Document Formulaires",
+        "multi_instr_doc": "Document Instructions multiples",
+        "instr_doc": "Document Instructions"
+      }
+    }
+  },
+  "duplicate": {
+    "title": "Duplication du formulaire {name}",
+    "defaultName": "Copie de {name}",
+    "sentence": "Duplication du formulaire de type {from} nommé « {name} » en formulaire de type :",
+    "targetType": "Type du nouveau formulaire",
+    "newName": "Nom du nouveau formulaire",
+    "warning": "Les attributs d'objets ne sont pas dupliqués"
+  },
+  "properties": {
+    "title": "Propriétés du formulaire",
+    "name": "Nom",
+    "type": "Type",
+    "provenance": "Provenance",
+    "project": "Entité",
+    "family": "Famille",
+    "account": "Applicabilité",
+    "reference": "Référence",
+    "index": "Indice",
+    "objectAttributes": "Attributs d'objet",
+    "flows": "Flows utilisant ce formulaire"
+  },
+  "history": {
+    "title": "Historique du formulaire",
+    "version": "Version {no} (indice {index}) figée par {user}",
+    "updated": "Dernière modification par {user}",
+    "created": "{user} a créé le formulaire avec le statut {status}",
+    "empty": "Aucun événement"
+  },
+  "import": {
+    "title": "Importer depuis la bibliothèque",
+    "subtitle": "Sélectionnez jusqu'à 10 formulaires",
+    "conflict": "Formulaire(s) déjà affecté(s) à cette entité",
+    "notImportable": "Formulaire(s) non importable(s) (statut ou archivage)",
+    "alreadyImported": "Déjà importé",
+    "onlyImportable": "Seuls les formulaires dont le statut autorise l'importation sont affichés.",
+    "submit": "Importer"
+  },
+  "reply": {
+    "title": "Répondre au formulaire {name}",
+    "submit": "Répondre",
+    "disabled": "Élément désactivé, impossible d'ajouter une réponse",
+    "newResponse": "Créer une nouvelle réponse",
+    "resume": "Reprendre une réponse en cours",
+    "reference": "Référence de la réponse",
+    "referenceHint": "Vous pouvez modifier la référence de la réponse si besoin",
+    "referenceTooShort": "La référence doit contenir au moins 3 caractères",
+    "unique": "Impossible d'ajouter une autre réponse : ce formulaire est à réponse unique",
+    "response": "Réponse",
+    "resumeHint": "Seules les réponses à l'état « En cours » sont proposées"
+  },
+  "block": {
+    "stepLabel": "{phase} - {step} · {name}",
+    "link": "Lier un formulaire",
+    "emptyTitle": "Aucun formulaire lié",
+    "emptyEdit": "Liez un formulaire de l'entité à cette étape",
+    "emptyRead": "Aucun formulaire n'est lié à cette étape",
+    "index": "Indice {index}",
+    "badges": {
+      "mandatory": "Réponse obligatoire",
+      "unique": "Réponse unique : {mode}",
+      "guide": "Guider actif",
+      "restricted": "Remplissage restreint",
+      "disabled": "Désactivé"
+    },
+    "uniqueModes": {
+      "new_or_resume": "nouvelle réponse et reprise autorisées",
+      "new_response": "nouvelle réponse uniquement",
+      "resume_response": "reprise d'une réponse uniquement"
+    },
+    "responsesCount": "{count, plural, =0 {Aucune réponse} one {# réponse} other {# réponses}} · {done} terminée(s)",
+    "reply": "Répondre",
+    "viewResponses": "Voir les réponses",
+    "settings": "Paramètres de la liaison",
+    "unlink": "Retirer le formulaire",
+    "linkHasResponses": "Ce formulaire contient des réponses : désactivez-le plutôt que de le retirer",
+    "linked": "{count, plural, =0 {Aucun formulaire lié} one {# formulaire lié} other {# formulaires liés}}",
+    "linkTitle": "Lier un formulaire de l'entité",
+    "noProjectForm": "Aucun formulaire dans l'entité : importez-en un depuis la bibliothèque",
+    "alreadyLinked": "Déjà lié",
+    "settingsTitle": "Paramètres · {name}",
+    "mandatory": "Activer la réponse obligatoire",
+    "mandatoryHint": "Au moins une réponse est exigée pour valider l'étape",
+    "unique": "Activer la réponse unique",
+    "uniqueHint": "Empêche l'ajout de plusieurs réponses",
+    "uniqueMode": "Mode sur le terrain",
+    "uniqueModeHint": "Ces autorisations ne concernent que l'application mobile ; sur la WebApp les deux actions restent possibles.",
+    "modeRedactionOnly": "Le mode n'est modifiable que si le bloc est au statut Rédaction",
+    "guideTo": "Guider le collaborateur vers",
+    "guideNone": "Première rubrique (par défaut)",
+    "guideHint": "Rubrique affichée à l'ouverture d'une nouvelle réponse",
+    "restrict": "Restreindre les rubriques remplissables",
+    "allowFillOf": "Autoriser le remplissage de :",
+    "allReadOnly": "Attention : toutes les rubriques sont en lecture seule",
+    "conflict": "Les paramètres « Guider vers » et « Autoriser le remplissage de » sont en conflit : le collaborateur sera guidé vers une rubrique qu'il ne pourra pas remplir.",
+    "stepPrefix": "E"
+  },
+  "responses": {
+    "title": "Gestion des réponses de formulaire",
+    "columns": {
+      "reference": "Référence réponse",
+      "index": "Indice",
+      "state": "État",
+      "status": "Statut",
+      "createdAt": "Date de création",
+      "updatedAt": "Date de modification"
+    },
+    "state": {
+      "in_progress": "En cours",
+      "done": "Terminé"
+    },
+    "actions": {
+      "backToInProgress": "Revenir à l'état « En cours »",
+      "edit": "Éditer",
+      "open": "Ouvrir la réponse",
+      "duplicate": "Dupliquer",
+      "history": "Historique",
+      "delete": "Supprimer"
+    },
+    "toasts": {
+      "duplicated": "Réponse dupliquée",
+      "deleted": "Réponse placée dans la corbeille"
+    }
+  },
+  "feedback": {
+    "title": "Liste des réponses de formulaire(s)",
+    "projectContext": "Entité",
+    "orphan": "orpheline",
+    "emptyTitle": "Aucune réponse pour le moment",
+    "emptySubtitle": "Les réponses créées depuis les formulaires et les flows apparaissent ici",
+    "emptyFiltered": "Revoyez vos filtres",
+    "columns": {
+      "provenance": "Provenance",
+      "reference": "Référence",
+      "flow": "Flow",
+      "index": "Indice",
+      "state": "État",
+      "status": "Statut",
+      "updatedAt": "Modification"
+    },
+    "filters": {
+      "flow": "Flow",
+      "form": "Formulaire",
+      "source": "Source",
+      "status": "Statut",
+      "allStates": "Tous les états",
+      "from": "Du",
+      "to": "Au",
+      "dates": {
+        "created_at": "Date de création",
+        "updated_at": "Date de modification",
+        "done_at": "Date de soumission"
+      },
+      "sources": {
+        "webapp": "WebApp",
+        "mobile": "MobileApp",
+        "project": "Entité",
+        "flow": "Flow"
+      }
+    },
+    "export": {
+      "button": "Exportation XLS",
+      "title": "Exportation XLS",
+      "all": "Toutes les données",
+      "xlsOnly": "Uniquement les valeurs XLS",
+      "selectFirst": "Veuillez sélectionner le(s) élément(s) à exporter depuis la liste",
+      "unauthorized": "Veuillez d'abord sélectionner un statut autorisant l'exportation avant de continuer"
+    },
+    "delete": {
+      "title": "Êtes-vous certain(e) de vouloir supprimer la réponse « {name} » ?",
+      "subtitle": "La réponse sera placée dans la corbeille."
+    },
+    "edit": {
+      "title": "Êtes-vous certain(e) de vouloir éditer la réponse ?",
+      "subtitle": "La réponse terminée repassera à l'état « En cours »."
+    },
+    "reset": {
+      "title": "Revenir à l'état « En cours » ?",
+      "subtitle": "La réponse pourra de nouveau être modifiée."
+    },
+    "xlsx": {
+      "true": "Vrai",
+      "false": "Faux",
+      "reference": "Référence",
+      "form": "Formulaire",
+      "index": "Indice",
+      "status": "Statut",
+      "state": "État",
+      "provenance": "Provenance",
+      "flow": "Flow",
+      "phase": "Phase",
+      "step": "Étape",
+      "createdAt": "Créée le",
+      "createdBy": "Créée par",
+      "updatedAt": "Modifiée le",
+      "doneAt": "Terminée le"
+    }
+  },
+  "responseHistory": {
+    "title": "Historique de la réponse",
+    "empty": "Aucun événement",
+    "event": "{user} {action} la réponse « {reference} » le {date} à {time} depuis la {source}",
+    "actions": {
+      "created": "a créé",
+      "updated": "a édité",
+      "filled": "a renseigné",
+      "deleted": "a supprimé",
+      "exported": "a exporté",
+      "status_changed": "a changé le statut de",
+      "state_changed": "a changé l'état de",
+      "shared": "a partagé"
+    },
+    "sources": {
+      "webapp": "WebApp",
+      "mobile": "MobileApp"
+    }
+  }
+}

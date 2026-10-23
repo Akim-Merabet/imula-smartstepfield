@@ -1,0 +1,104 @@
+{
+  "title": "Equipment library",
+  "add": "New equipment",
+  "columns": {
+    "family": "Family",
+    "name": "Name",
+    "reference": "Reference",
+    "provider": "Supplier",
+    "unit": "Unit",
+    "actions": "Action"
+  },
+  "filters": {
+    "verification": "Verification",
+    "subjectToVerify": "Subject to verification",
+    "expired": "Validity date exceeded"
+  },
+  "badges": {
+    "consumable": "Consumable",
+    "verified": "Subject to verification",
+    "expired": "Validity date exceeded"
+  },
+  "actions": {
+    "edit": "Edit",
+    "duplicate": "Duplicate",
+    "properties": "Properties",
+    "activate": "Activate",
+    "deactivate": "Deactivate",
+    "delete": "Delete",
+    "import": "Import from an Excel file"
+  },
+  "dialog": {
+    "createTitle": "Create new equipment",
+    "editTitle": "Edit equipment",
+    "viewTitle": "Equipment preview",
+    "previous": "Previous equipment",
+    "next": "Next equipment",
+    "tabs": {
+      "general": "General",
+      "verification": "Verification"
+    },
+    "fields": {
+      "family": "Family",
+      "applicability": "Applicability",
+      "name": "Name",
+      "reference": "Reference",
+      "provider": "Supplier",
+      "unit": "Unit",
+      "consumable": "Consumable",
+      "photo": "Photo",
+      "referenceDocument": "Reference document",
+      "certificate": "Certificate document",
+      "subjectToVerification": "Subject to verification",
+      "validityDate": "Validity date",
+      "verificationBody": "Verification body"
+    },
+    "documentHint": "PDF document reusable in a closing folder or as an appendix of an equipment document.",
+    "createAnother": "Create another equipment",
+    "created": "Equipment created"
+  },
+  "delete": {
+    "title": "Delete the equipment “{name}”?",
+    "success": "Equipment deleted"
+  },
+  "duplicate": {
+    "title": "Duplicate the equipment “{name}”?",
+    "success": "Equipment duplicated",
+    "copySuffix": "(copy)"
+  },
+  "activated": "Equipment activated",
+  "deactivated": "Equipment deactivated",
+  "properties": {
+    "title": "Equipment properties",
+    "family": "Family",
+    "applicability": "Applicability",
+    "name": "Name",
+    "reference": "Reference",
+    "verification": "Verification",
+    "verificationFalse": "Not subject to verification",
+    "verificationTrue": "Subject to verification",
+    "verificationExpired": "Subject to verification — validity date exceeded"
+  },
+  "import": {
+    "title": "Import equipment from an Excel file"
+  },
+  "template": {
+    "sheet": "Equipment",
+    "families": "Families",
+    "columns": {
+      "family": "Family (short name)",
+      "name": "Name",
+      "reference": "Reference",
+      "provider": "Supplier",
+      "unit": "Unit",
+      "consumable": "Consumable (Yes/No)",
+      "verification": "Subject to verification (Yes/No)",
+      "validityDate": "Validity date (YYYY-MM-DD)",
+      "verificationBody": "Verification body"
+    }
+  },
+  "errors": {
+    "in_use": "Cannot delete",
+    "in_useSubtitle": "The equipment is already used (flow block or equipment list)"
+  }
+}

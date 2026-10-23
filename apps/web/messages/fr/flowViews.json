@@ -1,0 +1,332 @@
+{
+  "diagram": {
+    "title": "Vue diagramme",
+    "subtitle": "{count, plural, =0 {Aucun diagramme} one {# diagramme} other {# diagrammes}} dans l'entité",
+    "select": "Sélectionner un diagramme",
+    "create": "Nouveau diagramme",
+    "rename": "Renommer le diagramme",
+    "delete": "Supprimer le diagramme",
+    "name": "Nom",
+    "created": "Le diagramme a été créé avec succès",
+    "createFail": "Une erreur est survenue lors de la création du diagramme.",
+    "renamed": "Le nom du diagramme a été modifié avec succès.",
+    "renameFail": "Une erreur est survenue lors de la modification du nom du diagramme.",
+    "deleteConfirm": "Êtes-vous certain(e) de vouloir supprimer ce diagramme ?",
+    "deleted": "Diagramme supprimé",
+    "deleteFail": "Une erreur est survenue lors de la suppression du diagramme.",
+    "linkedDocument": "Suppression impossible : la vue diagramme est associée à un document.",
+    "emptyTitle": "Aucun diagramme",
+    "emptySubtitle": "Créez un diagramme pour représenter l'enchaînement des flows de l'entité.",
+    "editMode": "Édition",
+    "viewMode": "Aperçu",
+    "readOnly": "Lecture seule",
+    "addFlows": "Ajouter des flows",
+    "addFlowsSubtitle": "Les flows chapeau ne peuvent pas être utilisés dans la vue diagramme.",
+    "newFlow": "Nouveau flow",
+    "importCount": "{current} élément(s) dans la liste / {total} au total",
+    "emptyImport": "Aucun flow disponible",
+    "filters": {
+      "status": "Statut",
+      "family": "Famille",
+      "category": "Catégorie",
+      "type": "Type",
+      "assignee": "Affectation"
+    },
+    "shapes": {
+      "rect": "Rectangle",
+      "ellipse": "Ellipse",
+      "diamond": "Losange"
+    },
+    "text": "Texte",
+    "textPlaceholder": "Texte",
+    "actions": {
+      "duplicate": "Dupliquer (Ctrl + C / Ctrl + V)",
+      "group": "Grouper (Ctrl + G)",
+      "ungroup": "Dégrouper (Ctrl + Maj + G)",
+      "delete": "Supprimer (Suppr)",
+      "undo": "Annuler (Ctrl + Z)"
+    },
+    "groupNeedsTwo": "Sélectionnez au moins deux éléments à grouper",
+    "save": {
+      "saved": "Enregistré",
+      "dirty": "Modifications non enregistrées…",
+      "saving": "Enregistrement…"
+    },
+    "saveFail": "Une erreur est survenue lors de la mise à jour du diagramme.",
+    "style": {
+      "title": "Style",
+      "background": "Couleur de fond",
+      "outline": "Couleur du contour",
+      "font": "Couleur du texte",
+      "fontSize": "Taille de la police",
+      "thickness": "Épaisseur",
+      "direction": "Sens du connecteur",
+      "connector": "Couleur du connecteur"
+    },
+    "directions": {
+      "none": "Aucun",
+      "left": "←",
+      "right": "→",
+      "both": "↔"
+    },
+    "breakDown": "Décomposer",
+    "nothingToBreakDown": "Rien à décomposer",
+    "origin": "Origine :",
+    "flowReference": "Référence flow :",
+    "flowMissing": "Flow introuvable ou supprimé"
+  },
+  "kanban": {
+    "title": "Vue kanban",
+    "subtitle": "Glissez une carte dans une autre colonne pour changer le statut du flow",
+    "groupBy": "Regrouper",
+    "groups": {
+      "none": "Aucun(e)",
+      "family": "Famille",
+      "category": "Catégorie",
+      "reporter": "Affectation - Rapporteur",
+      "responsible": "Affectation - Responsable"
+    },
+    "noLane": {
+      "family": "Sans famille",
+      "category": "Sans catégorie",
+      "reporter": "Sans rapporteur",
+      "responsible": "Sans responsable"
+    },
+    "noStatus": "Sans statut",
+    "count": "{count, plural, =0 {Aucun flow} one {# flow} other {# flows}}",
+    "empty": "Aucun flow à afficher",
+    "confirmMove": "Passer le flow « {name} » au statut « {status} » ?",
+    "moved": "Le flow « {name} » est passé au statut « {status} »",
+    "assignees": "Responsable(s)"
+  },
+  "map": {
+    "title": "Vue carte",
+    "subtitle": "{count, plural, =0 {Aucune géométrie} one {# géométrie} other {# géométries}} sur la carte",
+    "crs": "Système WGS84 (EPSG 3857)",
+    "showLabels": "Afficher le(s) libellé(s)",
+    "hideLabels": "Masquer le(s) libellé(s)",
+    "filters": {
+      "status": "Statut",
+      "family": "Famille"
+    },
+    "search": {
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "zoom": "Zoom",
+      "search": "Rechercher",
+      "invalid": "Latitude / longitude invalides"
+    },
+    "draw": {
+      "title": "Outils de dessin",
+      "none": "Sélection",
+      "point": "Point",
+      "polyline": "Polyligne",
+      "polygon": "Polygone",
+      "circle": "Cercle",
+      "finish": "Terminer",
+      "notEnough": "Ajoutez davantage de points",
+      "hint": {
+        "none": "",
+        "point": "Cliquez sur la carte pour placer un point",
+        "polyline": "Cliquez pour ajouter des sommets, double-cliquez ou « Terminer » pour valider",
+        "polygon": "Cliquez pour ajouter des sommets (3 minimum), double-cliquez ou « Terminer » pour valider",
+        "circle": "Cliquez pour placer le centre, puis cliquez à nouveau pour fixer le rayon"
+      }
+    },
+    "popup": {
+      "general": "Général",
+      "detail": "Détail",
+      "label": "Libellé",
+      "icon": "Icône",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "altitude": "Altitude",
+      "radius": "Rayon (m)",
+      "color": "Couleur",
+      "linkedFlow": "Flow lié",
+      "move": "Déplacer",
+      "delete": "Supprimer",
+      "deleted": "Géométrie supprimée",
+      "moved": "Géométrie déplacée",
+      "moveHint": "Cliquez sur la carte pour déplacer la géométrie à cet endroit",
+      "name": "Nom",
+      "reference": "Référence",
+      "family": "Famille",
+      "category": "Catégorie",
+      "status": "Statut",
+      "openFlow": "Ouvrir la fenêtre d'édition du flow",
+      "openContent": "Ouvrir le contenu du flow",
+      "noFlow": "Aucun flow lié à cette géométrie",
+      "icons": {
+        "default": "Point d'intérêt",
+        "without_icon": "Sans icône",
+        "truck": "Camion",
+        "snowplow": "Machine",
+        "warehouse": "Entrepôt",
+        "archive": "Stock",
+        "hard_hat": "Casque",
+        "toolbox": "Outils",
+        "rocket": "Fusée",
+        "caravan": "Caravane"
+      }
+    },
+    "geoJson": {
+      "title": "GeoJSON",
+      "description": "Couches GeoJSON affichées sur la carte de l'entité",
+      "add": "Ajouter un nouveau fichier GeoJSON",
+      "fileSelectionTitle": "Ajout fichier GeoJSON",
+      "name": "Nom",
+      "file": "Pièce jointe",
+      "color": "Couleur",
+      "createdAt": "Date de création",
+      "showOnMap": "Afficher sur la carte",
+      "options": "Options",
+      "show": "Afficher",
+      "hide": "Masquer",
+      "lock": "Bloquer",
+      "unlock": "Débloquer",
+      "locked": "Bloqué",
+      "changeColor": "Éditer la couleur",
+      "empty": "Aucun fichier GeoJSON",
+      "required": "Le nom et le fichier sont obligatoires",
+      "tooLarge": "Le fichier dépasse 5 Mo",
+      "invalidFile": "Le fichier n'est pas un GeoJSON valide",
+      "added": "Fichier GeoJSON ajouté",
+      "addFail": "Échec de l'ajout du fichier GeoJSON",
+      "updateFail": "Impossible de mettre à jour le GeoJSON",
+      "deleteConfirm": "Êtes-vous certain(e) de vouloir supprimer ce GeoJSON ?",
+      "deleted": "GeoJSON supprimé avec succès",
+      "deleteFail": "Échec de suppression du fichier GeoJSON"
+    }
+  },
+  "plan": {
+    "pageTitle": "Vue plan",
+    "subtitle": "{count, plural, =0 {Aucun flow} one {# flow} other {# flows}} dans l'entité",
+    "selectPlan": "Sélectionner un plan",
+    "createPlan": "Créer un nouveau plan",
+    "editPlan": "Édition du plan",
+    "deletePlan": "Supprimer le plan",
+    "emptyTitle": "Aucun plan",
+    "emptySubtitle": "Créez un plan pour visualiser les flows de l'entité sur une échelle de temps.",
+    "deleteConfirm": "Êtes-vous certain(e) de vouloir supprimer ce plan ?",
+    "deleted": "Plan supprimé avec succès",
+    "created": "Plan créé avec succès",
+    "updated": "Plan mis à jour avec succès",
+    "createFail": "Impossible de créer le plan",
+    "updateFail": "Impossible de mettre à jour le plan",
+    "fields": {
+      "name": "Nom",
+      "description": "Description",
+      "scale": "Échelle",
+      "required": "Ce champ est obligatoire"
+    },
+    "scale": {
+      "default": "Défaut",
+      "temporal": "Temporel",
+      "scheduling": "Ordonnancement"
+    },
+    "scaleLong": {
+      "default": "Défaut",
+      "temporal": "Temporel (Jour / Semaine / Mois / Trimestre / Année)",
+      "scheduling": "Ordonnancement"
+    },
+    "scaleHelp": {
+      "default": "Tous les flows de l'entité, positionnés sur leurs dates",
+      "temporal": "Seuls les flows ajoutés au plan",
+      "scheduling": "Ressources (collaborateurs et tablettes) en lignes"
+    },
+    "title": {
+      "default": "Liste des flows du plan défaut {name}",
+      "temporal": "Liste des flows du plan temporel {name}",
+      "scheduling": "Liste des flows du plan ordonnancement {name}"
+    },
+    "count": "{count, plural, =0 {Aucun élément} one {# élément} other {# éléments}}",
+    "periods": {
+      "day": "Jour",
+      "week": "Semaine",
+      "month": "Mois",
+      "quarter": "Trimestre",
+      "year": "Année"
+    },
+    "prefix": {
+      "week": "S",
+      "quarter": "T"
+    },
+    "today": "Aujourd'hui",
+    "groupBy": {
+      "label": "Regrouper",
+      "none": "Aucun(e)",
+      "family": "Famille",
+      "category": "Catégorie",
+      "status": "Statut",
+      "type": "Type"
+    },
+    "noGroup": "Non renseigné",
+    "hideColumns": "Masquer les colonnes",
+    "showColumns": "Afficher les colonnes",
+    "columns": {
+      "name": "Désignation",
+      "state": "État",
+      "start": "Date de début",
+      "end": "Date de fin",
+      "assignment": "Affectation"
+    },
+    "legend": {
+      "estimated": "Date prévue",
+      "planned": "Date planifiée"
+    },
+    "addContent": "Ajouter du contenu au plan à partir de flow(s) existant(s)",
+    "addContentTitle": "Ajouter du contenu",
+    "importSuccess": "Flow(s) ajouté(s) avec succès",
+    "importFail": "Impossible d'importer le(s) flow(s)",
+    "emptyImport": "Aucun flow disponible",
+    "emptyFlows": "Aucun flow dans l'entité",
+    "emptyTemporal": "Aucun flow dans ce plan : ajoutez du contenu à partir de flows existants.",
+    "datesSaved": "Dates prévues du flow « {name} » mises à jour",
+    "doubleClickHint": "Double-cliquez pour positionner les dates prévues",
+    "addLinkStart": "Ajouter une dépendance depuis le début",
+    "addLinkEnd": "Ajouter une dépendance depuis la fin",
+    "linkHint": "Cliquez sur la barre du flow à lier (Échap pour annuler)",
+    "linkCreated": "Lien créé avec succès",
+    "linkExists": "Un lien existe déjà !",
+    "actions": {
+      "open": "Ouvrir le contenu",
+      "flowInfo": "Information sur le flow",
+      "unlinkFlow": "Dissocier le flow du plan"
+    },
+    "scheduling": {
+      "title": "Ordonnancement",
+      "description": "L'affectation des ressources (collaborateurs et tablettes) sur une période n'est pas encore disponible."
+    },
+    "dependencies": {
+      "title": "Détails des dépendances",
+      "before": "Dépendance(s) avant",
+      "after": "Dépendance(s) après",
+      "none": "Aucune dépendance",
+      "overlap": "Chevauchement des dates",
+      "delete": "Supprimer le lien",
+      "deleted": "Lien supprimé",
+      "types": {
+        "end_start": "Fin → début",
+        "start_end": "Début → fin"
+      },
+      "hint": "Survolez une barre et cliquez sur le point de début ou de fin pour créer une dépendance."
+    },
+    "milestone": {
+      "add": "Jalon",
+      "addTitle": "Créer un nouveau jalon",
+      "editTitle": "Édition du jalon",
+      "name": "Nom",
+      "date": "Date",
+      "color": "Couleur",
+      "description": "Description",
+      "delete": "Supprimer",
+      "addSuccess": "Jalon créé avec succès",
+      "addFail": "Impossible de créer le jalon",
+      "updateSuccess": "Jalon mis à jour avec succès",
+      "updateFail": "Impossible de mettre à jour le jalon",
+      "deleteSuccess": "Jalon supprimé avec succès",
+      "deleteFail": "Impossible de supprimer le jalon"
+    }
+  }
+}

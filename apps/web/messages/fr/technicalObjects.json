@@ -1,0 +1,153 @@
+{
+  "title": "Liste des objets",
+  "add": "Nouvel objet",
+  "columns": {
+    "name": "Nom",
+    "family": "Famille",
+    "itemCode": "Code article",
+    "externalReference": "Référence externe",
+    "identificationNumber": "N° d'identification",
+    "index": "Indice",
+    "status": "Statut",
+    "lastUpdate": "Modification",
+    "actions": "Action"
+  },
+  "filters": {
+    "status": "Statut"
+  },
+  "tree": {
+    "expand": "Agrandir",
+    "reduce": "Réduire",
+    "expandAll": "Tout agrandir",
+    "reduceAll": "Tout réduire"
+  },
+  "actions": {
+    "edit": "Éditer",
+    "addChild": "Ajouter un objet enfant",
+    "duplicate": "Dupliquer",
+    "properties": "Propriétés",
+    "delete": "Supprimer"
+  },
+  "dialog": {
+    "createTitle": "Créer un nouvel objet",
+    "createChildTitle": "Créer un nouvel objet enfant de {parentName}",
+    "editTitle": "Édition de l'objet {name}",
+    "viewTitle": "Aperçu de l'objet {name}",
+    "previous": "Objet précédent",
+    "next": "Objet suivant",
+    "tabs": {
+      "general": "Général",
+      "attributes": "Attributs",
+      "history": "Historique"
+    },
+    "fields": {
+      "family": "Famille",
+      "applicability": "Applicabilité",
+      "parent": "Objet parent",
+      "noParent": "Aucun (objet racine)",
+      "name": "Nom",
+      "itemCode": "Code article",
+      "externalReference": "Référence externe",
+      "identificationNumber": "Numéro d'identification",
+      "index": "Indice",
+      "status": "Statut",
+      "certificate": "Certificat de conformité",
+      "noCertificate": "Aucun certificat",
+      "description": "Description"
+    },
+    "statusHint": "Sans statut choisi, le statut déclaré « par défaut » est affecté.",
+    "certificateHint": "Document PDF de la bibliothèque, joint en annexe du document « Objets » des flows.",
+    "noAttributes": "Aucun attribut de nature Objet n'est applicable à cette famille.",
+    "familyFirst": "Choisissez d'abord une famille pour afficher ses attributs.",
+    "createAnother": "Créer un autre objet",
+    "created": "Objet créé avec succès"
+  },
+  "history": {
+    "empty": "Aucune modification d'attribut enregistrée",
+    "columns": {
+      "date": "Date",
+      "attribute": "Attribut",
+      "old": "Ancienne valeur",
+      "new": "Nouvelle valeur",
+      "by": "Par",
+      "source": "Origine"
+    },
+    "sources": {
+      "webapp": "Saisie WebApp",
+      "form_response": "Réponse de formulaire",
+      "api": "API",
+      "mobile": "MobileApp"
+    }
+  },
+  "delete": {
+    "title": "Supprimer l'objet « {name} » ?",
+    "success": "Objet supprimé avec succès"
+  },
+  "duplicate": {
+    "title": "Duplication de l'objet {name}",
+    "name": "Nom de la copie",
+    "identificationNumber": "Numéro d'identification de la copie",
+    "copySuffix": "(copie)",
+    "success": "Objet dupliqué avec succès",
+    "withAttributes": "Les valeurs d'attributs sont recopiées ; les objets enfants ne le sont pas."
+  },
+  "properties": {
+    "title": "Propriétés de l'objet",
+    "family": "Famille",
+    "applicability": "Applicabilité",
+    "name": "Nom",
+    "itemCode": "Code article",
+    "externalReference": "Référence externe",
+    "identificationNumber": "Numéro d'identification",
+    "parent": "Objet parent"
+  },
+  "errors": {
+    "in_use": "Suppression impossible",
+    "in_useSubtitle": "L'objet est déjà utilisé (bloc Objet, flow ou formulaire lié)",
+    "has_children": "Action annulée",
+    "has_childrenSubtitle": "Impossible de supprimer un objet qui a des sous-objets.",
+    "identification_exists": "Création impossible",
+    "identification_existsSubtitle": "Le numéro d'identification est déjà utilisé.",
+    "no_default_status": "Sauvegarde impossible",
+    "no_default_statusSubtitle": "Statut par défaut manquant : créez un statut de nature Objet depuis les paramètres.",
+    "cycle": "Un objet ne peut pas être son propre parent",
+    "object_attributes_disabled": "L'ajout d'attributs d'objet n'est pas activé sur ce formulaire"
+  },
+  "formAttributes": {
+    "add": "Ajouter un attribut d'objet",
+    "title": "Ajout d'attribut d'objet",
+    "list": "Liste des attributs",
+    "confirm": "Ajouter",
+    "empty": "Aucun attribut d'objet disponible",
+    "defaultGroup": "Attributs par défaut",
+    "added": "{count, plural, one {# question liée créée} other {# questions liées créées}}",
+    "linkedBadge": "Attribut d'objet",
+    "types": {
+      "text": "Texte",
+      "textarea": "Texte long",
+      "integer": "Nombre entier",
+      "double": "Nombre décimal",
+      "boolean": "Vrai ou faux",
+      "date": "Date",
+      "datetime": "Date et heure",
+      "select": "Liste à choix unique",
+      "multiselect": "Liste à choix multiple",
+      "link": "Lien",
+      "metadata": "Métadonnée"
+    }
+  },
+  "linkForms": {
+    "action": "Lier un formulaire",
+    "title": "Lier l'objet « {name} » à des formulaires",
+    "hint": "Formulaires de l'étape comportant des questions « attribut d'objet ». Le bloc Formulaire doit être en rédaction.",
+    "empty": "Aucun formulaire de l'étape ne comporte de question d'attribut d'objet.",
+    "linkedTo": "Lié à : {name}",
+    "notRedaction": "Bloc Formulaire hors rédaction",
+    "confirm": "Enregistrer",
+    "saved": "Liaison(s) enregistrée(s)",
+    "errors": {
+      "form_bloc_not_in_redaction": "Le bloc Formulaire doit être en rédaction",
+      "has_responses": "Des réponses existent déjà sur ce formulaire lié"
+    }
+  }
+}

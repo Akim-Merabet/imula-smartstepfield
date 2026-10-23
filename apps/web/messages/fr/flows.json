@@ -1,0 +1,233 @@
+{
+  "letters": {
+    "specific": "S", "generic": "G", "group": "C", "flow_form": "I", "template": "M", "referential": "R",
+    "referential_generic": "RG", "group_referential": "RC", "referential_intervention": "RI", "local_referential": "L"
+  },
+  "types": {
+    "specific": "Spécifique", "generic": "Générique", "group": "Chapeau", "flow_form": "Intervention", "template": "Modèle",
+    "referential": "Référentiel", "referential_generic": "Référentiel générique", "group_referential": "Référentiel chapeau",
+    "referential_intervention": "Référentiel intervention", "local_referential": "Référentiel local"
+  },
+  "typeHelp": {
+    "specific": "Cœur d'un projet ; il permet aussi d'associer un ou plusieurs flows génériques à différentes étapes",
+    "generic": "Flow réutilisable plusieurs fois dans un ou plusieurs flows spécifiques",
+    "group": "Permet de relier plusieurs flows pour les regrouper et suivre l'enchaînement des interventions",
+    "flow_form": "Permet de partir rapidement sur le terrain avec uniquement des formulaires",
+    "template": "Flow d'une entité Modèle, importable comme contenu dans d'autres flows",
+    "referential": "Flow standard d'une entité Référentiel, importable dans les projets",
+    "referential_generic": "Flow générique standard d'une entité Référentiel",
+    "group_referential": "Flow chapeau standard d'une entité Référentiel",
+    "referential_intervention": "Flow intervention standard d'une entité Référentiel",
+    "local_referential": "Copie locale d'un flow référentiel"
+  },
+  "statusCategories": {
+    "todo": "À faire", "in_preparation": "En préparation", "in_operation": "En opération", "in_progress": "En cours", "done": "Terminé"
+  },
+  "statusPopover": { "title": "Changement de statut", "status": "Statut", "comment": "Commentaire" },
+  "views": { "list": "Vue liste", "plan": "Vue plan", "map": "Vue carte", "diagram": "Vue diagramme", "kanban": "Vue kanban" },
+  "crumbView": "Flows - {view}",
+  "comingSoon": {
+    "title": "Bientôt disponible",
+    "description": "Cette vue n'est pas encore disponible. Utilisez la vue liste pour gérer les flows de l'entité."
+  },
+  "list": {
+    "title": "Liste des flows",
+    "subtitle": "{current, plural, =0 {Aucun élément} one {# élément} other {# éléments}} dans la liste / {total} au total",
+    "emptyTitle": "Aucun élément dans le tableau",
+    "emptySubtitle": "Vous pouvez ajouter un flow depuis le module « Gestion flow » du tableau de bord avec le bouton « + »"
+  },
+  "filters": {
+    "byType": "Filtrer par flow {type}",
+    "family": "Famille",
+    "category": "Catégorie",
+    "status": "Statut"
+  },
+  "columns": {
+    "type": "Type", "name": "Nom", "status": "Statut", "reference": "Référence", "description": "Description",
+    "family": "Famille", "category": "Catégorie", "reporter": "Rapporteur", "assignees": "Responsable(s)",
+    "collaborators": "Collaborateur.trice(s)", "tablet1": "Tablette 1", "tablet2": "Tablette 2", "tablet3": "Tablette 3",
+    "startDate": "Date de début planifiée", "finishDate": "Date de fin planifiée",
+    "estimatedStartDate": "Date de début prévue", "estimatedEndDate": "Date de fin prévue",
+    "achievedStartDate": "Date de début réalisée", "achievedEndDate": "Date de fin réalisée",
+    "modification": "Modification",
+    "internalSupervisor1": "Surveillant interne 1", "internalSupervisor2": "Surveillant interne 2", "internalSupervisor3": "Surveillant interne 3",
+    "externalSupervisor1": "Surveillant externe 1", "externalSupervisor2": "Surveillant externe 2", "externalSupervisor3": "Surveillant externe 3",
+    "site": "Site", "area": "Tranche", "local": "Local", "elementarySystem": "Système élémentaire", "functionalMarker": "Repère fonctionnel",
+    "object": "Objet", "tags": "Étiquette(s)"
+  },
+  "actions": {
+    "edit": "Éditer le flow", "openContent": "Ouvrir le contenu", "properties": "Propriétés", "history": "Historique de flow",
+    "duplicate": "Dupliquer", "delete": "Supprimer"
+  },
+  "delete": {
+    "title": "Êtes-vous certain(e) de vouloir supprimer le flow {name} ?",
+    "subtitle": "Le flow sera placé dans la corbeille pendant 30 jours.",
+    "errors": {
+      "linked_to_steps": "Suppression impossible : le flow est lié à des étapes d'autres flows",
+      "in_diagram": "Suppression impossible : le flow figure dans une vue diagramme",
+      "imported": "Suppression impossible : le flow est importé dans un autre projet"
+    }
+  },
+  "validators": {
+    "trim": "Le nom ne doit pas commencer ni se terminer par un espace",
+    "dateOrder": "La date de fin doit être postérieure à la date de début"
+  },
+  "advancedSearch": {
+    "title": "Recherche avancée",
+    "subtitle": "Combinez plusieurs critères ; les valeurs d'un même critère sont liées par « ou ». Entrée pour rechercher.",
+    "field": "Champ", "action": "Action", "values": "Valeur(s)", "and": "et", "or": "ou",
+    "addValue": "Ajouter une valeur possible", "addCriterion": "Ajouter un autre critère de recherche", "reset": "Réinitialiser",
+    "fields": {
+      "flow_type": "Type de flow", "name": "Nom", "ref_int": "Référence", "description": "Description", "family": "Famille",
+      "category": "Catégorie", "status": "Statut", "reporter": "Rapporteur", "tablet1": "Tablette 1", "tablet2": "Tablette 2",
+      "tablet3": "Tablette 3", "start_date": "Date de début planifiée", "finish_date": "Date de fin planifiée",
+      "estimated_start_date": "Date de début prévue", "estimated_end_date": "Date de fin prévue",
+      "achieved_start_date": "Date de début réalisée", "achieved_end_date": "Date de fin réalisée",
+      "updated_at": "Date de modification", "location_site": "Site", "location_area": "Tranche", "location_local": "Local",
+      "elementary_system": "Système élémentaire", "functional_marker": "Repère fonctionnel"
+    },
+    "operators": {
+      "contains": "Contient", "starts_with": "Commence par", "equals": "Égal", "not_equals": "Différent de",
+      "gte": "Supérieur ou égal à", "lte": "Inférieur ou égal à", "between": "Compris entre",
+      "empty": "Est vide", "not_empty": "N'est pas vide", "current_day": "Journée en cours", "current_week": "Semaine en cours",
+      "current_month": "Mois en cours"
+    }
+  },
+  "reorganize": {
+    "button": "Réorganiser les flows",
+    "clearSelection": "Effacer la sélection",
+    "title": "Réorganiser les flows",
+    "subtitle": "{count, plural, one {# flow sélectionné} other {# flows sélectionnés}}",
+    "field": "Champ à modifier",
+    "value": "Nouvelle valeur",
+    "confirm": "Êtes-vous certain(e) de vouloir changer le.la « {type} » à « {name} » pour {count, plural, one {le flow sélectionné} other {les # flows sélectionnés}} ?",
+    "success": "{count, plural, one {# flow réorganisé} other {# flows réorganisés}} avec succès",
+    "fields": {
+      "category": "Catégorie", "status": "Statut", "reporter": "Rapporteur", "assignee": "Responsable",
+      "tablet1": "Tablette 1", "tablet2": "Tablette 2", "tablet3": "Tablette 3",
+      "plannedStart": "Date de début planifiée", "plannedEnd": "Date de fin planifiée",
+      "estimatedStart": "Date de début prévue", "estimatedEnd": "Date de fin prévue",
+      "achievedStart": "Date de début réalisée", "achievedEnd": "Date de fin réalisée"
+    }
+  },
+  "documents": {
+    "instructions": "Instructions", "equipments": "Moyens", "risks": "Risques", "controls": "Contrôles",
+    "forms": "Formulaires", "multiInstructions": "Instructions multiples", "objects": "Objets"
+  },
+  "dialog": {
+    "createTitle": "Création d'un flow",
+    "editTitle": "Édition du flow {type} {name}",
+    "tabs": { "general": "Général", "attribute": "Attribut(s)", "document": "Document", "assignment": "Affectation", "planning": "Planning", "options": "Options" },
+    "type": "Type de flow",
+    "name": "Nom",
+    "namePlaceholder": "Désignation du flow dans l'application",
+    "description": "Description",
+    "descriptionHelp": "Description du flow uniquement visible en interne de l'entreprise",
+    "reference": "Référence (N° chrono)",
+    "generated": "Généré(e) automatiquement",
+    "refExt": "Référence externe",
+    "family": "Famille",
+    "category": "Catégorie",
+    "categoryHelp": "Pour ajouter une catégorie, rendez-vous dans le module « Catégories » de l'entité",
+    "status": "Statut",
+    "statusHistory": "Historique des statuts",
+    "statusDefaultInfo": "Si aucun statut n'est sélectionné, le statut déclaré « par défaut » sera affecté",
+    "statusComment": "Commentaire de changement de statut",
+    "tags": "Étiquette(s)",
+    "location": "Localisation",
+    "locationHelp": "Activez pour ajouter des informations sur la localisation",
+    "site": "Site", "area": "Tranche", "local": "Local", "elementarySystem": "Système élémentaire", "functionalMarker": "Repère fonctionnel", "object": "Objet",
+    "noAttributes": "Aucun attribut paramétré pour les flows",
+    "requiredAttributes": "Certains attributs obligatoires ne sont pas renseignés",
+    "documentsInfo": "Documents de flow générables à partir des blocs du contenu. La génération est assurée par le module Documents.",
+    "documentNotGenerated": "Aucun document généré",
+    "reporter": "Rapporteur",
+    "assignees": "Responsable(s)",
+    "assigneesHelp": "Un responsable voit le flow sur la MobileApp et peut signer sans être dans les collaborateur.trice(s)",
+    "tablet": "Tablette {n}",
+    "collaborators": "Collaborateur.trice(s) restreint(e)s au flow",
+    "collaboratorsHelp": "Par défaut, tous les collaborateur.trice(s) de l'entité peuvent signer. Si une liste est définie, seuls eux sont proposés à la signature.",
+    "hierarchies": "Hiérarchie(s)",
+    "hierarchyRequired": "Sélectionner au moins une hiérarchie par collaborateur.trice",
+    "legend": { "planned": "Date planifiée", "estimated": "Date prévue", "achieved": "Date réalisée" },
+    "dates": {
+      "plannedStart": "Début planifié", "plannedEnd": "Fin planifiée",
+      "estimatedStart": "Début prévu", "estimatedEnd": "Fin prévue",
+      "achievedStart": "Début réalisé", "achievedEnd": "Fin réalisée"
+    },
+    "simplifiedMode": "Passer le bloc Contrôle en mode simplifié",
+    "simplifiedModeHelp": "Seules les signatures « Réalisation » et « Contrôle technique » sont proposées. Impossible si une signature existe ou si un bloc Contrôle n'est pas en rédaction.",
+    "supervisors": {
+      "intern": "Surveillant(s) interne(s) applicable(s)",
+      "extern": "Surveillant(s) externe(s) applicable(s)",
+      "internN": "Surveillant interne {n}",
+      "externN": "Surveillant externe {n}",
+      "name": "Nom du surveillant"
+    },
+    "created": "Flow créé avec succès",
+    "createdWithRef": "Un nouveau flow a été créé avec l'identifiant {param}",
+    "errors": {
+      "save": "Une erreur s'est produite lors de l'enregistrement du flow",
+      "has_signatures": "Impossible d'activer cette option, au moins une signature est présente dans le flow",
+      "dsi_not_redaction": "Les blocs contrôle ne peuvent pas être modifiés car au moins un des blocs n'est pas en rédaction",
+      "invalid_type": "Ce type de flow n'est pas disponible pour ce type d'entité"
+    }
+  },
+  "properties": {
+    "title": "Propriétés du flow",
+    "name": "Nom", "type": "Type", "family": "Famille", "applicability": "Applicabilité",
+    "refInt": "Référence interne", "refExt": "Référence externe", "entitySource": "Entité source", "entityIndex": "Indice source", "uuid": "Uuid"
+  },
+  "duplicate": {
+    "title": "Dupliquer un flow {type}",
+    "copyPrefix": "Copie",
+    "reference": "N° d'identification",
+    "info": "La duplication remet à zéro les circuits de validation interne et externe : tous les blocs repassent en « Rédaction ». Les signatures et les réponses de formulaire ne sont pas reprises.",
+    "success": "Flow dupliqué avec succès"
+  },
+  "history": {
+    "title": "Historique du flow {name}",
+    "tabs": { "events": "Évènements", "status": "Changements de statut" },
+    "filterType": "Type d'évènement",
+    "filterDate": "Filtrer par date",
+    "system": "Système",
+    "empty": "Aucun évènement enregistré",
+    "seeComment": "Voir le commentaire",
+    "loadMore": "Charger plus",
+    "statusCreated": "{user} a créé le flow avec le statut {status}",
+    "statusChanged": "{user} a changé le statut de {from} à {to}",
+    "statusComment": "puis a ajouté le commentaire « {comment} »",
+    "sources": { "webapp": "WebApp", "mobile": "MobileApp", "api": "API" },
+    "types": {
+      "create": "Création", "delete": "Suppression", "reset_flow": "Réinitialisation", "activate_phase": "Activation de phase",
+      "deactivate_phase": "Désactivation de phase", "activate_step": "Activation d'étape", "deactivate_step": "Désactivation d'étape",
+      "validate_step": "Validation d'étape", "devalidate_step": "Dévalidation d'étape",
+      "add_user_hierarchy_in_flow": "Ajout de collaborateur.trice", "delete_user_hierarchy_from_flow": "Retrait de collaborateur.trice",
+      "deactivate_signature": "Désactivation de signature"
+    },
+    "actions": {
+      "create": "{user} a créé le flow",
+      "delete": "{user} a supprimé le flow",
+      "import_content_referential": "{user} a importé du contenu depuis un référentiel",
+      "import_content_template": "{user} a importé du contenu depuis un modèle",
+      "reset_flow": "{user} a réinitialisé le flow",
+      "delete_and_re_import_content": "{user} a supprimé et importé à nouveau le contenu",
+      "update_library": "{user} a mis à jour les éléments de bibliothèque",
+      "detach_fbl": "{user} a dissocié un formulaire",
+      "activate_phase": "{user} a activé la phase {phase}",
+      "activate_step": "{user} a activé l'étape {step} de la phase {phase}",
+      "activate_form": "{user} a activé un formulaire de l'étape {step}",
+      "deactivate_phase": "{user} a désactivé la phase {phase}",
+      "deactivate_step": "{user} a désactivé l'étape {step} de la phase {phase}",
+      "deactivate_form": "{user} a désactivé un formulaire de l'étape {step}",
+      "deactivate_and_link_new_form": "{user} a désactivé et remplacé un formulaire",
+      "detach_and_link_new_form": "{user} a supprimé et remplacé un formulaire",
+      "add_user_hierarchy_in_flow": "{user} a ajouté un collaborateur.trice restreint(e) au flow",
+      "delete_user_hierarchy_from_flow": "{user} a retiré un collaborateur.trice restreint(e) du flow",
+      "deactivate_signature": "{user} a désactivé un type de signature ({nature}) à l'étape {step}",
+      "skip_fill_restriction": "{user} a déverrouillé l'étape {step}",
+      "validate_step": "{user} a validé l'étape {step} de la phase {phase}",
+      "devalidate_step": "{user} a dévalidé l'étape {step} de la phase {phase}"
+    }
+  }
+}

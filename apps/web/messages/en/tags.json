@@ -1,0 +1,71 @@
+{
+  "title": "Tag library",
+  "add": "New tag",
+  "columns": {
+    "name": "Name",
+    "applicability": "Applicability",
+    "links": "Links",
+    "actions": "Action"
+  },
+  "organization": "Organization",
+  "tree": {
+    "expand": "Expand",
+    "reduce": "Collapse",
+    "expandAll": "Expand all",
+    "reduceAll": "Collapse all"
+  },
+  "actions": {
+    "addChild": "Create a sub-tag",
+    "edit": "Edit",
+    "linkedFlows": "Flows linked to the tag",
+    "delete": "Delete"
+  },
+  "dialog": {
+    "createTitle": "Create a new tag",
+    "createChildTitle": "Create a sub-tag of {parentName}",
+    "editTitle": "Edit tag",
+    "previous": "Previous tag",
+    "next": "Next tag",
+    "fields": {
+      "name": "Name",
+      "applicability": "Applicability",
+      "parent": "Parent tag",
+      "noParent": "None (root tag)",
+      "color": "Color",
+      "description": "Description"
+    },
+    "createAnother": "Create another tag",
+    "created": "Tag created"
+  },
+  "linkedFlows": {
+    "title": "Flows linked to the tag {name}",
+    "empty": "No flow linked to this tag",
+    "filter": "Filter by flow name",
+    "columns": {
+      "project": "Entity",
+      "flow": "Flow",
+      "phase": "Phase",
+      "step": "Step",
+      "action": "Action"
+    },
+    "see": "View",
+    "levels": {
+      "flow": "Flow",
+      "phase": "Phase",
+      "step": "Step"
+    }
+  },
+  "delete": {
+    "title": "Delete the tag {name}?",
+    "success": "Tag deleted"
+  },
+  "errors": {
+    "has_children": "Cannot delete",
+    "has_childrenSubtitle": "Delete the sub-tag(s) first.",
+    "in_use": "Cannot delete",
+    "in_useSubtitle": "Remove the tag from the items where it is used first.",
+    "duplicate": "Cannot create",
+    "duplicateSubtitle": "A tag with the same name already exists at this level.",
+    "cycle": "A tag cannot be its own parent"
+  }
+}

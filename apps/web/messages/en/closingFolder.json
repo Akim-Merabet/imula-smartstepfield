@@ -1,0 +1,91 @@
+{
+  "crumb": "Closing folder",
+  "title": "Closing folders",
+  "subtitle": "{count, plural, =0 {No folder} one {# folder} other {# folders}} in the list",
+  "sectionsCount": "{count, plural, =0 {No section} one {# section} other {# sections}} in the folder",
+  "documentsCount": "{count, plural, =0 {No document} one {# document} other {# documents}} in the section",
+  "expand": "Expand", "collapse": "Collapse",
+  "largeFile": "Large document",
+  "notDiffused": "Not distributed",
+  "lastGenerated": "Last generation: {date}",
+  "arrangementSaved": "Arrangement saved successfully",
+  "sectionReordered": "Section reordered",
+  "notDiffusedWarning": "Some documents cannot be displayed in the folder because they are not distributed ({list}). Distribute them so that they appear in the folder.",
+  "columns": { "name": "Name", "refInt": "Internal reference", "index": "Index", "status": "Status", "diffusion": "Distribution", "actions": "Action" },
+  "empty": {
+    "title": "No closing folder",
+    "description": "Create a folder with the “+” button",
+    "sections": "Add a section to complete the folder",
+    "items": "Add a document to complete the section"
+  },
+  "actions": {
+    "create": "Create a folder", "addSection": "Add a section", "edit": "Edit", "generate": "Generate the folder", "preview": "Preview",
+    "previewSection": "Preview the section as PDF", "verify": "Verification", "properties": "Properties", "up": "Move up", "down": "Move down"
+  },
+  "generate": {
+    "started": "Document generation has started",
+    "heavy": "The folder is being generated: you can keep working and find it from the bell (bottom left)."
+  },
+  "delete": {
+    "folder": "Are you sure you want to delete this folder?",
+    "section": "Are you sure you want to delete this section?"
+  },
+  "errors": {
+    "largeInSection": "A Document section cannot contain a large document (> 20 MB)"
+  },
+  "types": {
+    "document": "Document", "report": "Report", "certificate": "Certificate", "reference": "Reference",
+    "client_response": "Client feedback", "document_large_file": "Large document", "closing_folder": "Closing folder"
+  },
+  "typesLong": {
+    "document": "Document - Compilation of documents selected in the entity",
+    "report": "Report - Report written from a flow",
+    "certificate": "Certificate - Compilation of the equipment certificates of a flow",
+    "reference": "Reference - Compilation of the equipment references of a flow",
+    "client_response": "Client feedback - Compilation of client feedback selected in the entity",
+    "document_large_file": "Large document - Compilation of large documents selected in the entity",
+    "closing_folder": "Closing folder - Compilation of validated closing folders of the entity"
+  },
+  "dialog": {
+    "createTitle": "Create a new closing folder",
+    "editTitle": "Editing closing folder {folderName}",
+    "name": "Folder name",
+    "template": "Template type",
+    "familyRequired": "Please set the folder family",
+    "refRequired": "Fill in at least one reference (internal or external)",
+    "created": "Closing folder created successfully"
+  },
+  "section": {
+    "createTitle": "Create a new section",
+    "editTitle": "Editing section {name}",
+    "createAnother": "Create another section",
+    "tabs": { "general": "General", "content": "Content", "order": "Order" },
+    "type": "Type", "name": "Designation", "description": "Description", "category": "Category (closing folder)",
+    "categoryHelp": "Documents of this category are checked automatically when the section is created",
+    "position": "Position", "lastPosition": "Last position", "observation": "Observation",
+    "flow": "Flow", "reportFlow": "Report flow", "flowRequired": "Please select a flow",
+    "family": "Family", "includePrevious": "Include the available indexes of each document",
+    "lastDiffused": "Latest distributed index",
+    "reportHelp": "The report includes the signature summary table of the selected flow.",
+    "allCertificates": "Every certificate of the equipment in the flow",
+    "allReferences": "Every reference of the equipment in the flow",
+    "someEquipments": "One or more specific equipment items",
+    "reference": "Reference", "provider": "Supplier", "quantity": "Quantity",
+    "sortBy": "Reorder by:",
+    "refreshFromContent": "Refresh the selection from the “Content” tab",
+    "sortModes": {
+      "1": "Creation date (oldest first)", "2": "Creation date (newest first)",
+      "3": "Modification date (oldest first)", "4": "Modification date (newest first)",
+      "5": "Date added to the section (oldest first)", "6": "Date added to the section (newest first)",
+      "7": "Name (A → Z)", "8": "Name (Z → A)", "9": "Internal reference (A → Z)", "10": "Internal reference (Z → A)"
+    }
+  },
+  "verification": {
+    "title": "Folder content verification",
+    "subtitle": "Parent categories used in the closing folder:",
+    "line": "{name} ({used} / {total} child categories used)",
+    "noCategory": "No category in the sections",
+    "allUsed": "All your categories are linked to documents",
+    "notAllUsed": "Some categories are not used: use all categories in the selected documents"
+  }
+}

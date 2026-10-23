@@ -1,0 +1,104 @@
+{
+  "title": "Bibliothèque des moyens",
+  "add": "Nouveau moyen",
+  "columns": {
+    "family": "Famille",
+    "name": "Nom",
+    "reference": "Référence",
+    "provider": "Fournisseur",
+    "unit": "Unité",
+    "actions": "Action"
+  },
+  "filters": {
+    "verification": "Vérification",
+    "subjectToVerify": "Soumis à vérification",
+    "expired": "Date de validité dépassée"
+  },
+  "badges": {
+    "consumable": "Moyen consommable",
+    "verified": "Soumis à vérification",
+    "expired": "Date de validité dépassée"
+  },
+  "actions": {
+    "edit": "Éditer",
+    "duplicate": "Dupliquer",
+    "properties": "Propriétés",
+    "activate": "Activer",
+    "deactivate": "Désactiver",
+    "delete": "Supprimer",
+    "import": "Importer depuis un fichier Excel"
+  },
+  "dialog": {
+    "createTitle": "Créer un nouveau moyen",
+    "editTitle": "Édition d'un moyen",
+    "viewTitle": "Aperçu d'un moyen",
+    "previous": "Moyen précédent",
+    "next": "Moyen suivant",
+    "tabs": {
+      "general": "Général",
+      "verification": "Vérification"
+    },
+    "fields": {
+      "family": "Famille",
+      "applicability": "Applicabilité",
+      "name": "Nom",
+      "reference": "Référence",
+      "provider": "Fournisseur",
+      "unit": "Unité",
+      "consumable": "Moyen consommable",
+      "photo": "Photo",
+      "referenceDocument": "Document de référence",
+      "certificate": "Document de certificat",
+      "subjectToVerification": "Soumis à vérification",
+      "validityDate": "Date de validité",
+      "verificationBody": "Organisme de vérification"
+    },
+    "documentHint": "Document PDF réutilisable dans un dossier de clôture ou en annexe d'un document de moyens.",
+    "createAnother": "Créer un autre moyen",
+    "created": "Moyen créé avec succès"
+  },
+  "delete": {
+    "title": "Supprimer le moyen « {name} » ?",
+    "success": "Moyen supprimé avec succès"
+  },
+  "duplicate": {
+    "title": "Dupliquer le moyen « {name} » ?",
+    "success": "Moyen dupliqué avec succès",
+    "copySuffix": "(copie)"
+  },
+  "activated": "Moyen activé",
+  "deactivated": "Moyen désactivé",
+  "properties": {
+    "title": "Propriétés du moyen",
+    "family": "Famille",
+    "applicability": "Applicabilité",
+    "name": "Nom",
+    "reference": "Référence",
+    "verification": "Vérification",
+    "verificationFalse": "Non soumis à vérification",
+    "verificationTrue": "Soumis à vérification",
+    "verificationExpired": "Soumis à vérification — date de validité dépassée"
+  },
+  "import": {
+    "title": "Importer des moyens depuis un fichier Excel"
+  },
+  "template": {
+    "sheet": "Moyens",
+    "families": "Familles",
+    "columns": {
+      "family": "Famille (nom court)",
+      "name": "Nom",
+      "reference": "Référence",
+      "provider": "Fournisseur",
+      "unit": "Unité",
+      "consumable": "Consommable (Oui/Non)",
+      "verification": "Soumis à vérification (Oui/Non)",
+      "validityDate": "Date de validité (AAAA-MM-JJ)",
+      "verificationBody": "Organisme de vérification"
+    }
+  },
+  "errors": {
+    "in_use": "Suppression impossible",
+    "in_useSubtitle": "Le moyen est déjà utilisé (bloc de flow ou liste de moyens)"
+  }
+}

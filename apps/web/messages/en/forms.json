@@ -1,0 +1,383 @@
+{
+  "libraryTitle": "Forms library",
+  "projectTitle": "Forms list",
+  "emptyProject": "Import a form from the library to get started",
+  "letters": {
+    "model": "T",
+    "generic": "G",
+    "other": "O",
+    "local": "L",
+    "archived": "A"
+  },
+  "natures": {
+    "model": "Template",
+    "generic": "Generic",
+    "other": "Other",
+    "local": "Local",
+    "archived": "Archived"
+  },
+  "columns": {
+    "family": "Family",
+    "name": "Name",
+    "reference": "Reference",
+    "index": "Index",
+    "updatedAt": "Last update",
+    "status": "Status",
+    "company": "Company",
+    "state": "State"
+  },
+  "filters": {
+    "account": "Applicability",
+    "company": "Company",
+    "family": "Family",
+    "status": "Status",
+    "type": "Type",
+    "all": "All",
+    "archivedState": {
+      "active": "Active",
+      "archived": "Archived",
+      "all": "All"
+    }
+  },
+  "provenance": {
+    "imported": "Imported",
+    "local": "Local",
+    "library": "Library"
+  },
+  "state": {
+    "enabled": "Enabled",
+    "disabled": "Disabled"
+  },
+  "tooltips": {
+    "formWeft": "Form with a custom PDF background",
+    "toBeLinkedToObject": "Form to be linked to an object",
+    "updateAvailable": "A newer version is available in the library",
+    "archived": "Archived",
+    "index": "Form index at response time"
+  },
+  "actions": {
+    "reply": "Answer",
+    "editInfo": "Edit information",
+    "editContent": "Edit content",
+    "overview": "Preview",
+    "duplicate": "Duplicate",
+    "archive": "Archive",
+    "unarchive": "Unarchive",
+    "history": "History",
+    "properties": "Properties",
+    "delete": "Delete",
+    "refresh": "Update",
+    "refreshAll": "Update imported forms ({count})",
+    "import": "Import from library",
+    "localCopy": "Create a local copy",
+    "activate": "Enable",
+    "deactivate": "Disable"
+  },
+  "toasts": {
+    "created": "Form created successfully",
+    "createFail": "Form creation failed",
+    "duplicated": "Form duplicated successfully",
+    "archived": "Form archived",
+    "unarchived": "Form unarchived",
+    "deleted": "Form deleted successfully",
+    "localCopy": "Local copy created successfully",
+    "refreshed": "Form updated",
+    "refreshedMany": "{count, plural, =0 {No form updated} one {# form updated} other {# forms updated}}",
+    "enabled": "Form enabled",
+    "disabled": "Form disabled",
+    "imported": "{count, plural, one {# form imported} other {# forms imported}}"
+  },
+  "errors": {
+    "disabled": "Disabled item, a response cannot be added",
+    "disabled_refresh": "A disabled item cannot be updated",
+    "unique_response": "Another response cannot be added: this form allows a single response",
+    "size_limit": "You cannot select more than 10 items. Please proceed in batches",
+    "form_imported": "A form already assigned to an entity cannot be deleted",
+    "form_in_use": "This form is in use and cannot be deleted",
+    "source_missing": "The source form no longer exists in the library",
+    "duplicate": "This value is already used",
+    "in_use": "Item in use, operation not possible",
+    "reference_too_short": "The reference must contain at least 3 characters",
+    "not_found": "Item not found",
+    "version": "The form version could not be frozen"
+  },
+  "delete": {
+    "title": "Are you sure you want to delete the form “{name}”?",
+    "subtitleLibrary": "The form will be kept in the trash for 30 days.",
+    "importedTitle": "A form already assigned to an entity cannot be deleted",
+    "importedBody": "The form “{name}” is imported in the following entities:",
+    "inUseTitle": "Deletion not possible",
+    "inUseResponses": "This form cannot be deleted because it has in-progress and/or completed responses",
+    "inUseSteps": "The form “{name}” is already assigned to the steps below:",
+    "flow": "Flow",
+    "phase": "Phase",
+    "step": "Step"
+  },
+  "refresh": {
+    "title": "Are you sure you want to update the form?",
+    "subtitle": "“In progress” and “Done” responses using this form will not be affected by the update.",
+    "flows": "Every use of this form in flows will be updated; a response being filled keeps its version."
+  },
+  "dialog": {
+    "createTitle": "Create a form",
+    "editTitle": "Edit form “{name}”",
+    "tabs": {
+      "general": "General",
+      "options": "Options"
+    },
+    "noCreatableType": "You have no additional right (template or generic form) allowing you to create a form.",
+    "templateOnlyPdf": "The selected file must be a PDF",
+    "uploadTemplate": "Upload file",
+    "fields": {
+      "type": "Type",
+      "name": "Name",
+      "description": "Description",
+      "reference": "Reference",
+      "index": "Index",
+      "family": "Family",
+      "account": "Applicability",
+      "companies": "Authorized company(ies)",
+      "status": "Status",
+      "statusComment": "Status change comment",
+      "additionalComment": "Additional statement",
+      "additionalObservation": "Additional observation",
+      "additionalObservationHelp": "Displayed as a tooltip on the form",
+      "lockResponses": "Automatically lock saved responses",
+      "objectAttributes": "Object attributes in the form",
+      "objectAttributesOptions": {
+        "disabled": "Disabled",
+        "default_family": "Default family",
+        "other_family": "Other object family"
+      },
+      "objectAttributesModelOnly": "Only available for Template forms",
+      "objectFamily": "Object family",
+      "useTemplate": "Export this form with a custom PDF background",
+      "templateFile": "Background file",
+      "pageNumberX": "Page number position X",
+      "pageNumberY": "Page number position Y",
+      "hideIn": {
+        "title": "Hide the form in documents",
+        "control_doc": "Checks document",
+        "forms_doc": "Forms document",
+        "multi_instr_doc": "Multiple instructions document",
+        "instr_doc": "Instructions document"
+      }
+    }
+  },
+  "duplicate": {
+    "title": "Duplicate form {name}",
+    "defaultName": "Copy of {name}",
+    "sentence": "Duplicate the {from} form named “{name}” as a form of type:",
+    "targetType": "New form type",
+    "newName": "New form name",
+    "warning": "Object attributes are not duplicated"
+  },
+  "properties": {
+    "title": "Form properties",
+    "name": "Name",
+    "type": "Type",
+    "provenance": "Origin",
+    "project": "Entity",
+    "family": "Family",
+    "account": "Applicability",
+    "reference": "Reference",
+    "index": "Index",
+    "objectAttributes": "Object attributes",
+    "flows": "Flows using this form"
+  },
+  "history": {
+    "title": "Form history",
+    "version": "Version {no} (index {index}) frozen by {user}",
+    "updated": "Last update by {user}",
+    "created": "{user} created the form with status {status}",
+    "empty": "No event"
+  },
+  "import": {
+    "title": "Import from library",
+    "subtitle": "Select up to 10 forms",
+    "conflict": "Form(s) already assigned to this entity",
+    "notImportable": "Form(s) that cannot be imported (status or archived)",
+    "alreadyImported": "Already imported",
+    "onlyImportable": "Only forms whose status allows import are listed.",
+    "submit": "Import"
+  },
+  "reply": {
+    "title": "Answer form {name}",
+    "submit": "Answer",
+    "disabled": "Disabled item, a response cannot be added",
+    "newResponse": "Create a new response",
+    "resume": "Resume an in-progress response",
+    "reference": "Response reference",
+    "referenceHint": "You can change the response reference if needed",
+    "referenceTooShort": "The reference must contain at least 3 characters",
+    "unique": "Another response cannot be added: this form allows a single response",
+    "response": "Response",
+    "resumeHint": "Only “In progress” responses are listed"
+  },
+  "block": {
+    "stepLabel": "{phase} - {step} · {name}",
+    "link": "Link a form",
+    "emptyTitle": "No linked form",
+    "emptyEdit": "Link an entity form to this step",
+    "emptyRead": "No form is linked to this step",
+    "index": "Index {index}",
+    "badges": {
+      "mandatory": "Mandatory response",
+      "unique": "Single response: {mode}",
+      "guide": "Guide on",
+      "restricted": "Restricted filling",
+      "disabled": "Disabled"
+    },
+    "uniqueModes": {
+      "new_or_resume": "new response and resume allowed",
+      "new_response": "new response only",
+      "resume_response": "resume a response only"
+    },
+    "responsesCount": "{count, plural, =0 {No response} one {# response} other {# responses}} · {done} done",
+    "reply": "Answer",
+    "viewResponses": "View responses",
+    "settings": "Link settings",
+    "unlink": "Remove form",
+    "linkHasResponses": "This form has responses: disable it instead of removing it",
+    "linked": "{count, plural, =0 {No form linked} one {# form linked} other {# forms linked}}",
+    "linkTitle": "Link an entity form",
+    "noProjectForm": "No form in this entity: import one from the library",
+    "alreadyLinked": "Already linked",
+    "settingsTitle": "Settings · {name}",
+    "mandatory": "Enable mandatory response",
+    "mandatoryHint": "At least one response is required to validate the step",
+    "unique": "Enable single response",
+    "uniqueHint": "Prevents adding several responses",
+    "uniqueMode": "Field mode",
+    "uniqueModeHint": "These permissions only apply to the mobile app; on the WebApp both actions remain available.",
+    "modeRedactionOnly": "The mode can only be changed while the block is in Drafting",
+    "guideTo": "Guide the collaborator to",
+    "guideNone": "First section (default)",
+    "guideHint": "Section displayed when a new response is opened",
+    "restrict": "Restrict fillable sections",
+    "allowFillOf": "Allow filling of:",
+    "allReadOnly": "Warning: all sections are read-only",
+    "conflict": "“Guide to” and “Allow filling of” conflict: the collaborator will be guided to a section they cannot fill.",
+    "stepPrefix": "S"
+  },
+  "responses": {
+    "title": "Form responses management",
+    "columns": {
+      "reference": "Response reference",
+      "index": "Index",
+      "state": "State",
+      "status": "Status",
+      "createdAt": "Created on",
+      "updatedAt": "Updated on"
+    },
+    "state": {
+      "in_progress": "In progress",
+      "done": "Done"
+    },
+    "actions": {
+      "backToInProgress": "Back to “In progress”",
+      "edit": "Edit",
+      "open": "Open response",
+      "duplicate": "Duplicate",
+      "history": "History",
+      "delete": "Delete"
+    },
+    "toasts": {
+      "duplicated": "Response duplicated",
+      "deleted": "Response moved to trash"
+    }
+  },
+  "feedback": {
+    "title": "Form responses list",
+    "projectContext": "Entity",
+    "orphan": "orphan",
+    "emptyTitle": "No response yet",
+    "emptySubtitle": "Responses created from forms and flows are listed here",
+    "emptyFiltered": "Review your filters",
+    "columns": {
+      "provenance": "Origin",
+      "reference": "Reference",
+      "flow": "Flow",
+      "index": "Index",
+      "state": "State",
+      "status": "Status",
+      "updatedAt": "Last update"
+    },
+    "filters": {
+      "flow": "Flow",
+      "form": "Form",
+      "source": "Source",
+      "status": "Status",
+      "allStates": "All states",
+      "from": "From",
+      "to": "To",
+      "dates": {
+        "created_at": "Creation date",
+        "updated_at": "Update date",
+        "done_at": "Submission date"
+      },
+      "sources": {
+        "webapp": "WebApp",
+        "mobile": "MobileApp",
+        "project": "Entity",
+        "flow": "Flow"
+      }
+    },
+    "export": {
+      "button": "XLS export",
+      "title": "XLS export",
+      "all": "All data",
+      "xlsOnly": "XLS values only",
+      "selectFirst": "Please select the item(s) to export from the list",
+      "unauthorized": "Please first select a status that allows export"
+    },
+    "delete": {
+      "title": "Are you sure you want to delete the response “{name}”?",
+      "subtitle": "The response will be moved to the trash."
+    },
+    "edit": {
+      "title": "Are you sure you want to edit the response?",
+      "subtitle": "The completed response will go back to “In progress”."
+    },
+    "reset": {
+      "title": "Go back to “In progress”?",
+      "subtitle": "The response will be editable again."
+    },
+    "xlsx": {
+      "true": "True",
+      "false": "False",
+      "reference": "Reference",
+      "form": "Form",
+      "index": "Index",
+      "status": "Status",
+      "state": "State",
+      "provenance": "Origin",
+      "flow": "Flow",
+      "phase": "Phase",
+      "step": "Step",
+      "createdAt": "Created on",
+      "createdBy": "Created by",
+      "updatedAt": "Updated on",
+      "doneAt": "Done on"
+    }
+  },
+  "responseHistory": {
+    "title": "Response history",
+    "empty": "No event",
+    "event": "{user} {action} the response “{reference}” on {date} at {time} from the {source}",
+    "actions": {
+      "created": "created",
+      "updated": "edited",
+      "filled": "filled in",
+      "deleted": "deleted",
+      "exported": "exported",
+      "status_changed": "changed the status of",
+      "state_changed": "changed the state of",
+      "shared": "shared"
+    },
+    "sources": {
+      "webapp": "WebApp",
+      "mobile": "MobileApp"
+    }
+  }
+}

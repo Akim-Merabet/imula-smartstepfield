@@ -1,0 +1,86 @@
+{
+  "applicability": "Applicabilité",
+  "family": "Famille",
+  "actions": "Action",
+  "search": "Rechercher",
+  "counter": "{current, plural, =0 {Aucun élément} one {# élément} other {# éléments}} / {total} au total",
+  "pictogram": {
+    "label": "Pictogramme",
+    "none": "Aucun pictogramme",
+    "number": "Pictogramme n° {n}",
+    "choose": "Choisir un pictogramme",
+    "clear": "Retirer le pictogramme",
+    "title": "Sélection du pictogramme",
+    "groups": {
+      "danger": "Dangers",
+      "measure": "Mesures et équipements de protection",
+      "equipment": "Engins et matériels",
+      "theme": "Thématiques et habilitations",
+      "ppe": "Équipements de protection individuelle"
+    }
+  },
+  "file": {
+    "choose": "Choisir un fichier",
+    "replace": "Remplacer",
+    "remove": "Retirer",
+    "view": "Ouvrir",
+    "none": "Aucun fichier",
+    "pdfOnly": "Seuls les fichiers PDF sont acceptés",
+    "imageOnly": "Seules les images sont acceptées",
+    "tooLarge": "Le fichier dépasse la taille maximale autorisée ({max} Mo)"
+  },
+  "properties": {
+    "createdOn": "Date de création : {date} par {name}",
+    "updatedOn": "Dernière modification : {date} par {name}",
+    "unknownUser": "utilisateur inconnu",
+    "applicability": "Applicabilité : {name}",
+    "family": "Famille : {name}",
+    "name": "Nom : {name}",
+    "reference": "Référence : {value}"
+  },
+  "reorganize": {
+    "button": "Réorganiser",
+    "footerChange": "Changer la famille en",
+    "footerTotal": "pour les {count} élément(s) sélectionné(s)",
+    "confirm": "Confirmer le changement de famille vers « {name} » pour {count} élément(s) sélectionné(s) ?",
+    "success": "Réorganisation effectuée avec succès"
+  },
+  "import": {
+    "button": "Importer depuis un fichier Excel",
+    "file": "Fichier à importer",
+    "template": "Télécharger la trame",
+    "templateHint": "Le fichier Excel d'import à compléter (une ligne par élément ; la famille est désignée par son nom court).",
+    "run": "Importer",
+    "processing": "Traitement en cours",
+    "success": "{count, plural, one {# élément importé} other {# éléments importés}} avec succès",
+    "invalidType": "Type de fichier invalide (xlsx attendu)",
+    "invalidTemplate": "Trame invalide",
+    "empty": "Aucun élément trouvé ou trame invalide",
+    "tooLong": "Chaîne de caractères trop longue dans une ou plusieurs cellules du fichier",
+    "rowErrors": "Ligne(s) ignorée(s) : {rows}"
+  },
+  "errors": {
+    "in_use": "Suppression impossible",
+    "duplicate": "Nom ou numéro déjà utilisé",
+    "invalid": "Données invalides",
+    "not_found": "Élément introuvable",
+    "upload_failed": "Échec du dépôt du fichier",
+    "too_large": "Le fichier dépasse 20 Mo",
+    "pdf_only": "Seuls les fichiers PDF sont acceptés",
+    "image_only": "Seules les images sont acceptées",
+    "invalid_type": "Type de fichier invalide (xlsx attendu)",
+    "invalid_template": "Trame invalide",
+    "empty": "Aucun élément trouvé ou trame invalide",
+    "too_long": "Chaîne de caractères trop longue dans une ou plusieurs cellules du fichier"
+  },
+  "active": "Actif",
+  "inactive": "Inactif",
+  "deactivated": "Désactivé",
+  "status": {
+    "all": "Tous",
+    "active": "Actifs",
+    "inactive": "Inactifs"
+  },
+  "createAnother": "Créer un autre élément",
+  "unsaved": "Les modifications seront perdues si vous ne sauvegardez pas"
+}

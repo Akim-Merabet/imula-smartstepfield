@@ -1,0 +1,203 @@
+{
+  "title": {
+    "pr": "Instruction", "emm": "Equipment", "adr": "Risk", "dsi": "Check", "form": "Form", "txt": "Text",
+    "rhp": "Team", "multi_pr": "Multiple instruction", "object": "Object"
+  },
+  "subtitle": {
+    "pr": "Text editor with documents",
+    "emm": "List of equipment from the library",
+    "adr": "List of risks from the library",
+    "dsi": "Quality check editor",
+    "form": "List of forms from the entity",
+    "txt": "Text editor with documents",
+    "rhp": "List of needs in functions, headcount and skills",
+    "multi_pr": "Multiple text editor with a list of possible actions",
+    "object": "List of objects from the library"
+  },
+  "description": {
+    "pr": "Describe the operating instruction for operators on site",
+    "emm": "List the equipment, materials and tools needed on site",
+    "adr": "List the risks and related safeguards on site",
+    "dsi": "Set up the quality checks to be filled in on site",
+    "form": "List the forms to be completed on site",
+    "txt": "Text only visible internally or externally",
+    "rhp": "Define the human resources needed on site",
+    "multi_pr": "Split the instruction into sub-blocks with status and signature",
+    "object": "Associate technical objects with the step"
+  },
+  "blockLabel": "{block} block",
+  "show": "Show the {block} block",
+  "states": { "redaction": "Drafting", "verification": "Verification", "approbation": "Approval", "validated": "Validated" },
+  "readOnly": "Read only",
+  "unsaved": "Unsaved changes",
+  "actors": {
+    "redactor": "Drafted by {name} on {date} at {time}",
+    "verifier": "Verified by {name} on {date} at {time}",
+    "approver": "Approved by {name} on {date} at {time}"
+  },
+  "validation": {
+    "button": "Internal validation",
+    "title": "Block internal validation",
+    "current": "Current state: {state}",
+    "next": "Validate and move to \"{state}\"",
+    "retry": "Validate and stay in this state for another {state}",
+    "reject": "Reject the block and go back to \"Drafting\"",
+    "comment": "Comment",
+    "rejectComment": "Comment for going back to \"Drafting\"",
+    "success": "Block state updated",
+    "conflict": {
+      "redaction": "Action not possible",
+      "verification": "You cannot be both the drafter and the verifier of this block",
+      "approbation": "You cannot be both the verifier and the approver (or the approver and the validator) of this block",
+      "validated": "Action not possible"
+    }
+  },
+  "history": {
+    "title": "State change history",
+    "empty": "No event recorded",
+    "created": "{user} created the block in state {state}",
+    "retry": "{user} performed another {state}",
+    "changed": "{user} changed the state from {from} to {to}"
+  },
+  "properties": { "title": "Block properties", "type": "Type", "state": "State", "refInt": "Internal reference", "refExt": "External reference" },
+  "errors": { "tooLarge": "The content of this block is too large" },
+  "editor": {
+    "bold": "Bold", "italic": "Italic", "underline": "Underline", "strike": "Strikethrough", "heading2": "Heading", "heading3": "Subheading",
+    "bulletList": "Bullet list", "orderedList": "Numbered list", "blockquote": "Quote", "undo": "Undo", "redo": "Redo",
+    "insertCallout": "Insert a callout",
+    "callouts": { "info": "Information panel", "warning": "Warning panel", "error": "Error panel", "note": "Note panel", "success": "Success panel" }
+  },
+  "pr": { "placeholder": "Start writing an instruction…" },
+  "txt": {
+    "mobileApp": "MobileApp",
+    "document": "Document",
+    "mobileAppHelp": "The content of this block will only be visible on the MobileApp and not in the PDF documents for the client",
+    "documentHelp": "The content of this block will only be visible in the PDF documents and not on the MobileApp",
+    "placeholderOperator": "Text for operators on site…",
+    "placeholderClient": "Text for the client…"
+  },
+  "documents": {
+    "title": { "pr": "Document(s) linked to the instruction block", "txt": "Document(s) linked to the text block" },
+    "empty": "No linked document. Adding documents will be available with the Documents module."
+  },
+  "picker": { "counter": "{current} item(s) / {total} in total", "family": "Family", "alreadyLinked": "Already linked" },
+  "items": {
+    "view": "View",
+    "disabledEdit": "A disabled item cannot be edited",
+    "deleteTitle": "Are you sure you want to delete \"{name}\"?",
+    "imported": "Item(s) added to the block"
+  },
+  "emm": {
+    "add": "Add equipment from the library",
+    "importTitle": "Add equipment from the library",
+    "importOptions": "Import options",
+    "empty": "No equipment in the block",
+    "columns": { "family": "Family", "name": "Name", "qu": "Q / U", "reference": "Reference", "provider": "Supplier" },
+    "badges": { "consumable": "Consumable", "verification": "Subject to verification", "expired": "Validity date exceeded" },
+    "quantity": "Quantity", "unit": "Unit", "consumable": "Consumable", "comment": "Comment",
+    "displayComment": "Show the comment in PDF exports so that it is visible to the client",
+    "editTitle": "Edit equipment in the block",
+    "viewTitle": "Equipment preview",
+    "validityDate": "Validity date"
+  },
+  "adr": {
+    "add": "Add a risk from the library",
+    "importTitle": "Add risks from the library",
+    "empty": "No risk in the block",
+    "columns": { "family": "Family", "risk": "Risk", "source": "Source", "major": "Major", "pictogram": "Pictogram" },
+    "paradesCount": "{count, plural, =0 {No safeguard} one {# safeguard} other {# safeguards}}",
+    "editTitle": "Edit risk in the block",
+    "viewTitle": "Risk preview",
+    "reference": "Reference",
+    "landmark": "Marker",
+    "genericParades": "Generic safeguards (library)",
+    "specificParades": "Flow-specific safeguards",
+    "noParade": "No safeguard",
+    "addParade": "Add a safeguard specific to the risk",
+    "riskReminder": "Risk reminder: {name}",
+    "paradeName": "Safeguard",
+    "pictogramNumber": "Pictogram no. (1 to 240)",
+    "deleteParade": "Are you sure you want to delete the safeguard [{name}]?"
+  },
+  "rhp": {
+    "add": "Create a new need",
+    "createTitle": "Create a new need",
+    "editTitle": "Edit need",
+    "viewTitle": "Need preview",
+    "createAnother": "Create another need",
+    "empty": "No need in the block",
+    "function": "Function",
+    "count": "Headcount",
+    "countMin": "The headcount must be an integer greater than or equal to 1",
+    "skills": "Skill(s)",
+    "observation": "Observation"
+  },
+  "dsi": {
+    "noConfig": "Check block configuration not found",
+    "configTitle": "Quality checks of the step",
+    "editConfig": "Edit checks",
+    "configDialogTitle": "Edit the step quality checks",
+    "signatoriesStatus": "Possible options on checks",
+    "statuses": { "enabled": "No option", "optional": "Optional signature(s)", "required": "Mandatory signature(s)", "disabled": "Signature(s) disabled" },
+    "signedLock": "Action not possible, signatures exist: signatures cannot be disabled",
+    "disabledComment": "Comment for disabled signature(s)",
+    "controls": "Checks",
+    "realisationAlways": "The \"Operation completed\" signature is always active.",
+    "fields": {
+      "technical_control": "Technical check (TC)",
+      "technical_control_step": "Make the whole step a technical check",
+      "technical_control_details": "Technical check details",
+      "aip": "IPA (Important Activity for Protection)",
+      "document_required": "R (Required document)",
+      "observation": "Observation / Material reference",
+      "document_reference": "External document reference"
+    },
+    "supervision": {
+      "int": "Internal supervision", "ext": "External supervision", "mono": "Single supervisor", "n": "Supervisor {n}",
+      "breakpoint": "Hold point (HP)", "convocation": "Witness point (WP)"
+    },
+    "simplified": "Simplified mode",
+    "simplifiedInfo": "The flow is in simplified mode: only the \"Completion\" and \"Technical check\" signatures are offered.",
+    "signaturesDisabled": "Signatures are disabled on this block"
+  },
+  "multiPr": {
+    "add": "Add a block",
+    "count": "{count} / {max} blocks",
+    "showTitles": "Show titles",
+    "requiresStatus": "Mandatory status",
+    "requiresSignature": "Mandatory signature",
+    "signatureRequiresStatus": "This option can only be enabled when \"Mandatory status\" is on",
+    "requirement": { "status": "Mandatory status", "both": "Mandatory status and signature" },
+    "expandAll": "Expand blocks", "collapseAll": "Collapse blocks", "expand": "Expand", "collapse": "Collapse",
+    "collapseFirst": "Please collapse the editors before dragging and dropping",
+    "defaultTitle": "Title [{index}]",
+    "placeholder": "Start writing an instruction…",
+    "hiddenOnExport": "Hidden in PDF",
+    "hideOnExport": "Hide in PDF export",
+    "showOnExport": "Show in PDF export",
+    "insertAbove": "Insert 1 above",
+    "insertBelow": "Insert 1 below",
+    "status": "Status",
+    "signature": "Signature",
+    "sign": "Sign",
+    "signTitle": "Sub-block signature",
+    "deleteSignature": "Delete signature",
+    "deleteSignatureTitle": "Are you sure you want to delete the signature?",
+    "observation": "Observation",
+    "saveObservation": "Save observation",
+    "deleteTitle": "Are you sure you want to delete the block \"{name}\"?"
+  },
+  "object": {
+    "add": "Link an object from the library",
+    "importTitle": "Link objects from the library",
+    "link": "Link",
+    "empty": "No linked object",
+    "columns": { "family": "Family", "name": "Name", "reference": "Reference (item code)", "index": "Index", "modification": "Modified" },
+    "unlink": "Unlink",
+    "unlinkTitle": "Unlink object {name}?",
+    "unlinked": "Object unlinked",
+    "blockedTitle": "Unlinking not possible",
+    "formResponses": "Response(s) of form \"{formName}\""
+  },
+  "form": { "moduleUnavailable": "Forms module being deployed: the Form block is not available yet." }
+}

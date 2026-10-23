@@ -1,0 +1,206 @@
+{
+  "title": {
+    "pr": "Instruction", "emm": "Moyen", "adr": "Risque", "dsi": "Contrôle", "form": "Formulaire", "txt": "Texte",
+    "rhp": "Équipe", "multi_pr": "Instruction multiple", "object": "Objet"
+  },
+  "subtitle": {
+    "pr": "Éditeur de texte avec ajout de documents possible",
+    "emm": "Liste de moyens venant de la bibliothèque",
+    "adr": "Liste de risques venant de la bibliothèque",
+    "dsi": "Éditeur de contrôles qualité",
+    "form": "Liste de formulaires venant de l'entité",
+    "txt": "Éditeur de texte avec ajout de documents possible",
+    "rhp": "Liste de besoins en fonctions, nombre et compétences",
+    "multi_pr": "Éditeur de texte multiple avec liste d'actions possibles",
+    "object": "Liste des objets venant de la bibliothèque"
+  },
+  "description": {
+    "pr": "Décrivez l'instruction opératoire à destination des opérateurs sur le terrain",
+    "emm": "Listez les matériels, matériaux et équipements nécessaires sur le terrain",
+    "adr": "Listez les risques et les parades associées présents sur le terrain",
+    "dsi": "Paramétrez les contrôles qualité à renseigner sur le terrain",
+    "form": "Listez les formulaires à compléter sur le terrain",
+    "txt": "Texte uniquement visible en interne ou en externe",
+    "rhp": "Définissez les besoins en ressources humaines sur le terrain",
+    "multi_pr": "Découpez l'instruction en sous-blocs avec statut et signature",
+    "object": "Associez des objets techniques à l'étape"
+  },
+  "blockLabel": "Bloc {block}",
+  "show": "Afficher le bloc {block}",
+  "states": { "redaction": "Rédaction", "verification": "Vérification", "approbation": "Approbation", "validated": "Validé" },
+  "readOnly": "Lecture seule",
+  "unsaved": "Modifications non sauvegardées",
+  "actors": {
+    "redactor": "Rédacteur : {name} le {date} à {time}",
+    "verifier": "Vérificateur : {name} le {date} à {time}",
+    "approver": "Approbateur : {name} le {date} à {time}"
+  },
+  "validation": {
+    "button": "Validation interne",
+    "title": "Validation interne du bloc",
+    "current": "État actuel : {state}",
+    "next": "Valider et passer en état « {state} »",
+    "retry": "Valider et rester sur cet état pour effectuer une autre {state}",
+    "reject": "Rejeter le bloc et revenir en état « Rédaction »",
+    "comment": "Commentaire",
+    "rejectComment": "Commentaire de retour à l'état « Rédaction »",
+    "success": "État du bloc mis à jour",
+    "conflict": {
+      "redaction": "Action impossible",
+      "verification": "Vous ne pouvez pas être à la fois rédacteur et vérificateur de ce bloc",
+      "approbation": "Vous ne pouvez pas être à la fois vérificateur et approbateur (ou approbateur et validateur) de ce bloc",
+      "validated": "Action impossible"
+    }
+  },
+  "history": {
+    "title": "Historique des changements d'état",
+    "empty": "Aucun évènement enregistré",
+    "created": "{user} a créé le bloc en l'état {state}",
+    "retry": "{user} a effectué une autre {state}",
+    "changed": "{user} a changé l'état de {from} à {to}"
+  },
+  "properties": { "title": "Propriétés du bloc", "type": "Type", "state": "État", "refInt": "Référence interne", "refExt": "Référence externe" },
+  "errors": { "tooLarge": "Le contenu de ce bloc est trop grand" },
+  "editor": {
+    "bold": "Gras", "italic": "Italique", "underline": "Souligné", "strike": "Barré", "heading2": "Titre", "heading3": "Sous-titre",
+    "bulletList": "Liste à puces", "orderedList": "Liste numérotée", "blockquote": "Citation", "undo": "Annuler", "redo": "Rétablir",
+    "insertCallout": "Insérer un encart",
+    "callouts": {
+      "info": "Volet d'informations", "warning": "Panneau d'avertissement", "error": "Panneau d'erreur",
+      "note": "Panneau de notes", "success": "Panneau de réussite"
+    }
+  },
+  "pr": { "placeholder": "Commencez par écrire une instruction…" },
+  "txt": {
+    "mobileApp": "MobileApp",
+    "document": "Document",
+    "mobileAppHelp": "Le contenu de ce bloc sera visible uniquement depuis la MobileApp et non dans les documents PDF à destination du client",
+    "documentHelp": "Le contenu de ce bloc sera visible uniquement dans les documents PDF et non dans la MobileApp",
+    "placeholderOperator": "Texte à destination des opérateurs sur le terrain…",
+    "placeholderClient": "Texte à destination du client…"
+  },
+  "documents": {
+    "title": { "pr": "Document(s) lié(s) au bloc instruction", "txt": "Document(s) lié(s) au bloc texte" },
+    "empty": "Aucun document lié. L'ajout de documents sera disponible avec le module Documents."
+  },
+  "picker": { "counter": "{current} élément(s) / {total} au total", "family": "Famille", "alreadyLinked": "Déjà lié" },
+  "items": {
+    "view": "Voir",
+    "disabledEdit": "Impossible d'éditer un élément désactivé",
+    "deleteTitle": "Êtes-vous certain(e) de vouloir supprimer « {name} » ?",
+    "imported": "Élément(s) ajouté(s) au bloc"
+  },
+  "emm": {
+    "add": "Ajouter un moyen depuis la bibliothèque",
+    "importTitle": "Ajouter des moyens depuis la bibliothèque",
+    "importOptions": "Option d'importation",
+    "empty": "Aucun moyen dans le bloc",
+    "columns": { "family": "Famille", "name": "Nom", "qu": "Q / U", "reference": "Référence", "provider": "Fournisseur" },
+    "badges": { "consumable": "Moyen consommable", "verification": "Soumis à vérification", "expired": "Date de validité dépassée" },
+    "quantity": "Quantité", "unit": "Unité", "consumable": "Consommable", "comment": "Commentaire",
+    "displayComment": "Afficher le commentaire lors des exportations en PDF et le rendre ainsi visible pour le client",
+    "editTitle": "Édition du moyen dans le bloc",
+    "viewTitle": "Aperçu du moyen",
+    "validityDate": "Date de validité"
+  },
+  "adr": {
+    "add": "Ajouter un risque depuis la bibliothèque",
+    "importTitle": "Ajouter des risques depuis la bibliothèque",
+    "empty": "Aucun risque dans le bloc",
+    "columns": { "family": "Famille", "risk": "Risque", "source": "Source", "major": "Majeur", "pictogram": "Pictogramme" },
+    "paradesCount": "{count, plural, =0 {Aucune parade} one {# parade} other {# parades}}",
+    "editTitle": "Édition du risque dans le bloc",
+    "viewTitle": "Aperçu du risque",
+    "reference": "Référence",
+    "landmark": "Repère",
+    "genericParades": "Parades génériques (bibliothèque)",
+    "specificParades": "Parades spécifiques au flow",
+    "noParade": "Aucune parade",
+    "addParade": "Ajouter une parade spécifique au risque",
+    "riskReminder": "Rappel du risque : {name}",
+    "paradeName": "Parade au risque",
+    "pictogramNumber": "N° de pictogramme (1 à 240)",
+    "deleteParade": "Êtes-vous certain(e) de vouloir supprimer la parade [{name}] ?"
+  },
+  "rhp": {
+    "add": "Créer un nouveau besoin",
+    "createTitle": "Créer un nouveau besoin",
+    "editTitle": "Édition du besoin",
+    "viewTitle": "Aperçu du besoin",
+    "createAnother": "Créer un autre besoin",
+    "empty": "Aucun besoin dans le bloc",
+    "function": "Fonction",
+    "count": "Nombre",
+    "countMin": "Le nombre doit être un entier supérieur ou égal à 1",
+    "skills": "Compétence(s)",
+    "observation": "Observation"
+  },
+  "dsi": {
+    "noConfig": "Configuration du bloc contrôle introuvable",
+    "configTitle": "Contrôles qualité de l'étape",
+    "editConfig": "Modification des contrôles",
+    "configDialogTitle": "Édition des contrôles qualité de l'étape",
+    "signatoriesStatus": "Options possibles sur les contrôles",
+    "statuses": { "enabled": "Sans option", "optional": "Signature(s) facultative(s)", "required": "Signature(s) obligatoire(s)", "disabled": "Signature(s) désactivée(s)" },
+    "signedLock": "Action impossible, des signatures sont présentes : les signatures ne peuvent pas être désactivées",
+    "disabledComment": "Commentaire de signature(s) désactivée(s)",
+    "controls": "Contrôles",
+    "realisationAlways": "La signature « Réalisation de l'opération » est toujours active.",
+    "fields": {
+      "technical_control": "Contrôle technique (CT)",
+      "technical_control_step": "Rendre l'étape entière contrôle technique",
+      "technical_control_details": "Détail contrôle technique",
+      "aip": "AIP (Activité Importante pour la Protection)",
+      "document_required": "R (Document requis)",
+      "observation": "Observation / Référence matériel",
+      "document_reference": "Référence document externe"
+    },
+    "supervision": {
+      "int": "Surveillance interne", "ext": "Surveillance externe", "mono": "Surveillant unique", "n": "Surveillant {n}",
+      "breakpoint": "Point d'arrêt (PA)", "convocation": "Point de convocation (PC)"
+    },
+    "simplified": "Mode simplifié",
+    "simplifiedInfo": "Le flow est en mode simplifié : seules les signatures « Réalisation » et « Contrôle technique » sont proposées.",
+    "signaturesDisabled": "Les signatures sont désactivées sur ce bloc"
+  },
+  "multiPr": {
+    "add": "Ajouter un bloc",
+    "count": "{count} / {max} blocs",
+    "showTitles": "Afficher les titres",
+    "requiresStatus": "Statut obligatoire",
+    "requiresSignature": "Signature obligatoire",
+    "signatureRequiresStatus": "Cette option peut être activée uniquement quand l'option « Statut obligatoire » est active",
+    "requirement": { "status": "Statut obligatoire", "both": "Statut et signature obligatoires" },
+    "expandAll": "Agrandir les blocs", "collapseAll": "Réduire les blocs", "expand": "Agrandir", "collapse": "Réduire",
+    "collapseFirst": "Veuillez réduire les éditeurs avant de pouvoir effectuer un glisser-déposer",
+    "defaultTitle": "Titre [{index}]",
+    "placeholder": "Commencez par écrire une instruction…",
+    "hiddenOnExport": "Masqué en PDF",
+    "hideOnExport": "Masquer lors de l'exportation PDF",
+    "showOnExport": "Afficher lors de l'exportation PDF",
+    "insertAbove": "Insérer 1 au-dessus",
+    "insertBelow": "Insérer 1 en dessous",
+    "status": "Statut",
+    "signature": "Signature",
+    "sign": "Signer",
+    "signTitle": "Signature du sous-bloc",
+    "deleteSignature": "Supprimer la signature",
+    "deleteSignatureTitle": "Êtes-vous certain(e) de vouloir supprimer la signature ?",
+    "observation": "Observation",
+    "saveObservation": "Enregistrer l'observation",
+    "deleteTitle": "Êtes-vous certain(e) de vouloir supprimer le bloc « {name} » ?"
+  },
+  "object": {
+    "add": "Lier un objet depuis la bibliothèque",
+    "importTitle": "Lier des objets depuis la bibliothèque",
+    "link": "Lier",
+    "empty": "Aucun objet lié",
+    "columns": { "family": "Famille", "name": "Nom", "reference": "Référence (Code article)", "index": "Indice", "modification": "Modification" },
+    "unlink": "Dissocier",
+    "unlinkTitle": "Dissocier l'objet {name} ?",
+    "unlinked": "Objet dissocié",
+    "blockedTitle": "Dissociation impossible",
+    "formResponses": "Réponse(s) du formulaire « {formName} »"
+  },
+  "form": { "moduleUnavailable": "Module formulaires en cours de déploiement : le bloc Formulaire n'est pas encore disponible." }
+}

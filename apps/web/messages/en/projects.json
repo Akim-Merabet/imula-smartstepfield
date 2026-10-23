@@ -1,0 +1,183 @@
+{
+  "title": "Entity list",
+  "crumb": "Entities",
+  "add": "Add a new item",
+  "types": {
+    "project": "Project",
+    "referential": "Referential",
+    "template": "Template",
+    "pgac": "PGAC project",
+    "folder": "Referential folder"
+  },
+  "letters": {
+    "project": "P",
+    "referential": "R",
+    "template": "T",
+    "pgac": "P",
+    "folder": "F"
+  },
+  "columns": {
+    "family": "Family",
+    "designation": "Name",
+    "status": "Status",
+    "client": "Client",
+    "reference": "Reference",
+    "location": "Location",
+    "responsible": "Manager",
+    "description": "Description",
+    "contractRef": "Contract no.",
+    "internalCommand": "Internal order no.",
+    "externalCommand": "External order no.",
+    "marketNumber": "Market no.",
+    "technicalDeal": "Technical deal",
+    "keywords": "Keywords",
+    "businessDomain": "Business domain",
+    "nationalProgram": "National program",
+    "complementRef1": "Additional reference 1",
+    "complementRef2": "Additional reference 2",
+    "applicability": "Applicability",
+    "type": "Type"
+  },
+  "filters": {
+    "types": "Types",
+    "state": "State",
+    "visible": "Visible",
+    "hidden": "Hidden",
+    "all": "All",
+    "family": "Family",
+    "client": "Client",
+    "status": "Status",
+    "sharing": "Sharing",
+    "public": "Public",
+    "private": "Private"
+  },
+  "public": "Public - {account}",
+  "actions": {
+    "statusHistory": "Status history",
+    "duplicate": "Duplicate",
+    "publish": "Make public",
+    "private": "Make private",
+    "properties": "Properties",
+    "edit": "Edit",
+    "delete": "Delete",
+    "hide": "Hide",
+    "show": "Show",
+    "convertToFolder": "Convert to folder"
+  },
+  "dialog": {
+    "createTitle": "Create an entity",
+    "editTitle": "Edit {type, select, project {project} referential {referential} template {template} pgac {PGAC project} subFolder {referential sub-folder} other {referential folder}} {name}",
+    "tabs": {
+      "general": "General",
+      "attributes": "Attribute(s)",
+      "options": "Options"
+    },
+    "type": "Type",
+    "designation": "Name",
+    "designationPlaceholder": "Entity name",
+    "client": "Client",
+    "clientHelp": "To add a client, go to Settings › Client book",
+    "family": "Family",
+    "familyHelp": "To add or edit a family, go to Settings › Families",
+    "status": "Status",
+    "statusComment": "Comment",
+    "reference": "Reference",
+    "generated": "Generated automatically",
+    "location": "Location",
+    "description": "Description",
+    "contractToggle": "Add contract information",
+    "contractRef": "Contract no.",
+    "internalCommand": "Internal order no.",
+    "externalCommand": "External order no.",
+    "marketNumber": "Market no.",
+    "technicalDeal": "Technical deal",
+    "keywords": "Keywords",
+    "businessDomain": "Business domain",
+    "nationalProgram": "National program",
+    "complementRef1": "Additional reference 1",
+    "complementRef2": "Additional reference 2",
+    "language1": "Language 1",
+    "language2": "Language 2",
+    "languageLocked": "The export language cannot be changed after creation",
+    "internSupervision": "Edit the internal supervision conditions",
+    "externSupervision": "Edit the external supervision conditions",
+    "internSupervisor": "Internal supervisor {n}",
+    "externSupervisor": "External supervisor {n}",
+    "supervisionWarning": "Changing the supervision will not affect documents already sent to the client",
+    "noAttributes": "No attribute configured for entities",
+    "createAnother": "Create another entity",
+    "created": "Entity created successfully",
+    "editWarning": "The following changes will not apply to documents already sent or validated by the client",
+    "createSubFolderTitle": "New referential sub-folder",
+    "subFolderCreated": "Referential sub-folder successfully created",
+    "index": "Index"
+  },
+  "languages": {
+    "none": "None",
+    "fr": "French",
+    "en": "English",
+    "de": "German",
+    "it": "Italian"
+  },
+  "delete": {
+    "title": "Are you sure you want to delete the entity {name}?",
+    "subtitle": "The entity will be kept in the trash for 30 days.",
+    "hasSubFolders": "The project cannot be deleted, please delete its sub-folder(s) first"
+  },
+  "properties": {
+    "title": "Entity properties",
+    "shared": "Shared entity",
+    "account": "Applicability",
+    "organizationId": "Organization UUID"
+  },
+  "history": {
+    "title": "Status change history",
+    "created": "{user} created the entity with status {status}",
+    "changed": "{user} changed the status from {from} to {to}",
+    "comment": "then added the comment “{comment}”",
+    "empty": "No status change"
+  },
+  "menuEmpty": "No project, referential or template selected",
+  "convert": {
+    "title": "Convert the referential {name} into a referential folder?",
+    "subtitle": "The referential becomes a referential folder: you will be able to create indexed referential sub-folders in it, then prepare them as projects. This cannot be undone.",
+    "success": "Referential successfully converted into a folder"
+  },
+  "subFolderType": "Referential sub-folder",
+  "duplicate": {
+    "title": "Entity duplication",
+    "titleSubFolder": "Referential sub-folder duplication",
+    "defaultName": "Copy of {name}",
+    "subFolder": "Referential sub-folder",
+    "destinationType": "Destination entity type",
+    "destinationName": "Destination entity name",
+    "index": "Index",
+    "sentence": {
+      "source": "Duplicate the entity",
+      "named": "named",
+      "into": "as a",
+      "index": "with index",
+      "client": "linked to client"
+    },
+    "info": {
+      "title": "About duplication",
+      "validation": "In the duplicated entity, the internal validation of flows (blocks back to drafting) and the external validation of documents (back to PREL) start over.",
+      "otherDocuments": "Other documents (lists, form documents, closing folder…) are not recreated.",
+      "library": "Documents imported from the library keep their state.",
+      "signatures": "Signatures and form responses are not copied.",
+      "collaborators": "Collaborators are not copied: you become the Manager of the new entity.",
+      "template": "A Template entity only hosts template flows: group flows are skipped and no document is copied."
+    },
+    "inProgress": "Duplication in progress, running in the background",
+    "inProgressDescription": "The new entity will appear in the list once processing is over (follow it in the events bell).",
+    "done": "The entity {name} has been duplicated",
+    "failed": "The entity duplication failed",
+    "notDuplicable": "This entity cannot be duplicated",
+    "taskLabel": "Duplication of entity {name}"
+  },
+  "accessHistory": {
+    "tooltip": "Recently opened entities",
+    "title": "Access history",
+    "remove": "Remove from history"
+  }
+}

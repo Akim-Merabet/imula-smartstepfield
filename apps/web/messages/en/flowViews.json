@@ -1,0 +1,332 @@
+{
+  "diagram": {
+    "title": "Diagram view",
+    "subtitle": "{count, plural, =0 {No diagram} one {# diagram} other {# diagrams}} in the entity",
+    "select": "Select a diagram",
+    "create": "New diagram",
+    "rename": "Rename diagram",
+    "delete": "Delete diagram",
+    "name": "Name",
+    "created": "Diagram created",
+    "createFail": "An error occurred while creating the diagram.",
+    "renamed": "Diagram renamed.",
+    "renameFail": "An error occurred while renaming the diagram.",
+    "deleteConfirm": "Are you sure you want to delete this diagram?",
+    "deleted": "Diagram deleted",
+    "deleteFail": "An error occurred while deleting the diagram.",
+    "linkedDocument": "Cannot delete: the diagram view is linked to a document.",
+    "emptyTitle": "No diagram",
+    "emptySubtitle": "Create a diagram to show how the entity's flows follow one another.",
+    "editMode": "Edit",
+    "viewMode": "Preview",
+    "readOnly": "Read only",
+    "addFlows": "Add flows",
+    "addFlowsSubtitle": "Group flows cannot be used in the diagram view.",
+    "newFlow": "New flow",
+    "importCount": "{current} item(s) in the list / {total} in total",
+    "emptyImport": "No flow available",
+    "filters": {
+      "status": "Status",
+      "family": "Family",
+      "category": "Category",
+      "type": "Type",
+      "assignee": "Assignment"
+    },
+    "shapes": {
+      "rect": "Rectangle",
+      "ellipse": "Ellipse",
+      "diamond": "Diamond"
+    },
+    "text": "Text",
+    "textPlaceholder": "Text",
+    "actions": {
+      "duplicate": "Duplicate (Ctrl + C / Ctrl + V)",
+      "group": "Group (Ctrl + G)",
+      "ungroup": "Ungroup (Ctrl + Shift + G)",
+      "delete": "Delete (Del)",
+      "undo": "Undo (Ctrl + Z)"
+    },
+    "groupNeedsTwo": "Select at least two elements to group",
+    "save": {
+      "saved": "Saved",
+      "dirty": "Unsaved changes…",
+      "saving": "Saving…"
+    },
+    "saveFail": "An error occurred while updating the diagram.",
+    "style": {
+      "title": "Style",
+      "background": "Background color",
+      "outline": "Outline color",
+      "font": "Text color",
+      "fontSize": "Font size",
+      "thickness": "Thickness",
+      "direction": "Connector direction",
+      "connector": "Connector color"
+    },
+    "directions": {
+      "none": "None",
+      "left": "←",
+      "right": "→",
+      "both": "↔"
+    },
+    "breakDown": "Break down",
+    "nothingToBreakDown": "Nothing to break down",
+    "origin": "Origin:",
+    "flowReference": "Flow reference:",
+    "flowMissing": "Flow not found or deleted"
+  },
+  "kanban": {
+    "title": "Kanban view",
+    "subtitle": "Drag a card to another column to change the flow status",
+    "groupBy": "Group by",
+    "groups": {
+      "none": "None",
+      "family": "Family",
+      "category": "Category",
+      "reporter": "Assignment - Reporter",
+      "responsible": "Assignment - Manager"
+    },
+    "noLane": {
+      "family": "No family",
+      "category": "No category",
+      "reporter": "No reporter",
+      "responsible": "No manager"
+    },
+    "noStatus": "No status",
+    "count": "{count, plural, =0 {No flow} one {# flow} other {# flows}}",
+    "empty": "No flow to display",
+    "confirmMove": "Move flow \"{name}\" to status \"{status}\"?",
+    "moved": "Flow \"{name}\" moved to status \"{status}\"",
+    "assignees": "Manager(s)"
+  },
+  "map": {
+    "title": "Map view",
+    "subtitle": "{count, plural, =0 {No geometry} one {# geometry} other {# geometries}} on the map",
+    "crs": "WGS84 system (EPSG 3857)",
+    "showLabels": "Show label(s)",
+    "hideLabels": "Hide label(s)",
+    "filters": {
+      "status": "Status",
+      "family": "Family"
+    },
+    "search": {
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "zoom": "Zoom",
+      "search": "Search",
+      "invalid": "Invalid latitude / longitude"
+    },
+    "draw": {
+      "title": "Drawing tools",
+      "none": "Select",
+      "point": "Point",
+      "polyline": "Polyline",
+      "polygon": "Polygon",
+      "circle": "Circle",
+      "finish": "Finish",
+      "notEnough": "Add more points",
+      "hint": {
+        "none": "",
+        "point": "Click on the map to place a point",
+        "polyline": "Click to add vertices, double-click or \"Finish\" to validate",
+        "polygon": "Click to add vertices (at least 3), double-click or \"Finish\" to validate",
+        "circle": "Click to place the center, then click again to set the radius"
+      }
+    },
+    "popup": {
+      "general": "General",
+      "detail": "Detail",
+      "label": "Label",
+      "icon": "Icon",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "altitude": "Altitude",
+      "radius": "Radius (m)",
+      "color": "Color",
+      "linkedFlow": "Linked flow",
+      "move": "Move",
+      "delete": "Delete",
+      "deleted": "Geometry deleted",
+      "moved": "Geometry moved",
+      "moveHint": "Click on the map to move the geometry there",
+      "name": "Name",
+      "reference": "Reference",
+      "family": "Family",
+      "category": "Category",
+      "status": "Status",
+      "openFlow": "Open the flow edit window",
+      "openContent": "Open the flow content",
+      "noFlow": "No flow linked to this geometry",
+      "icons": {
+        "default": "Point of interest",
+        "without_icon": "No icon",
+        "truck": "Truck",
+        "snowplow": "Machine",
+        "warehouse": "Warehouse",
+        "archive": "Stock",
+        "hard_hat": "Hard hat",
+        "toolbox": "Tools",
+        "rocket": "Rocket",
+        "caravan": "Caravan"
+      }
+    },
+    "geoJson": {
+      "title": "GeoJSON",
+      "description": "GeoJSON layers displayed on the entity map",
+      "add": "Add a new GeoJSON file",
+      "fileSelectionTitle": "Add GeoJSON file",
+      "name": "Name",
+      "file": "Attachment",
+      "color": "Color",
+      "createdAt": "Creation date",
+      "showOnMap": "Show on the map",
+      "options": "Options",
+      "show": "Show",
+      "hide": "Hide",
+      "lock": "Lock",
+      "unlock": "Unlock",
+      "locked": "Locked",
+      "changeColor": "Edit color",
+      "empty": "No GeoJSON file",
+      "required": "Name and file are required",
+      "tooLarge": "The file exceeds 5 MB",
+      "invalidFile": "The file is not a valid GeoJSON",
+      "added": "GeoJSON file added",
+      "addFail": "Failed to add the GeoJSON file",
+      "updateFail": "Unable to update the GeoJSON",
+      "deleteConfirm": "Are you sure you want to delete this GeoJSON?",
+      "deleted": "GeoJSON deleted",
+      "deleteFail": "Failed to delete the GeoJSON file"
+    }
+  },
+  "plan": {
+    "pageTitle": "Plan view",
+    "subtitle": "{count, plural, =0 {No flow} one {# flow} other {# flows}} in the entity",
+    "selectPlan": "Select a plan",
+    "createPlan": "Create a new plan",
+    "editPlan": "Edit plan",
+    "deletePlan": "Delete plan",
+    "emptyTitle": "No plan",
+    "emptySubtitle": "Create a plan to display the entity's flows on a timeline.",
+    "deleteConfirm": "Are you sure you want to delete this plan?",
+    "deleted": "Plan deleted",
+    "created": "Plan created",
+    "updated": "Plan updated",
+    "createFail": "Unable to create the plan",
+    "updateFail": "Unable to update the plan",
+    "fields": {
+      "name": "Name",
+      "description": "Description",
+      "scale": "Scale",
+      "required": "This field is required"
+    },
+    "scale": {
+      "default": "Default",
+      "temporal": "Temporal",
+      "scheduling": "Scheduling"
+    },
+    "scaleLong": {
+      "default": "Default",
+      "temporal": "Temporal (Day / Week / Month / Quarter / Year)",
+      "scheduling": "Scheduling"
+    },
+    "scaleHelp": {
+      "default": "All flows of the entity, positioned on their dates",
+      "temporal": "Only the flows added to the plan",
+      "scheduling": "Resources (collaborators and tablets) as rows"
+    },
+    "title": {
+      "default": "Flows of default plan {name}",
+      "temporal": "Flows of temporal plan {name}",
+      "scheduling": "Flows of scheduling plan {name}"
+    },
+    "count": "{count, plural, =0 {No item} one {# item} other {# items}}",
+    "periods": {
+      "day": "Day",
+      "week": "Week",
+      "month": "Month",
+      "quarter": "Quarter",
+      "year": "Year"
+    },
+    "prefix": {
+      "week": "W",
+      "quarter": "Q"
+    },
+    "today": "Today",
+    "groupBy": {
+      "label": "Group by",
+      "none": "None",
+      "family": "Family",
+      "category": "Category",
+      "status": "Status",
+      "type": "Type"
+    },
+    "noGroup": "Not set",
+    "hideColumns": "Hide columns",
+    "showColumns": "Show columns",
+    "columns": {
+      "name": "Name",
+      "state": "State",
+      "start": "Start date",
+      "end": "End date",
+      "assignment": "Assignment"
+    },
+    "legend": {
+      "estimated": "Estimated date",
+      "planned": "Planned date"
+    },
+    "addContent": "Add content to the plan from existing flow(s)",
+    "addContentTitle": "Add content",
+    "importSuccess": "Flow(s) added",
+    "importFail": "Unable to add the flow(s)",
+    "emptyImport": "No flow available",
+    "emptyFlows": "No flow in the entity",
+    "emptyTemporal": "No flow in this plan: add content from existing flows.",
+    "datesSaved": "Estimated dates of flow \"{name}\" updated",
+    "doubleClickHint": "Double-click to set the estimated dates",
+    "addLinkStart": "Add a dependency from the start",
+    "addLinkEnd": "Add a dependency from the end",
+    "linkHint": "Click the bar of the flow to link (Esc to cancel)",
+    "linkCreated": "Link created",
+    "linkExists": "A link already exists!",
+    "actions": {
+      "open": "Open content",
+      "flowInfo": "Flow information",
+      "unlinkFlow": "Remove the flow from the plan"
+    },
+    "scheduling": {
+      "title": "Scheduling",
+      "description": "Assigning resources (collaborators and tablets) over a period is not available yet."
+    },
+    "dependencies": {
+      "title": "Dependency details",
+      "before": "Dependencies before",
+      "after": "Dependencies after",
+      "none": "No dependency",
+      "overlap": "Overlapping dates",
+      "delete": "Delete link",
+      "deleted": "Link deleted",
+      "types": {
+        "end_start": "End → start",
+        "start_end": "Start → end"
+      },
+      "hint": "Hover a bar and click its start or end dot to create a dependency."
+    },
+    "milestone": {
+      "add": "Milestone",
+      "addTitle": "Create a new milestone",
+      "editTitle": "Edit milestone",
+      "name": "Name",
+      "date": "Date",
+      "color": "Color",
+      "description": "Description",
+      "delete": "Delete",
+      "addSuccess": "Milestone created",
+      "addFail": "Unable to create the milestone",
+      "updateSuccess": "Milestone updated",
+      "updateFail": "Unable to update the milestone",
+      "deleteSuccess": "Milestone deleted",
+      "deleteFail": "Unable to delete the milestone"
+    }
+  }
+}

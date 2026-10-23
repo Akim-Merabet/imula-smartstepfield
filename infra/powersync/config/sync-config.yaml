@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=https://unpkg.com/@powersync/service-sync-rules@latest/schema/sync_rules.json
+# Sync Streams (https://docs.powersync.com/sync/streams/overview).
+# Le service ne relit pas ce fichier à chaud : redémarrer après modification (`pnpm powersync:up`).
+config:
+  edition: 3
+
+streams:
+  # Profil du collaborateur connecté (validation de l'infrastructure).
+  me:
+    auto_subscribe: true
+    queries:
+      - SELECT id, first_name, last_name, trigram, authority, account_id, organization_id, language
+        FROM collaborators WHERE auth_user_id = auth.user_id()

@@ -49,7 +49,8 @@
       "BACKUP_LOCAL": "Local backup",
       "BACKUP_SUPPORT": "Backup sent to support",
       "BACKUP_FAIL": "Backup failed",
-      "RESET_LOCAL_DATA": "Local data reset"
+      "RESET_LOCAL_DATA": "Local data reset",
+      "RESTORE_BACKUP": "Backup import"
     }
   }
 }

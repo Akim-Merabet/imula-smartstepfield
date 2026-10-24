@@ -6,6 +6,7 @@ import {
   BACKUP_INTERVALS, getBackupInterval, getLastBackup, saveLocalBackup, sendBackupToSupport, setBackupInterval,
 } from "@/backup/service";
 import { Card, formatDate, Segmented, useSnackbar } from "@/components/kit";
+import { RestoreBackup } from "@/components/restore-backup";
 import { Button } from "@/components/ui";
 import { t } from "@/i18n/fr";
 import { logEvent } from "@/lib/app-log";
@@ -78,6 +79,7 @@ export function BackupSettings() {
       <Card>
         <Text style={styles.title}>{t("backup.support")}</Text>
         <Button label={t("backup.sendSupport")} variant="secondary" onPress={() => void run("support")} loading={busy === "support"} disabled={!!busy || offline} />
+        <RestoreBackup disabled={!!busy} />
         <Button label={t("backup.reset")} variant="secondary" onPress={() => setConfirmReset(true)} disabled={!!busy} />
       </Card>
       <Modal visible={confirmReset} transparent animationType="fade" onRequestClose={() => setConfirmReset(false)}>

@@ -11,7 +11,7 @@ import type { MobileLogRow } from "./queries";
 export const LOG_ACTIONS = [
   "SIGN_IN", "SIGN_OUT", "SWITCH_TO_ONLINE", "SWITCH_TO_OFFLINE", "PUSH_SUCCESS", "PUSH_REJECTED", "PUSH_FORBIDDEN",
   "START_CHECKOUT", "DELETE_FLOW_DATA", "SCAN_QRCODE_FLOW_SUCCESS", "SCAN_QRCODE_FLOW_FAIL", "CLICK_TO_SAVE_SIGNATURE",
-  "BACKUP_LOCAL", "BACKUP_SUPPORT", "BACKUP_FAIL", "RESET_LOCAL_DATA",
+  "BACKUP_LOCAL", "BACKUP_SUPPORT", "BACKUP_FAIL", "RESET_LOCAL_DATA", "RESTORE_BACKUP",
 ] as const;
 
 /** « Logs push » (spec 05 §6.5) : journal d'actions envoyé par les appareils. */

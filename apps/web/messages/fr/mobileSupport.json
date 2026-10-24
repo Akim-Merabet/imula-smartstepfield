@@ -49,7 +49,8 @@
       "BACKUP_LOCAL": "Sauvegarde locale",
       "BACKUP_SUPPORT": "Sauvegarde envoyée au support",
       "BACKUP_FAIL": "Échec de sauvegarde",
-      "RESET_LOCAL_DATA": "Réinitialisation des données locales"
+      "RESET_LOCAL_DATA": "Réinitialisation des données locales",
+      "RESTORE_BACKUP": "Import d'une sauvegarde"
     }
   }
 }

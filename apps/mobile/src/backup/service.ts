@@ -7,6 +7,8 @@ import { Directory, File, Paths } from "expo-file-system";
 
 import { config } from "@/config";
 import { buildBackupContent, sealBackup } from "@/data/backup";
+import { replayPending, type RestorePayload, type RestoreReport, restoreLocalTables, type TableInfo } from "@/data/restore";
+import { logEvent } from "@/lib/app-log";
 import { getDeviceId } from "@/lib/device";
 import { supabase } from "@/lib/supabase";
 import { AppSchema } from "@/powersync/schema";
@@ -122,4 +124,64 @@ export class BackupScheduler {
       this.running = false;
     }
   }
+}
+
+// ---------- « Importer les données » : restauration d'une sauvegarde du profil (spec 05 §6.1) ----------
+
+export type LocalBackup = { file: File; createdAt: string | null; size: number };
+
+/** Sauvegardes du profil gardées sur l'appareil, la plus récente d'abord. */
+export function listLocalBackups(principalId: string): LocalBackup[] {
+  const dir = backupDir();
+  if (!dir.exists) return [];
+  return dir.list()
+    .filter((f): f is File => f instanceof File && f.name.startsWith(`${principalId}-`) && f.name.endsWith(".imb"))
+    .sort((a, b) => b.name.localeCompare(a.name))
+    .map((file) => {
+      // <profil>-<AAAA-MM-JJTHH-MM-SS-mmmZ>-<uuid>.imb
+      const m = /^[\w-]{36}-(\d{4}-\d{2}-\d{2})T(\d{2})-(\d{2})-(\d{2})-(\d{3})Z-/.exec(file.name);
+      return { file, createdAt: m ? `${m[1]}T${m[2]}:${m[3]}:${m[4]}.${m[5]}Z` : null, size: file.size ?? 0 };
+    });
+}
+
+export class RestoreError extends Error {}
+
+/**
+ * Déchiffrement par le serveur (la clé privée ne quitte pas le serveur), puis restauration en deux temps : tables
+ * propres à l'appareil (la sélection hors ligne relance le téléchargement des flows), attente de ces données, puis
+ * rejeu des écritures non envoyées. En ligne uniquement.
+ */
+export async function restoreBackup(db: AbstractPowerSyncDatabase, bytes: Uint8Array, onStep?: (step: "decrypt" | "download" | "replay") => void): Promise<RestoreReport> {
+  onStep?.("decrypt");
+  const { data, error } = await supabase.functions.invoke<RestorePayload>("mobile-backup-restore", {
+    method: "POST", body: bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer,
+    headers: { "Content-Type": "application/octet-stream" },
+  });
+  if (error || !data) {
+    const code = await (error as { context?: Response } | null)?.context?.json?.().then((b: { error?: string }) => b.error).catch(() => null);
+    throw new RestoreError(code ?? "RESTORE_FAILED");
+  }
+  const tables: TableInfo[] = AppSchema.tables.map((t) => ({ name: t.name, columns: t.columns.map((c) => c.name), insertOnly: !!t.insertOnly }));
+  const before = new Set((await db.getAll<{ flow_id: string }>("select flow_id from offline_selection")).map((r) => r.flow_id));
+  const local = await restoreLocalTables(db, data, tables);
+
+  // Données des flows remis dans la sélection : attendues (2 min au plus) pour que les modifications trouvent leurs lignes.
+  const added = (await db.getAll<{ flow_id: string; project_id: string }>("select flow_id, project_id from offline_selection"))
+    .filter((r) => !before.has(r.flow_id));
+  if (added.length) {
+    onStep?.("download");
+    const signal = AbortSignal.timeout(120_000);
+    const streams = [
+      ...added.map((r) => db.syncStream("flow_offline", { flow_id: r.flow_id })),
+      ...[...new Set(added.map((r) => r.project_id))].map((p) => db.syncStream("project_offline", { project_id: p })),
+    ];
+    const handles = await Promise.all(streams.map((s) => s.subscribe()));
+    await Promise.all(handles.map((h) => h.waitForFirstSync(signal))).catch(() => {});
+    for (const h of handles) h.unsubscribe();
+  }
+
+  onStep?.("replay");
+  const report = { ...(await replayPending(db, data, tables)), local };
+  logEvent("RESTORE_BACKUP", { createdAt: data.createdAt ?? null, ...report });
+  return report;
 }

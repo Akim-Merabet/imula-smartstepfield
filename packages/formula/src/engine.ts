@@ -11,7 +11,18 @@
  *
  * Partagé client / serveur (aucune dépendance Next).
  */
-import { all, create, type MathNode } from "mathjs";
+import {
+  absDependencies, acosDependencies, addDependencies, andDependencies, asinDependencies, atan2Dependencies, atanDependencies,
+  cbrtDependencies, ceilDependencies, cosDependencies, create, divideDependencies,
+  eDependencies, equalDependencies, expDependencies, fixDependencies, floorDependencies, gcdDependencies,
+  hypotDependencies, largerDependencies, largerEqDependencies, lcmDependencies, log10Dependencies, log2Dependencies,
+  logDependencies, maxDependencies, meanDependencies, medianDependencies, minDependencies, modDependencies,
+  multiplyDependencies, notDependencies, orDependencies, parseDependencies, piDependencies, powDependencies,
+  prodDependencies, roundDependencies, signDependencies, sinDependencies, smallerDependencies, smallerEqDependencies,
+  sqrtDependencies, stdDependencies, subtractDependencies, sumDependencies, tanDependencies,
+  unaryMinusDependencies, unaryPlusDependencies, unequalDependencies, varianceDependencies, xorDependencies,
+  type MathNode,
+} from "mathjs/number";
 
 export type NumberLocale = "fr" | "en";
 export type FormulaError = "invalidSyntax" | "invalidVariable" | "invalidParameters";
@@ -27,7 +38,22 @@ export type Resolver = (req: ResolveRequest) => FormulaValue | null | undefined;
 // ---------------------------------------------------------------------------------------------
 // Instance math.js sandboxée
 // ---------------------------------------------------------------------------------------------
-const math = create(all, { number: "number" });
+// Version « nombres » de math.js, limitée aux fonctions, opérateurs et constantes autorisés (bundle réduit, app terrain).
+const math = create({
+  parseDependencies,
+  addDependencies, subtractDependencies, multiplyDependencies, divideDependencies, powDependencies, modDependencies,
+  unaryMinusDependencies, unaryPlusDependencies, equalDependencies, unequalDependencies, smallerDependencies,
+  smallerEqDependencies, largerDependencies, largerEqDependencies, andDependencies, orDependencies, notDependencies,
+  xorDependencies,
+  absDependencies, roundDependencies, ceilDependencies, floorDependencies, fixDependencies, sqrtDependencies,
+  cbrtDependencies, expDependencies, logDependencies, log10Dependencies, log2Dependencies, minDependencies,
+  maxDependencies, sumDependencies, meanDependencies, medianDependencies, stdDependencies, varianceDependencies,
+  prodDependencies, signDependencies, gcdDependencies, lcmDependencies, sinDependencies, cosDependencies,
+  tanDependencies, asinDependencies, acosDependencies, atanDependencies, atan2Dependencies, hypotDependencies,
+  piDependencies, eDependencies,
+}, { number: "number" });
+// Version « nombres » de math.js : `.*` et `./` (opérateurs élément par élément) valent `*` et `/` sur des scalaires.
+math.import({ dotMultiply: math.multiply, dotDivide: math.divide }, { override: true });
 const parseExpr = math.parse.bind(math);
 const FunctionNodeCtor = math.FunctionNode;
 const SymbolNodeCtor = math.SymbolNode;

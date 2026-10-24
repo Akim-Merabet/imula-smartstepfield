@@ -89,8 +89,7 @@
     "importSoon": "L'import depuis un fichier Excel sera disponible prochainement",
     "reorganize": "Réorganiser",
     "reorganizeHint": "Sélectionnez des éléments dans la liste pour les réorganiser",
-    "qrExport": "Exporter les QR codes d'identification",
-    "qrSoon": "Fonctionnalité liée à l'application mobile, bientôt disponible"
+    "qrExport": "Exporter les QR codes d'identification"
   },
   "actions": {
     "edit": "Éditer",

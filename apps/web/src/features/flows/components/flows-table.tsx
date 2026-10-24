@@ -6,7 +6,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useFormatter, useTranslations } from "next-intl";
 import type { ColumnDef, VisibilityState } from "@tanstack/react-table";
 import {
-  ArrowDownIcon, ArrowUpIcon, CopyIcon, EllipsisIcon, HistoryIcon, InfoIcon, LayersIcon, LockIcon, PencilIcon, Trash2Icon,
+  ArrowDownIcon, ArrowUpIcon, CopyIcon, EllipsisIcon, HistoryIcon, InfoIcon, LayersIcon, LockIcon, PencilIcon, QrCodeIcon, Trash2Icon,
 } from "lucide-react";
 import { notify } from "@/components/common/notify";
 import { FamilyChip, StatusBadge } from "@/components/common/status-badge";
@@ -193,6 +193,7 @@ export function FlowsTable({ projectId, items, total, hasMore, limit, statuses, 
                     </DropdownMenuItem>
                     <DropdownMenuItem onSelect={() => dialog.open(`flow/properties/${f.id}`)}><InfoIcon />{t("actions.properties")}</DropdownMenuItem>
                     <DropdownMenuItem onSelect={() => dialog.open(`flow/history/${f.id}`)}><HistoryIcon />{t("actions.history")}</DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => dialog.open(`qr-code/flow/${f.id}`)}><QrCodeIcon />{t("actions.qrCode")}</DropdownMenuItem>
                     {permissions.duplicate && (
                       <DropdownMenuItem onSelect={() => dialog.open(`flow/duplicate/${f.id}`)}><CopyIcon />{t("actions.duplicate")}</DropdownMenuItem>
                     )}

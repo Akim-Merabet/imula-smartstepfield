@@ -20,6 +20,9 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import {
   deleteCollaborator, resendActivation, setCollaboratorStatus,
 } from "../actions";
+import QRCode from "qrcode";
+import { notify } from "@/components/common/notify";
+import { collaboratorQrPayload, printQrSheet } from "@/features/mobile-qr/payloads";
 import { COLLABORATOR_STATUS_COLORS, familyLabel, type CollaboratorKind } from "../meta";
 import type { CollaboratorListItem, CollaboratorOptions } from "../queries";
 import { DependenciesDialog, useActionRunner } from "./action-runner";
@@ -48,6 +51,7 @@ export function CollaboratorsTable({ kind, items, total, currentId, options, per
   const t = useTranslations("collaborators");
   const tg = useTranslations("global");
   const dialog = useDialog();
+  const tq = useTranslations("mobileQr");
   const { run, deps, clearDeps } = useActionRunner();
   const [confirm, setConfirm] = useState<Confirm | null>(null);
   const [selected, setSelected] = useState<string[]>([]);
@@ -141,7 +145,7 @@ export function CollaboratorsTable({ kind, items, total, currentId, options, per
                     <DropdownMenuItem onSelect={() => setMoving(c)}><ArrowRightLeftIcon />{t("actions.move")}</DropdownMenuItem>
                   )}
                   <DropdownMenuItem onSelect={() => dialog.open(`${kind}/properties/${c.id}`)}><InfoIcon />{t("actions.properties")}</DropdownMenuItem>
-                  <DropdownMenuItem disabled><QrCodeIcon />{t("actions.qrCode")}</DropdownMenuItem>
+                  <DropdownMenuItem onSelect={() => dialog.open(`qr-code/collaborator/${c.id}`)}><QrCodeIcon />{t("actions.qrCode")}</DropdownMenuItem>
                 </DropdownMenuGroup>
                 {permissions.edit && (
                   <>
@@ -208,6 +212,15 @@ export function CollaboratorsTable({ kind, items, total, currentId, options, per
     delete: t("confirm.deleteText"),
   } as Record<string, string>)[confirm.type] : undefined;
 
+  // « Exporter les QR Code ID des … activé(e)s » : page imprimable (et exportable en PDF) des collaborateurs actifs listés.
+  const exportQrCodes = async () => {
+    const active = items.filter((c) => c.status === "active");
+    if (!active.length) return notify.error(tq("exportEmpty"));
+    const images = await Promise.all(active.map((c) => QRCode.toDataURL(collaboratorQrPayload(c.id), { width: 360, margin: 1 })));
+    const ok = printQrSheet(tq("exportTitle"), active.map((c, i) => ({ label: `${c.first_name} ${c.last_name}`, sublabel: c.trigram, image: images[i] })));
+    if (!ok) notify.error(tq("popupBlocked"));
+  };
+
   return (
     <>
       <div className="flex items-center justify-between gap-2 pb-2">
@@ -227,7 +240,7 @@ export function CollaboratorsTable({ kind, items, total, currentId, options, per
               {selected.length === 0 && <TooltipContent>{t("toolbar.reorganizeHint")}</TooltipContent>}
             </Tooltip>
           )}
-          <SoonButton icon={QrCodeIcon} label={t("toolbar.qrExport")} tooltip={t("toolbar.qrSoon")} />
+          <Button variant="secondary" onClick={() => void exportQrCodes()}><QrCodeIcon data-icon="inline-start" />{t("toolbar.qrExport")}</Button>
         </div>
       </div>
       <DataTable

@@ -57,7 +57,7 @@
   },
   "actions": {
     "edit": "Edit flow", "openContent": "Open content", "properties": "Properties", "history": "Flow history",
-    "duplicate": "Duplicate", "delete": "Delete"
+    "duplicate": "Duplicate", "qrCode": "Generate printable QR code", "delete": "Delete"
   },
   "delete": {
     "title": "Are you sure you want to delete the flow {name}?",

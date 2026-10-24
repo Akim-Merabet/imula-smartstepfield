@@ -1,0 +1,16 @@
+{
+  "flowTitle": "Printable flow QR code",
+  "collaboratorTitle": "QR Code ID",
+  "flowHint": "Scan this QR code from the mobile app to open the flow directly, online or offline.",
+  "collaboratorHint": "Collaborator identification QR code, used for strong authentication when signing in the mobile app.",
+  "download": "Download",
+  "print": "Print",
+  "generated": "The QR code was generated successfully",
+  "popupBlocked": "Allow pop-up windows to print the QR codes",
+  "exportTitle": "QR Code ID — active collaborators",
+  "exportEmpty": "No active collaborator to export",
+  "errors": {
+    "disabled": "Cannot generate the QR code of a disabled collaborator",
+    "not_found": "Item not found"
+  }
+}

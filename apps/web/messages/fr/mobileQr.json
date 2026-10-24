@@ -1,0 +1,16 @@
+{
+  "flowTitle": "QR Code imprimable du flow",
+  "collaboratorTitle": "QR Code ID",
+  "flowHint": "Flashez ce QR code depuis l'application mobile pour ouvrir directement le flow, en ligne comme hors ligne.",
+  "collaboratorHint": "QR code d'identification du collaborateur : il permet l'authentification forte lors des signatures sur l'application mobile.",
+  "download": "Télécharger",
+  "print": "Imprimer",
+  "generated": "Le QR Code a été généré avec succès",
+  "popupBlocked": "Autorisez l'ouverture de fenêtres pour imprimer les QR codes",
+  "exportTitle": "QR Code ID — collaborateurs activés",
+  "exportEmpty": "Aucun collaborateur activé à exporter",
+  "errors": {
+    "disabled": "Impossible de générer le QR code d'un collaborateur désactivé",
+    "not_found": "Élément introuvable"
+  }
+}

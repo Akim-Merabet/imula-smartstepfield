@@ -89,8 +89,7 @@
     "importSoon": "Import from an Excel file will be available soon",
     "reorganize": "Reorganize",
     "reorganizeHint": "Select items in the list to reorganize them",
-    "qrExport": "Export identification QR codes",
-    "qrSoon": "Mobile app feature, coming soon"
+    "qrExport": "Export identification QR codes"
   },
   "actions": {
     "edit": "Edit",

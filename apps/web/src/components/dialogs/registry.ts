@@ -28,6 +28,7 @@ export const DIALOG_REGISTRY: Record<string, DialogComponent> = {
   tablet: dynamic(() => import("@/features/collaborators/dialogs/tablet")),
   "authorized-device": dynamic(() => import("@/features/collaborators/dialogs/authorized-device")),
   "quick-connection": dynamic(() => import("@/features/collaborators/dialogs/quick-connection")),
+  "qr-code": dynamic(() => import("@/features/mobile-qr/qr-dialog")),
   "api-key": dynamic(() => import("@/features/api-access/dialogs/api-key")),
 
   // Formulaires (bibliothèque, entité, bloc de flow, réponse)

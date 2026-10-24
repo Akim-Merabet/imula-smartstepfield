@@ -3,6 +3,8 @@ import { router, Stack, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
+import { BLOCK_DOCUMENT_FILE_SQL } from "@/attachments/queue";
+import { DocumentRow } from "@/components/execution/blocks";
 import { FlowStatusModal } from "@/components/flow-status-modal";
 import { Card, Empty, Field, formatDate, SectionTitle, StatusChip, useSnackbar } from "@/components/kit";
 import { Button } from "@/components/ui";
@@ -109,9 +111,11 @@ export default function FlowDetailScreen() {
 }
 
 function RelatedItems({ flowId }: { flowId: string }) {
-  const { data: documents } = useQuery<{ id: string; name: string; ref_int: string | null }>(
-    `select distinct d.id, d.name, d.ref_int from block_documents bd join documents d on d.id = bd.document_id
-      where bd.flow_id = ? order by d.name`, [flowId]);
+  const { data: documents } = useQuery<{ id: string; name: string | null; ref_int: string | null; attachment_name: string | null; index_label: string | null; large: number; path: string | null }>(
+    `select bd.id, d.name, d.ref_int, bd.attachment_name, ifnull(d.is_large_file, 0) as large,
+            (select v.index_label from document_versions v where v.document_id = bd.document_id order by v.seq desc limit 1) as index_label,
+            ${BLOCK_DOCUMENT_FILE_SQL} as path
+       from block_documents bd left join documents d on d.id = bd.document_id where bd.flow_id = ? order by d.name`, [flowId]);
   const { data: forms } = useQuery<{ id: string; name: string; responses: number }>(
     `select l.id, f.name, (select count(*) from form_responses r where r.block_link_id = l.id and r.deleted_at is null) as responses
        from form_block_links l join forms f on f.id = l.form_id where l.flow_id = ? order by f.name`, [flowId]);
@@ -147,7 +151,10 @@ function RelatedItems({ flowId }: { flowId: string }) {
 
   return (
     <>
-      {section(t("flowDetails.documents"), documents.map((d) => ({ key: d.id, text: [d.ref_int, d.name].filter(Boolean).join(" — ") })))}
+      <Card>
+        <Text style={styles.cardTitle}>{t("flowDetails.documents")} ({documents.length})</Text>
+        {documents.length ? documents.map((d) => <DocumentRow key={d.id} doc={d} />) : <Text style={styles.meta}>{t("common.noElementFound")}</Text>}
+      </Card>
       {section(t("flowDetails.forms"), forms.map((f) => ({ key: f.id, text: f.name, badge: `${f.responses}` })))}
       {section(t("flowDetails.assignments"), people.map((p) => ({ key: `${p.role}:${p.id}`, text: p.name })))}
       {section(t("flowDetails.emm"), emm.map((e) => ({

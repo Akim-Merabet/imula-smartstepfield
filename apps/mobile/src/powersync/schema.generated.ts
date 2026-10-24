@@ -254,6 +254,20 @@ export const syncedTables = {
     },
     { indexes: {  } },
   ),
+  document_versions: new Table(
+    {
+      document_id: column.text,
+      seq: column.integer,
+      index_label: column.text,
+      state: column.text,
+      is_last: column.integer,
+      diffusion_date: column.text,
+      pdf_path: column.text,
+      pdf_name: column.text,
+      pdf_size: column.integer,
+    },
+    { indexes: {  } },
+  ),
   documents: new Table(
     {
       organization_id: column.text,

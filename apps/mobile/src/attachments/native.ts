@@ -99,3 +99,24 @@ export function useAttachmentUri(path: string | null | undefined, online: boolea
   }, [path, online]);
   return path ? uri : null;
 }
+
+export type OpenResult = "opened" | "not_downloaded" | "unavailable" | "error";
+
+/**
+ * Ouvre un fichier (PDF de document, pièce jointe) dans la visionneuse du système : copie locale si présente,
+ * sinon téléchargement en ligne (gardé ensuite pour le hors ligne).
+ */
+export async function openStoredFile(p: { bucket: string; path: string; name?: string | null; mime?: string; online: boolean }): Promise<OpenResult> {
+  try {
+    if (!fileStore.exists(p.path)) {
+      if (!p.online) return "not_downloaded";
+      const url = await remoteStorage.signedUrl(p.bucket, p.path);
+      if (!url) return "unavailable";
+      await fileStore.download(url, p.path);
+    }
+    await File.preview(fileFor(p.path), { title: p.name ?? undefined, mimeType: p.mime ?? "application/pdf" });
+    return "opened";
+  } catch {
+    return "error";
+  }
+}

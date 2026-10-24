@@ -25,6 +25,15 @@ export type RemoteStorage = {
 };
 
 export const FORM_FILES_BUCKET = "form-files";
+export const DOCUMENTS_BUCKET = "documents";
+
+/**
+ * Fichier PDF à afficher pour un document lié à un bloc : pièce jointe du bloc, sinon version figée (signature) ou
+ * épinglée, sinon dernière version ayant un PDF. Les documents volumineux ne sont jamais téléchargés (spec 05 §9.8).
+ */
+export const BLOCK_DOCUMENT_FILE_SQL = `coalesce(bd.attachment_path,
+    (select v.pdf_path from document_versions v where v.id = coalesce(bd.frozen_version_id, bd.pinned_version_id) and v.pdf_path is not null),
+    (select v.pdf_path from document_versions v where v.document_id = bd.document_id and v.pdf_path is not null order by v.seq desc limit 1))`;
 
 type QueueRow = { id: string; bucket: string; path: string; state: "upload" | "download"; mime: string | null; attempts: number };
 
@@ -52,21 +61,32 @@ export async function saveLocalFile(db: AttachmentDb, store: FileStore, p: {
   await enqueue(db, { id: p.id, bucket: p.bucket, path: p.path, state: "upload", mime: p.mime });
 }
 
-/** Fichiers référencés par les réponses synchronisées (photos, signatures) absents de l'appareil : à télécharger. */
-export async function referencedPaths(db: AttachmentDb): Promise<string[]> {
+/** Fichiers référencés par les données synchronisées et absents de l'appareil : à télécharger pour le hors ligne. */
+export async function referencedFiles(db: AttachmentDb): Promise<{ bucket: string; path: string }[]> {
+  const out = new Map<string, string>();
+  // Photos et signatures des réponses de formulaire.
   const rows = await db.getAll<{ question_type: string; value_json: string | null }>(
     "select question_type, value_json from form_response_values where question_type in ('photo', 'file', 'collaborator') and value_json is not null");
-  const out = new Set<string>();
   for (const r of rows) {
     try {
       const v = JSON.parse(r.value_json!);
-      if (Array.isArray(v)) for (const f of v) if (typeof f?.fileId === "string") out.add(f.fileId);
-      if (v && typeof v.signaturePath === "string") out.add(v.signaturePath);
+      if (Array.isArray(v)) for (const f of v) if (typeof f?.fileId === "string") out.set(f.fileId, FORM_FILES_BUCKET);
+      if (v && typeof v.signaturePath === "string") out.set(v.signaturePath, FORM_FILES_BUCKET);
     } catch {
       // valeur illisible : ignorée
     }
   }
-  return [...out];
+  // PDF des documents liés aux blocs des flows téléchargés.
+  const docs = await db.getAll<{ path: string | null }>(
+    `select ${BLOCK_DOCUMENT_FILE_SQL} as path from block_documents bd left join documents d on d.id = bd.document_id
+      where ifnull(d.is_large_file, 0) = 0`);
+  for (const d of docs) if (d.path) out.set(d.path, DOCUMENTS_BUCKET);
+  return [...out].map(([path, bucket]) => ({ bucket, path }));
+}
+
+/** Compatibilité : chemins seuls. */
+export async function referencedPaths(db: AttachmentDb): Promise<string[]> {
+  return (await referencedFiles(db)).map((f) => f.path);
 }
 
 export type SyncResult = { uploaded: number; downloaded: number; pending: number };
@@ -78,8 +98,8 @@ export type SyncResult = { uploaded: number; downloaded: number; pending: number
 export async function syncAttachments(db: AttachmentDb, store: FileStore, remote: RemoteStorage, randomId: () => string): Promise<SyncResult> {
   let uploaded = 0;
   let downloaded = 0;
-  for (const path of await referencedPaths(db)) {
-    if (!store.exists(path)) await enqueue(db, { id: randomId(), bucket: FORM_FILES_BUCKET, path, state: "download", mime: null });
+  for (const { bucket, path } of await referencedFiles(db)) {
+    if (!store.exists(path)) await enqueue(db, { id: randomId(), bucket, path, state: "download", mime: null });
   }
   // Téléchargements abandonnés après 5 échecs (fichier supprimé côté serveur…) ; les envois sont retentés sans limite.
   const rows = await db.getAll<QueueRow>(

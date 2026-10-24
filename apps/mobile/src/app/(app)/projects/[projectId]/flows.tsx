@@ -75,8 +75,12 @@ export default function ProjectFlowsScreen() {
       <Stack.Screen options={{
         title: project[0]?.designation ?? "",
         headerRight: () => (
-          <IconButton name="information-outline" label={t("projects.info.title")} color={colors.onPrimary}
-            onPress={() => router.push({ pathname: "/projects/[projectId]/info", params: { projectId } })} />
+          <View style={{ flexDirection: "row" }}>
+            <IconButton name="file-document-multiple-outline" label={t("projects.documents")} color={colors.onPrimary}
+              onPress={() => router.push({ pathname: "/projects/[projectId]/documents", params: { projectId } })} />
+            <IconButton name="information-outline" label={t("projects.info.title")} color={colors.onPrimary}
+              onPress={() => router.push({ pathname: "/projects/[projectId]/info", params: { projectId } })} />
+          </View>
         ),
       }} />
       <Text style={styles.heading}>{t("flows.listProjectFlow")}</Text>

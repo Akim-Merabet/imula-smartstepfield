@@ -8,7 +8,9 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import type { SignatureTarget } from "@/components/execution/signature-modal";
 import { MultiPrItems } from "@/components/execution/multi-pr";
 import { FormLinks } from "@/components/forms/form-links";
-import { formatDate, Icon } from "@/components/kit";
+import { fileStore, openStoredFile } from "@/attachments/native";
+import { BLOCK_DOCUMENT_FILE_SQL, DOCUMENTS_BUCKET } from "@/attachments/queue";
+import { formatDate, Icon, useSnackbar } from "@/components/kit";
 import { RichText } from "@/components/rich-text";
 import type { ExecBlock } from "@/data/execution-model";
 import { t } from "@/i18n/fr";
@@ -158,11 +160,14 @@ function ObjectNotice() {
   return <Text style={styles.muted}>{offline ? t("execution.objectOnlineOnly") : t("execution.objectSoon")}</Text>;
 }
 
-/** Documents liés à l'étape (tous blocs confondus). */
+/** Documents liés à l'étape (tous blocs confondus) : ouverture du PDF (copie locale, sinon en ligne). */
 export function StepDocuments({ stepId }: { stepId: string }) {
-  const { data } = useQuery<{ id: string; name: string | null; ref_int: string | null; attachment_name: string | null }>(
-    `select d.id, doc.name, doc.ref_int, d.attachment_name from block_documents d join blocks b on b.id = d.block_id
-       left join documents doc on doc.id = d.document_id where b.step_id = ? order by d.position`, [stepId]);
+  const { data } = useQuery<{ id: string; name: string | null; ref_int: string | null; attachment_name: string | null; index_label: string | null; large: number; path: string | null }>(
+    `select bd.id, doc.name, doc.ref_int, bd.attachment_name, ifnull(doc.is_large_file, 0) as large,
+            (select v.index_label from document_versions v where v.document_id = bd.document_id order by v.seq desc limit 1) as index_label,
+            ${BLOCK_DOCUMENT_FILE_SQL} as path
+       from block_documents bd join blocks b on b.id = bd.block_id left join documents doc on doc.id = bd.document_id
+      where b.step_id = ? order by bd.position`, [stepId]);
   if (!data.length) return null;
   return (
     <View style={styles.block}>
@@ -170,10 +175,31 @@ export function StepDocuments({ stepId }: { stepId: string }) {
         <Icon name="paperclip" color={colors.primary} size={20} />
         <Text style={styles.blockTitle}>{t("execution.linkedDoc")}</Text>
       </View>
-      {data.map((d) => (
-        <Row key={d.id}><Text style={styles.text}>{[d.ref_int, d.name ?? d.attachment_name].filter(Boolean).join(" — ")}</Text></Row>
-      ))}
+      {data.map((d) => <DocumentRow key={d.id} doc={d} />)}
     </View>
+  );
+}
+
+export function DocumentRow({ doc }: { doc: { name: string | null; ref_int: string | null; attachment_name: string | null; index_label: string | null; large: number; path: string | null } }) {
+  const { offline } = useSession();
+  const snackbar = useSnackbar();
+  const local = !!doc.path && fileStore.exists(doc.path);
+  const open = async () => {
+    if (doc.large) return snackbar(t("execution.largeDocument"));
+    if (!doc.path) return snackbar(t("execution.noPdf"));
+    const res = await openStoredFile({ bucket: DOCUMENTS_BUCKET, path: doc.path, name: doc.name ?? doc.attachment_name, online: !offline });
+    if (res === "not_downloaded") snackbar(t("execution.documentNotDownloaded"));
+    else if (res !== "opened") snackbar(t("execution.documentCannotBeViewed"), "danger");
+  };
+  return (
+    <Pressable accessibilityRole="button" onPress={() => void open()} style={styles.docRow}>
+      <Icon name={doc.large ? "file-alert-outline" : "file-pdf-box"} color={doc.path ? colors.primary : colors.textSecondary} />
+      <View style={{ flex: 1 }}>
+        <Text style={styles.text}>{[doc.ref_int, doc.name ?? doc.attachment_name].filter(Boolean).join(" — ")}</Text>
+        {!!doc.index_label && <Text style={styles.muted}>{t("execution.documentIndex", { index: doc.index_label })}</Text>}
+      </View>
+      {local && <Icon name="cellphone-check" color={colors.success} size={18} />}
+    </Pressable>
   );
 }
 
@@ -238,6 +264,7 @@ const styles = StyleSheet.create({
   subItem: { gap: spacing.xs, paddingVertical: spacing.sm, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.border },
   subTitle: { fontSize: font.body, fontWeight: "600", color: colors.text },
   inline: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
+  docRow: { flexDirection: "row", alignItems: "center", gap: spacing.sm, paddingVertical: spacing.sm, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.border },
   hazard: { flexDirection: "row", alignItems: "center", gap: spacing.xs, alignSelf: "flex-start", paddingVertical: spacing.sm, paddingHorizontal: spacing.md, borderRadius: radius.md, borderWidth: 1, borderColor: colors.warning },
   feedback: { backgroundColor: colors.surface, borderRadius: radius.lg, padding: spacing.md, gap: spacing.sm, borderWidth: 1, borderColor: colors.border, borderStyle: "dashed" },
   feedbackActions: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm },

@@ -93,6 +93,12 @@ streams:
       - SELECT * FROM documents
         WHERE project_id = subscription.parameter('project_id') AND project_id IN my_projects
           AND deleted_at IS NULL
+      - SELECT id, document_id, seq, index_label, state, is_last, diffusion_date, pdf_path, pdf_name, pdf_size
+        FROM document_versions
+        WHERE document_id IN (SELECT id FROM documents
+                              WHERE project_id = subscription.parameter('project_id')
+                                AND project_id IN (SELECT project_id FROM mobile_project_access
+                                                   WHERE auth_user_id = auth.user_id()))
       - SELECT * FROM forms
         WHERE project_id = subscription.parameter('project_id') AND project_id IN my_projects
           AND nature = 'generic' AND enabled AND NOT archived AND deleted_at IS NULL
@@ -144,6 +150,12 @@ streams:
                      WHERE flow_id = subscription.parameter('flow_id')
                        AND flow_id IN (SELECT flow_id FROM mobile_flow_access WHERE auth_user_id = auth.user_id()))
           AND deleted_at IS NULL
+      # Versions des documents liés (métadonnées et chemin du PDF ; le fichier suit par la file des pièces jointes).
+      - SELECT id, document_id, seq, index_label, state, is_last, diffusion_date, pdf_path, pdf_name, pdf_size
+        FROM document_versions
+        WHERE document_id IN (SELECT document_id FROM block_documents
+                              WHERE flow_id = subscription.parameter('flow_id')
+                                AND flow_id IN (SELECT flow_id FROM mobile_flow_access WHERE auth_user_id = auth.user_id()))
       - SELECT * FROM signatures
         WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows AND NOT disabled
       # Clé de synchro = identifiant généré par l'appareil (l'id serveur est un bigint).

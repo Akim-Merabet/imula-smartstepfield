@@ -1,21 +1,22 @@
 import { describe, expect, it } from "vitest";
 
-import { type AttachmentDb, type FileStore, referencedPaths, responseFilePath, syncAttachments } from "./queue";
+import { type AttachmentDb, type FileStore, referencedFiles, referencedPaths, responseFilePath, syncAttachments } from "./queue";
 
 describe("pièces jointes", () => {
   it("chemin Storage : convention de la WebApp, nom assaini", () => {
     expect(responseFilePath("r1", "photos", "chantier été 1.jpg", "id")).toBe("responses/r1/photos/id-chantier_e_te_1.jpg");
   });
 
-  it("chemins référencés par les photos et signatures des réponses", async () => {
+  it("fichiers référencés : photos, signatures des réponses et PDF des documents liés", async () => {
     const db = {
-      getAll: async () => [
+      getAll: async (sql: string) => (sql.includes("block_documents") ? [{ path: "projects/p/doc.pdf" }, { path: null }] : [
         { question_type: "photo", value_json: JSON.stringify([{ fileId: "a" }, { fileId: "b" }]) },
         { question_type: "collaborator", value_json: JSON.stringify({ signaturePath: "s" }) },
         { question_type: "photo", value_json: "{illisible" },
-      ],
+      ]),
     } as unknown as AttachmentDb;
-    expect((await referencedPaths(db)).sort()).toEqual(["a", "b", "s"]);
+    expect((await referencedPaths(db)).sort()).toEqual(["a", "b", "projects/p/doc.pdf", "s"]);
+    expect((await referencedFiles(db)).find((f) => f.path === "projects/p/doc.pdf")?.bucket).toBe("documents");
   });
 
   it("échec d'envoi : la ligne reste en file avec le motif", async () => {

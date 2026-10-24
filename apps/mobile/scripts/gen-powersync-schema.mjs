@@ -22,14 +22,23 @@ for (let i = 0; i < lines.length; i++) {
   queries.push(sql);
 }
 
-// ----- Colonnes sélectionnées par table (union de toutes les requêtes) -----
-const tables = new Map(); // table -> { all: bool, columns: Set }
+// ----- Colonnes sélectionnées par table cliente (`FROM source AS cliente` renomme la table côté appareil) -----
+// Une ligne reçue par plusieurs streams n'est gardée qu'une fois (la plus récente remplace l'autre) :
+// toutes les requêtes d'une même table cliente doivent sélectionner les mêmes colonnes.
+const tables = new Map(); // table cliente -> { source, all, columns: Set, signature }
 for (const sql of queries) {
-  const m = sql.match(/^SELECT\s+(.+?)\s+FROM\s+(\w+)\b/i);
+  const m = sql.match(/^SELECT\s+(.+?)\s+FROM\s+(\w+)(?:\s+AS\s+(\w+))?\b/i);
   if (!m) throw new Error(`Requête non reconnue : ${sql}`);
-  const [, select, table] = m;
-  const entry = tables.get(table) ?? { all: false, columns: new Set() };
-  for (const part of select.split(",").map((s) => s.trim())) {
+  const [, select, source, alias] = m;
+  const table = alias ?? source;
+  const parts = select.split(",").map((s) => s.replace(/\s+/g, " ").trim());
+  const signature = [...parts].sort().join(",");
+  const previous = tables.get(table);
+  if (previous && previous.signature !== signature) {
+    throw new Error(`Table ${table} : colonnes différentes selon les streams (${previous.signature} ≠ ${signature})`);
+  }
+  const entry = previous ?? { source, all: false, columns: new Set(), signature };
+  for (const part of parts) {
     if (part === "*") entry.all = true;
     else entry.columns.add((part.match(/\bAS\s+(\w+)$/i)?.[1] ?? part).trim());
   }
@@ -38,9 +47,10 @@ for (const sql of queries) {
 
 // ----- Types des colonnes en base -----
 const names = [...tables.keys()];
+const sources = [...new Set([...tables.values()].map((e) => e.source))];
 const rows = execFileSync("docker", ["exec", container, "psql", "-U", "postgres", "-At", "-F", "\t", "-c",
   `select table_name, column_name, udt_name from information_schema.columns
-    where table_schema = 'public' and table_name in (${names.map((n) => `'${n}'`).join(",")})
+    where table_schema = 'public' and table_name in (${sources.map((n) => `'${n}'`).join(",")})
     order by table_name, ordinal_position`], { encoding: "utf8" }).trim().split("\n").map((l) => l.split("\t"));
 const dbColumns = new Map();
 for (const [t, c, udt] of rows) dbColumns.set(t, [...(dbColumns.get(t) ?? []), [c, udt]]);
@@ -51,9 +61,9 @@ const INDEXED = ["flow_id", "project_id", "step_id", "phase_id", "block_id", "re
 
 let body = "";
 for (const table of names.sort()) {
-  const { all, columns } = tables.get(table);
-  const known = dbColumns.get(table);
-  if (!known) throw new Error(`Table absente de la base : ${table}`);
+  const { source, all, columns } = tables.get(table);
+  const known = dbColumns.get(source);
+  if (!known) throw new Error(`Table absente de la base : ${source}`);
   const types = new Map(known);
   const selected = all ? known.map(([c]) => c) : [...columns];
   const cols = selected.filter((c) => c !== "id");

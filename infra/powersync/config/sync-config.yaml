@@ -8,7 +8,10 @@
 #   s'abonner à un flow qui ne lui est pas ouvert ;
 # - toute ligne synchronisée doit porter une colonne `id` : les tables à clé composée en reçoivent
 #   une synthétique (`a:b`) ;
-# - pas de commentaire YAML en fin de ligne à l'intérieur d'une requête sur plusieurs lignes.
+# - pas de commentaire YAML en fin de ligne à l'intérieur d'une requête sur plusieurs lignes ;
+# - une ligne reçue par plusieurs streams n'est gardée qu'une fois (la version la plus récente remplace l'autre,
+#   colonnes absentes à NULL) : toutes les requêtes d'une même table cliente sélectionnent les mêmes colonnes,
+#   sinon on renomme la table cliente (`FROM flows AS flow_summaries`). Le générateur de schéma le vérifie.
 config:
   edition: 3
 
@@ -37,6 +40,9 @@ streams:
       - SELECT * FROM custom_statuses WHERE organization_id IN my_org AND active
       - SELECT * FROM label_families WHERE organization_id IN my_org AND deleted_at IS NULL
       - SELECT * FROM custom_fields WHERE account_id IN my_account AND deleted_at IS NULL
+      - SELECT id, organization_id, name, default_sequence_type, hide_multi_pr_titles, date_formats, time_zone
+        FROM accounts WHERE id IN my_account
+      - SELECT id, account_id, name, reference FROM clients WHERE account_id IN my_account
 
   # Liste des entités et liste légère de leurs flows (écrans 2.2 / 2.3, y compris hors ligne).
   # Les flows non téléchargeables sont listés (grisés) ; seul flow_offline en apporte le contenu.
@@ -50,8 +56,13 @@ streams:
       - SELECT id, project_id, flow_type, name, ref_int, ref_ext, family_id, category_id,
                custom_status_id, start_date, finish_date, estimated_start_date, estimated_end_date,
                tablet_1_id, tablet_2_id, tablet_3_id, reporter_id, location_site, location_area,
-               location_local, fill_restrictions_skipped, simplified_signature_mode, updated_at
-        FROM flows WHERE project_id IN my_projects AND deleted_at IS NULL
+               location_local, fill_restrictions_skipped, updated_at
+        FROM flows AS flow_summaries WHERE project_id IN my_projects AND deleted_at IS NULL
+      - SELECT id, account_id, name, nature, family_id, company_id, status, collaborator_id
+        FROM tablets
+        WHERE id IN (SELECT tablet_id FROM project_tablets
+                     WHERE project_id IN (SELECT project_id FROM mobile_project_access
+                                          WHERE auth_user_id = auth.user_id()))
       - SELECT flow_id || ':' || collaborator_id AS id, flow_id, collaborator_id
         FROM flow_assignees WHERE flow_id IN my_flows
       - SELECT flow_id || ':' || collaborator_id AS id, *
@@ -65,7 +76,9 @@ streams:
       - SELECT project_id || ':' || collaborator_id AS id, *
         FROM project_members
         WHERE project_id = subscription.parameter('project_id') AND project_id IN my_projects
-      - SELECT id, kind, first_name, last_name, trigram, email, profession, company_id, function_id
+      - SELECT id, kind, first_name, last_name, trigram, email, profession, authority,
+               account_id, organization_id, company_id, language, function_id, group_id, legal_id,
+               contract_type_id, register_number
         FROM collaborators
         WHERE id IN (SELECT principal_id FROM mobile_project_access
                      WHERE project_id = subscription.parameter('project_id')
@@ -106,6 +119,20 @@ streams:
       - SELECT * FROM block_adr_items WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
       - SELECT * FROM block_rhp_items WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
       - SELECT * FROM block_documents WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
+      # Éléments de bibliothèque référencés par les blocs du flow (risques, documents de bibliothèque).
+      - SELECT * FROM library_risks
+        WHERE id IN (SELECT library_risk_id FROM block_adr_items
+                     WHERE flow_id = subscription.parameter('flow_id')
+                       AND flow_id IN (SELECT flow_id FROM mobile_flow_access WHERE auth_user_id = auth.user_id()))
+      - SELECT * FROM library_risk_parades
+        WHERE risk_id IN (SELECT library_risk_id FROM block_adr_items
+                          WHERE flow_id = subscription.parameter('flow_id')
+                            AND flow_id IN (SELECT flow_id FROM mobile_flow_access WHERE auth_user_id = auth.user_id()))
+      - SELECT * FROM documents
+        WHERE id IN (SELECT document_id FROM block_documents
+                     WHERE flow_id = subscription.parameter('flow_id')
+                       AND flow_id IN (SELECT flow_id FROM mobile_flow_access WHERE auth_user_id = auth.user_id()))
+          AND deleted_at IS NULL
       - SELECT * FROM signatures
         WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows AND NOT disabled
       # Clé de synchro = identifiant généré par l'appareil (l'id serveur est un bigint).

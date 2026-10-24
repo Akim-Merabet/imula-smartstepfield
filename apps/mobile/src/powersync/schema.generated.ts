@@ -3,6 +3,17 @@
 import { column, Table } from "@powersync/react-native";
 
 export const syncedTables = {
+  accounts: new Table(
+    {
+      organization_id: column.text,
+      name: column.text,
+      default_sequence_type: column.text,
+      hide_multi_pr_titles: column.integer,
+      date_formats: column.text,
+      time_zone: column.text,
+    },
+    { indexes: {  } },
+  ),
   block_adr_items: new Table(
     {
       block_id: column.text,
@@ -146,6 +157,14 @@ export const syncedTables = {
       updated_by: column.text,
     },
     { indexes: { flow: ["flow_id"], step: ["step_id"] } },
+  ),
+  clients: new Table(
+    {
+      account_id: column.text,
+      name: column.text,
+      reference: column.text,
+    },
+    { indexes: {  } },
   ),
   collaborators: new Table(
     {
@@ -340,6 +359,32 @@ export const syncedTables = {
       occurred_at: column.text,
     },
     { indexes: { flow: ["flow_id"] } },
+  ),
+  flow_summaries: new Table(
+    {
+      project_id: column.text,
+      flow_type: column.text,
+      name: column.text,
+      ref_int: column.text,
+      ref_ext: column.text,
+      family_id: column.text,
+      category_id: column.text,
+      custom_status_id: column.text,
+      start_date: column.text,
+      finish_date: column.text,
+      estimated_start_date: column.text,
+      estimated_end_date: column.text,
+      tablet_1_id: column.text,
+      tablet_2_id: column.text,
+      tablet_3_id: column.text,
+      reporter_id: column.text,
+      location_site: column.text,
+      location_area: column.text,
+      location_local: column.text,
+      fill_restrictions_skipped: column.integer,
+      updated_at: column.text,
+    },
+    { indexes: { project: ["project_id"] } },
   ),
   flows: new Table(
     {
@@ -579,6 +624,41 @@ export const syncedTables = {
       updated_at: column.text,
     },
     { indexes: { project: ["project_id"] } },
+  ),
+  library_risk_parades: new Table(
+    {
+      risk_id: column.text,
+      name: column.text,
+      description: column.text,
+      pictogram: column.integer,
+      file_path: column.text,
+      position: column.integer,
+      created_at: column.text,
+    },
+    { indexes: {  } },
+  ),
+  library_risks: new Table(
+    {
+      organization_id: column.text,
+      account_id: column.text,
+      family_id: column.text,
+      name: column.text,
+      source: column.text,
+      reference: column.text,
+      landmark: column.text,
+      pictogram: column.integer,
+      major: column.integer,
+      frequency: column.integer,
+      occurrence: column.integer,
+      severity: column.integer,
+      active: column.integer,
+      deleted_at: column.text,
+      created_at: column.text,
+      updated_at: column.text,
+      created_by: column.text,
+      updated_by: column.text,
+    },
+    { indexes: {  } },
   ),
   organizations: new Table(
     {

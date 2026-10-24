@@ -1,0 +1,24 @@
+{
+  "name": "@imula/backup-core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "pako": "^2.2.0",
+    "tweetnacl": "^1.0.3"
+  },
+  "devDependencies": {
+    "@types/pako": "^2.0.4",
+    "typescript": "^5",
+    "vitest": "^5.0.5"
+  }
+}

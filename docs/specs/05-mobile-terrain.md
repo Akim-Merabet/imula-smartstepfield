@@ -836,6 +836,8 @@ Notes :
 
 - ✅ Pièces jointes : file locale `attachment_queue` (`src/attachments/queue.ts`, sans dépendance native, testée sur le service local) plutôt que l'AttachmentQueue du SDK (expérimentale, chemins imposés). Fichier gardé dans `documents/attachments/`, chemin Storage de la WebApp (`form-files`, `responses/<réponse>/photos|signatures/<uuid>-<nom>`) référencé tout de suite par la valeur ; envoi retenté tant que la réponse n'existe pas côté serveur (RLS) ou hors réseau ; photos et signatures des réponses synchronisées téléchargées pour la consultation hors ligne (abandon après 5 échecs).
 
+- ✅ Revue du lot 4 (2026-10-24), corrections : profil non actif retiré des accès de synchro ; déverrouillage du flow uniquement par RPC (signataire = profil connecté, ou collaborateur identifié par QR) ; auteur des redirections fixé par le serveur, envoi en insertion seule (un rejeu n'est plus pris pour un accès retiré) ; contrôle « étape saisissable » aussi à la validation, à la reprise d'une signature et à la création d'une réponse ; étapes déverrouillées une à une sur la WebApp synchronisées (`step_fill_unlocks`) ; valeurs des réponses de niveau entité synchronisées ; changement de profil : la base du profil précédent est fermée avant de changer de session, et le connecteur n'envoie jamais avec la session d'un autre profil ; suppression / changement de compte d'une tablette propagés à son collaborateur « appareil » (QR révoqués) ; WebApp : vérification de mot de passe sans session, « Dissocier l'appareil » soumis au droit de modification, compte technique de tablette retrouvé s'il existe ; fonctions Edge : liste d'appareils autorisés illisible = refus, première connexion concurrente gérée.
+
 ### 9.7 Conflits
 
 | Situation | Règle |

@@ -8146,6 +8146,10 @@ export type Database = {
         Returns: undefined
       }
       mobile_create_form_response: { Args: { p: Json }; Returns: undefined }
+      mobile_create_form_response_core: {
+        Args: { p: Json }
+        Returns: undefined
+      }
       mobile_mark_step_opened: {
         Args: { p_opened_at?: string; p_step_id: string }
         Returns: undefined
@@ -8214,6 +8218,10 @@ export type Database = {
       unlock_step_fill: {
         Args: { p_reason?: string; p_step_id: string }
         Returns: undefined
+      }
+      verify_user_password: {
+        Args: { p_password: string; p_user_id: string }
+        Returns: boolean
       }
     }
     Enums: {

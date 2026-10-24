@@ -65,7 +65,9 @@ export function validDevice(device: unknown): device is DeviceInfo {
 
 /** R-LOG-2 : liste d'appareils autorisés de l'organisation (vide = tout appareil accepté). */
 export async function deviceAuthorized(db: SupabaseClient, organizationId: string, deviceId: string): Promise<boolean> {
-  const { data } = await db.from("authorized_devices").select("device_id").eq("organization_id", organizationId);
+  const { data, error } = await db.from("authorized_devices").select("device_id").eq("organization_id", organizationId);
+  // Liste illisible : on refuse plutôt que d'accepter tout appareil.
+  if (error) throw error;
   return !data?.length || data.some((d) => d.device_id === deviceId);
 }
 
@@ -78,6 +80,11 @@ export async function bindDevice(db: SupabaseClient, principalId: string, device
   const { error } = binding
     ? await db.from("mobile_device_bindings").update({ last_seen_at: now }).eq("principal_id", principalId)
     : await db.from("mobile_device_bindings").insert({ principal_id: principalId, device_id: deviceId });
+  if (error?.code === "23505") {
+    // Deux premières connexions simultanées : la liaison gagnante fait foi.
+    const { data: winner } = await db.from("mobile_device_bindings").select("device_id").eq("principal_id", principalId).maybeSingle();
+    return winner?.device_id === deviceId;
+  }
   if (error) throw error;
   return true;
 }

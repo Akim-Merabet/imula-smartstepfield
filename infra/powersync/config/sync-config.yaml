@@ -99,6 +99,16 @@ streams:
       - SELECT * FROM form_responses
         WHERE project_id = subscription.parameter('project_id') AND project_id IN my_projects
           AND context = 'project' AND mobile_visible AND deleted_at IS NULL
+      - SELECT * FROM form_response_values
+        WHERE response_id IN (SELECT id FROM form_responses
+                              WHERE project_id = subscription.parameter('project_id') AND context = 'project'
+                                AND project_id IN (SELECT project_id FROM mobile_project_access
+                                                   WHERE auth_user_id = auth.user_id()))
+      - SELECT * FROM form_response_dynamic_items
+        WHERE response_id IN (SELECT id FROM form_responses
+                              WHERE project_id = subscription.parameter('project_id') AND context = 'project'
+                                AND project_id IN (SELECT project_id FROM mobile_project_access
+                                                   WHERE auth_user_id = auth.user_id()))
 
   # ---------- Flow téléchargé (= checkout d'origine) ----------
   flow_offline:
@@ -143,6 +153,8 @@ streams:
         WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
       - SELECT * FROM flow_status_history WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
       - SELECT * FROM flow_fill_unlocks WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
+      # Étapes déverrouillées une à une sur la WebApp : le séquencement de l'appareil doit les voir saisissables.
+      - SELECT * FROM step_fill_unlocks WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
       - SELECT custom_field_id || ':' || object_id AS id, *
         FROM custom_field_values WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
       - SELECT * FROM form_block_links

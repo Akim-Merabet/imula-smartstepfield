@@ -1,56 +1,31 @@
-# Welcome to your Expo app 👋
+# App mobile terrain (Expo + PowerSync)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Reconstruction de l'application terrain (spec `docs/specs/05-mobile-terrain.md`). Android d'abord.
 
-## Get started
+## Architecture
 
-1. Install dependencies
+- **Lecture** : uniquement dans la base SQLite locale (PowerSync), en ligne comme hors ligne.
+- **Une base chiffrée (SQLCipher) par profil** connecté sur l'appareil : `src/powersync/database.ts`.
+  La clé est générée à la première ouverture et gardée dans le Keystore (`expo-secure-store`).
+- **Synchro** : Sync Streams définis dans `infra/powersync/config/sync-config.yaml`.
+  Le schéma local `src/powersync/schema.generated.ts` en est dérivé :
+  `pnpm --filter @imula/mobile gen:schema` (base locale démarrée) après toute modification des streams ou du schéma.
+- **Envoi** : `src/powersync/connector.ts` vide la file transaction par transaction ; la table locale → appel
+  serveur est dans `src/powersync/uploaders.ts` (stratégie d'erreurs : spec 05 §9.6).
+- **Connexion** : fonction Edge `supabase/functions/mobile-sign-in` (entreprise, appareils autorisés,
+  un appareil par profil). Profils déjà connectés : `src/session/profiles.ts`.
+
+## Développement
+
+1. Démarrer Supabase (`supabase start`), PowerSync (`pnpm powersync:up` à la racine) et les fonctions Edge
+   (`supabase functions serve`).
+2. Copier `.env.example` en `.env.local` et renseigner la clé anonyme (`supabase status`).
+3. Construire l'app de développement (modules natifs : Expo Go ne suffit pas) :
 
    ```bash
-   npm install
+   npx expo run:android
    ```
 
-2. Start the app
+   Sur un appareil physique : `adb reverse tcp:55921 tcp:55921 && adb reverse tcp:55930 tcp:55930`.
 
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
-
-### Other setup steps
-
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Vérifications avant commit : `npx tsc --noEmit`, `npx expo lint`, `npx expo-doctor`.

@@ -14,5 +14,8 @@
     "powersync:up": "docker compose -f infra/powersync/docker-compose.yaml up -d",
     "powersync:down": "docker compose -f infra/powersync/docker-compose.yaml down",
     "mobile": "pnpm --filter @imula/mobile start"
+  },
+  "op-sqlite": {
+    "sqlcipher": true
   }
 }

@@ -2,8 +2,8 @@
 // Entrée : { email, password, company, device: { id, app_version, os_version, model, screen_size } }.
 // Sortie : { session: { access_token, refresh_token, expires_at, user_id }, principal } ou { error: code }.
 import {
-  anonClient, bindDevice, deviceAuthorized, fail, json, preflight, PRINCIPAL_COLUMNS, type Principal,
-  serviceClient, subdomainOf, validDevice,
+  anonClient, checkPrincipal, fail, preflight, PRINCIPAL_COLUMNS, type Principal, serviceClient, signedIn, subdomainOf,
+  validDevice,
 } from "../_shared/mobile.ts";
 
 Deno.serve(async (req) => {
@@ -25,34 +25,14 @@ Deno.serve(async (req) => {
   const auth = anonClient();
   const { data: signIn, error } = await auth.auth.signInWithPassword({ email, password });
   if (error || !signIn.session) return fail("INVALID_CREDENTIALS", 401);
-  const revoke = () => auth.auth.signOut({ scope: "local" });
 
   const { data: principal } = await db.from("collaborators").select(PRINCIPAL_COLUMNS)
     .eq("auth_user_id", signIn.user.id).eq("organization_id", org.id).is("deleted_at", null)
     .maybeSingle<Principal>();
-  if (!principal || principal.status === "inactive" || principal.status === "deleted") {
-    await revoke();
-    return fail("INVALID_CREDENTIALS", 401);
+  const refused = await checkPrincipal(db, principal, device.id);
+  if (refused) {
+    await auth.auth.signOut({ scope: "local" });
+    return refused;
   }
-  if (principal.status === "blocked") {
-    await revoke();
-    return fail("PROFILE_BLOCKED", 401);
-  }
-  if (!(await deviceAuthorized(db, org.id, device.id))) {
-    await revoke();
-    return fail("DEVICE_UNAUTHORIZED", 401);
-  }
-  if (!(await bindDevice(db, principal.id, device.id))) {
-    await revoke();
-    return fail("ANOTHER_DEVICE", 400);
-  }
-
-  const { session } = signIn;
-  return json({
-    session: {
-      access_token: session.access_token, refresh_token: session.refresh_token, expires_at: session.expires_at,
-      user_id: signIn.user.id,
-    },
-    principal,
-  });
+  return signedIn(signIn.session, principal!);
 });

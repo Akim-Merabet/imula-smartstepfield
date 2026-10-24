@@ -416,3 +416,6 @@ enabled = true
 # App mobile : connexion appelée sans session (spec 05 §9.2).
 [functions.mobile-sign-in]
 verify_jwt = false
+
+[functions.mobile-qr-sign-in]
+verify_jwt = false

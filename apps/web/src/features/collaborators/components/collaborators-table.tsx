@@ -135,7 +135,7 @@ export function CollaboratorsTable({ kind, items, total, currentId, options, per
                     <DropdownMenuItem onSelect={() => dialog.open(`skills/list/${c.id}`)}><AwardIcon />{t("actions.skills")}</DropdownMenuItem>
                   )}
                   {isUser && c.status === "active" && (
-                    <DropdownMenuItem disabled><QrCodeIcon />{t("actions.quickConnection")}</DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => dialog.open(`quick-connection/user/${c.id}`)}><QrCodeIcon />{t("actions.quickConnection")}</DropdownMenuItem>
                   )}
                   {permissions.move && !deleted && options.accounts.length > 1 && (
                     <DropdownMenuItem onSelect={() => setMoving(c)}><ArrowRightLeftIcon />{t("actions.move")}</DropdownMenuItem>

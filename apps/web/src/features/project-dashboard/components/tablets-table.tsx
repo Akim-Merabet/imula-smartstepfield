@@ -65,9 +65,9 @@ export function TabletsTable({ projectId, tablets, permissions }: {
         <div className="flex justify-end gap-1">
           <Tooltip>
             <TooltipTrigger asChild>
-              <span tabIndex={0}><Button variant="ghost" size="icon-sm" disabled aria-label={t("actions.qr")}><QrCodeIcon /></Button></span>
+              <Button variant="ghost" size="icon-sm" aria-label={t("actions.qr")} onClick={() => dialog.open(`quick-connection/tablet/${row.original.id}`)}><QrCodeIcon /></Button>
             </TooltipTrigger>
-            <TooltipContent>{t("actions.qrUnavailable")}</TooltipContent>
+            <TooltipContent>{t("actions.qr")}</TooltipContent>
           </Tooltip>
           {permissions.delete && (
             <Tooltip>
@@ -80,7 +80,7 @@ export function TabletsTable({ projectId, tablets, permissions }: {
         </div>
       ),
     },
-  ], [t, tg, permissions.delete]);
+  ], [t, tg, permissions.delete, dialog]);
 
   return (
     <>

@@ -156,7 +156,8 @@
       "flowReporter": "Reporter of flow “{name}”",
       "project": "Assigned to entity “{name}”",
       "flow": "Assigned to flow “{name}”"
-    }
+    },
+    "wrong_password": "Incorrect password"
   },
   "dialog": {
     "createUser": "Create a user",
@@ -281,7 +282,7 @@
       "qr": "Generate QR code",
       "summary": "Send a summary by email",
       "unlink": "Unlink the current device",
-      "soon": "Mobile app actions, coming soon"
+      "summarySoon": "Email summary coming soon"
     },
     "disabledAlert": "A disabled tablet cannot be edited"
   },
@@ -291,5 +292,17 @@
     "designation": "Designation",
     "deviceId": "Device identifier",
     "deviceIdHelp": "Identifier shown on the mobile app sign-in page (“Device identifier” button)."
+  },
+  "quickConnection": {
+    "title": "QR code login",
+    "userHint": "The QR code allows a quick login on tablets. Enter the account password to display it.",
+    "tabletHint": "Scan the QR code from the tablet.",
+    "password": "Password",
+    "wrongPassword": "Incorrect password",
+    "show": "Show QR code",
+    "expiresAt": "Valid until {date}, on the first device that scans it.",
+    "unlink": "Unlink current device",
+    "unlinkSuccess": "The device has been unlinked",
+    "tabletDisabled": "Quick login unavailable: the tablet is disabled."
   }
 }

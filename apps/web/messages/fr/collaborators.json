@@ -156,7 +156,8 @@
       "flowReporter": "Rapporteur du flow « {name} »",
       "project": "Affecté·e à l'entité « {name} »",
       "flow": "Affectée au flow « {name} »"
-    }
+    },
+    "wrong_password": "Mot de passe incorrect"
   },
   "dialog": {
     "createUser": "Créer un·e utilisateur·rice",
@@ -281,7 +282,7 @@
       "qr": "Générer le QR code",
       "summary": "Envoyer un récapitulatif par email",
       "unlink": "Dissocier l'appareil actuel",
-      "soon": "Actions liées à l'application mobile, bientôt disponibles"
+      "summarySoon": "Récapitulatif par email bientôt disponible"
     },
     "disabledAlert": "Impossible d'éditer une tablette désactivée"
   },
@@ -291,5 +292,17 @@
     "designation": "Désignation",
     "deviceId": "Identifiant de l'appareil",
     "deviceIdHelp": "Identifiant affiché sur la page de connexion de l'application mobile (bouton « Identifiant appareil »)."
+  },
+  "quickConnection": {
+    "title": "Connexion avec QR code",
+    "userHint": "Le QR Code permet une connexion rapide avec les tablettes. Saisissez le mot de passe du compte pour l'afficher.",
+    "tabletHint": "Flashez le QR code depuis la tablette.",
+    "password": "Mot de passe",
+    "wrongPassword": "Mot de passe incorrect",
+    "show": "Voir le QR code",
+    "expiresAt": "Valable jusqu'au {date}, sur le premier appareil qui le flashe.",
+    "unlink": "Dissocier l'appareil actuel",
+    "unlinkSuccess": "L'appareil a bien été dissocié",
+    "tabletDisabled": "Connexion rapide indisponible : la tablette est désactivée."
   }
 }

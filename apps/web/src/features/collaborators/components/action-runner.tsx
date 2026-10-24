@@ -13,7 +13,7 @@ export type Dep = { type: string; name: string };
 
 const KNOWN_ERRORS = new Set([
   "email_conflict", "sso_conflict", "register_conflict", "invite_failed", "self", "name_conflict", "device_conflict",
-  "tablet_disabled", "skill_duplicate", "skill_dates",
+  "tablet_disabled", "skill_duplicate", "skill_dates", "wrong_password",
 ]);
 
 /** Message d'erreur traduit d'une server action du module. */

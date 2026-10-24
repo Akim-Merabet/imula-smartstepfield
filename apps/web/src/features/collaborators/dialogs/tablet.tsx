@@ -22,6 +22,7 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { createClient } from "@/lib/supabase/client";
 import type { Tables } from "@/lib/supabase/database.types";
 import { createTablet, updateTablet } from "../actions";
+import { unlinkQuickConnectionDevice } from "../quick-connection";
 import { useErrorMessage } from "../components/action-runner";
 import { COLLABORATOR_STATUS_COLORS, TABLET_NATURES, TABLET_STATUS_COLORS, TABLET_STATUSES, familyLabel, type TabletNature, type TabletStatus } from "../meta";
 import type { TabletInput } from "../schema";
@@ -34,6 +35,7 @@ function TabletForm({ segments, close }: DialogProps) {
   const t = useTranslations("collaborators.tablet");
   const tc = useTranslations("collaborators");
   const tg = useTranslations("global");
+  const tq = useTranslations("collaborators.quickConnection");
   const format = useFormatter();
   const router = useRouter();
   const dialog = useDialog();
@@ -81,6 +83,12 @@ function TabletForm({ segments, close }: DialogProps) {
   const locked = isEdit && row?.profile_status === "inactive";
   const set = <K extends keyof Form>(k: K, v: Form[K]) => setForm((f) => ({ ...f, [k]: v }));
   const goTab = (next: string) => dialog.replace(isEdit ? `tablet/edit/${id}/${next}` : `tablet/add/${next}`);
+
+  const unlink = () => start(async () => {
+    const res = await unlinkQuickConnectionDevice({ type: "tablet", id: id! });
+    if (res.ok) notify.success(tq("unlinkSuccess"));
+    else notify.error(message(res.error));
+  });
 
   const submit = () => {
     const e: Record<string, string> = {};
@@ -163,11 +171,12 @@ function TabletForm({ segments, close }: DialogProps) {
         ) : <p className="py-12 text-center text-muted-foreground">{t("noTelemetry")}</p>
       ) : tab === "options-tab" ? (
         <FieldGroup>
-          <Alert><AlertDescription>{t("options.soon")}</AlertDescription></Alert>
           <div className="flex flex-wrap gap-2">
-            <Button variant="secondary" disabled><QrCodeIcon data-icon="inline-start" />{t("options.qr")}</Button>
-            <Button variant="secondary" disabled><MailIcon data-icon="inline-start" />{t("options.summary")}</Button>
-            <Button variant="secondary" disabled><LinkIcon data-icon="inline-start" />{t("options.unlink")}</Button>
+            <Button variant="secondary" disabled={!id || locked} onClick={() => dialog.open(`quick-connection/tablet/${id}`)}>
+              <QrCodeIcon data-icon="inline-start" />{t("options.qr")}
+            </Button>
+            <Button variant="secondary" disabled title={t("options.summarySoon")}><MailIcon data-icon="inline-start" />{t("options.summary")}</Button>
+            <Button variant="secondary" disabled={!id || pending} onClick={unlink}><LinkIcon data-icon="inline-start" />{t("options.unlink")}</Button>
           </div>
         </FieldGroup>
       ) : tab === "notify-tab" ? (

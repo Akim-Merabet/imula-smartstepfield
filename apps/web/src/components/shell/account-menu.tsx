@@ -29,7 +29,7 @@ export function AccountMenu({ user }: { user: { id: string; name: string; compan
         </div>
         <Separator className="my-1" />
         <Link href="/explore/profile/user-info" className={itemClass}><UserIcon className="size-4" />{t("account.profile")}</Link>
-        <Link href={`?dialog=quick-connection/${user.id}`} className={itemClass}><QrCodeIcon className="size-4" />{t("account.quickConnection")}</Link>
+        <Link href={`?dialog=quick-connection/user/${user.id}`} className={itemClass}><QrCodeIcon className="size-4" />{t("account.quickConnection")}</Link>
         <Link href="/explore/help" className={itemClass}><BookOpenIcon className="size-4" />{t("account.help")}</Link>
         <Separator className="my-1" />
         <div className="px-2 py-1 text-xs text-muted-foreground">{t("account.version", { app: APP_NAME, version: APP_VERSION })}</div>

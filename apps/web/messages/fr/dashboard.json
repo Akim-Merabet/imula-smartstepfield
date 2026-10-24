@@ -76,7 +76,6 @@
     "actions": {
       "import": "Importer depuis la base des tablettes",
       "qr": "Connexion avec QR code",
-      "qrUnavailable": "La connexion par QR code n'est pas encore disponible",
       "delete": "Retirer de l'entité"
     },
     "import": {

@@ -100,7 +100,9 @@ export function TabletsTable({ items, total, permissions }: {
               <DropdownMenuContent align="end">
                 <DropdownMenuGroup>
                   <DropdownMenuItem onSelect={() => dialog.open(`tablet/properties/${x.id}`)}><InfoIcon />{t("actions.properties")}</DropdownMenuItem>
-                  <DropdownMenuItem disabled><QrCodeIcon />{t("actions.quickConnection")}</DropdownMenuItem>
+                  {permissions.edit && !inactive && (
+                    <DropdownMenuItem onSelect={() => dialog.open(`quick-connection/tablet/${x.id}`)}><QrCodeIcon />{t("actions.quickConnection")}</DropdownMenuItem>
+                  )}
                   {permissions.edit && (inactive
                     ? <DropdownMenuItem onSelect={() => setConfirm({ type: "activate", item: x })}><PowerIcon />{t("actions.activate")}</DropdownMenuItem>
                     : <DropdownMenuItem onSelect={() => setConfirm({ type: "deactivate", item: x })}><BanIcon />{t("actions.deactivate")}</DropdownMenuItem>)}

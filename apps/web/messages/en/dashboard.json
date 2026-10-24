@@ -76,7 +76,6 @@
     "actions": {
       "import": "Import from the tablets database",
       "qr": "QR code login",
-      "qrUnavailable": "QR code login is not available yet",
       "delete": "Remove from entity"
     },
     "import": {

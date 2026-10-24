@@ -5844,6 +5844,57 @@ export type Database = {
           },
         ]
       }
+      mobile_backups: {
+        Row: {
+          app_version: string | null
+          created_at: string
+          device_id: string | null
+          id: string
+          organization_id: string
+          principal_id: string
+          size: number | null
+          storage_path: string
+          trigger: string
+        }
+        Insert: {
+          app_version?: string | null
+          created_at?: string
+          device_id?: string | null
+          id?: string
+          organization_id: string
+          principal_id: string
+          size?: number | null
+          storage_path: string
+          trigger: string
+        }
+        Update: {
+          app_version?: string | null
+          created_at?: string
+          device_id?: string | null
+          id?: string
+          organization_id?: string
+          principal_id?: string
+          size?: number | null
+          storage_path?: string
+          trigger?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mobile_backups_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mobile_backups_principal_id_fkey"
+            columns: ["principal_id"]
+            isOneToOne: false
+            referencedRelation: "collaborators"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       mobile_device_bindings: {
         Row: {
           bound_at: string
@@ -5902,6 +5953,57 @@ export type Database = {
           },
           {
             foreignKeyName: "mobile_flow_access_principal_id_fkey"
+            columns: ["principal_id"]
+            isOneToOne: false
+            referencedRelation: "collaborators"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mobile_log_entries: {
+        Row: {
+          action: string
+          app_version: string | null
+          detail: Json | null
+          device_id: string | null
+          id: string
+          occurred_at: string
+          organization_id: string
+          principal_id: string
+          received_at: string
+        }
+        Insert: {
+          action: string
+          app_version?: string | null
+          detail?: Json | null
+          device_id?: string | null
+          id: string
+          occurred_at: string
+          organization_id: string
+          principal_id: string
+          received_at?: string
+        }
+        Update: {
+          action?: string
+          app_version?: string | null
+          detail?: Json | null
+          device_id?: string | null
+          id?: string
+          occurred_at?: string
+          organization_id?: string
+          principal_id?: string
+          received_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mobile_log_entries_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mobile_log_entries_principal_id_fkey"
             columns: ["principal_id"]
             isOneToOne: false
             referencedRelation: "collaborators"
@@ -8059,6 +8161,18 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      backup_key_store: {
+        Args: {
+          p_organization_id: string
+          p_public_key: string
+          p_secret_key: string
+        }
+        Returns: string
+      }
+      backup_secret_key: {
+        Args: { p_organization_id: string }
+        Returns: string
+      }
       convert_referential_to_folder: {
         Args: { p_project_id: string }
         Returns: undefined
@@ -8141,6 +8255,13 @@ export type Database = {
         Returns: undefined
       }
       mobile_add_form_link: { Args: { p: Json }; Returns: undefined }
+      mobile_backup_key: {
+        Args: never
+        Returns: {
+          organization_id: string
+          public_key: string
+        }[]
+      }
       mobile_complete_signature: {
         Args: {
           p_comment?: string

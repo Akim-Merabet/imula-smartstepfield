@@ -753,7 +753,7 @@ Légende : ✅ table existante adaptée · 🟡 existante avec colonnes à ajout
 
 ### 9.3 Compléments de schéma Supabase (récapitulatif)
 
-✅ = livré (migrations `20261024115900`, `20261024120000`, `20261024121000`). Restent à faire avec leurs fonctionnalités : `mobile_backups`, `mobile_logs`.
+✅ = livré (migrations `20261024115900`, `20261024120000`, `20261024121000`, puis `20261024131000` pour les sauvegardes et journaux).
 
 | Objet | Type | Raison |
 |---|---|---|
@@ -766,8 +766,8 @@ Légende : ✅ table existante adaptée · 🟡 existante avec colonnes à ajout
 | ✅ `signature_events` : `client_event_id uuid unique`, `event_sequence`, `from_state`, `to_state`, `payload_path`, `reason` | colonnes | journal d'événements idempotent |
 | ✅ `flow_fill_unlocks(id, flow_id, unlocked_by, signature_path, comment, sign_with_qr_code, signed_at, source)` | table | déverrouillage de flow signé (R-SEQ-4) ; positionne `flows.fill_restrictions_skipped = true` (déclencheur) |
 | ✅ `step_navigation_events(id, step_navigation_id, step_id, flow_id, action NAVIGATE/EXIT/SKIP, comment, actor_id, source, occurred_at)` | table | traçabilité des redirections |
-| `mobile_backups(id, principal_id, device_id, storage_path, size, created_at, trigger)` + bucket `mobile-backups` | table + Storage | « Liste des backups MobileApp » WebApp |
-| `mobile_logs(id, principal_id, device_id, storage_path, created_at)` | table + Storage | « Logs push » |
+| ✅ `mobile_backups(id, organization_id, principal_id, device_id, storage_path, size, trigger, app_version, created_at)` + bucket privé `mobile-backups` (`<organisation>/<profil>/<fichier>.imb`) | table + Storage | « Liste des backups MobileApp » WebApp (admin Siteflow) |
+| ✅ `mobile_log_entries(id, organization_id, principal_id, device_id, app_version, action, detail, occurred_at)` (une ligne par action plutôt qu'un fichier) | table | « Logs push » (admin Siteflow), filtres Action / Utilisateur |
 | ✅ `organizations.map_config jsonb` | colonne | tuiles de carte |
 
 ### 9.4 Sync Streams (`infra/powersync/config/sync-config.yaml`)
@@ -843,6 +843,9 @@ Notes :
 - ✅ « Paramètres des signatures » : ajout de points d'arrêt internes / externes des surveillants applicables (jamais de retrait), RPC `mobile_add_dsi_breakpoints(block_id, natures)` (étape saisissable, mode simplifié refusé, événement `update`/`add_breakpoint`) ; « Tableau des signatures » du flow (par étape, natures attendues et état), depuis le bloc Contrôles et le détail du flow.
 
 - ✅ Référentiels et Modèles (en ligne uniquement) : listes des entités Référentiel / Modèle et de leurs flows lues directement sur le serveur (RLS) ; un flow s'ouvre en **mode lecture** via le stream `referential_flow(flow_id)` souscrit 30 min (accès : référentiel, modèle ou dossier publié dans l'organisation, ou du compte du profil — hors profil « appareil »), ce qui réutilise l'écran d'exécution. Contraintes du service PowerSync rencontrées : pas de `OR` ni de liste littérale `IN (…)` dans une requête d'accès (`with:`) ; deux ensembles d'accès combinés par `OR` dans la requête de données sont acceptés. Hors ligne, le segment revient sur « Projets ».
+
+- ✅ Sauvegardes : copie **logique** de la base du profil (toutes les tables + file d'envoi `ps_crud`) plutôt qu'une copie du fichier SQLCipher (dont la clé est propre à l'appareil) ; chiffrement hybride NaCl (`@imula/backup-core`, tweetnacl, format `IMB1`) avec la clé publique de l'organisation, fournie par la fonction Edge `mobile-backup-key` (paire générée au premier appel, clé privée dans `private.organization_backup_keys`, lue par le seul rôle service) et gardée sur l'appareil pour les sauvegardes hors ligne. Sauvegarde automatique sur l'appareil (intervalle 5 min → 4 h, défaut 4 h ; aussi au passage en ligne avec des écritures en attente), 5 dernières gardées ; « Envoyer une sauvegarde au support » (en ligne) ; WebApp « Backups » : téléchargement **déchiffré sur le serveur** (JSON). Restauration sur l'appareil et carte microSD non reprises : le support exploite le JSON (écritures non envoyées comprises). « Réinitialiser la base de données locale » refusé tant que des écritures attendent l'envoi.
+- ✅ Journaux : actions de l'appareil (connexion, bascules, envois, refus, téléchargements, scans, signatures, sauvegardes, réinitialisation) gardées localement et envoyées après chaque envoi réussi ou au passage en ligne ; insertion simple (un upsert exigerait le droit de relire le journal, réservé aux admins Siteflow).
 
 ### 9.7 Conflits
 

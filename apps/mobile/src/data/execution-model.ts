@@ -22,7 +22,7 @@ export type ExecStep = {
   additional_comment: string | null; disabled_comment: string | null; validated_at: string | null; first_opened_at: string | null;
 };
 export type ExecBlock = {
-  id: string; step_id: string; type: string; enabled: number; state: string | null; txt_visibility: string | null;
+  id: string; step_id: string; flow_id: string; type: string; enabled: number; state: string | null; txt_visibility: string | null;
   content_html: string | null; content_json: string | null; multi_pr_requires_status: number; multi_pr_requires_signature: number;
   multi_pr_title_hidden: number;
 };

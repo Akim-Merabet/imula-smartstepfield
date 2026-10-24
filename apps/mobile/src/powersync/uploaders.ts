@@ -162,6 +162,16 @@ const blocks: Uploader = async (op) => {
   throw new UploadError("rejected", "NOT_ALLOWED", "Modification de bloc non autorisée depuis l'appareil");
 };
 
+// « Paramètres des signatures » : seuls des points d'arrêt peuvent être ajoutés depuis l'appareil (jamais retirés).
+const dsiConfigs: Uploader = async (op) => {
+  const data = op.opData ?? {};
+  const natures = Object.keys(data).filter((k) => /^breakpoint_(int|ext)_[123]$/.test(k));
+  const valid = op.op === UpdateType.PATCH && natures.length === Object.keys(data).length
+    && natures.every((k) => data[k] === 1 || data[k] === true);
+  if (!valid) throw new UploadError("rejected", "NOT_ALLOWED", "Modification du bloc Contrôles non autorisée depuis l'appareil");
+  check(await supabase.rpc("mobile_add_dsi_breakpoints", { p_block_id: op.id, p_natures: natures }));
+};
+
 // Copie locale du flow : seuls le statut et le déverrouillage changent sur l'appareil, et ils partent par les
 // demandes dédiées ci-dessus (même transaction) ; la modification de la ligne elle-même n'est pas envoyée.
 const flows: Uploader = async (op) => {
@@ -181,6 +191,7 @@ const uploaders: Partial<Record<string, Uploader>> = {
   flow_status_changes: flowStatusChanges,
   flow_fill_unlocks: flowFillUnlocks,
   form_block_links: formBlockLinks,
+  block_dsi_configs: dsiConfigs,
   blocks,
   flows,
   form_response_values: formResponseValues,

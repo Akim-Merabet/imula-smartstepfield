@@ -84,6 +84,10 @@ export default function FlowDetailScreen() {
         <View style={styles.actions}>
           <Button label={t("flowDetails.fillIn")} onPress={() => open(false)} disabled={!flow.downloadable} />
           <Button label={t("flowDetails.readMode")} variant="secondary" onPress={() => open(true)} disabled={!flow.downloadable} />
+          {!!flow.downloaded && (
+            <Button label={t("execution.signaturesTable")} variant="secondary"
+              onPress={() => router.push({ pathname: "/flows/[flowId]/signatures", params: { flowId } })} />
+          )}
         </View>
       </Card>
 

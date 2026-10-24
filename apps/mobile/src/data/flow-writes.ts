@@ -79,3 +79,10 @@ export async function addFormLink(db: Db, p: { stepId: string; flowId: string; f
     return id;
   });
 }
+
+/** « Paramètres des signatures » : active des points d'arrêt supplémentaires sur un bloc Contrôles (irréversible). */
+export async function addDsiBreakpoints(db: Db, blockId: string, natures: string[]) {
+  const valid = natures.filter((n) => /^breakpoint_(int|ext)_[123]$/.test(n));
+  if (!valid.length) return;
+  await db.execute(`update block_dsi_configs set ${valid.map((n) => `${n} = 1`).join(", ")} where block_id = ?`, [blockId]);
+}

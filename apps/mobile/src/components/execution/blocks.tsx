@@ -1,16 +1,20 @@
 // Blocs d'une étape en consultation (spec 05 §4.1, §4.6–4.8). Les actions (signer, répondre, statuer) s'y
 // ajoutent avec les écritures correspondantes.
-import { expectedNatures, natureCode, type SignatureNature, supervisorName, type SupervisionFlow } from "@imula/flow-core";
-import { useQuery } from "@powersync/react";
-import type { ReactNode } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { applicableSupervisors, expectedNatures, natureCode, on, type SignatureNature, supervisorName, type SupervisionFlow } from "@imula/flow-core";
+import { usePowerSync, useQuery } from "@powersync/react";
+import { router } from "expo-router";
+import { type ReactNode, useState } from "react";
+import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
 
 import type { SignatureTarget } from "@/components/execution/signature-modal";
 import { MultiPrItems } from "@/components/execution/multi-pr";
 import { FormLinks } from "@/components/forms/form-links";
 import { fileStore, openStoredFile } from "@/attachments/native";
 import { BLOCK_DOCUMENT_FILE_SQL, DOCUMENTS_BUCKET } from "@/attachments/queue";
-import { formatDate, Icon, useSnackbar } from "@/components/kit";
+import { Checkbox, formatDate, Icon, useSnackbar } from "@/components/kit";
+import { Button } from "@/components/ui";
+import type { Db } from "@/data/form-response";
+import { addDsiBreakpoints } from "@/data/flow-writes";
 import { RichText } from "@/components/rich-text";
 import type { ExecBlock } from "@/data/execution-model";
 import { t } from "@/i18n/fr";
@@ -100,7 +104,7 @@ function BlockView({ block, flow, actions }: { block: ExecBlock; flow: Supervisi
     case "form":
       return <BlockShell title={t("execution.formsBlock")} icon="file-document-edit-outline" block={block}><FormLinks blockId={block.id} editable={!!actions} /></BlockShell>;
     case "dsi":
-      return <BlockShell title={t("execution.controlBlock")} icon="draw-pen" block={block}><Controls blockId={block.id} flow={flow} actions={actions} /></BlockShell>;
+      return <BlockShell title={t("execution.controlBlock")} icon="draw-pen" block={block}><Controls blockId={block.id} flowId={block.flow_id} flow={flow} actions={actions} /></BlockShell>;
     default:
       return null;
   }
@@ -203,13 +207,14 @@ export function DocumentRow({ doc }: { doc: { name: string | null; ref_int: stri
   );
 }
 
-function natureLabel(n: SignatureNature): string {
+export function natureLabel(n: SignatureNature): string {
   const m = /^(breakpoint|convocation)_(int|ext)_(\d)$/.exec(n);
   if (!m) return t(`execution.natures.${n as "realisation" | "tech_control"}`);
   return t(`execution.natures.${m[1]}_${m[2]}` as "execution.natures.breakpoint_int", { n: m[3] });
 }
 
-function Controls({ blockId, flow, actions }: { blockId: string; flow: SupervisionFlow; actions?: StepActions }) {
+function Controls({ blockId, flowId, flow, actions }: { blockId: string; flowId: string; flow: SupervisionFlow; actions?: StepActions }) {
+  const [settings, setSettings] = useState(false);
   const { data: configs } = useQuery<Parameters<typeof expectedNatures>[0] & { signatories_status: string }>(
     "select * from block_dsi_configs where block_id = ?", [blockId]);
   const { data: signatures } = useQuery<{ id: string; nature: string; state: string; first_name: string | null; last_name: string | null; signed_at: string | null; proxied: number; proxy_principal_name: string | null; proxy_date: string | null }>(
@@ -249,7 +254,60 @@ function Controls({ blockId, flow, actions }: { blockId: string; flow: Supervisi
         )}
       </Row>
     );
-  })}</>;
+  })}
+    <View style={styles.controlsFooter}>
+      <Pressable accessibilityRole="link" onPress={() => router.push({ pathname: "/flows/[flowId]/signatures", params: { flowId } })}>
+        <Text style={styles.link}>{t("execution.goToSignaturesTable")}</Text>
+      </Pressable>
+      {!!actions && !on(flow.simplified_signature_mode) && (
+        <Pressable accessibilityRole="button" onPress={() => setSettings(true)}>
+          <Text style={styles.link}>{t("execution.signatureSettings")}</Text>
+        </Pressable>
+      )}
+    </View>
+    {settings && config && <SignatureSettings blockId={blockId} config={config} flow={flow} onClose={() => setSettings(false)} />}
+  </>;
+}
+
+/** « Paramètres des signatures » : points d'arrêt supplémentaires des surveillants applicables (ajout irréversible). */
+function SignatureSettings({ blockId, config, flow, onClose }: {
+  blockId: string; config: Record<string, unknown>; flow: SupervisionFlow; onClose: () => void;
+}) {
+  const db = usePowerSync() as unknown as Db;
+  const snackbar = useSnackbar();
+  const [chosen, setChosen] = useState<Set<string>>(new Set());
+  const groups = (["int", "ext"] as const).map((kind) => ({
+    kind,
+    natures: applicableSupervisors(flow, kind).map(({ n }) => `breakpoint_${kind}_${n}` as SignatureNature).filter((n) => !on(config[n] as number)),
+  }));
+  const none = groups.every((g) => !g.natures.length);
+  const save = async () => {
+    await addDsiBreakpoints(db, blockId, [...chosen]);
+    if (chosen.size) snackbar(t("execution.breakpointsAdded"), "success");
+    onClose();
+  };
+  return (
+    <Modal visible transparent animationType="fade" onRequestClose={onClose}>
+      <View style={styles.backdrop}>
+        <View style={styles.modal}>
+          <Text style={styles.modalTitle}>{t("execution.signatureSettings")}</Text>
+          <Text style={styles.warning}>{t("execution.signatureSettingsInfo")}</Text>
+          {none && <Text style={styles.muted}>{t("execution.noBreakpointToAdd")}</Text>}
+          {groups.filter((g) => g.natures.length).map((g) => (
+            <View key={g.kind} style={{ gap: spacing.xs }}>
+              <Text style={styles.blockTitle}>{g.kind === "int" ? t("execution.internalBreakpoints") : t("execution.externalBreakpoints")}</Text>
+              {g.natures.map((n) => (
+                <Checkbox key={n} checked={chosen.has(n)} label={`${natureLabel(n)}${supervisorName(n, flow) ? ` — ${supervisorName(n, flow)}` : ""}`}
+                  onChange={(v) => setChosen((c) => { const x = new Set(c); if (v) x.add(n); else x.delete(n); return x; })} />
+              ))}
+            </View>
+          ))}
+          <Button label={t("common.confirm")} onPress={() => void save()} disabled={!chosen.size} />
+          <Button label={t("common.cancel")} variant="secondary" onPress={onClose} />
+        </View>
+      </View>
+    </Modal>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -264,6 +322,11 @@ const styles = StyleSheet.create({
   subItem: { gap: spacing.xs, paddingVertical: spacing.sm, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.border },
   subTitle: { fontSize: font.body, fontWeight: "600", color: colors.text },
   inline: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
+  controlsFooter: { flexDirection: "row", flexWrap: "wrap", gap: spacing.md, paddingTop: spacing.sm },
+  link: { color: colors.primary, fontWeight: "600", fontSize: font.small },
+  backdrop: { flex: 1, backgroundColor: "rgba(0,0,0,0.4)", justifyContent: "center", padding: spacing.lg },
+  modal: { backgroundColor: colors.surface, borderRadius: radius.lg, padding: spacing.lg, gap: spacing.md },
+  modalTitle: { fontSize: font.title - 2, fontWeight: "700", color: colors.text },
   docRow: { flexDirection: "row", alignItems: "center", gap: spacing.sm, paddingVertical: spacing.sm, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.border },
   hazard: { flexDirection: "row", alignItems: "center", gap: spacing.xs, alignSelf: "flex-start", paddingVertical: spacing.sm, paddingHorizontal: spacing.md, borderRadius: radius.md, borderWidth: 1, borderColor: colors.warning },
   feedback: { backgroundColor: colors.surface, borderRadius: radius.lg, padding: spacing.md, gap: spacing.sm, borderWidth: 1, borderColor: colors.border, borderStyle: "dashed" },

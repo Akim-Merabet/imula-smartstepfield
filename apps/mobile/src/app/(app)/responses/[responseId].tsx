@@ -214,7 +214,7 @@ function ResponseForm({ loaded, forceReadOnly }: { loaded: LoadedResponse; force
           </View>
         )}
         {rubric.questions.map((q) => (
-          <QuestionInput key={q.lineageId} question={q} values={display} readOnly={readOnly} createdAt={response.created_at}
+          <QuestionInput key={q.lineageId} question={q} responseId={response.id} values={display} readOnly={readOnly} createdAt={response.created_at}
             observation={observations[q.lineageId] ?? ""} error={errors.get(q.lineageId) ?? null} highlight={highlight === q.lineageId}
             header={rubric.def.type === "question" ? undefined : (_cell, i) => cellHeader(rubric, i)}
             onChange={setValue} onExclusive={setExclusive}

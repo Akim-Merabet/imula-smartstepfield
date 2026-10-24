@@ -37,6 +37,14 @@
       ],
       "expo-secure-store",
       [
+        "expo-image-picker",
+        {
+          "photosPermission": "L'accès aux photos permet de joindre des images aux réponses de formulaire.",
+          "cameraPermission": "La caméra sert à prendre des photos pour les réponses de formulaire et à scanner les QR codes.",
+          "microphonePermission": false
+        }
+      ],
+      [
         "expo-location",
         {
           "locationWhenInUsePermission": "Siteflow collecte les données de localisation pour géolocaliser les tablettes lors des interventions terrain lorsque l'application est active."

@@ -5,6 +5,7 @@ import { createContext, type ReactNode, useCallback, useContext, useEffect, useM
 import { supabase } from "@/lib/supabase";
 import { SupabaseConnector } from "@/powersync/connector";
 import { openProfileDatabase } from "@/powersync/database";
+import { AttachmentSyncLoop } from "@/attachments/native";
 import { OfflineSubscriptions } from "@/powersync/offline";
 
 import {
@@ -13,7 +14,10 @@ import {
 } from "./profiles";
 import { type SignInError, type SignInResult, signInWithCredentials, signInWithQrCode } from "./sign-in";
 
-type Active = { profile: Profile; db: PowerSyncDatabase; connector: SupabaseConnector; subscriptions: OfflineSubscriptions };
+type Active = {
+  profile: Profile; db: PowerSyncDatabase; connector: SupabaseConnector; subscriptions: OfflineSubscriptions;
+  attachments: AttachmentSyncLoop;
+};
 
 type SessionState = {
   status: "starting" | "signedOut" | "ready";
@@ -56,6 +60,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     const previous = activeRef.current;
     if (previous) {
       previous.subscriptions.stop();
+      previous.attachments.stop();
       await previous.db.close();
     }
     const db = await openProfileDatabase(profile.principalId);
@@ -64,17 +69,22 @@ export function SessionProvider({ children }: { children: ReactNode }) {
         setForbidden(message);
         void setOfflineMode(profile.principalId, true);
         setOfflineState(true);
+        activeRef.current?.attachments.stop();
         void db.disconnect();
       },
       onRejected: (count) => setRejected((n) => n + count),
     });
     const subscriptions = new OfflineSubscriptions(db);
     subscriptions.start();
+    const attachments = new AttachmentSyncLoop(db);
     const wantsOffline = await getOfflineMode(profile.principalId);
     setOfflineState(wantsOffline);
-    if (!wantsOffline) void db.connect(connector);
+    if (!wantsOffline) {
+      void db.connect(connector);
+      attachments.start();
+    }
     await setActiveProfileId(profile.principalId);
-    activeRef.current = { profile, db, connector, subscriptions };
+    activeRef.current = { profile, db, connector, subscriptions, attachments };
     setActive(activeRef.current);
     setForbidden(null);
     setRejected(0);
@@ -137,6 +147,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     await supabase.auth.signOut({ scope: "local" });
     await forgetSession(current.profile.principalId);
     current.subscriptions.stop();
+    current.attachments.stop();
     await current.db.close();
     await setActiveProfileId(null);
     activeRef.current = null;
@@ -149,10 +160,13 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     if (!current) return;
     await setOfflineMode(current.profile.principalId, value);
     setOfflineState(value);
-    if (value) await current.db.disconnect();
-    else {
+    if (value) {
+      current.attachments.stop();
+      await current.db.disconnect();
+    } else {
       setForbidden(null);
       await current.db.connect(current.connector);
+      current.attachments.start();
     }
   }, []);
 

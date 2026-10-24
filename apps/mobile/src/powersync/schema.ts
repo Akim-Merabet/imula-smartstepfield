@@ -21,6 +21,20 @@ const localTables = {
     },
     { localOnly: true, indexes: { flow: ["flow_id"] } },
   ),
+  // File des pièces jointes (spec 05 §9.8) : fichiers à envoyer ou à télécharger, par chemin Storage.
+  attachment_queue: new Table(
+    {
+      bucket: column.text,
+      path: column.text,
+      state: column.text,
+      mime: column.text,
+      attempts: column.integer,
+      last_error: column.text,
+      created_at: column.text,
+      updated_at: column.text,
+    },
+    { localOnly: true, indexes: { path: ["path"] } },
+  ),
   // Écritures refusées par le serveur pour une raison métier (§9.6) : retirées de la file, gardées pour l'écran de détail.
   sync_rejections: new Table(
     {

@@ -6,12 +6,15 @@ import * as Location from "expo-location";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
+import { FormSignature } from "@/components/forms/form-signature";
+import { PhotoField } from "@/components/forms/photo-field";
 import { Icon } from "@/components/kit";
 import { t } from "@/i18n/fr";
 import { colors, font, radius, spacing } from "@/theme";
 
 export type QuestionProps = {
   question: RtQuestion;
+  responseId: string;
   values: ValuesMap;
   readOnly: boolean;
   createdAt: string;
@@ -24,8 +27,6 @@ export type QuestionProps = {
   onExclusive: (question: RtQuestion, lineageId: string, checked: boolean) => void;
   onObservation: (text: string) => void;
 };
-
-const UNAVAILABLE = new Set(["photo", "collaborator"]);
 
 const pad = (n: number) => String(n).padStart(2, "0");
 /** AAAA-MM-JJ ↔ JJ/MM/AAAA */
@@ -53,7 +54,6 @@ export function QuestionInput(p: QuestionProps) {
       </View>
       {!!q.def.description && <Text style={styles.description}>{q.def.description}</Text>}
       {WEBAPP_ONLY.has(q.type) ? <Text style={styles.muted}>{t("forms.webappOnly")}</Text>
-        : UNAVAILABLE.has(q.type) ? <Text style={styles.muted}>{t("forms.unavailable")}</Text>
         : q.cells.map((cell, i) => <CellInput key={cell.lineageId} {...p} cell={cell} index={i} />)}
       {showObservation && (
         <TextInput value={p.observation} onChangeText={p.onObservation} editable={!p.readOnly} multiline
@@ -154,6 +154,14 @@ function CellInput(p: QuestionProps & { cell: RtCell; index: number }) {
       );
       break;
     }
+    case "photo":
+      input = <PhotoField value={Array.isArray(value) ? value : null} onChange={set} disabled={disabled} responseId={p.responseId} />;
+      break;
+    case "collaborator":
+      input = cell.slot
+        ? <FormSignature slot={cell.slot} value={(value as never) ?? null} onChange={set} disabled={disabled} responseId={p.responseId} />
+        : null;
+      break;
     case "location":
       input = <LocationField value={value as { lat?: number; lng?: number } | null} disabled={disabled} onChange={set} />;
       break;
@@ -172,7 +180,7 @@ function CellInput(p: QuestionProps & { cell: RtCell; index: number }) {
 
   return (
     <View style={styles.cell}>
-      {!!label && !["unique_choice", "multiple_choices"].includes(q.type) && q.cells.length > 1 && <Text style={styles.cellLabel}>{label}</Text>}
+      {!!label && !["unique_choice", "multiple_choices", "collaborator"].includes(q.type) && q.cells.length > 1 && <Text style={styles.cellLabel}>{label}</Text>}
       {input}
       {locked && <Text style={styles.muted}>{t("forms.lockedValue")}</Text>}
       {!!invalid && <Text style={styles.error}>{q.type === "date" || q.type === "datetime" ? t("forms.backdating") : t("forms.outOfRange")}</Text>}

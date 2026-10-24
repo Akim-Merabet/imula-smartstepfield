@@ -112,12 +112,53 @@ const formResponseValues: Uploader = async (op, db) => {
   }));
 };
 
+// Instructions multiples : statut / observation d'une sous-instruction, signature (spec 05 §4.6).
+const multiPrItems: Uploader = async (op) => {
+  const data = op.opData ?? {};
+  if (op.op !== UpdateType.PATCH) throw new UploadError("rejected", "NOT_ALLOWED", "Modification de sous-instruction non autorisée");
+  const p: Record<string, unknown> = {};
+  for (const k of ["custom_status_id", "observation"]) if (k in data) p[k] = data[k];
+  if (!Object.keys(p).length) return;
+  check(await supabase.rpc("mobile_update_multi_pr_item", { p_id: op.id, p: p as never }));
+};
+
+const multiPrSignatures: Uploader = async (op) => {
+  if (op.op !== UpdateType.PUT) throw new UploadError("rejected", "NOT_ALLOWED", "Modification de signature non autorisée");
+  check(await supabase.rpc("mobile_sign_multi_pr", { p: { ...op.opData, id: op.id } as never }));
+};
+
+// Statut du flow (table « insertion seule ») et déverrouillage du flow signé.
+const flowStatusChanges: Uploader = async (op) => {
+  const d = op.opData ?? {};
+  check(await supabase.rpc("mobile_set_flow_status", {
+    p_flow_id: d.flow_id as string, p_status_id: d.status_id as string, p_comment: (d.comment as string | null) ?? undefined,
+  }));
+};
+
+const flowFillUnlocks: Uploader = async (op) => {
+  if (op.op !== UpdateType.PUT) throw new UploadError("rejected", "NOT_ALLOWED", "Modification de déverrouillage non autorisée");
+  check(await supabase.rpc("mobile_unlock_flow", { p: { ...op.opData, id: op.id } as never }));
+};
+
+// Copie locale du flow : seuls le statut et le déverrouillage changent sur l'appareil, et ils partent par les
+// demandes dédiées ci-dessus (même transaction) ; la modification de la ligne elle-même n'est pas envoyée.
+const flows: Uploader = async (op) => {
+  const allowed = new Set(["custom_status_id", "fill_restrictions_skipped"]);
+  if (op.op === UpdateType.PATCH && Object.keys(op.opData ?? {}).every((k) => allowed.has(k))) return;
+  throw new UploadError("rejected", "NOT_ALLOWED", "Modification de flow non autorisée depuis l'appareil");
+};
+
 // Table locale → appel serveur. Les RPC métier (réponses, signatures, validation d'étape…) s'ajoutent
 // ici avec les écrans qui produisent ces écritures (spec 05 §9.6).
 const uploaders: Partial<Record<string, Uploader>> = {
   steps,
   signatures,
   form_responses: formResponses,
+  block_multi_pr_items: multiPrItems,
+  block_multi_pr_signatures: multiPrSignatures,
+  flow_status_changes: flowStatusChanges,
+  flow_fill_unlocks: flowFillUnlocks,
+  flows,
   form_response_values: formResponseValues,
   step_navigation_events: direct("step_navigation_events"),
   flow_geometries: direct("flow_geometries"),

@@ -35,6 +35,12 @@ const localTables = {
     },
     { localOnly: true, indexes: { path: ["path"] } },
   ),
+  // Changement de statut d'un flow (spec 05 §2.4) : table « insertion seule », la demande part dans la file d'envoi
+  // sans être conservée (le serveur historise dans flow_status_history, dont l'identifiant est généré par la base).
+  flow_status_changes: new Table(
+    { flow_id: column.text, status_id: column.text, comment: column.text, changed_at: column.text },
+    { insertOnly: true },
+  ),
   // Écritures refusées par le serveur pour une raison métier (§9.6) : retirées de la file, gardées pour l'écran de détail.
   sync_rejections: new Table(
     {

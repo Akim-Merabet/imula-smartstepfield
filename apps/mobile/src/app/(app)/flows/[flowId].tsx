@@ -1,8 +1,9 @@
 import { usePowerSync, useQuery, useStatus } from "@powersync/react";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
+import { FlowStatusModal } from "@/components/flow-status-modal";
 import { Card, Empty, Field, formatDate, SectionTitle, StatusChip, useSnackbar } from "@/components/kit";
 import { Button } from "@/components/ui";
 import { named } from "@/data/sql";
@@ -14,7 +15,7 @@ import { colors, font, spacing } from "@/theme";
 type FlowHeader = {
   id: string; project_id: string; flow_type: string; name: string; ref_int: string | null; ref_ext: string | null;
   start_date: string | null; finish_date: string | null; estimated_start_date: string | null; estimated_end_date: string | null;
-  status_name: string | null; status_color: string | null; downloadable: number; selected_offline: number; downloaded: number;
+  status_id: string | null; status_name: string | null; status_color: string | null; downloadable: number; selected_offline: number; downloaded: number;
 };
 
 /** Détail d'un flow (spec 05 §2.4) : synchronisation, éléments liés, historique des statuts, données locales. */
@@ -25,12 +26,15 @@ export default function FlowDetailScreen() {
   const { offline } = useSession();
   const snackbar = useSnackbar();
   const { data } = useQuery<FlowHeader>(
-    `select fl.*, s.name as status_name, s.color as status_color, ifnull(s.downloadable, 0) as downloadable,
+    `select fl.*, coalesce(f.custom_status_id, fl.custom_status_id) as status_id, s.name as status_name, s.color as status_color,
+            ifnull(s.downloadable, 0) as downloadable,
             exists (select 1 from offline_selection o where o.flow_id = fl.id) as selected_offline,
-            exists (select 1 from flows f where f.id = fl.id) as downloaded
-       from flow_summaries fl left join custom_statuses s on s.id = fl.custom_status_id where fl.id = ?`, [flowId]);
+            f.id is not null as downloaded
+       from flow_summaries fl left join flows f on f.id = fl.id
+       left join custom_statuses s on s.id = coalesce(f.custom_status_id, fl.custom_status_id) where fl.id = ?`, [flowId]);
   const flow = data[0];
   const [pending, setPending] = useState(0);
+  const [changingStatus, setChangingStatus] = useState(false);
   useEffect(() => {
     pendingWritesForFlow(db, flowId).then(setPending).catch(() => {});
   }, [db, flowId, status]);
@@ -67,6 +71,9 @@ export default function FlowDetailScreen() {
         <View style={styles.row}>
           <Text style={styles.meta}>{t("flowDetails.flowStatus")} :</Text>
           <StatusChip color={flow.status_color} label={flow.status_name} />
+          <Pressable accessibilityRole="button" onPress={() => setChangingStatus(true)} hitSlop={8}>
+            <Text style={styles.link}>{t("flowDetails.changeStatus")}</Text>
+          </Pressable>
         </View>
         <Field label={t("flowDetails.dateEstimated")}
           value={`${t("flowDetails.startDate")} ${formatDate(flow.estimated_start_date) ?? "—"} · ${t("flowDetails.endDate")} ${formatDate(flow.estimated_end_date) ?? "—"}`} />
@@ -94,6 +101,7 @@ export default function FlowDetailScreen() {
         </View>
       </Card>
 
+      <FlowStatusModal flowId={flowId} currentId={flow.status_id} visible={changingStatus} onClose={() => setChangingStatus(false)} />
       <SectionTitle>{t("flowDetails.relatedItems")}</SectionTitle>
       {flow.downloaded ? <RelatedItems flowId={flowId} /> : <Empty>{t("flowDetails.downloadToSee")}</Empty>}
     </ScrollView>
@@ -167,7 +175,8 @@ const styles = StyleSheet.create({
   type: { fontSize: font.small, color: colors.textSecondary },
   name: { fontSize: font.title, fontWeight: "700", color: colors.text },
   meta: { fontSize: font.small, color: colors.textSecondary },
-  row: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
+  row: { flexDirection: "row", alignItems: "center", gap: spacing.sm, flexWrap: "wrap" },
+  link: { fontSize: font.small, color: colors.primary, fontWeight: "600" },
   actions: { flexDirection: "row", gap: spacing.sm, flexWrap: "wrap", marginTop: spacing.sm },
   cardTitle: { fontSize: font.body, fontWeight: "700", color: colors.text },
   item: { paddingVertical: spacing.xs, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.border, gap: 2 },

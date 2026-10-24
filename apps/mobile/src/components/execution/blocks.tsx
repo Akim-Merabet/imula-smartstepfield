@@ -6,8 +6,9 @@ import type { ReactNode } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import type { SignatureTarget } from "@/components/execution/signature-modal";
+import { MultiPrItems } from "@/components/execution/multi-pr";
 import { FormLinks } from "@/components/forms/form-links";
-import { formatDate, Icon, StatusChip } from "@/components/kit";
+import { formatDate, Icon } from "@/components/kit";
 import { RichText } from "@/components/rich-text";
 import type { ExecBlock } from "@/data/execution-model";
 import { t } from "@/i18n/fr";
@@ -18,7 +19,11 @@ import { colors, font, radius, spacing } from "@/theme";
 const ORDER = ["rhp", "emm", "adr", "txt", "pr", "object", "multi_pr", "form", "documents", "dsi"];
 
 /** Actions possibles sur l'étape affichée (signer…) ; absent = consultation seule. */
-export type StepActions = { stepId: string; flowId: string; onSign: (target: SignatureTarget) => void };
+export type StepActions = {
+  stepId: string; flowId: string; onSign: (target: SignatureTarget) => void;
+  /** « Déclarer un aléa » (bloc Formulaires) : déverrouiller le flow / ouvrir un formulaire. */
+  onHazard: () => void;
+};
 
 export function StepBlocks({ stepId, blocks, flow, flowType, actions }: {
   stepId: string; blocks: ExecBlock[]; flow: SupervisionFlow; flowType: string; actions?: StepActions;
@@ -65,9 +70,15 @@ function BlockView({ block, flow, actions }: { block: ExecBlock; flow: Supervisi
     case "object":
       return <BlockShell title={t("execution.objectBlock")} icon="cube-outline" block={block}><ObjectNotice /></BlockShell>;
     case "multi_pr":
-      return <BlockShell title={t("execution.multiInstructionsBlock")} icon="format-list-checks" block={block}><MultiPrItems block={block} /></BlockShell>;
+      return <BlockShell title={t("execution.multiInstructionsBlock")} icon="format-list-checks" block={block}><MultiPrItems block={block} editable={!!actions} /></BlockShell>;
     case "form":
-      return <BlockShell title={t("execution.formsBlock")} icon="file-document-edit-outline" block={block}><FormLinks blockId={block.id} editable={!!actions} /></BlockShell>;
+      return <BlockShell title={t("execution.formsBlock")} icon="file-document-edit-outline" block={block}><FormLinks blockId={block.id} editable={!!actions} />
+        {!!actions && (
+          <Pressable accessibilityRole="button" onPress={actions.onHazard} style={styles.hazard}>
+            <Icon name="alert-octagon-outline" size={18} color={colors.warning} />
+            <Text style={styles.hazardLabel}>{t("execution.declareHazard")}</Text>
+          </Pressable>
+        )}</BlockShell>;
     case "dsi":
       return <BlockShell title={t("execution.controlBlock")} icon="draw-pen" block={block}><Controls blockId={block.id} flow={flow} actions={actions} /></BlockShell>;
     default:
@@ -127,25 +138,6 @@ function RiskItems({ blockId }: { blockId: string }) {
 function ObjectNotice() {
   const { offline } = useSession();
   return <Text style={styles.muted}>{offline ? t("execution.objectOnlineOnly") : t("execution.objectSoon")}</Text>;
-}
-
-function MultiPrItems({ block }: { block: ExecBlock }) {
-  const { data } = useQuery<{ id: string; title: string | null; content_html: string | null; content_json: string | null; observation: string | null; status_name: string | null; status_color: string | null; signed: number }>(
-    `select i.id, i.title, i.content_html, i.content_json, i.observation, s.name as status_name, s.color as status_color,
-            exists (select 1 from block_multi_pr_signatures g where g.item_id = i.id) as signed
-       from block_multi_pr_items i left join custom_statuses s on s.id = i.custom_status_id
-      where i.block_id = ? and ifnull(i.disabled, 0) = 0 order by i.position`, [block.id]);
-  return <>{data.map((i, n) => (
-    <View key={i.id} style={styles.subItem}>
-      {!block.multi_pr_title_hidden && <Text style={styles.subTitle}>{n + 1}. {i.title ?? ""}</Text>}
-      <RichText json={i.content_json} html={i.content_html} />
-      <View style={styles.inline}>
-        <StatusChip color={i.status_color} label={i.status_name} />
-        {!!i.signed && <Icon name="draw-pen" color={colors.success} size={18} />}
-      </View>
-      {!!i.observation && <Text style={styles.muted}>{i.observation}</Text>}
-    </View>
-  ))}</>;
 }
 
 /** Documents liés à l'étape (tous blocs confondus). */
@@ -228,6 +220,8 @@ const styles = StyleSheet.create({
   subItem: { gap: spacing.xs, paddingVertical: spacing.sm, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.border },
   subTitle: { fontSize: font.body, fontWeight: "600", color: colors.text },
   inline: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
+  hazard: { flexDirection: "row", alignItems: "center", gap: spacing.xs, alignSelf: "flex-start", paddingVertical: spacing.xs },
+  hazardLabel: { color: colors.warning, fontWeight: "600", fontSize: font.small },
   action: { flexDirection: "row", alignItems: "center", gap: spacing.xs, alignSelf: "flex-start", backgroundColor: colors.primary, borderRadius: radius.md, paddingHorizontal: spacing.md, paddingVertical: spacing.sm, marginTop: spacing.xs },
   actionLabel: { color: colors.onPrimary, fontWeight: "600", fontSize: font.small },
 });

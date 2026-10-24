@@ -7,6 +7,7 @@ import { Modal, Pressable, ScrollView, type ScrollViewInstance, StyleSheet, Text
 
 import { StepBlocks, StepDocuments } from "@/components/execution/blocks";
 import { SignatureModal, type SignatureTarget } from "@/components/execution/signature-modal";
+import { UnlockFlowModal } from "@/components/execution/unlock-flow-modal";
 import { Empty, Icon, StatusChip, useSnackbar } from "@/components/kit";
 import { RichText } from "@/components/rich-text";
 import { Button } from "@/components/ui";
@@ -62,6 +63,8 @@ export function ExecutionView({ flowId, initialStepId, readonly }: { flowId: str
   const [stepId, setStepId] = useState<string | undefined>(initialStepId);
   const [disabledNotice, setDisabledNotice] = useState<StepView | null>(null);
   const [signing, setSigning] = useState<SignatureTarget | null>(null);
+  const [hazard, setHazard] = useState(false);
+  const [unlocking, setUnlocking] = useState(false);
   const scroll = useRef<ScrollViewInstance>(null);
 
   // Point d'entrée : étape demandée, sinon dernière étape consultée, sinon première étape non vide (spec 05 §2.5).
@@ -125,6 +128,8 @@ export function ExecutionView({ flowId, initialStepId, readonly }: { flowId: str
   };
 
   const canValidate = editable && model.validationEnabled && !current.validated_at;
+  // Déverrouillage possible tant que le flow ne l'est pas (sans objet pour un flow intervention, spec 05 §4.4).
+  const canUnlock = !readonly && !model.flow.fill_restrictions_skipped && model.flow.flow_type !== "flow_form";
   const footerLabel = isLast
     ? t(canValidate ? "execution.validate" : "execution.finishOnly")
     : t(canValidate ? "execution.next" : "execution.nextOnly");
@@ -171,13 +176,17 @@ export function ExecutionView({ flowId, initialStepId, readonly }: { flowId: str
         {!!current.disabled && <Notice icon="cancel" text={t("execution.disabledStep")} detail={current.disabled_comment} />}
         {(!!current.read_only_on_mobile_app || !!phase.read_only_on_mobile_app) && <Notice icon="monitor" text={t("execution.readOnlyOnMobile")} />}
         {current.blockers.length > 0 && !current.disabled && (
-          <Notice icon="lock-outline" text={t("execution.lockedStep")}
-            detail={t("execution.lockedBy", { steps: current.blockers.map((id) => stepLabel(model, id)).join(", ") })} />
+          <>
+            <Notice icon="lock-outline" text={t("execution.lockedStep")}
+              detail={t("execution.lockedBy", { steps: current.blockers.map((id) => stepLabel(model, id)).join(", ") })} />
+            {canUnlock && <Button label={t("execution.unlockFlow")} variant="secondary" onPress={() => setUnlocking(true)} />}
+          </>
         )}
+        {!!model.flow.fill_restrictions_skipped && <Notice icon="lock-open-variant-outline" text={t("execution.flowUnlocked")} />}
         {!!current.description && <RichText html={current.description} />}
 
         <StepBlocks stepId={current.id} blocks={blocks} flow={model.flow} flowType={model.flow.flow_type}
-          actions={editable ? { stepId: current.id, flowId, onSign: setSigning } : undefined} />
+          actions={editable ? { stepId: current.id, flowId, onSign: setSigning, onHazard: () => (canUnlock ? setHazard(true) : snackbar(t("execution.openFormSoon"))) } : undefined} />
         <StepDocuments stepId={current.id} />
 
         <Redirections stepId={current.id} flowId={flowId} readonly={readonly} actorId={profile?.principalId ?? null}
@@ -199,6 +208,17 @@ export function ExecutionView({ flowId, initialStepId, readonly }: { flowId: str
       </View>
 
       <SignatureModal target={signing} onClose={() => setSigning(null)} />
+      <UnlockFlowModal flowId={flowId} visible={unlocking} onClose={() => setUnlocking(false)} />
+      <Modal visible={hazard} transparent animationType="fade" onRequestClose={() => setHazard(false)}>
+        <View style={styles.backdrop}>
+          <View style={styles.modal}>
+            <Text style={styles.modalTitle}>{t("execution.declareHazard")}</Text>
+            <Button label={t("execution.unlockFlow")} onPress={() => { setHazard(false); setUnlocking(true); }} />
+            <Button label={t("execution.openForm")} variant="secondary" onPress={() => { setHazard(false); snackbar(t("execution.openFormSoon")); }} />
+            <Button label={t("common.cancel")} variant="secondary" onPress={() => setHazard(false)} />
+          </View>
+        </View>
+      </Modal>
 
       <Modal visible={!!disabledNotice} transparent animationType="fade" onRequestClose={() => setDisabledNotice(null)}>
         <View style={styles.backdrop}>

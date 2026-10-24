@@ -45,6 +45,17 @@
         }
       ],
       [
+        "expo-media-library",
+        {
+          "photosPermission": "L'accès aux photos permet de joindre des images aux réponses de formulaire.",
+          "savePhotosPermission": "Les photos prises sont copiées dans la galerie si le réglage est actif.",
+          "isAccessMediaLocationEnabled": false,
+          "granularPermissions": [
+            "photo"
+          ]
+        }
+      ],
+      [
         "expo-location",
         {
           "locationWhenInUsePermission": "Siteflow collecte les données de localisation pour géolocaliser les tablettes lors des interventions terrain lorsque l'application est active."

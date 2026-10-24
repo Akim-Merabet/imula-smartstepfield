@@ -8,9 +8,11 @@ import { useState } from "react";
 import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
 
 import { fileStore, useAttachmentUri } from "@/attachments/native";
+import { ImageEditor } from "@/components/forms/image-editor";
 import { type AttachmentDb, FORM_FILES_BUCKET, responseFilePath, saveLocalFile } from "@/attachments/queue";
 import { Icon } from "@/components/kit";
 import { Button } from "@/components/ui";
+import { copyToGallery } from "@/lib/gallery";
 import { t } from "@/i18n/fr";
 import { useSession } from "@/session/session-context";
 import { colors, font, radius, spacing } from "@/theme";
@@ -40,6 +42,7 @@ export function PhotoField({ value, onChange, disabled, responseId }: {
   const [choosing, setChoosing] = useState(false);
   const [viewing, setViewing] = useState<FileRef | null>(null);
   const [removing, setRemoving] = useState<FileRef | null>(null);
+  const [editing, setEditing] = useState<{ file: FileRef; uri: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const add = async (source: "camera" | "gallery") => {
@@ -54,6 +57,8 @@ export function PhotoField({ value, onChange, disabled, responseId }: {
       const result = source === "camera" ? await ImagePicker.launchCameraAsync(options) : await ImagePicker.launchImageLibraryAsync(options);
       if (result.canceled) return;
       const next = [...files];
+      // Copie de l'original dans la galerie (photos prises uniquement), sans attendre.
+      if (source === "camera") for (const asset of result.assets) void copyToGallery(asset.uri);
       for (const asset of result.assets) {
         const id = randomUUID();
         const name = `${(asset.fileName ?? `photo-${next.length + 1}`).replace(/\.[^.]+$/, "")}.jpg`;
@@ -68,6 +73,15 @@ export function PhotoField({ value, onChange, disabled, responseId }: {
     }
   };
 
+  /** La photo annotée devient un nouveau fichier (nouveau chemin Storage) qui remplace l'original dans la valeur. */
+  const replaceEdited = async (file: FileRef, uri: string) => {
+    const id = randomUUID();
+    const path = responseFilePath(responseId, "photos", file.name ?? "photo.jpg", id);
+    await saveLocalFile(db, fileStore, { id, bucket: FORM_FILES_BUCKET, path, mime: "image/jpeg", sourceUri: uri });
+    onChange(files.map((f) => (f.fileId === file.fileId ? { ...f, fileId: path, mime: "image/jpeg" } : f)));
+    setEditing(null);
+  };
+
   const remove = (file: FileRef) => {
     setRemoving(null);
     const next = files.filter((f) => f.fileId !== file.fileId).map((f, i) => ({ ...f, position: i + 1 }));
@@ -79,7 +93,7 @@ export function PhotoField({ value, onChange, disabled, responseId }: {
       <View style={styles.grid}>
         {files.map((f) => (
           <View key={f.fileId}>
-            <Thumb file={f} onPress={() => setViewing(f)} />
+            <Thumb file={f} onPress={() => setViewing(f)} onEdit={disabled ? undefined : (uri) => setEditing({ file: f, uri })} />
             {!disabled && (
               <Pressable accessibilityRole="button" accessibilityLabel={t("forms.delete")} onPress={() => setRemoving(f)} style={styles.remove} hitSlop={6}>
                 <Icon name="close-circle" color={colors.danger} size={22} />
@@ -116,6 +130,9 @@ export function PhotoField({ value, onChange, disabled, responseId }: {
           </View>
         </View>
       </Modal>
+      {editing && (
+        <ImageEditor uri={editing.uri} onClose={() => setEditing(null)} onSave={(uri) => replaceEdited(editing.file, uri)} />
+      )}
       <Modal visible={!!viewing} animationType="fade" onRequestClose={() => setViewing(null)}>
         <View style={styles.viewer}>
           {viewing && <FullImage file={viewing} />}
@@ -133,7 +150,7 @@ function usePending(path: string) {
   return (data[0]?.n ?? 0) > 0;
 }
 
-function Thumb({ file, onPress }: { file: FileRef; onPress: () => void }) {
+function Thumb({ file, onPress, onEdit }: { file: FileRef; onPress: () => void; onEdit?: (uri: string) => void }) {
   const { offline } = useSession();
   const uri = useAttachmentUri(file.fileId, !offline);
   const pending = usePending(file.fileId);
@@ -142,6 +159,11 @@ function Thumb({ file, onPress }: { file: FileRef; onPress: () => void }) {
       {uri ? <Image source={{ uri }} style={StyleSheet.absoluteFill} contentFit="cover" />
         : <Icon name="image-off-outline" color={colors.textSecondary} />}
       {pending && <View style={styles.pending}><Icon name="cloud-upload-outline" color={colors.onPrimary} size={16} /></View>}
+      {onEdit && uri && (
+        <Pressable accessibilityRole="button" accessibilityLabel={t("imageEditor.edit")} onPress={() => onEdit(uri)} style={styles.edit} hitSlop={6}>
+          <Icon name="pencil" color={colors.onPrimary} size={16} />
+        </Pressable>
+      )}
     </Pressable>
   );
 }
@@ -157,6 +179,7 @@ const styles = StyleSheet.create({
   grid: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm },
   thumb: { width: 88, height: 88, borderRadius: radius.md, borderWidth: 1, borderColor: colors.border, overflow: "hidden", alignItems: "center", justifyContent: "center", backgroundColor: colors.background },
   pending: { position: "absolute", right: 4, bottom: 4, backgroundColor: colors.warning, borderRadius: 10, padding: 2 },
+  edit: { position: "absolute", left: 4, bottom: 4, backgroundColor: colors.primary, borderRadius: 12, padding: 4 },
   remove: { position: "absolute", top: -8, right: -8, backgroundColor: colors.surface, borderRadius: 11 },
   add: { flexDirection: "row", alignItems: "center", gap: spacing.xs, alignSelf: "flex-start", padding: spacing.xs },
   addLabel: { color: colors.primary, fontWeight: "600", fontSize: font.small },

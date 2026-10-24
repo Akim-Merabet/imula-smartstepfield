@@ -149,6 +149,19 @@ const flowFillUnlocks: Uploader = async (op) => {
   check(await supabase.rpc("mobile_unlock_flow", { p: { ...op.opData, id: op.id } as never }));
 };
 
+// « Ajouter un formulaire » / aléa : le lien (et le bloc Formulaires si l'étape n'en avait pas) est créé par la RPC.
+const formBlockLinks: Uploader = async (op) => {
+  if (op.op !== UpdateType.PUT) throw new UploadError("rejected", "NOT_ALLOWED", "Modification de lien de formulaire non autorisée");
+  const d = op.opData ?? {};
+  check(await supabase.rpc("mobile_add_form_link", { p: { id: op.id, form_id: d.form_id, step_id: d.step_id, block_id: d.block_id } as never }));
+};
+
+const blocks: Uploader = async (op) => {
+  // Seul cas d'écriture : bloc Formulaires créé avec un aléa, envoyé par mobile_add_form_link (même transaction).
+  if (op.op === UpdateType.PUT && op.opData?.type === "form") return;
+  throw new UploadError("rejected", "NOT_ALLOWED", "Modification de bloc non autorisée depuis l'appareil");
+};
+
 // Copie locale du flow : seuls le statut et le déverrouillage changent sur l'appareil, et ils partent par les
 // demandes dédiées ci-dessus (même transaction) ; la modification de la ligne elle-même n'est pas envoyée.
 const flows: Uploader = async (op) => {
@@ -167,6 +180,8 @@ const uploaders: Partial<Record<string, Uploader>> = {
   block_multi_pr_signatures: multiPrSignatures,
   flow_status_changes: flowStatusChanges,
   flow_fill_unlocks: flowFillUnlocks,
+  form_block_links: formBlockLinks,
+  blocks,
   flows,
   form_response_values: formResponseValues,
   step_navigation_events: insertOnly("step_navigation_events"),

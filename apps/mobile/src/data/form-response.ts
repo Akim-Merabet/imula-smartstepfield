@@ -311,3 +311,21 @@ export async function finishResponse(db: Db, responseId: string) {
 export async function reopenResponse(db: Db, responseId: string) {
   await db.execute("update form_responses set state = 'in_progress', done_at = null where id = ? and state = 'done'", [responseId]);
 }
+
+/** Référence par défaut d'une nouvelle réponse sur un lien d'étape (nombre de réponses existantes compris). */
+export async function defaultReferenceForLink(db: Db, linkId: string): Promise<{ link: LinkInfo & { project_id: string }; reference: string } | null> {
+  const link = await db.getOptional<LinkInfo & { project_id: string; reference: string | null; index_label: string | null }>(
+    `select l.*, f.project_id, f.reference, f.index_label from form_block_links l join forms f on f.id = l.form_id where l.id = ?`, [linkId]);
+  if (!link) return null;
+  const step = await db.getOptional<{ step_number: string | null; phase_number: string | null; flow_ref: string | null }>(
+    `select coalesce(s.custom_number, s.position) as step_number, coalesce(ph.custom_number, ph.position) as phase_number, f.ref_int as flow_ref
+       from steps s join phases ph on ph.id = s.phase_id join flows f on f.id = s.flow_id where s.id = ?`, [link.step_id]);
+  const count = await db.getOptional<{ n: number }>("select count(*) as n from form_responses where block_link_id = ? and deleted_at is null", [linkId]);
+  return {
+    link,
+    reference: defaultReference({
+      formReference: link.reference, indexLabel: link.index_label, flowRef: step?.flow_ref, phaseNumber: step?.phase_number,
+      stepNumber: step?.step_number, count: count?.n ?? 0, now: new Date(), inFlow: true,
+    }),
+  };
+}

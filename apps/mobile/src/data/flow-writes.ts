@@ -53,3 +53,29 @@ export async function unlockFlow(db: Db, p: { id: string; flowId: string; unlock
     await tx.execute("update flows set fill_restrictions_skipped = 1 where id = ?", [p.flowId]);
   });
 }
+
+/**
+ * « Ajouter un formulaire » / « Déclarer un aléa » (spec 05 §4.7.8) : lie un formulaire générique à l'étape.
+ * Réutilise le lien existant pour ce formulaire ; crée le bloc Formulaires si l'étape n'en a pas. Renvoie le lien.
+ */
+export async function addFormLink(db: Db, p: { stepId: string; flowId: string; formId: string }, randomId: () => string): Promise<string> {
+  return db.writeTransaction(async (tx) => {
+    let block = await tx.getOptional<{ id: string }>("select id from blocks where step_id = ? and type = 'form' and ifnull(enabled, 1) = 1", [p.stepId]);
+    if (!block) {
+      block = { id: randomId() };
+      await tx.execute(
+        `insert into blocks (id, step_id, flow_id, type, enabled, state, created_at, updated_at) values (?, ?, ?, 'form', 1, 'validated', ?, ?)`,
+        [block.id, p.stepId, p.flowId, new Date().toISOString(), new Date().toISOString()]);
+    }
+    const existing = await tx.getOptional<{ id: string }>(
+      "select id from form_block_links where block_id = ? and form_id = ? and ifnull(enabled, 1) = 1", [block.id, p.formId]);
+    if (existing) return existing.id;
+    const max = await tx.getOptional<{ n: number | null }>("select max(position) as n from form_block_links where block_id = ?", [block.id]);
+    const id = randomId();
+    await tx.execute(
+      `insert into form_block_links (id, block_id, step_id, flow_id, form_id, position, enabled, mandatory, unique_response, unique_mode, created_at)
+       values (?, ?, ?, ?, ?, ?, 1, 0, 0, 'new_or_resume', ?)`,
+      [id, block.id, p.stepId, p.flowId, p.formId, (max?.n ?? 0) + 1, new Date().toISOString()]);
+    return id;
+  });
+}

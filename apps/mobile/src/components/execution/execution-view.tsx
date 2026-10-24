@@ -8,6 +8,7 @@ import { Modal, Pressable, ScrollView, type ScrollViewInstance, StyleSheet, Text
 import { StepBlocks, StepDocuments } from "@/components/execution/blocks";
 import { SignatureModal, type SignatureTarget } from "@/components/execution/signature-modal";
 import { UnlockFlowModal } from "@/components/execution/unlock-flow-modal";
+import { AddFormModal } from "@/components/forms/add-form-modal";
 import { Empty, Icon, StatusChip, useSnackbar } from "@/components/kit";
 import { RichText } from "@/components/rich-text";
 import { Button } from "@/components/ui";
@@ -66,6 +67,7 @@ export function ExecutionView({ flowId, initialStepId, readonly }: { flowId: str
   const [signing, setSigning] = useState<SignatureTarget | null>(null);
   const [hazard, setHazard] = useState(false);
   const [unlocking, setUnlocking] = useState(false);
+  const [addingForm, setAddingForm] = useState(false);
   const scroll = useRef<ScrollViewInstance>(null);
 
   // Point d'entrée : étape demandée, sinon dernière étape consultée, sinon première étape non vide (spec 05 §2.5).
@@ -187,7 +189,7 @@ export function ExecutionView({ flowId, initialStepId, readonly }: { flowId: str
         {!!current.description && <RichText html={current.description} />}
 
         <StepBlocks stepId={current.id} blocks={blocks} flow={model.flow} flowType={model.flow.flow_type}
-          actions={editable ? { stepId: current.id, flowId, onSign: setSigning, onHazard: () => (canUnlock ? setHazard(true) : snackbar(t("execution.openFormSoon"))) } : undefined} />
+          actions={editable ? { stepId: current.id, flowId, onSign: setSigning, onHazard: () => (canUnlock ? setHazard(true) : setAddingForm(true)), onAddForm: () => setAddingForm(true) } : undefined} />
         <StepDocuments stepId={current.id} />
 
         <Redirections stepId={current.id} flowId={flowId} readonly={readonly} actorId={profile?.principalId ?? null}
@@ -210,12 +212,13 @@ export function ExecutionView({ flowId, initialStepId, readonly }: { flowId: str
 
       <SignatureModal target={signing} onClose={() => setSigning(null)} />
       <UnlockFlowModal flowId={flowId} visible={unlocking} onClose={() => setUnlocking(false)} />
+      <AddFormModal visible={addingForm} stepId={current.id} flowId={flowId} onClose={() => setAddingForm(false)} />
       <Modal visible={hazard} transparent animationType="fade" onRequestClose={() => setHazard(false)}>
         <View style={styles.backdrop}>
           <View style={styles.modal}>
             <Text style={styles.modalTitle}>{t("execution.declareHazard")}</Text>
             <Button label={t("execution.unlockFlow")} onPress={() => { setHazard(false); setUnlocking(true); }} />
-            <Button label={t("execution.openForm")} variant="secondary" onPress={() => { setHazard(false); snackbar(t("execution.openFormSoon")); }} />
+            <Button label={t("execution.openForm")} variant="secondary" onPress={() => { setHazard(false); setAddingForm(true); }} />
             <Button label={t("common.cancel")} variant="secondary" onPress={() => setHazard(false)} />
           </View>
         </View>

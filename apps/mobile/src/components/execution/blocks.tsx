@@ -21,8 +21,10 @@ const ORDER = ["rhp", "emm", "adr", "txt", "pr", "object", "multi_pr", "form", "
 /** Actions possibles sur l'étape affichée (signer…) ; absent = consultation seule. */
 export type StepActions = {
   stepId: string; flowId: string; onSign: (target: SignatureTarget) => void;
-  /** « Déclarer un aléa » (bloc Formulaires) : déverrouiller le flow / ouvrir un formulaire. */
+  /** « Déclarer un aléa » : déverrouiller le flow / ouvrir un formulaire. */
   onHazard: () => void;
+  /** « Ajouter un formulaire » (remontée d'informations). */
+  onAddForm: () => void;
 };
 
 export function StepBlocks({ stepId, blocks, flow, flowType, actions }: {
@@ -34,10 +36,32 @@ export function StepBlocks({ stepId, blocks, flow, flowType, actions }: {
     .filter((b) => !(b.type === "dsi" && flowType === "generic"))
     .sort((a, b) => ORDER.indexOf(a.type) - ORDER.indexOf(b.type));
   const { data: docs } = useQuery<{ n: number }>("select count(*) as n from block_documents d join blocks b on b.id = d.block_id where b.step_id = ?", [stepId]);
-  if (!visible.length && !docs[0]?.n) return <Text style={styles.muted}>{t("execution.emptyFlow")}</Text>;
+  if (!visible.length && !docs[0]?.n) {
+    return actions ? <FeedbackBox actions={actions} /> : <Text style={styles.muted}>{t("execution.emptyFlow")}</Text>;
+  }
   return (
     <View style={{ gap: spacing.md }}>
       {visible.map((b) => <BlockView key={b.id} block={b} flow={flow} actions={actions} />)}
+      {!!actions && <FeedbackBox actions={actions} />}
+    </View>
+  );
+}
+
+/** Encadré « Vous souhaitez remonter un problème… » : ajouter un formulaire générique ou déclarer un aléa. */
+function FeedbackBox({ actions }: { actions: StepActions }) {
+  return (
+    <View style={styles.feedback}>
+      <Text style={styles.text}>{t("execution.formBlockFeedback")}</Text>
+      <View style={styles.feedbackActions}>
+        <Pressable accessibilityRole="button" onPress={actions.onAddForm} style={styles.action}>
+          <Icon name="file-plus-outline" size={18} color={colors.onPrimary} />
+          <Text style={styles.actionLabel}>{t("execution.addForm")}</Text>
+        </Pressable>
+        <Pressable accessibilityRole="button" onPress={actions.onHazard} style={styles.hazard}>
+          <Icon name="alert-octagon-outline" size={18} color={colors.warning} />
+          <Text style={styles.hazardLabel}>{t("execution.declareHazard")}</Text>
+        </Pressable>
+      </View>
     </View>
   );
 }
@@ -72,13 +96,7 @@ function BlockView({ block, flow, actions }: { block: ExecBlock; flow: Supervisi
     case "multi_pr":
       return <BlockShell title={t("execution.multiInstructionsBlock")} icon="format-list-checks" block={block}><MultiPrItems block={block} editable={!!actions} /></BlockShell>;
     case "form":
-      return <BlockShell title={t("execution.formsBlock")} icon="file-document-edit-outline" block={block}><FormLinks blockId={block.id} editable={!!actions} />
-        {!!actions && (
-          <Pressable accessibilityRole="button" onPress={actions.onHazard} style={styles.hazard}>
-            <Icon name="alert-octagon-outline" size={18} color={colors.warning} />
-            <Text style={styles.hazardLabel}>{t("execution.declareHazard")}</Text>
-          </Pressable>
-        )}</BlockShell>;
+      return <BlockShell title={t("execution.formsBlock")} icon="file-document-edit-outline" block={block}><FormLinks blockId={block.id} editable={!!actions} /></BlockShell>;
     case "dsi":
       return <BlockShell title={t("execution.controlBlock")} icon="draw-pen" block={block}><Controls blockId={block.id} flow={flow} actions={actions} /></BlockShell>;
     default:
@@ -220,7 +238,9 @@ const styles = StyleSheet.create({
   subItem: { gap: spacing.xs, paddingVertical: spacing.sm, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.border },
   subTitle: { fontSize: font.body, fontWeight: "600", color: colors.text },
   inline: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
-  hazard: { flexDirection: "row", alignItems: "center", gap: spacing.xs, alignSelf: "flex-start", paddingVertical: spacing.xs },
+  hazard: { flexDirection: "row", alignItems: "center", gap: spacing.xs, alignSelf: "flex-start", paddingVertical: spacing.sm, paddingHorizontal: spacing.md, borderRadius: radius.md, borderWidth: 1, borderColor: colors.warning },
+  feedback: { backgroundColor: colors.surface, borderRadius: radius.lg, padding: spacing.md, gap: spacing.sm, borderWidth: 1, borderColor: colors.border, borderStyle: "dashed" },
+  feedbackActions: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm },
   hazardLabel: { color: colors.warning, fontWeight: "600", fontSize: font.small },
   action: { flexDirection: "row", alignItems: "center", gap: spacing.xs, alignSelf: "flex-start", backgroundColor: colors.primary, borderRadius: radius.md, paddingHorizontal: spacing.md, paddingVertical: spacing.sm, marginTop: spacing.xs },
   actionLabel: { color: colors.onPrimary, fontWeight: "600", fontSize: font.small },

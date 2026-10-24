@@ -7,7 +7,7 @@ import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
 
 import { useSnackbar } from "@/components/kit";
 import { Banner, Button, TextField } from "@/components/ui";
-import { createResponse, type Db, defaultReference, type LinkInfo, reopenResponse, versionFor } from "@/data/form-response";
+import { createResponse, type Db, defaultReferenceForLink, type LinkInfo, reopenResponse, versionFor } from "@/data/form-response";
 import { t } from "@/i18n/fr";
 import { useSession } from "@/session/session-context";
 import { colors, font, radius, spacing } from "@/theme";
@@ -45,13 +45,8 @@ function FormLink({ link, editable }: { link: LinkRow; editable: boolean }) {
   const startCreate = async () => {
     setError(null);
     if (!(await versionFor(db, link.form_id, link))) return snackbar(t("forms.noVersion"), "danger");
-    const step = await db.getOptional<{ step_number: string | null; phase_number: string | null; flow_ref: string | null }>(
-      `select coalesce(s.custom_number, s.position) as step_number, coalesce(ph.custom_number, ph.position) as phase_number, f.ref_int as flow_ref
-         from steps s join phases ph on ph.id = s.phase_id join flows f on f.id = s.flow_id where s.id = ?`, [link.step_id]);
-    setCreating(defaultReference({
-      formReference: link.reference, indexLabel: link.index_label, flowRef: step?.flow_ref, phaseNumber: step?.phase_number,
-      stepNumber: step?.step_number, count: responses.length, now: new Date(), inFlow: true,
-    }));
+    const defaults = await defaultReferenceForLink(db, link.id);
+    setCreating(defaults?.reference ?? "");
   };
 
   const create = async () => {

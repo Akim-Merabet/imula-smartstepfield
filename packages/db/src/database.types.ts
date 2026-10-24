@@ -8145,11 +8145,16 @@ export type Database = {
         }
         Returns: undefined
       }
+      mobile_create_form_response: { Args: { p: Json }; Returns: undefined }
       mobile_mark_step_opened: {
         Args: { p_opened_at?: string; p_step_id: string }
         Returns: undefined
       }
       mobile_sign: { Args: { p: Json }; Returns: undefined }
+      mobile_update_form_response: {
+        Args: { p: Json; p_id: string }
+        Returns: undefined
+      }
       mobile_validate_step: {
         Args: { p_step_id: string; p_validated_at?: string }
         Returns: string[]

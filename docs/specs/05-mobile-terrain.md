@@ -803,8 +803,8 @@ Notes :
 
 | Écriture locale | Appel | Contrôles serveur |
 |---|---|---|
-| `form_responses` INSERT/PATCH (référence, état) | RPC `mobile_upsert_form_response(p jsonb)` | réponse unique (`form.uniqueResponseAlreadyExists`), `unique_mode`, réponse terminée non modifiable si `block_form_response_edition`, droits |
-| `form_response_values` PUT/PATCH/DELETE | RPC `save_rubric_values` (existante) regroupée par (réponse, rubrique), option `provenance='mobile'` | idempotence par (`response_id`, `option_lineage_id`, `coord`), verrouillage (`locked`) |
+| `form_responses` INSERT / PATCH (référence, état, rubrique courante) | ✅ RPC `mobile_create_form_response(p jsonb)` (identifiant client, version épinglée ou courante, contexte dynamique calculé sur l'appareil) / `mobile_update_form_response(id, p jsonb)` | réponse unique et mode « reprise uniquement » (`UNIQUE_RESPONSE_EXISTS`), formulaire / lien actifs, repasser « en cours » interdit si `block_form_response_edition` (`RESPONSE_EDITION_BLOCKED`), droits |
+| `form_response_values` PUT / PATCH | ✅ RPC `save_rubric_values` (existante), provenance `mobile`, état courant de la ligne locale relu à l'envoi (idempotent) | clé (`response_id`, `option_lineage_id`), réponse terminée refusée (`response_done`), valeur verrouillée sans signature refusée (`locked_value`) |
 | `form_response_value_history` (modif. d'une valeur verrouillée) | inclus dans `save_rubric_values` (`change_signature`) | signature obligatoire |
 | `form_response_dynamic_items` | RPC `mobile_upsert_dynamic_items` | `allow_add_row/column` |
 | `signatures` INSERT | ✅ RPC `mobile_sign(p jsonb)` (identifiant généré par l'appareil, rejouable ; l'événement `create` est écrit par le serveur) | nature attendue, unicité par (bloc, nature), une signature par collaborateur et par étape (inclut R ≠ CT), liste restreinte, procuration (date), étape active / non verrouillée / saisissable sur l'application, dessin (sauf non applicable, en attente ou QR), commentaire si non applicable ; **figement des versions de documents** (déclencheur, aussi à la reprise) |
@@ -831,6 +831,8 @@ Notes :
 - ✅ Écran « Modifications refusées par le serveur » (Paramètres) : motif en clair par code (`ALREADY_SIGNED`, `SIGN_TWICE`, `STEP_LOCKED`…).
 - QR Code ID d'un collaborateur (authentification forte) : format reconstruit `{ v: 1, collaborator_id }` ; l'export WebApp (« Exporter les QR Code ID ») reste à faire.
 - Géolocalisation des signatures : colonnes prêtes (`latitude`, `longitude`), envoyées vides tant que la demande d'autorisation R-SEC-2 n'est pas en place.
+
+- ✅ Réponse aux formulaires (bloc Formulaires) : Répondre (référence par défaut modifiable), Reprendre, Voir, Modifier une réponse terminée ; écran par rubrique avec pré-remplissage, formules recalculées, validations de données et alertes, redirections, contrôle des obligatoires (« Questions requises ou invalides »), « Sauvegarder et continuer plus tard », « Terminer la réponse » ; rubriques non autorisées à l'étape en lecture seule. Natures saisissables : réponses courte / longue / multiple, choix unique / multiple, listes, date, date-heure, durée, valeur et unité, localisation (« Me localiser »), formule. Restent à faire : photo, collaborateur et signature, modification signée d'une valeur verrouillée, ajout de lignes / colonnes, remplissage en masse, ajout de formulaire / aléa. Le contrôle de fin de réponse est fait sur l'appareil (moteur partagé), comme la WebApp le fait côté serveur Next.js.
 
 ### 9.7 Conflits
 

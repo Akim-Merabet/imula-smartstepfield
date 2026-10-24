@@ -8150,8 +8150,18 @@ export type Database = {
         Args: { p_opened_at?: string; p_step_id: string }
         Returns: undefined
       }
+      mobile_set_flow_status: {
+        Args: { p_comment?: string; p_flow_id: string; p_status_id: string }
+        Returns: undefined
+      }
       mobile_sign: { Args: { p: Json }; Returns: undefined }
+      mobile_sign_multi_pr: { Args: { p: Json }; Returns: undefined }
+      mobile_unlock_flow: { Args: { p: Json }; Returns: undefined }
       mobile_update_form_response: {
+        Args: { p: Json; p_id: string }
+        Returns: undefined
+      }
+      mobile_update_multi_pr_item: {
         Args: { p: Json; p_id: string }
         Returns: undefined
       }

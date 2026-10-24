@@ -809,13 +809,13 @@ Notes :
 | `form_response_dynamic_items` | RPC `mobile_upsert_dynamic_items` | `allow_add_row/column` |
 | `signatures` INSERT | ✅ RPC `mobile_sign(p jsonb)` (identifiant généré par l'appareil, rejouable ; l'événement `create` est écrit par le serveur) | nature attendue, unicité par (bloc, nature), une signature par collaborateur et par étape (inclut R ≠ CT), liste restreinte, procuration (date), étape active / non verrouillée / saisissable sur l'application, dessin (sauf non applicable, en attente ou QR), commentaire si non applicable ; **figement des versions de documents** (déclencheur, aussi à la reprise) |
 | `signatures` PATCH (compléter une signature en attente) | ✅ RPC `mobile_complete_signature(id, signature_path, signed_at, comment)` (événement `update` waiting → signed) | transition `waiting → signed` uniquement, date ≥ procuration |
-| `block_multi_pr_items` PATCH (statut, observation) | RPC `mobile_update_multi_pr_item` (+ `block_multi_pr_events`) | statuts autorisés |
-| `block_multi_pr_signatures` INSERT | RPC `mobile_sign_multi_pr` | |
+| `block_multi_pr_items` PATCH (statut, observation) | ✅ RPC `mobile_update_multi_pr_item(id, p)` (événements `select_status` / `change_status` / `edit_observation`, source `mobile`) | statut `multi_pr` actif, sous-instruction active, étape saisissable sur l'application |
+| `block_multi_pr_signatures` INSERT | ✅ RPC `mobile_sign_multi_pr(p)` (identifiant client, rejouable) | une signature par sous-instruction (`ALREADY_SIGNED`), étape saisissable |
 | `steps` PATCH `validated_at` | ✅ RPC `mobile_validate_step(step_id, validated_at)` : source `mobile`, date locale bornée à maintenant, rejouable ; renvoie les manquants (`sequence`, `dsi`, `form`, `multi_pr`) → rejet `STEP_REQUIREMENTS_NOT_MET` | éléments obligatoires (re-vérifiés), séquence (le flow déverrouillé lève le séquencement, aussi côté serveur) |
 | `steps` PATCH `first_opened_at` | ✅ RPC `mobile_mark_step_opened(step_id, opened_at)` | |
-| `flow_fill_unlocks` INSERT | RPC `mobile_unlock_flow` | droits (chef de chantier : rôle `responsible`/`expert` [I]), commentaire obligatoire |
+| `flow_fill_unlocks` INSERT | ✅ RPC `mobile_unlock_flow(p)` (+ `flow_events.skip_fill_restriction`) ; la copie locale du flow passe déverrouillée tout de suite | commentaire obligatoire, signature (ou QR), droit de signer sur le flow (pas de contrôle de rôle, comme l'outil d'origine) |
 | `step_navigation_events` INSERT | ✅ insert direct (RLS), synchronisé avec le flow | |
-| `flows` PATCH `custom_status_id` (+ commentaire) | RPC `set_flow_status` (existante) | transitions autorisées |
+| `flows` PATCH `custom_status_id` (+ commentaire) | ✅ table appareil « insertion seule » `flow_status_changes` → RPC `mobile_set_flow_status` (historique avec commentaire et source `mobile`) ; la modification de la copie locale du flow n'est pas envoyée | statut de flow actif de l'organisation (`INVALID_STATUS`) ; un statut non téléchargeable retire le flow de la tablette après l'envoi |
 | `flow_geometries` PUT/PATCH/DELETE | upsert/delete direct (RLS) | |
 | `form_block_links` INSERT (formulaire ajouté / aléa) | RPC `mobile_add_form_link` | formulaire générique autorisé |
 

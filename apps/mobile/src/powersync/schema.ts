@@ -41,6 +41,11 @@ const localTables = {
     { flow_id: column.text, status_id: column.text, comment: column.text, changed_at: column.text },
     { insertOnly: true },
   ),
+  // Signature de modification d'une valeur verrouillée, en attente d'envoi avec la valeur (save_rubric_values).
+  value_change_signatures: new Table(
+    { response_id: column.text, option_lineage_id: column.text, signature: column.text },
+    { localOnly: true, indexes: { value: ["response_id", "option_lineage_id"] } },
+  ),
   // Journal d'actions de l'appareil (spec 05 §6.5), envoyé après chaque envoi réussi puis effacé.
   app_logs: new Table(
     { action: column.text, detail: column.text, occurred_at: column.text },

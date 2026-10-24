@@ -4,13 +4,18 @@ import { checkResponse, checkRubric, computeRedirect, evaluateCell, prefillValue
 import { usePowerSync } from "@powersync/react";
 import { randomUUID } from "expo-crypto";
 import { router, Stack, useLocalSearchParams, useNavigation, usePreventRemove } from "expo-router";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Modal, Pressable, ScrollView, type ScrollViewInstance, StyleSheet, Text, View } from "react-native";
 
 import { QuestionInput } from "@/components/forms/question-input";
 import { Empty, Icon, useSnackbar } from "@/components/kit";
 import { Banner, Button } from "@/components/ui";
-import { type Db, finishResponse, loadResponse, type LoadedResponse, rubricRows, saveRubricRows } from "@/data/form-response";
+import { BulkFillModal } from "@/components/forms/bulk-fill-modal";
+import { ChangeSignatureModal } from "@/components/forms/change-signature";
+import {
+  addTableItems, bulkFillTargets, type ChangeSignature, type Db, finishResponse, loadResponse, type LoadedResponse, lockedChanges,
+  rubricRows, saveRubricRows, tableItemRows,
+} from "@/data/form-response";
 import { t } from "@/i18n/fr";
 import { useSession } from "@/session/session-context";
 import { colors, font, radius, spacing } from "@/theme";
@@ -20,15 +25,17 @@ export default function ResponseScreen() {
   const { responseId, readonly } = useLocalSearchParams<{ responseId: string; readonly?: string }>();
   const db = usePowerSync() as unknown as Db;
   const [loaded, setLoaded] = useState<LoadedResponse | null | undefined>(undefined);
-  useEffect(() => {
+  // Rechargé après un ajout de ligne / colonne (le modèle change ; les saisies en cours sont gardées par le formulaire).
+  const reload = useCallback(() => {
     loadResponse(db, responseId).then(setLoaded).catch(() => setLoaded(null));
   }, [db, responseId]);
+  useEffect(reload, [reload]);
   if (loaded === undefined) return null;
   if (!loaded) return <Empty>{t("forms.noVersion")}</Empty>;
-  return <ResponseForm key={loaded.response.id} loaded={loaded} forceReadOnly={readonly === "1"} />;
+  return <ResponseForm key={loaded.response.id} loaded={loaded} forceReadOnly={readonly === "1"} onReload={reload} />;
 }
 
-function ResponseForm({ loaded, forceReadOnly }: { loaded: LoadedResponse; forceReadOnly: boolean }) {
+function ResponseForm({ loaded, forceReadOnly, onReload }: { loaded: LoadedResponse; forceReadOnly: boolean; onReload: () => void }) {
   const db = usePowerSync() as unknown as Db;
   const { profile } = useSession();
   const snackbar = useSnackbar();
@@ -59,6 +66,13 @@ function ResponseForm({ loaded, forceReadOnly }: { loaded: LoadedResponse; force
   const [confirmFinish, setConfirmFinish] = useState(false);
   const [highlight, setHighlight] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  // Questions verrouillées déverrouillées pour modification (signature exigée à la sauvegarde).
+  const [unlocked, setUnlocked] = useState<Set<string>>(new Set());
+  const [unlockQ, setUnlockQ] = useState<RtQuestion | null>(null);
+  const [bulkQ, setBulkQ] = useState<RtQuestion | null>(null);
+  const sigResolver = useRef<((s: ChangeSignature | null) => void) | null>(null);
+  const [sigOpen, setSigOpen] = useState(false);
+  const askSignature = () => new Promise<ChangeSignature | null>((resolve) => { sigResolver.current = resolve; setSigOpen(true); });
   const scroll = useRef<ScrollViewInstance>(null);
   const rubric = rubrics[index];
   const readOnly = !rubric || rubricReadOnly(rubric);
@@ -97,13 +111,20 @@ function ResponseForm({ loaded, forceReadOnly }: { loaded: LoadedResponse; force
     setTouched(true);
   };
 
-  /** Écrit la rubrique courante dans la base locale (l'envoi suit automatiquement). */
-  const saveCurrent = async () => {
-    if (!rubric || readOnly) return;
-    const rows = rubricRows(loaded, rubric, display, baseline.current, observations, baseObservations.current);
-    if (!rows.length && !touched) return;
+  /** Écrit la rubrique courante dans la base locale (l'envoi suit). Renvoie false si la signature a été annulée. */
+  const saveCurrent = async (): Promise<boolean> => {
+    if (!rubric || readOnly) return true;
+    const rows = rubricRows(loaded, rubric, display, baseline.current, observations, baseObservations.current, unlocked);
+    if (!rows.length && !touched) return true;
+    const changed = lockedChanges(rows, baseline.current);
+    let change: { signature: ChangeSignature; optionLineageIds: string[] } | undefined;
+    if (changed.length) {
+      const signature = await askSignature();
+      if (!signature) return false;
+      change = { signature, optionLineageIds: changed.map((r) => r.option_lineage_id) };
+    }
     await saveRubricRows(db, response, rubric, rows, display, profile?.principalId ?? "", randomUUID,
-      { flowId: response.flow_id, projectId: response.project_id });
+      { flowId: response.flow_id, projectId: response.project_id }, change);
     const nextBase = { ...baseline.current };
     for (const r of rows) nextBase[r.option_lineage_id] = { value: display[r.option_lineage_id]?.value ?? null, locked: !!r.locked };
     baseline.current = nextBase;
@@ -113,7 +134,28 @@ function ResponseForm({ loaded, forceReadOnly }: { loaded: LoadedResponse; force
       return out;
     });
     baseObservations.current = { ...observations };
+    setUnlocked((u) => { const n = new Set(u); for (const q of rubric.questions) n.delete(q.lineageId); return n; });
     setTouched(false);
+    return true;
+  };
+
+  const addItem = (axis: "row" | "column") => run(async () => {
+    if (!rubric) return;
+    const rows = tableItemRows(rubric, axis, loaded.items, response.id, randomUUID);
+    if (!rows?.length) return;
+    await addTableItems(db, rows, randomUUID);
+    onReload();
+  });
+
+  const applyBulk = (q: RtQuestion, value: unknown) => {
+    const targets = bulkFillTargets(q, display);
+    setValues((v) => {
+      const next = { ...v };
+      for (const id of targets) next[id] = { value, locked: false };
+      return next;
+    });
+    setTouched(true);
+    setBulkQ(null);
   };
 
   const run = async (fn: () => Promise<void>) => {
@@ -129,7 +171,7 @@ function ResponseForm({ loaded, forceReadOnly }: { loaded: LoadedResponse; force
   };
 
   const goTo = (i: number, questionId?: string) => run(async () => {
-    await saveCurrent();
+    if (!(await saveCurrent())) return;
     setFailed(null);
     setIndex(i);
     setHighlight(questionId ?? null);
@@ -143,7 +185,7 @@ function ResponseForm({ loaded, forceReadOnly }: { loaded: LoadedResponse; force
       const check = checkRubric(rubric, display, response.created_at);
       if (!check.valid) return setFailed([check]);
     }
-    await saveCurrent();
+    if (!(await saveCurrent())) return;
     const redirect = !readOnly ? computeRedirect(rubric, display) : null;
     const target = redirect ? rubrics.findIndex((r) => r.def.lineageId === redirect.rubricLineageId) : index + 1;
     setIndex(target >= 0 ? target : index + 1);
@@ -158,14 +200,14 @@ function ResponseForm({ loaded, forceReadOnly }: { loaded: LoadedResponse; force
   };
 
   const saveLater = () => run(async () => {
-    await saveCurrent();
+    if (!(await saveCurrent())) return;
     snackbar(t("forms.saved"), "success");
     leave();
   });
 
   const finish = () => run(async () => {
     setConfirmFinish(false);
-    await saveCurrent();
+    if (!(await saveCurrent())) return;
     const skip = new Set(model.rubrics.filter((r) => r.def.hiddenInMobile || rubricReadOnly(r)).map((r) => r.def.lineageId));
     const merged = { ...baseline.current };
     const failures = checkResponse(model, merged, response.created_at, skip);
@@ -218,8 +260,17 @@ function ResponseForm({ loaded, forceReadOnly }: { loaded: LoadedResponse; force
             observation={observations[q.lineageId] ?? ""} error={errors.get(q.lineageId) ?? null} highlight={highlight === q.lineageId}
             header={rubric.def.type === "question" ? undefined : (_cell, i) => cellHeader(rubric, i)}
             onChange={setValue} onExclusive={setExclusive}
+            locked={q.cells.some((c) => display[c.lineageId]?.locked) && !unlocked.has(q.lineageId)}
+            onUnlock={() => setUnlockQ(q)}
+            onBulkFill={rubric.def.type !== "question" && bulkFillTargets(q, display).length > 0 ? () => setBulkQ(q) : undefined}
             onObservation={(text) => { setObservations((o) => ({ ...o, [q.lineageId]: text })); setTouched(true); }} />
         ))}
+        {!readOnly && rubric.def.type !== "question" && (rubric.def.allowAddRow || rubric.def.allowAddColumn) && (
+          <View style={styles.addItems}>
+            {rubric.def.allowAddRow && <Button label={t("forms.addRow")} variant="secondary" onPress={() => addItem("row")} disabled={busy} />}
+            {rubric.def.allowAddColumn && <Button label={t("forms.addColumn")} variant="secondary" onPress={() => addItem("column")} disabled={busy} />}
+          </View>
+        )}
       </ScrollView>
 
       <View style={styles.footer}>
@@ -236,6 +287,16 @@ function ResponseForm({ loaded, forceReadOnly }: { loaded: LoadedResponse; force
         </View>
       </View>
 
+      <ChangeSignatureModal visible={sigOpen} responseId={response.id}
+        onCancel={() => { setSigOpen(false); sigResolver.current?.(null); }}
+        onSigned={(sig) => { setSigOpen(false); sigResolver.current?.(sig); }} />
+      <Confirm visible={!!unlockQ} title={t("forms.unlockTitle")} description={t("forms.unlockText")} confirm={t("forms.unlockQuestion")}
+        cancel={t("common.cancel")} onConfirm={() => { if (unlockQ) setUnlocked((u) => new Set(u).add(unlockQ.lineageId)); setUnlockQ(null); }}
+        onCancel={() => setUnlockQ(null)} onDismiss={() => setUnlockQ(null)} />
+      {bulkQ && (
+        <BulkFillModal question={bulkQ} targets={bulkFillTargets(bulkQ, display)} responseId={response.id} createdAt={response.created_at}
+          onApply={(v) => applyBulk(bulkQ, v)} onClose={() => setBulkQ(null)} />
+      )}
       <Confirm visible={confirmFinish} title={t("forms.finishConfirm")} confirm={t("forms.finish")} cancel={t("forms.saveLater")}
         onConfirm={finish} onCancel={() => { setConfirmFinish(false); saveLater(); }} onDismiss={() => setConfirmFinish(false)} />
       <Confirm visible={!!pendingLeave} title={t("forms.unsavedTitle")} description={t("forms.unsavedDescription")}
@@ -280,6 +341,7 @@ const styles = StyleSheet.create({
   failedTitle: { fontSize: font.body, fontWeight: "700", color: colors.danger },
   failedRow: { flexDirection: "row", alignItems: "center", gap: spacing.sm, paddingVertical: spacing.xs },
   errorTag: { fontSize: 11, fontWeight: "700", color: colors.danger },
+  addItems: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm },
   footer: { flexDirection: "row", alignItems: "center", gap: spacing.sm, padding: spacing.md, backgroundColor: colors.surface, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.border },
   prev: { padding: spacing.xs },
   actions: { flex: 1, flexDirection: "row", gap: spacing.sm, flexWrap: "wrap", justifyContent: "flex-end" },

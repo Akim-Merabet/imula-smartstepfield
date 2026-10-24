@@ -26,6 +26,12 @@ export type QuestionProps = {
   onChange: (lineageId: string, value: unknown) => void;
   onExclusive: (question: RtQuestion, lineageId: string, checked: boolean) => void;
   onObservation: (text: string) => void;
+  /** Question verrouillée (valeur saisie verrouillée et non déverrouillée pour modification). */
+  locked?: boolean;
+  /** « Modifier » une question verrouillée (signature exigée à la sauvegarde). */
+  onUnlock?: () => void;
+  /** « Remplissage en masse » (tableaux). */
+  onBulkFill?: () => void;
 };
 
 const pad = (n: number) => String(n).padStart(2, "0");
@@ -51,6 +57,13 @@ export function QuestionInput(p: QuestionProps) {
       <View style={styles.titleRow}>
         <Text style={styles.title}>{q.name}{q.def.mandatory ? " *" : ""}</Text>
         {p.error && <Text style={styles.errorTag}>{p.error === "mandatory" ? t("forms.mandatory") : t("forms.invalid")}</Text>}
+        {!!p.locked && <Icon name="lock-outline" size={18} color={colors.textSecondary} />}
+        {!!p.locked && !p.readOnly && !!p.onUnlock && (
+          <Pressable accessibilityRole="button" onPress={p.onUnlock} hitSlop={6}><Text style={styles.link}>{t("forms.unlockQuestion")}</Text></Pressable>
+        )}
+        {!p.readOnly && !p.locked && !!p.onBulkFill && (
+          <Pressable accessibilityRole="button" onPress={p.onBulkFill} hitSlop={6}><Text style={styles.link}>{t("forms.bulkFill")}</Text></Pressable>
+        )}
       </View>
       {!!q.def.description && <Text style={styles.description}>{q.def.description}</Text>}
       {WEBAPP_ONLY.has(q.type) ? <Text style={styles.muted}>{t("forms.webappOnly")}</Text>
@@ -68,7 +81,7 @@ function CellInput(p: QuestionProps & { cell: RtCell; index: number }) {
   const { question: q, cell } = p;
   const stored = p.values[cell.lineageId];
   const value = stored?.value ?? null;
-  const locked = !!stored?.locked;
+  const locked = p.locked ?? !!stored?.locked;
   const disabled = p.readOnly || locked || !!cell.opt?.frozen;
   const set = (v: unknown) => p.onChange(cell.lineageId, v);
   const label = p.header?.(cell, p.index) ?? cell.opt?.optionName ?? cell.opt?.name;
@@ -182,7 +195,6 @@ function CellInput(p: QuestionProps & { cell: RtCell; index: number }) {
     <View style={styles.cell}>
       {!!label && !["unique_choice", "multiple_choices", "collaborator"].includes(q.type) && q.cells.length > 1 && <Text style={styles.cellLabel}>{label}</Text>}
       {input}
-      {locked && <Text style={styles.muted}>{t("forms.lockedValue")}</Text>}
       {!!invalid && <Text style={styles.error}>{q.type === "date" || q.type === "datetime" ? t("forms.backdating") : t("forms.outOfRange")}</Text>}
       {!invalid && outOfRange && <Text style={styles.warning}>{validation?.message || t("forms.outOfRange")}</Text>}
       {!!alert && <Text style={styles.warning}>{alert}</Text>}
@@ -293,5 +305,6 @@ const styles = StyleSheet.create({
   error: { fontSize: font.small, color: colors.danger },
   warning: { fontSize: font.small, color: colors.warning },
   locate: { flexDirection: "row", alignItems: "center", gap: spacing.xs, alignSelf: "flex-start", padding: spacing.xs },
+  link: { color: colors.primary, fontWeight: "600", fontSize: font.small },
   locateLabel: { color: colors.primary, fontWeight: "600", fontSize: font.small },
 });

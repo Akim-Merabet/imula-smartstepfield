@@ -39,7 +39,7 @@ const json = (v: unknown) => {
 // Écriture directe soumise à la RLS (tables sans règle métier côté serveur).
 // Journal (step_navigation_events) : insertion seule, un rejeu (doublon de clé) vaut succès — un upsert prendrait
 // le chemin UPDATE, refusé par la RLS, et serait pris à tort pour un accès retiré.
-const insertOnly = (table: "step_navigation_events"): Uploader => async (op) => {
+const insertOnly = (table: "step_navigation_events" | "form_response_dynamic_items"): Uploader => async (op) => {
   if (op.op !== UpdateType.PUT) throw new UploadError("rejected", "NOT_ALLOWED", `Modification non autorisée sur ${table}`);
   const result = await supabase.from(table).insert({ ...op.opData, id: op.id } as never);
   if (result.error?.code === "23505") return;
@@ -115,10 +115,16 @@ const formResponseValues: Uploader = async (op, db) => {
     is_valid: row.is_valid == null ? null : row.is_valid === 1 || row.is_valid === true,
     lock: row.locked === 1 || row.locked === true,
   };
+  // Valeur verrouillée modifiée : la signature de modification l'accompagne (historique signé côté serveur).
+  const pending = await db.getOptional<{ id: string; signature: string }>(
+    "select id, signature from value_change_signatures where response_id = ? and option_lineage_id = ?",
+    [row.response_id, row.option_lineage_id]);
   check(await supabase.rpc("save_rubric_values", {
     p_response_id: row.response_id as string, p_rubric_lineage_id: row.rubric_lineage_id as string,
-    p_values: [item] as never, p_options: { provenance: "mobile" } as never,
+    p_values: [item] as never,
+    p_options: { provenance: "mobile", ...(pending ? { change_signature: json(pending.signature) } : {}) } as never,
   }));
+  if (pending) await db.execute("delete from value_change_signatures where id = ?", [pending.id]);
 };
 
 // Instructions multiples : statut / observation d'une sous-instruction, signature (spec 05 §4.6).
@@ -196,6 +202,7 @@ const uploaders: Partial<Record<string, Uploader>> = {
   flows,
   form_response_values: formResponseValues,
   step_navigation_events: insertOnly("step_navigation_events"),
+  form_response_dynamic_items: insertOnly("form_response_dynamic_items"),
   flow_geometries: direct("flow_geometries"),
 };
 

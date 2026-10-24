@@ -34,6 +34,8 @@ export type LoadedResponse = {
   response: ResponseRow;
   definition: FormDefinition;
   model: RtModel;
+  /** Lignes / colonnes ajoutées sur le terrain. */
+  items: DynamicItem[];
   values: ValuesMap;
   observations: Record<string, string>;
   dynamicCtx: DynamicCtx;
@@ -71,7 +73,7 @@ export async function loadResponse(db: Db, responseId: string): Promise<LoadedRe
   const org = await db.getOptional<{ number_format: string | null; block_form_response_edition: number | null }>(
     "select number_format, block_form_response_edition from organizations limit 1");
   return {
-    response, definition, model, values, observations,
+    response, definition, model, items: dynamicItems, values, observations,
     dynamicCtx: parse<DynamicCtx>(response.dynamic_context, {}),
     fillable: fillableIds ? new Set(fillableIds) : null,
     locale: (org?.number_format ?? "fr") as NumberLocale,
@@ -240,7 +242,8 @@ export type ValueRow = {
  * de la WebApp. Les valeurs verrouillées ne sont pas modifiables sur l'appareil (signature de modification à venir).
  */
 export function rubricRows(loaded: Pick<LoadedResponse, "model" | "definition" | "dynamicCtx" | "locale">, rubric: RtRubric,
-  current: ValuesMap, baseline: ValuesMap, observations: Record<string, string>, baseObservations: Record<string, string>): ValueRow[] {
+  current: ValuesMap, baseline: ValuesMap, observations: Record<string, string>, baseObservations: Record<string, string>,
+  unlocked: Set<string> = new Set()): ValueRow[] {
   const merged: ValuesMap = { ...baseline, ...current };
   const out: ValueRow[] = [];
   for (const q of rubric.questions) {
@@ -249,7 +252,8 @@ export function rubricRows(loaded: Pick<LoadedResponse, "model" | "definition" |
     q.cells.forEach((cell, i) => {
       let value = current[cell.lineageId]?.value ?? null;
       const base = baseline[cell.lineageId];
-      if (base?.locked) return;
+      // Valeur verrouillée : modifiable seulement si la question a été déverrouillée (signature exigée à l'envoi).
+      if (base?.locked && !unlocked.has(q.lineageId)) return;
       if (q.type === "formula") {
         const res = evaluateCell(loaded.model, rubric, q, cell, merged, loaded.dynamicCtx, loaded.locale);
         value = res.ok ? { result: res.value, unit: cell.opt?.unit } : null;
@@ -271,18 +275,81 @@ export function rubricRows(loaded: Pick<LoadedResponse, "model" | "definition" |
         })(),
         observation: first ? obs || null : null,
         is_valid: isValid == null ? null : isValid ? 1 : 0,
-        locked: loaded.definition.lockResponses && value !== null ? 1 : 0,
+        // Verrouillage : déjà verrouillée, réponses verrouillées par le formulaire, ou question verrouillable renseignée
+        // (« une valeur saisie est verrouillée à la sauvegarde de la rubrique », spec 05 §4.7.3).
+        locked: base?.locked || ((loaded.definition.lockResponses || q.def.lockable) && filled) ? 1 : 0,
       });
     });
   }
   return out;
 }
 
+/** Lignes déjà verrouillées dont la valeur change : la sauvegarde exige une signature de modification. */
+export function lockedChanges(rows: ValueRow[], baseline: ValuesMap): ValueRow[] {
+  return rows.filter((r) => baseline[r.option_lineage_id]?.locked
+    && !sameJson(baseline[r.option_lineage_id]?.value ?? null, r.value_json === null ? null : JSON.parse(r.value_json)));
+}
+
+export type DynamicItemRow = {
+  response_id: string; rubric_lineage_id: string; kind: "question" | "option"; parent_lineage_id: string | null;
+  template_lineage_id: string; lineage_id: string; position: number; name: string | null;
+};
+
+/**
+ * « Ajouter une ligne / colonne » d'un tableau (miroir de addTableItem de la WebApp) : tableau par colonnes,
+ * question = colonne ; tableau par lignes, question = ligne. La nouvelle question copie la dernière ; une nouvelle
+ * cellule par question copie sa dernière cellule.
+ */
+export function tableItemRows(rubric: RtRubric, axis: "row" | "column", existing: DynamicItem[], responseId: string,
+  randomId: () => string): DynamicItemRow[] | null {
+  if (rubric.def.type === "question") return null;
+  if ((axis === "row" && !rubric.def.allowAddRow) || (axis === "column" && !rubric.def.allowAddColumn)) return null;
+  const addQuestion = (rubric.def.type === "table_column") === (axis === "column");
+  let pos = existing.filter((i) => i.rubricLineageId === rubric.def.lineageId).reduce((m, i) => Math.max(m, i.position), 0);
+  const base = { response_id: responseId, rubric_lineage_id: rubric.def.lineageId };
+  const rows: DynamicItemRow[] = [];
+  if (addQuestion) {
+    const tpl = rubric.questions[rubric.questions.length - 1];
+    if (!tpl) return null;
+    const qLineage = randomId();
+    rows.push({ ...base, kind: "question", parent_lineage_id: null, template_lineage_id: tpl.lineageId, lineage_id: qLineage,
+      position: ++pos, name: `${tpl.def.name} ${rubric.questions.length + 1}` });
+    for (const c of tpl.cells) {
+      rows.push({ ...base, kind: "option", parent_lineage_id: qLineage, template_lineage_id: c.lineageId, lineage_id: randomId(), position: ++pos, name: null });
+    }
+  } else {
+    for (const q of rubric.questions) {
+      const last = q.cells[q.cells.length - 1];
+      if (last) rows.push({ ...base, kind: "option", parent_lineage_id: q.lineageId, template_lineage_id: last.lineageId, lineage_id: randomId(), position: ++pos, name: null });
+    }
+  }
+  return rows;
+}
+
+/** Natures acceptées par le remplissage en masse (une même valeur copiée dans les cellules vides). */
+export const BULK_FILL_TYPES = new Set(["short_answer", "long_answer", "single_choice_list", "multiple_choice_list", "date", "datetime", "duration", "value_unit", "location"]);
+
+/** Cellules vides d'une question qu'un remplissage en masse modifierait (les champs déjà remplis ne changent pas). */
+export function bulkFillTargets(question: RtRubric["questions"][number], values: ValuesMap): string[] {
+  if (!BULK_FILL_TYPES.has(question.type)) return [];
+  return question.cells.filter((c) => !values[c.lineageId]?.locked && !isFilled(question.type, values[c.lineageId]?.value ?? null, c)).map((c) => c.lineageId);
+}
+
 /** Écrit les lignes d'une rubrique (une ligne par option) et mémorise la rubrique courante et la redirection active. */
+/** Signature de modification de valeurs verrouillées (même forme que la WebApp : change_signature). */
+export type ChangeSignature = { user_id: string; name: string; image_path: string | null; signed_at: string; comment: string | null };
+
 export async function saveRubricRows(db: Db, response: { id: string; organization_id?: string }, rubric: RtRubric, rows: ValueRow[],
-  current: ValuesMap, me: string, randomId: () => string, project?: { flowId: string | null; projectId: string }) {
+  current: ValuesMap, me: string, randomId: () => string, project?: { flowId: string | null; projectId: string },
+  change?: { signature: ChangeSignature; optionLineageIds: string[] }) {
   const now = new Date().toISOString();
   await db.writeTransaction(async (tx) => {
+    // La signature part avec chaque valeur verrouillée modifiée (relue par l'envoi).
+    for (const lineage of change?.optionLineageIds ?? []) {
+      await tx.execute("delete from value_change_signatures where response_id = ? and option_lineage_id = ?", [response.id, lineage]);
+      await tx.execute("insert into value_change_signatures (id, response_id, option_lineage_id, signature) values (?, ?, ?, ?)",
+        [randomId(), response.id, lineage, JSON.stringify(change!.signature)]);
+    }
     for (const r of rows) {
       const existing = await tx.getOptional<{ id: string }>(
         "select id from form_response_values where response_id = ? and option_lineage_id = ?", [response.id, r.option_lineage_id]);
@@ -328,4 +395,16 @@ export async function defaultReferenceForLink(db: Db, linkId: string): Promise<{
       stepNumber: step?.step_number, count: count?.n ?? 0, now: new Date(), inFlow: true,
     }),
   };
+}
+
+/** Ajoute les lignes / colonnes d'un tableau (items dynamiques propres à la réponse). */
+export async function addTableItems(db: Db, rows: DynamicItemRow[], randomId: () => string) {
+  await db.writeTransaction(async (tx) => {
+    for (const r of rows) {
+      await tx.execute(
+        `insert into form_response_dynamic_items (id, response_id, rubric_lineage_id, kind, parent_lineage_id, template_lineage_id, lineage_id, position, name)
+         values (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [randomId(), r.response_id, r.rubric_lineage_id, r.kind, r.parent_lineage_id, r.template_lineage_id, r.lineage_id, r.position, r.name]);
+    }
+  });
 }

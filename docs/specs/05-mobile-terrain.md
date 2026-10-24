@@ -807,8 +807,8 @@ Notes :
 | `form_response_values` PUT/PATCH/DELETE | RPC `save_rubric_values` (existante) regroupée par (réponse, rubrique), option `provenance='mobile'` | idempotence par (`response_id`, `option_lineage_id`, `coord`), verrouillage (`locked`) |
 | `form_response_value_history` (modif. d'une valeur verrouillée) | inclus dans `save_rubric_values` (`change_signature`) | signature obligatoire |
 | `form_response_dynamic_items` | RPC `mobile_upsert_dynamic_items` | `allow_add_row/column` |
-| `signatures` INSERT (+ `signature_events`) | RPC `mobile_sign(p jsonb)` | état cible, unicité par (bloc, nature) hors non-applicable, R ≠ CT, procuration (date), liste restreinte, étape non verrouillée (sauf flow déverrouillé), **figement des versions de documents** du bloc |
-| `signatures` PATCH (compléter une signature en attente) | RPC `mobile_complete_signature(id, signature_path, comment, signed_at)` | transition `waiting → signed` uniquement |
+| `signatures` INSERT | ✅ RPC `mobile_sign(p jsonb)` (identifiant généré par l'appareil, rejouable ; l'événement `create` est écrit par le serveur) | nature attendue, unicité par (bloc, nature), une signature par collaborateur et par étape (inclut R ≠ CT), liste restreinte, procuration (date), étape active / non verrouillée / saisissable sur l'application, dessin (sauf non applicable, en attente ou QR), commentaire si non applicable ; **figement des versions de documents** (déclencheur, aussi à la reprise) |
+| `signatures` PATCH (compléter une signature en attente) | ✅ RPC `mobile_complete_signature(id, signature_path, signed_at, comment)` (événement `update` waiting → signed) | transition `waiting → signed` uniquement, date ≥ procuration |
 | `block_multi_pr_items` PATCH (statut, observation) | RPC `mobile_update_multi_pr_item` (+ `block_multi_pr_events`) | statuts autorisés |
 | `block_multi_pr_signatures` INSERT | RPC `mobile_sign_multi_pr` | |
 | `steps` PATCH `validated_at` | ✅ RPC `mobile_validate_step(step_id, validated_at)` : source `mobile`, date locale bornée à maintenant, rejouable ; renvoie les manquants (`sequence`, `dsi`, `form`, `multi_pr`) → rejet `STEP_REQUIREMENTS_NOT_MET` | éléments obligatoires (re-vérifiés), séquence (le flow déverrouillé lève le séquencement, aussi côté serveur) |
@@ -826,6 +826,11 @@ Notes :
   - 403 (accès retiré au projet) → **suspendre l'envoi** (le connecteur renvoie sans compléter), passer l'UI hors ligne et afficher la modale R-SES-2 ; reprise manuelle ;
   - 4xx **métier** (conflit, validation) → enregistrer l'opération dans la table locale `sync_rejections(id, table, row_id, op, payload, error_code, message, created_at)`, compléter la transaction (pour ne pas bloquer la file) et notifier (« n modification(s) refusée(s) », écran de détail). Cas particulier `UNIQUE_RESPONSE_EXISTS` : message `push.uniqueResponseAlreadyExists` (comportement d'origine).
 - Après chaque vidage complet de la file en ligne : RPC `mobile_report_device(info)` (télémétrie §1.8) et envoi des journaux.
+
+- ✅ Dessin de signature : PNG en data URL dans `signature_path`, comme la WebApp (signature_pad), produit en JavaScript pur (`src/lib/signature-png.ts`, sans module natif) ; tracé affiché avec `react-native-svg`.
+- ✅ Écran « Modifications refusées par le serveur » (Paramètres) : motif en clair par code (`ALREADY_SIGNED`, `SIGN_TWICE`, `STEP_LOCKED`…).
+- QR Code ID d'un collaborateur (authentification forte) : format reconstruit `{ v: 1, collaborator_id }` ; l'export WebApp (« Exporter les QR Code ID ») reste à faire.
+- Géolocalisation des signatures : colonnes prêtes (`latitude`, `longitude`), envoyées vides tant que la demande d'autorisation R-SEC-2 n'est pas en place.
 
 ### 9.7 Conflits
 

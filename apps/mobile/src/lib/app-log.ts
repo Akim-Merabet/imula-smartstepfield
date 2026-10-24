@@ -1,5 +1,7 @@
 // Journal d'actions de l'appareil (spec 05 §6.5, « Logs push » de la WebApp) : écrit localement, envoyé après chaque
-// envoi réussi. Sans dépendance native : la base du profil ouvert est liée par la session.
+// envoi réussi. La base du profil ouvert est liée par la session.
+import { randomUUID } from "expo-crypto";
+
 type LogDb = { execute(sql: string, params?: unknown[]): Promise<unknown> };
 
 export type LogAction =
@@ -15,7 +17,8 @@ export function bindLogger(db: LogDb | null) {
 
 export function logEvent(action: LogAction, detail?: Record<string, unknown>) {
   if (!bound) return;
-  const id = globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  // expo-crypto : globalThis.crypto.randomUUID n'existe pas sous Hermes (l'identifiant doit être un UUID côté serveur).
+  const id = randomUUID();
   void bound.execute("insert into app_logs (id, action, detail, occurred_at) values (?, ?, ?, ?)",
     [id, action, detail ? JSON.stringify(detail) : null, new Date().toISOString()]).catch(() => {});
 }

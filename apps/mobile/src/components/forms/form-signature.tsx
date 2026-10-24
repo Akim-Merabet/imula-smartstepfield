@@ -14,6 +14,7 @@ import { Checkbox, formatDate, Icon } from "@/components/kit";
 import { SignaturePad } from "@/components/signature-pad";
 import { Banner, Button, TextField } from "@/components/ui";
 import { t } from "@/i18n/fr";
+import { useSingleFlight } from "@/lib/single-flight";
 import { useSession } from "@/session/session-context";
 import { colors, font, radius, spacing } from "@/theme";
 
@@ -87,7 +88,7 @@ function SignForm({ slot, responseId, onClose, onDone }: {
   const [error, setError] = useState<string | null>(null);
   const member = members.find((m) => m.id === who);
 
-  const submit = async () => {
+  const [submit, submitting] = useSingleFlight(async () => {
     const extern = who === NOT_LISTED;
     if (!who) return setError(t("forms.selectRequired"));
     if (extern && (!ext.firstName.trim() || !ext.lastName.trim() || (slot.disableSignature && !ext.function.trim()))) {
@@ -115,7 +116,7 @@ function SignForm({ slot, responseId, onClose, onDone }: {
       proxyDate: proxied ? now : undefined,
       comment: comment.trim() || undefined,
     });
-  };
+  });
 
   const people = [...members.map((m) => ({ id: m.id, label: `${m.first_name} ${m.last_name}` })), { id: NOT_LISTED, label: t("forms.notListed") }];
   return (
@@ -152,7 +153,7 @@ function SignForm({ slot, responseId, onClose, onDone }: {
         {!!error && <Banner tone="danger">{error}</Banner>}
       </ScrollView>
       <View style={styles.footer}>
-        <Button label={slot.disableSignature ? t("forms.identify") : t("forms.sign")} onPress={() => void submit()} />
+        <Button label={slot.disableSignature ? t("forms.identify") : t("forms.sign")} onPress={() => void submit()} loading={submitting} />
       </View>
     </SafeAreaView>
   );

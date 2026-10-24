@@ -10,6 +10,7 @@ import { Button } from "@/components/ui";
 import { createResponse, type Db, defaultReferenceForLink, versionFor } from "@/data/form-response";
 import { addFormLink } from "@/data/flow-writes";
 import { t } from "@/i18n/fr";
+import { useSingleFlight } from "@/lib/single-flight";
 import { useSession } from "@/session/session-context";
 import { colors, font, radius, spacing } from "@/theme";
 
@@ -26,7 +27,8 @@ export function AddFormModal({ visible, stepId, flowId, onClose }: { visible: bo
         and ifnull(f.enabled, 1) = 1 and ifnull(f.archived, 0) = 0 and f.deleted_at is null
       order by f.name collate nocase`, [flowId]);
 
-  const choose = async (form: GenericForm) => {
+  // Un double appui créerait deux liens et deux réponses.
+  const [choose, choosing] = useSingleFlight(async (form: GenericForm) => {
     if (!(await versionFor(db, form.id, null))) return snackbar(t("forms.noVersion"), "danger");
     const linkId = await addFormLink(db, { stepId, flowId, formId: form.id }, randomUUID);
     const defaults = await defaultReferenceForLink(db, linkId);
@@ -38,7 +40,7 @@ export function AddFormModal({ visible, stepId, flowId, onClose }: { visible: bo
     onClose();
     if (!id) return snackbar(t("forms.noVersion"), "danger");
     router.push({ pathname: "/responses/[responseId]", params: { responseId: id } });
-  };
+  });
 
   return (
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
@@ -49,7 +51,7 @@ export function AddFormModal({ visible, stepId, flowId, onClose }: { visible: bo
           <ScrollView style={{ maxHeight: 360 }}>
             {!forms.length && <Empty>{t("execution.noGenericForm")}</Empty>}
             {forms.map((f) => (
-              <Pressable key={f.id} accessibilityRole="button" onPress={() => void choose(f)} style={styles.row}>
+              <Pressable key={f.id} accessibilityRole="button" disabled={choosing} onPress={() => void choose(f)} style={styles.row}>
                 <Text style={styles.name}>{f.name}</Text>
                 <Text style={styles.muted}>{[f.family, f.reference, f.index_label].filter(Boolean).join(" · ")}</Text>
               </Pressable>

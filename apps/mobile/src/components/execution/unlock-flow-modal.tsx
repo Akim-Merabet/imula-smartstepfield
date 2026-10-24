@@ -12,6 +12,7 @@ import { Banner, Button, TextField } from "@/components/ui";
 import type { Db } from "@/data/form-response";
 import { unlockFlow } from "@/data/flow-writes";
 import { t } from "@/i18n/fr";
+import { useSingleFlight } from "@/lib/single-flight";
 import { useSession } from "@/session/session-context";
 import { colors, font, spacing } from "@/theme";
 
@@ -32,7 +33,7 @@ function UnlockForm({ flowId, onClose }: { flowId: string; onClose: () => void }
   const [drawing, setDrawing] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const submit = async () => {
+  const [submit, submitting] = useSingleFlight(async () => {
     if (!confirmed) return setError(t("execution.unlockConfirmRequired"));
     if (!comment.trim()) return setError(t("execution.unlockCommentRequired"));
     if (!drawing) return setError(t("signature.errors.drawingRequired"));
@@ -42,7 +43,7 @@ function UnlockForm({ flowId, onClose }: { flowId: string; onClose: () => void }
     });
     snackbar(t("execution.unlockDone"), "success");
     onClose();
-  };
+  });
 
   return (
     <SafeAreaView style={styles.safe}>
@@ -57,7 +58,7 @@ function UnlockForm({ flowId, onClose }: { flowId: string; onClose: () => void }
         {!!error && <Banner tone="danger">{error}</Banner>}
       </ScrollView>
       <View style={styles.footer}>
-        <Button label={t("execution.unlock")} onPress={() => void submit()} />
+        <Button label={t("execution.unlock")} onPress={() => void submit()} loading={submitting} />
         <Button label={t("common.cancel")} variant="secondary" onPress={onClose} />
       </View>
     </SafeAreaView>

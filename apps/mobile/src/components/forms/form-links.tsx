@@ -9,6 +9,7 @@ import { useSnackbar } from "@/components/kit";
 import { Banner, Button, TextField } from "@/components/ui";
 import { createResponse, type Db, defaultReferenceForLink, type LinkInfo, reopenResponse, versionFor } from "@/data/form-response";
 import { t } from "@/i18n/fr";
+import { useSingleFlight } from "@/lib/single-flight";
 import { useSession } from "@/session/session-context";
 import { colors, font, radius, spacing } from "@/theme";
 
@@ -49,14 +50,14 @@ function FormLink({ link, editable }: { link: LinkRow; editable: boolean }) {
     setCreating(defaults?.reference ?? "");
   };
 
-  const create = async () => {
+  const [create, saving] = useSingleFlight(async () => {
     const reference = (creating ?? "").trim();
     if (reference.length < 3) return setError(t("forms.referenceTooShort"));
     const id = await createResponse(db, { id: randomUUID(), formId: link.form_id, link, projectId: link.project_id, reference, me: profile?.principalId ?? "" });
     setCreating(null);
     if (!id) return snackbar(t("forms.noVersion"), "danger");
     open(id);
-  };
+  });
 
   const confirmReopen = async () => {
     const id = reopen!;
@@ -95,7 +96,7 @@ function FormLink({ link, editable }: { link: LinkRow; editable: boolean }) {
             <TextField label={t("forms.answerReference")} value={creating ?? ""} onChangeText={setCreating}
               placeholder={t("forms.referencePlaceholder")} maxLength={255} />
             {!!error && <Banner tone="danger">{error}</Banner>}
-            <Button label={t("forms.create")} onPress={create} />
+            <Button label={t("forms.create")} onPress={() => void create()} loading={saving} />
             <Button label={t("common.cancel")} variant="secondary" onPress={() => setCreating(null)} />
           </View>
         </View>

@@ -9,6 +9,7 @@ import { Button, TextField } from "@/components/ui";
 import type { Db } from "@/data/form-response";
 import { changeFlowStatus } from "@/data/flow-writes";
 import { t } from "@/i18n/fr";
+import { useSingleFlight } from "@/lib/single-flight";
 import { colors, font, radius, spacing } from "@/theme";
 
 type Status = { id: string; name: string; color: string | null; downloadable: number };
@@ -23,14 +24,14 @@ export function FlowStatusModal({ flowId, currentId, visible, onClose }: { flowI
   const current = statuses.find((s) => s.id === currentId);
   const chosen = statuses.find((s) => s.id === selected);
 
-  const submit = async () => {
+  const [submit, submitting] = useSingleFlight(async () => {
     if (!selected || selected === currentId) return onClose();
     await changeFlowStatus(db, flowId, selected, comment, randomUUID);
     snackbar(t("flowDetails.statusChanged"), "success");
     setSelected(null);
     setComment("");
     onClose();
-  };
+  });
 
   return (
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
@@ -48,7 +49,7 @@ export function FlowStatusModal({ flowId, currentId, visible, onClose }: { flowI
           </ScrollView>
           {chosen && !chosen.downloadable && <Text style={styles.warning}>{t("flowDetails.statusNotDownloadable")}</Text>}
           <TextField label={t("signature.commentOptional")} value={comment} onChangeText={setComment} multiline placeholder={t("flowDetails.statusCommentPlaceholder")} />
-          <Button label={t("flowDetails.changeStatus")} onPress={() => void submit()} disabled={!selected} />
+          <Button label={t("flowDetails.changeStatus")} onPress={() => void submit()} disabled={!selected} loading={submitting} />
           <Button label={t("common.cancel")} variant="secondary" onPress={onClose} />
         </View>
       </View>

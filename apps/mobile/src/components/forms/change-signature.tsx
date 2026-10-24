@@ -13,6 +13,7 @@ import { SignaturePad } from "@/components/signature-pad";
 import { Banner, Button, TextField } from "@/components/ui";
 import type { ChangeSignature } from "@/data/form-response";
 import { t } from "@/i18n/fr";
+import { useSingleFlight } from "@/lib/single-flight";
 import { useSession } from "@/session/session-context";
 import { colors, font, spacing } from "@/theme";
 
@@ -33,7 +34,7 @@ function Form({ responseId, onCancel, onSigned }: { responseId: string; onCancel
   const [comment, setComment] = useState("");
   const [error, setError] = useState<string | null>(null);
 
-  const submit = async () => {
+  const [submit, submitting] = useSingleFlight(async () => {
     if (!drawing) return setError(t("forms.signatureRequired"));
     const id = randomUUID();
     const path = responseFilePath(responseId, "signatures", "change-signature.png", id);
@@ -42,7 +43,7 @@ function Form({ responseId, onCancel, onSigned }: { responseId: string; onCancel
       user_id: profile?.principalId ?? "", name: profile?.displayName ?? "", image_path: path,
       signed_at: new Date().toISOString(), comment: comment.trim() || null,
     });
-  };
+  });
 
   return (
     <SafeAreaView style={styles.safe}>
@@ -55,7 +56,7 @@ function Form({ responseId, onCancel, onSigned }: { responseId: string; onCancel
         {!!error && <Banner tone="danger">{error}</Banner>}
       </ScrollView>
       <View style={styles.footer}>
-        <Button label={t("forms.sign")} onPress={() => void submit()} />
+        <Button label={t("forms.sign")} onPress={() => void submit()} loading={submitting} />
         <Button label={t("common.cancel")} variant="secondary" onPress={onCancel} />
       </View>
     </SafeAreaView>

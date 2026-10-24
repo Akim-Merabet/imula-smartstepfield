@@ -18,6 +18,7 @@ import { t } from "@/i18n/fr";
 import { logEvent } from "@/lib/app-log";
 import { getDeviceId } from "@/lib/device";
 import { currentPosition } from "@/lib/location";
+import { useSingleFlight } from "@/lib/single-flight";
 import { useSession } from "@/session/session-context";
 import { colors, font, radius, spacing } from "@/theme";
 
@@ -90,7 +91,7 @@ function CreateForm({ target, onClose }: { target: Extract<SignatureTarget, { ki
   const choices = restricted ? people.filter((p) => restricted.has(p.id)) : people;
   const chosen = people.find((p) => p.id === draft.signatoryId);
 
-  const submit = async (later: boolean) => {
+  const [submit, submitting] = useSingleFlight(async (later: boolean) => {
     const d = { ...draft, later };
     const ctx = { nature: target.nature, stepSignatures, restricted, now: new Date() };
     const key = validateDraft(d, ctx, me);
@@ -104,7 +105,7 @@ function CreateForm({ target, onClose }: { target: Extract<SignatureTarget, { ki
     logEvent("CLICK_TO_SAVE_SIGNATURE", { blockId: target.blockId, nature: target.nature, state: row.state });
     snackbar(t("signature.success"), "success");
     onClose();
-  };
+  });
 
   const onQr = (raw: string) => {
     setScanning(false);
@@ -183,11 +184,11 @@ function CreateForm({ target, onClose }: { target: Extract<SignatureTarget, { ki
       </ScrollView>
       <View style={styles.footer}>
         {draft.mode === "not_applicable" ? (
-          <Button label={t("signature.signNonApplicability")} onPress={() => submit(false)} />
+          <Button label={t("signature.signNonApplicability")} onPress={() => void submit(false)} loading={submitting} />
         ) : (
           <>
-            <Button label={t("signature.sign")} onPress={() => submit(false)} />
-            <Button label={t("signature.signLater")} variant="secondary" onPress={() => submit(true)} />
+            <Button label={t("signature.sign")} onPress={() => void submit(false)} loading={submitting} />
+            <Button label={t("signature.signLater")} variant="secondary" onPress={() => void submit(true)} disabled={submitting} />
           </>
         )}
       </View>
@@ -222,7 +223,7 @@ function CompleteForm({ target, onClose }: { target: Extract<SignatureTarget, { 
   const [drawing, setDrawing] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const submit = async () => {
+  const [submit, submitting] = useSingleFlight(async () => {
     const signedAt = parseDateTime(day, time);
     if (!signedAt) return setError(t("signature.errors.invalidDate"));
     if (signedAt.getTime() > Date.now() + 60_000) return setError(t("signature.errors.futureDate"));
@@ -233,7 +234,7 @@ function CompleteForm({ target, onClose }: { target: Extract<SignatureTarget, { 
       [drawing, signedAt.toISOString(), comment.trim() || null, target.signatureId]);
     snackbar(t("signature.success"), "success");
     onClose();
-  };
+  });
 
   return (
     <SafeAreaView style={styles.safe}>
@@ -244,7 +245,7 @@ function CompleteForm({ target, onClose }: { target: Extract<SignatureTarget, { 
         <SignaturePad onChange={(png) => { setDrawing(png); setError(null); }} />
         {!!error && <Banner tone="danger">{error}</Banner>}
       </ScrollView>
-      <View style={styles.footer}><Button label={t("signature.sign")} onPress={submit} /></View>
+      <View style={styles.footer}><Button label={t("signature.sign")} onPress={() => void submit()} loading={submitting} /></View>
     </SafeAreaView>
   );
 }

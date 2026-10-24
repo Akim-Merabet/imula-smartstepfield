@@ -1,10 +1,11 @@
 // Blocs d'une étape en consultation (spec 05 §4.1, §4.6–4.8). Les actions (signer, répondre, statuer) s'y
 // ajoutent avec les écritures correspondantes.
-import { expectedNatures, natureCode, type SignatureNature, type SupervisionFlow } from "@imula/flow-core";
+import { expectedNatures, natureCode, type SignatureNature, supervisorName, type SupervisionFlow } from "@imula/flow-core";
 import { useQuery } from "@powersync/react";
 import type { ReactNode } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
+import type { SignatureTarget } from "@/components/execution/signature-modal";
 import { formatDate, Icon, StatusChip } from "@/components/kit";
 import { RichText } from "@/components/rich-text";
 import type { ExecBlock } from "@/data/execution-model";
@@ -15,8 +16,11 @@ import { colors, font, radius, spacing } from "@/theme";
 /** Ordre d'affichage des blocs sur le terrain (gabarit d'origine). */
 const ORDER = ["rhp", "emm", "adr", "txt", "pr", "object", "multi_pr", "form", "documents", "dsi"];
 
-export function StepBlocks({ stepId, blocks, flow, flowType }: {
-  stepId: string; blocks: ExecBlock[]; flow: SupervisionFlow; flowType: string;
+/** Actions possibles sur l'étape affichée (signer…) ; absent = consultation seule. */
+export type StepActions = { stepId: string; flowId: string; onSign: (target: SignatureTarget) => void };
+
+export function StepBlocks({ stepId, blocks, flow, flowType, actions }: {
+  stepId: string; blocks: ExecBlock[]; flow: SupervisionFlow; flowType: string; actions?: StepActions;
 }) {
   const visible = blocks
     .filter((b) => b.step_id === stepId && !(b.type === "txt" && b.txt_visibility === "document"))
@@ -27,7 +31,7 @@ export function StepBlocks({ stepId, blocks, flow, flowType }: {
   if (!visible.length && !docs[0]?.n) return <Text style={styles.muted}>{t("execution.emptyFlow")}</Text>;
   return (
     <View style={{ gap: spacing.md }}>
-      {visible.map((b) => <BlockView key={b.id} block={b} flow={flow} />)}
+      {visible.map((b) => <BlockView key={b.id} block={b} flow={flow} actions={actions} />)}
     </View>
   );
 }
@@ -45,7 +49,7 @@ function BlockShell({ title, icon, block, children }: { title: string; icon: Par
   );
 }
 
-function BlockView({ block, flow }: { block: ExecBlock; flow: SupervisionFlow }) {
+function BlockView({ block, flow, actions }: { block: ExecBlock; flow: SupervisionFlow; actions?: StepActions }) {
   switch (block.type) {
     case "txt":
       return <BlockShell title={t("execution.textBlock")} icon="text" block={block}><RichText json={block.content_json} html={block.content_html} /></BlockShell>;
@@ -64,7 +68,7 @@ function BlockView({ block, flow }: { block: ExecBlock; flow: SupervisionFlow })
     case "form":
       return <BlockShell title={t("execution.formsBlock")} icon="file-document-edit-outline" block={block}><FormLinks blockId={block.id} /></BlockShell>;
     case "dsi":
-      return <BlockShell title={t("execution.controlBlock")} icon="draw-pen" block={block}><Controls blockId={block.id} flow={flow} /></BlockShell>;
+      return <BlockShell title={t("execution.controlBlock")} icon="draw-pen" block={block}><Controls blockId={block.id} flow={flow} actions={actions} /></BlockShell>;
     default:
       return null;
   }
@@ -181,14 +185,19 @@ function natureLabel(n: SignatureNature): string {
   return t(`execution.natures.${m[1]}_${m[2]}` as "execution.natures.breakpoint_int", { n: m[3] });
 }
 
-function Controls({ blockId, flow }: { blockId: string; flow: SupervisionFlow }) {
+function Controls({ blockId, flow, actions }: { blockId: string; flow: SupervisionFlow; actions?: StepActions }) {
   const { data: configs } = useQuery<Parameters<typeof expectedNatures>[0] & { signatories_status: string }>(
     "select * from block_dsi_configs where block_id = ?", [blockId]);
-  const { data: signatures } = useQuery<{ nature: string; state: string; first_name: string | null; last_name: string | null; signed_at: string | null; proxied: number; proxy_principal_name: string | null }>(
-    `select nature, state, first_name, last_name, signed_at, proxied, proxy_principal_name from signatures
-      where block_id = ? and ifnull(disabled, 0) = 0 order by created_at`, [blockId]);
+  const { data: signatures } = useQuery<{ id: string; nature: string; state: string; first_name: string | null; last_name: string | null; signed_at: string | null; proxied: number; proxy_principal_name: string | null; proxy_date: string | null }>(
+    `select s.id, s.nature, s.state, coalesce(s.first_name, c.first_name) as first_name, coalesce(s.last_name, c.last_name) as last_name,
+            s.signed_at, s.proxied, s.proxy_principal_name, s.proxy_date
+       from signatures s left join collaborators c on c.id = s.signatory_id
+      where s.block_id = ? and ifnull(s.disabled, 0) = 0 order by s.created_at`, [blockId]);
   const config = configs[0];
-  const natures = expectedNatures(config, flow);
+  // Natures attendues, plus celles déjà signées hors attente (ex. PA/PC en mode simplifié, spec 05 §4.8).
+  const expected = expectedNatures(config, flow);
+  const natures = [...expected, ...signatures.map((s) => s.nature as SignatureNature).filter((n) => !expected.includes(n))]
+    .filter((n, i, all) => all.indexOf(n) === i);
   const mandatory = config?.signatories_status === "required";
   return <>{natures.map((n) => {
     const s = [...signatures].reverse().find((x) => x.nature === n);
@@ -199,10 +208,21 @@ function Controls({ blockId, flow }: { blockId: string; flow: SupervisionFlow })
       : s.proxied ? t("execution.signedFor", { name, principal: s.proxy_principal_name ?? "" })
       : t("execution.signedBy", { name, date: formatDate(s.signed_at, true) ?? "" });
     const done = s && (s.state === "signed" || s.state === "not_possible");
+    const supervisor = supervisorName(n, flow);
+    const action = !actions ? null
+      : !s ? { label: t("signature.sign"), target: { kind: "create", blockId, stepId: actions.stepId, flowId: actions.flowId, nature: n, title: natureLabel(n), supervisor } as SignatureTarget }
+      : s.state === "waiting" ? { label: t("signature.resume"), target: { kind: "complete", signatureId: s.id, title: natureLabel(n), proxyDate: s.proxy_date } as SignatureTarget }
+      : null;
     return (
       <Row key={n} badge={natureCode(n)}>
-        <Text style={styles.text}>{natureLabel(n)}</Text>
+        <Text style={styles.text}>{natureLabel(n)}{supervisor ? ` — ${supervisor}` : ""}</Text>
         <Text style={[styles.muted, done && { color: colors.success }, !s && mandatory && { color: colors.danger }]}>{status}</Text>
+        {action && (
+          <Pressable accessibilityRole="button" onPress={() => actions!.onSign(action.target)} style={styles.action}>
+            <Icon name="draw-pen" size={18} color={colors.onPrimary} />
+            <Text style={styles.actionLabel}>{action.label}</Text>
+          </Pressable>
+        )}
       </Row>
     );
   })}</>;
@@ -220,4 +240,6 @@ const styles = StyleSheet.create({
   subItem: { gap: spacing.xs, paddingVertical: spacing.sm, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.border },
   subTitle: { fontSize: font.body, fontWeight: "600", color: colors.text },
   inline: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
+  action: { flexDirection: "row", alignItems: "center", gap: spacing.xs, alignSelf: "flex-start", backgroundColor: colors.primary, borderRadius: radius.md, paddingHorizontal: spacing.md, paddingVertical: spacing.sm, marginTop: spacing.xs },
+  actionLabel: { color: colors.onPrimary, fontWeight: "600", fontSize: font.small },
 });

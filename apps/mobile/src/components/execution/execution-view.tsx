@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Modal, Pressable, ScrollView, type ScrollViewInstance, StyleSheet, Text, TextInput, View } from "react-native";
 
 import { StepBlocks, StepDocuments } from "@/components/execution/blocks";
+import { SignatureModal, type SignatureTarget } from "@/components/execution/signature-modal";
 import { Empty, Icon, StatusChip, useSnackbar } from "@/components/kit";
 import { RichText } from "@/components/rich-text";
 import { Button } from "@/components/ui";
@@ -60,6 +61,7 @@ export function ExecutionView({ flowId, initialStepId, readonly }: { flowId: str
   const { data: lastExec } = useQuery<{ step_id: string | null }>("select step_id from flow_executions where flow_id = ?", [flowId]);
   const [stepId, setStepId] = useState<string | undefined>(initialStepId);
   const [disabledNotice, setDisabledNotice] = useState<StepView | null>(null);
+  const [signing, setSigning] = useState<SignatureTarget | null>(null);
   const scroll = useRef<ScrollViewInstance>(null);
 
   // Point d'entrée : étape demandée, sinon dernière étape consultée, sinon première étape non vide (spec 05 §2.5).
@@ -174,7 +176,8 @@ export function ExecutionView({ flowId, initialStepId, readonly }: { flowId: str
         )}
         {!!current.description && <RichText html={current.description} />}
 
-        <StepBlocks stepId={current.id} blocks={blocks} flow={model.flow} flowType={model.flow.flow_type} />
+        <StepBlocks stepId={current.id} blocks={blocks} flow={model.flow} flowType={model.flow.flow_type}
+          actions={editable ? { stepId: current.id, flowId, onSign: setSigning } : undefined} />
         <StepDocuments stepId={current.id} />
 
         <Redirections stepId={current.id} flowId={flowId} readonly={readonly} actorId={profile?.principalId ?? null}
@@ -194,6 +197,8 @@ export function ExecutionView({ flowId, initialStepId, readonly }: { flowId: str
           <Button label={footerLabel} onPress={canValidate ? validate : next} />
         </View>
       </View>
+
+      <SignatureModal target={signing} onClose={() => setSigning(null)} />
 
       <Modal visible={!!disabledNotice} transparent animationType="fade" onRequestClose={() => setDisabledNotice(null)}>
         <View style={styles.backdrop}>

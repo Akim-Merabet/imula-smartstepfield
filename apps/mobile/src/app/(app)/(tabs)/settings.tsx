@@ -2,6 +2,7 @@ import { ScrollView, StyleSheet, Text } from "react-native";
 
 import { Card, Field } from "@/components/kit";
 import { SyncBar } from "@/components/sync-bar";
+import { SyncRejections } from "@/components/sync-rejections";
 import { Banner, Button } from "@/components/ui";
 import { config } from "@/config";
 import { t } from "@/i18n/fr";
@@ -18,6 +19,7 @@ export default function SettingsScreen() {
         <Field label={t("login.company")} value={profile?.company} />
       </Card>
       <SyncBar />
+      <SyncRejections />
       {offline ? <Banner tone="info">{t("home.signOutOffline")}</Banner> : (
         <Button label={t("home.signOut")} variant="secondary" onPress={signOut} />
       )}

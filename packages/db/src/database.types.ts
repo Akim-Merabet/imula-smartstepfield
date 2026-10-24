@@ -8136,6 +8136,7 @@ export type Database = {
       }
       mark_step_opened: { Args: { p_step_id: string }; Returns: undefined }
       merge_sequence: { Args: { p_sequence_id: string }; Returns: undefined }
+      mobile_add_form_link: { Args: { p: Json }; Returns: undefined }
       mobile_complete_signature: {
         Args: {
           p_comment?: string

@@ -842,6 +842,8 @@ Notes :
 
 - ✅ « Paramètres des signatures » : ajout de points d'arrêt internes / externes des surveillants applicables (jamais de retrait), RPC `mobile_add_dsi_breakpoints(block_id, natures)` (étape saisissable, mode simplifié refusé, événement `update`/`add_breakpoint`) ; « Tableau des signatures » du flow (par étape, natures attendues et état), depuis le bloc Contrôles et le détail du flow.
 
+- ✅ Référentiels et Modèles (en ligne uniquement) : listes des entités Référentiel / Modèle et de leurs flows lues directement sur le serveur (RLS) ; un flow s'ouvre en **mode lecture** via le stream `referential_flow(flow_id)` souscrit 30 min (accès : référentiel, modèle ou dossier publié dans l'organisation, ou du compte du profil — hors profil « appareil »), ce qui réutilise l'écran d'exécution. Contraintes du service PowerSync rencontrées : pas de `OR` ni de liste littérale `IN (…)` dans une requête d'accès (`with:`) ; deux ensembles d'accès combinés par `OR` dans la requête de données sont acceptés. Hors ligne, le segment revient sur « Projets ».
+
 ### 9.7 Conflits
 
 | Situation | Règle |

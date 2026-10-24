@@ -182,6 +182,36 @@ streams:
                                                 WHERE auth_user_id = auth.user_id()))
       - SELECT * FROM flow_geometries WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
 
+  # ---------- Référentiels et Modèles (consultation en ligne, mode lecture ; spec 05 §2.2) ----------
+  # Souscrit le temps de la consultation avec une durée de vie courte. Accès : flow d'un référentiel / modèle / dossier (entité ni projet ni PGAC)
+  # publié dans l'organisation, ou du compte du profil (hors profil « appareil »). Mêmes colonnes que flow_offline.
+  referential_flow:
+    with:
+      ref_pub: SELECT id AS flow_id FROM flows
+        WHERE deleted_at IS NULL AND project_id IN (
+          SELECT id FROM projects WHERE type != 'project' AND type != 'pgac' AND deleted_at IS NULL AND published
+            AND organization_id IN (SELECT organization_id FROM collaborators WHERE auth_user_id = auth.user_id()))
+      ref_acc: SELECT id AS flow_id FROM flows
+        WHERE deleted_at IS NULL AND project_id IN (
+          SELECT id FROM projects WHERE type != 'project' AND type != 'pgac' AND deleted_at IS NULL
+            AND account_id IN (SELECT account_id FROM collaborators WHERE auth_user_id = auth.user_id() AND kind <> 'device'))
+    queries:
+      - SELECT * FROM flows WHERE id = subscription.parameter('flow_id') AND (id IN ref_pub OR id IN ref_acc)
+      - SELECT * FROM sequences WHERE flow_id = subscription.parameter('flow_id') AND (flow_id IN ref_pub OR flow_id IN ref_acc)
+      - SELECT * FROM phases WHERE flow_id = subscription.parameter('flow_id') AND (flow_id IN ref_pub OR flow_id IN ref_acc)
+      - SELECT * FROM steps WHERE flow_id = subscription.parameter('flow_id') AND (flow_id IN ref_pub OR flow_id IN ref_acc)
+      - SELECT * FROM step_navigations WHERE flow_id = subscription.parameter('flow_id') AND (flow_id IN ref_pub OR flow_id IN ref_acc)
+      - SELECT * FROM blocks WHERE flow_id = subscription.parameter('flow_id') AND (flow_id IN ref_pub OR flow_id IN ref_acc) AND enabled
+      - SELECT block_id AS id, * FROM block_dsi_configs WHERE flow_id = subscription.parameter('flow_id') AND (flow_id IN ref_pub OR flow_id IN ref_acc)
+      - SELECT * FROM block_multi_pr_items WHERE flow_id = subscription.parameter('flow_id') AND (flow_id IN ref_pub OR flow_id IN ref_acc)
+      - SELECT * FROM block_emm_items WHERE flow_id = subscription.parameter('flow_id') AND (flow_id IN ref_pub OR flow_id IN ref_acc)
+      - SELECT * FROM block_adr_items WHERE flow_id = subscription.parameter('flow_id') AND (flow_id IN ref_pub OR flow_id IN ref_acc)
+      - SELECT * FROM block_rhp_items WHERE flow_id = subscription.parameter('flow_id') AND (flow_id IN ref_pub OR flow_id IN ref_acc)
+      - SELECT * FROM block_documents WHERE flow_id = subscription.parameter('flow_id') AND (flow_id IN ref_pub OR flow_id IN ref_acc)
+      - SELECT * FROM form_block_links WHERE flow_id = subscription.parameter('flow_id') AND (flow_id IN ref_pub OR flow_id IN ref_acc) AND enabled
+      - SELECT * FROM forms WHERE id IN (SELECT form_id FROM form_block_links WHERE flow_id = subscription.parameter('flow_id')
+                                          AND (flow_id IN ref_pub OR flow_id IN ref_acc))
+
   # Versions de formulaires référencées par les flows / entités téléchargés (le client calcule les form_id).
   flow_forms:
     queries:

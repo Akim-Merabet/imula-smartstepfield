@@ -1,12 +1,13 @@
 import { usePowerSync } from "@powersync/react";
 import { router } from "expo-router";
-import { useDeferredValue, useState } from "react";
-import { FlatList, Modal, StyleSheet, Text, View } from "react-native";
+import { useDeferredValue, useEffect, useState } from "react";
+import { ActivityIndicator, FlatList, Modal, StyleSheet, Text, View } from "react-native";
 
 import { Card, Empty, IconButton, SearchField, Segmented, StatusChip, useSnackbar } from "@/components/kit";
 import { QrScanner } from "@/components/qr-scanner";
 import { Button } from "@/components/ui";
 import { useProjects } from "@/data/lists";
+import { listReferentialEntities, type ReferentialEntity } from "@/data/referentials";
 import { t } from "@/i18n/fr";
 import { parseFlowQr } from "@/lib/flow-qr";
 import { useSession } from "@/session/session-context";
@@ -19,7 +20,9 @@ export default function ProjectsScreen() {
   const db = usePowerSync();
   const { offline } = useSession();
   const snackbar = useSnackbar();
-  const [segment, setSegment] = useState<Segment>("projects");
+  const [chosenSegment, setSegment] = useState<Segment>("projects");
+  // Hors ligne, les référentiels et modèles ne sont pas consultables : retour sur « Projets ».
+  const segment: Segment = offline ? "projects" : chosenSegment;
   const [search, setSearch] = useState("");
   const deferred = useDeferredValue(search);
   const { data: projects, isLoading } = useProjects(deferred);
@@ -50,7 +53,7 @@ export default function ProjectsScreen() {
         { value: "referentials", label: t("layout.referentialAndModels"), disabled: offline },
       ]} />
       {segment === "referentials" ? (
-        <Empty>{t("layout.referentialSoon")}</Empty>
+        <ReferentialList />
       ) : (
         <>
           <SearchField value={search} onChange={setSearch}
@@ -91,6 +94,30 @@ export default function ProjectsScreen() {
         </View>
       </Modal>
     </View>
+  );
+}
+
+/** Segment « Référentiels et Modèles » : lu en ligne ; les flows s'ouvrent en mode lecture. */
+function ReferentialList() {
+  const [items, setItems] = useState<ReferentialEntity[] | null | undefined>(undefined);
+  useEffect(() => {
+    listReferentialEntities().then(setItems);
+  }, []);
+  if (items === undefined) return <ActivityIndicator color={colors.primary} />;
+  if (items === null) return <Empty>{t("layout.referentialLoadError")}</Empty>;
+  return (
+    <FlatList
+      data={items}
+      keyExtractor={(p) => p.id}
+      contentContainerStyle={styles.list}
+      ListEmptyComponent={<Empty>{t("layout.noReferential")}</Empty>}
+      renderItem={({ item }) => (
+        <Card onPress={() => router.push({ pathname: "/referentials/[projectId]", params: { projectId: item.id, name: item.designation } })}>
+          <Text style={styles.meta}>{item.type === "template" ? t("layout.template") : t("layout.referential")}</Text>
+          <Text style={styles.title}>{item.designation}</Text>
+        </Card>
+      )}
+    />
   );
 }
 

@@ -25,7 +25,10 @@ export const fr = {
     quickAccess: "Accès rapide",
     settings: "Paramètres",
     referentialOnlineOnly: "Les référentiels et modèles sont uniquement consultables en ligne",
-    referentialSoon: "La consultation des référentiels et modèles depuis l'application arrive bientôt.",
+    referentialLoadError: "Le chargement prend plus de temps que prévu en raison d'une connexion lente. Veuillez réessayer.",
+    referential: "Référentiel",
+    template: "Modèle",
+    noReferential: "Aucun référentiel ni modèle disponible",
   },
   flowTypes: {
     specific: "Flow spécifique",

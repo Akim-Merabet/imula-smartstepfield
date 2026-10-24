@@ -37,6 +37,12 @@
       ],
       "expo-secure-store",
       [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Siteflow collecte les données de localisation pour géolocaliser les tablettes lors des interventions terrain lorsque l'application est active."
+        }
+      ],
+      [
         "expo-camera",
         {
           "cameraPermission": "La caméra sert à scanner les QR codes (connexion rapide, flows, signataires) et à prendre des photos.",

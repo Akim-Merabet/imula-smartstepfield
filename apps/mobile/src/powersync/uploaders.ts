@@ -1,4 +1,4 @@
-import { type CrudEntry, UpdateType } from "@powersync/react-native";
+import { type AbstractPowerSyncDatabase, type CrudEntry, UpdateType } from "@powersync/react-native";
 
 import { supabase } from "@/lib/supabase";
 
@@ -24,7 +24,17 @@ export function check(result: { error: { code?: string; message: string } | null
   throw new UploadError("rejected", error.code === "P0001" ? error.message : error.code ?? String(status), error.message);
 }
 
-type Uploader = (op: CrudEntry) => Promise<void>;
+/** `db` permet de relire la ligne locale complète (une modification partielle ne porte que les colonnes changées). */
+type Uploader = (op: CrudEntry, db: AbstractPowerSyncDatabase) => Promise<void>;
+
+const json = (v: unknown) => {
+  if (typeof v !== "string") return v ?? null;
+  try {
+    return JSON.parse(v);
+  } catch {
+    return null;
+  }
+};
 
 // Écriture directe soumise à la RLS (tables sans règle métier côté serveur).
 const direct = (table: "step_navigation_events" | "flow_geometries"): Uploader => async (op) => {
@@ -64,18 +74,58 @@ const signatures: Uploader = async (op) => {
   throw new UploadError("rejected", "NOT_ALLOWED", "Modification de signature non autorisée depuis l'appareil");
 };
 
+// Réponse de formulaire : création (réponse unique contrôlée par le serveur) puis état, référence, rubrique courante.
+const formResponses: Uploader = async (op) => {
+  const data = op.opData ?? {};
+  if (op.op === UpdateType.PUT) {
+    return check(await supabase.rpc("mobile_create_form_response", {
+      p: { ...data, id: op.id, dynamic_context: json(data.dynamic_context) ?? {} },
+    }));
+  }
+  if (op.op === UpdateType.PATCH) {
+    const allowed = ["state", "done_at", "reference", "last_rubric_lineage_id", "active_redirect"];
+    const p: Record<string, unknown> = {};
+    for (const k of allowed) if (k in data) p[k] = k === "active_redirect" ? json(data[k]) : data[k];
+    if (!Object.keys(p).length) return;
+    return check(await supabase.rpc("mobile_update_form_response", { p_id: op.id, p: p as never }));
+  }
+  throw new UploadError("rejected", "NOT_ALLOWED", "Suppression de réponse non autorisée depuis l'appareil");
+};
+
+// Valeur de réponse : on renvoie l'état courant de la ligne locale (idempotent, clé (réponse, option)).
+const formResponseValues: Uploader = async (op, db) => {
+  if (op.op === UpdateType.DELETE) throw new UploadError("rejected", "NOT_ALLOWED", "Suppression de valeur non autorisée");
+  const row = await db.getOptional<Record<string, unknown>>("select * from form_response_values where id = ?", [op.id]);
+  if (!row) return;
+  const item = {
+    rubric_lineage_id: row.rubric_lineage_id, question_lineage_id: row.question_lineage_id, option_lineage_id: row.option_lineage_id,
+    option_code: row.option_code, coord: row.coord, question_type: row.question_type, value_type: row.value_type,
+    value_json: json(row.value_json), value_text: row.value_text, value_number: row.value_number,
+    value_bool: row.value_bool == null ? null : row.value_bool === 1 || row.value_bool === true,
+    value_date: row.value_date, value_ts: row.value_ts, observation: row.observation,
+    is_valid: row.is_valid == null ? null : row.is_valid === 1 || row.is_valid === true,
+    lock: row.locked === 1 || row.locked === true,
+  };
+  check(await supabase.rpc("save_rubric_values", {
+    p_response_id: row.response_id as string, p_rubric_lineage_id: row.rubric_lineage_id as string,
+    p_values: [item] as never, p_options: { provenance: "mobile" } as never,
+  }));
+};
+
 // Table locale → appel serveur. Les RPC métier (réponses, signatures, validation d'étape…) s'ajoutent
 // ici avec les écrans qui produisent ces écritures (spec 05 §9.6).
 const uploaders: Partial<Record<string, Uploader>> = {
   steps,
   signatures,
+  form_responses: formResponses,
+  form_response_values: formResponseValues,
   step_navigation_events: direct("step_navigation_events"),
   flow_geometries: direct("flow_geometries"),
 };
 
-export async function uploadEntry(op: CrudEntry): Promise<void> {
+export async function uploadEntry(op: CrudEntry, db: AbstractPowerSyncDatabase): Promise<void> {
   const uploader = uploaders[op.table];
   // Pas de route : on garde l'écriture en file plutôt que de la perdre (erreur de développement).
   if (!uploader) throw new UploadError("retry", "NO_UPLOADER", `Aucun envoi défini pour la table ${op.table}`);
-  await uploader(op);
+  await uploader(op, db);
 }

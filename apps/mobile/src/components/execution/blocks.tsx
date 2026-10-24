@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import type { SignatureTarget } from "@/components/execution/signature-modal";
+import { FormLinks } from "@/components/forms/form-links";
 import { formatDate, Icon, StatusChip } from "@/components/kit";
 import { RichText } from "@/components/rich-text";
 import type { ExecBlock } from "@/data/execution-model";
@@ -66,7 +67,7 @@ function BlockView({ block, flow, actions }: { block: ExecBlock; flow: Supervisi
     case "multi_pr":
       return <BlockShell title={t("execution.multiInstructionsBlock")} icon="format-list-checks" block={block}><MultiPrItems block={block} /></BlockShell>;
     case "form":
-      return <BlockShell title={t("execution.formsBlock")} icon="file-document-edit-outline" block={block}><FormLinks blockId={block.id} /></BlockShell>;
+      return <BlockShell title={t("execution.formsBlock")} icon="file-document-edit-outline" block={block}><FormLinks blockId={block.id} editable={!!actions} /></BlockShell>;
     case "dsi":
       return <BlockShell title={t("execution.controlBlock")} icon="draw-pen" block={block}><Controls blockId={block.id} flow={flow} actions={actions} /></BlockShell>;
     default:
@@ -144,19 +145,6 @@ function MultiPrItems({ block }: { block: ExecBlock }) {
       </View>
       {!!i.observation && <Text style={styles.muted}>{i.observation}</Text>}
     </View>
-  ))}</>;
-}
-
-function FormLinks({ blockId }: { blockId: string }) {
-  const { data } = useQuery<{ id: string; name: string; reference: string | null; mandatory: number; responses: number }>(
-    `select l.id, f.name, f.reference, l.mandatory,
-            (select count(*) from form_responses r where r.block_link_id = l.id and r.deleted_at is null) as responses
-       from form_block_links l join forms f on f.id = l.form_id where l.block_id = ? order by l.position`, [blockId]);
-  return <>{data.map((l) => (
-    <Row key={l.id} badge={l.mandatory ? t("execution.mandatoryForm") : null}>
-      <Text style={styles.text}>{l.name}</Text>
-      <Text style={styles.muted}>{[l.reference, t("execution.answers", { count: l.responses })].filter(Boolean).join(" · ")}</Text>
-    </Row>
   ))}</>;
 }
 

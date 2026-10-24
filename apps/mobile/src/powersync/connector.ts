@@ -35,7 +35,7 @@ export class SupabaseConnector implements PowerSyncBackendConnector {
         const tx = await db.getNextCrudTransaction();
         if (!tx) return;
         try {
-          for (const op of tx.crud) await uploadEntry(op);
+          for (const op of tx.crud) await uploadEntry(op, db);
         } catch (e) {
           if (!(e instanceof UploadError) || e.kind === "retry") throw e;
           if (e.kind === "forbidden") {

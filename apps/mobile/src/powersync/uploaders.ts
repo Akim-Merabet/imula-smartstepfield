@@ -37,7 +37,16 @@ const json = (v: unknown) => {
 };
 
 // Écriture directe soumise à la RLS (tables sans règle métier côté serveur).
-const direct = (table: "step_navigation_events" | "flow_geometries"): Uploader => async (op) => {
+// Journal (step_navigation_events) : insertion seule, un rejeu (doublon de clé) vaut succès — un upsert prendrait
+// le chemin UPDATE, refusé par la RLS, et serait pris à tort pour un accès retiré.
+const insertOnly = (table: "step_navigation_events"): Uploader => async (op) => {
+  if (op.op !== UpdateType.PUT) throw new UploadError("rejected", "NOT_ALLOWED", `Modification non autorisée sur ${table}`);
+  const result = await supabase.from(table).insert({ ...op.opData, id: op.id } as never);
+  if (result.error?.code === "23505") return;
+  check(result);
+};
+
+const direct = (table: "flow_geometries"): Uploader => async (op) => {
   if (op.op === UpdateType.DELETE) return check(await supabase.from(table).delete().eq("id", op.id));
   const row = { ...op.opData, id: op.id };
   if (op.op === UpdateType.PUT) return check(await supabase.from(table).upsert(row as never));
@@ -160,7 +169,7 @@ const uploaders: Partial<Record<string, Uploader>> = {
   flow_fill_unlocks: flowFillUnlocks,
   flows,
   form_response_values: formResponseValues,
-  step_navigation_events: direct("step_navigation_events"),
+  step_navigation_events: insertOnly("step_navigation_events"),
   flow_geometries: direct("flow_geometries"),
 };
 

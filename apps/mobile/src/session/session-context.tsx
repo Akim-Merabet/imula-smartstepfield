@@ -55,14 +55,21 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   // Copie synchrone de `active` pour les callbacks (mise à jour en même temps que l'état).
   const activeRef = useRef<Active | null>(null);
 
+  // Arrête et ferme la base du profil ouvert. À faire AVANT de changer la session Supabase globale : sinon la file
+  // d'envoi du profil précédent pourrait partir avec le jeton du suivant.
+  const closeActive = useCallback(async () => {
+    const previous = activeRef.current;
+    if (!previous) return;
+    previous.subscriptions.stop();
+    previous.attachments.stop();
+    await previous.db.disconnect().catch(() => {});
+    await previous.db.close();
+    activeRef.current = null;
+  }, []);
+
   // Ouvre la base du profil et lance la synchro, sauf si l'utilisateur a choisi le mode hors ligne.
   const activate = useCallback(async (profile: Profile) => {
-    const previous = activeRef.current;
-    if (previous) {
-      previous.subscriptions.stop();
-      previous.attachments.stop();
-      await previous.db.close();
-    }
+    await closeActive();
     const db = await openProfileDatabase(profile.principalId);
     const connector = new SupabaseConnector(profile.authUserId, {
       onForbidden: (message) => {
@@ -89,7 +96,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     setForbidden(null);
     setRejected(0);
     setStatus("ready");
-  }, []);
+  }, [closeActive]);
 
   // Démarrage : le dernier profil actif est rouvert même sans réseau (lecture locale).
   useEffect(() => {
@@ -114,12 +121,13 @@ export function SessionProvider({ children }: { children: ReactNode }) {
 
   const complete = useCallback(async (result: SignInResult) => {
     if (!result.ok) return result.error;
+    await closeActive();
     const { error } = await supabase.auth.setSession(result.session);
     if (error) return "UNKNOWN";
     await saveProfile(result.profile, result.session);
     await activate(result.profile);
     return null;
-  }, [activate]);
+  }, [activate, closeActive]);
 
   const signIn = useCallback(
     async (email: string, password: string, company: string) => complete(await signInWithCredentials(email, password, company)),
@@ -131,13 +139,14 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   const resume = useCallback(async (profile: Profile) => {
     const stored = await loadSession(profile.principalId);
     if (!stored) return "SESSION_EXPIRED";
+    await closeActive();
     const { data, error } = await supabase.auth.setSession(stored);
     if (error || !data.session || data.session.user.id !== profile.authUserId) return "SESSION_EXPIRED";
     const refreshed = { ...profile, lastConnectedAt: new Date().toISOString() };
     await saveProfile(refreshed, data.session);
     await activate(refreshed);
     return null;
-  }, [activate]);
+  }, [activate, closeActive]);
 
   // Déconnexion (en ligne uniquement, cf. §1.4) : la base du profil reste sur l'appareil.
   const signOut = useCallback(async () => {

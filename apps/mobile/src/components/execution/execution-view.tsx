@@ -43,6 +43,7 @@ function useExecutionModel(flowId: string) {
     multiPrSignatures: useQuery<ExecutionRows["multiPrSignatures"][number]>(...q.multiPrSignatures).data,
     formLinks: useQuery<ExecutionRows["formLinks"][number]>(...q.formLinks).data,
     responses: useQuery<ExecutionRows["responses"][number]>(...q.responses).data,
+    stepUnlocks: useQuery<ExecutionRows["stepUnlocks"][number]>(...q.stepUnlocks).data,
   };
   const deps = Object.values(rows);
   // eslint-disable-next-line react-hooks/exhaustive-deps -- les tableaux de useQuery changent d'identité à chaque mise à jour

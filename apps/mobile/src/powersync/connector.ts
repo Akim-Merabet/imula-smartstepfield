@@ -29,6 +29,9 @@ export class SupabaseConnector implements PowerSyncBackendConnector {
 
   // Une transaction locale = un envoi atomique (ex. signature + événement) ; on vide la file dans l'ordre.
   async uploadData(db: AbstractPowerSyncDatabase) {
+    // Même garde-fou que fetchCredentials : jamais d'envoi avec la session d'un autre profil (la file attend).
+    const { data: auth } = await supabase.auth.getSession();
+    if (auth.session?.user.id !== this.authUserId) throw new Error("Session d'un autre profil : envoi différé");
     let rejected = 0;
     try {
       for (;;) {

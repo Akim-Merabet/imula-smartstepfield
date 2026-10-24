@@ -39,6 +39,8 @@ export type ExecutionRows = {
   multiPrSignatures: FlowProgressData["multiPrSignatures"];
   formLinks: FlowProgressData["formLinks"];
   responses: FlowProgressData["responses"];
+  /** Étapes déverrouillées une à une sur la WebApp (step_fill_unlocks). */
+  stepUnlocks: { step_id: string }[];
 };
 
 /** Requêtes nommées de l'écran d'exécution, une par jeu de lignes. */
@@ -58,6 +60,7 @@ export function executionQueries(flowId: string): Record<keyof ExecutionRows, Qu
     multiPrSignatures: named("select item_id from block_multi_pr_signatures where flow_id = :flow", p),
     formLinks: named("select id, block_id, enabled, mandatory from form_block_links where flow_id = :flow", p),
     responses: named("select block_link_id, deleted_at from form_responses where flow_id = :flow", p),
+    stepUnlocks: named("select step_id from step_fill_unlocks where flow_id = :flow", p),
   };
 }
 
@@ -91,6 +94,7 @@ export function buildExecutionModel(rows: ExecutionRows): ExecutionModel | null 
     phases: rows.phases, steps: rows.steps, sequences: rows.sequences,
     defaultType: (flow.default_sequence_type ?? "linear") as SequencingType,
     fillRestrictionsSkipped: on(flow.fill_restrictions_skipped),
+    unlockedStepIds: new Set(rows.stepUnlocks.map((u) => u.step_id)),
   };
   const phaseNumbers = numberItems(rows.phases, "");
   const phases: PhaseView[] = rows.phases.map((ph) => {

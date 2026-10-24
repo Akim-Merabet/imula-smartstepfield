@@ -819,6 +819,17 @@ export const syncedTables = {
     },
     { indexes: { flow: ["flow_id"], step: ["step_id"], block: ["block_id"] } },
   ),
+  step_fill_unlocks: new Table(
+    {
+      step_id: column.text,
+      flow_id: column.text,
+      unlocked_by: column.text,
+      reason: column.text,
+      source: column.text,
+      occurred_at: column.text,
+    },
+    { indexes: { flow: ["flow_id"], step: ["step_id"] } },
+  ),
   step_navigation_events: new Table(
     {
       step_navigation_id: column.text,

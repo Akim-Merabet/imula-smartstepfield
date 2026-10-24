@@ -1,7 +1,6 @@
 "use server";
 
 import { createHash, randomBytes } from "node:crypto";
-import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { authorize, dbError, fail, ok, type ActionResult } from "@/lib/actions";
 import { getSession } from "@/lib/auth/session";
 import { createAdminClient } from "@/lib/supabase/admin";
@@ -18,15 +17,18 @@ const QR_TTL_DAYS = 30;
 
 type Resolved = { principalId: string; authUserId: string | null };
 
-/** Contrôles d'accès et résolution du collaborateur porteur de la session mobile. */
-async function resolve(target: QuickConnectionTarget): Promise<ActionResult<Resolved>> {
+/**
+ * Contrôles d'accès et résolution du collaborateur porteur de la session mobile.
+ * `write` : action qui modifie l'accès d'un autre profil (dissocier l'appareil) → droit de modification exigé.
+ */
+async function resolve(target: QuickConnectionTarget, write = false): Promise<ActionResult<Resolved>> {
   const session = await getSession();
   if (!session) return fail("unauthenticated");
   const supabase = await createClient();
 
   if (target.type === "user") {
     if (target.id !== session.collaborator.id) {
-      const auth = await authorize("ContributorUsers", "read");
+      const auth = await authorize("ContributorUsers", write ? "edit" : "read");
       if ("error" in auth) return fail(auth.error);
     }
     const { data: c } = await supabase.from("collaborators").select("id, kind, status, auth_user_id")
@@ -47,29 +49,32 @@ async function resolve(target: QuickConnectionTarget): Promise<ActionResult<Reso
   return ok({ principalId: tablet.collaborator_id, authUserId: c?.auth_user_id ?? null });
 }
 
-/** Compte d'authentification technique du collaborateur « appareil » d'une tablette (sans mot de passe). */
+/**
+ * Compte d'authentification technique du collaborateur « appareil » d'une tablette (sans mot de passe).
+ * Un compte déjà créé (lien perdu, essai précédent interrompu) est retrouvé par son adresse et relié.
+ */
 async function ensureDeviceAuthUser(principalId: string): Promise<string | null> {
   const admin = createAdminClient();
-  const { data, error } = await admin.auth.admin.createUser({
-    email: `tablet-${principalId}@devices.imula.invalid`, email_confirm: true, app_metadata: { device: true },
-  });
-  if (error || !data.user) return null;
-  const { error: linkErr } = await admin.from("collaborators").update({ auth_user_id: data.user.id }).eq("id", principalId);
-  return linkErr ? null : data.user.id;
+  const email = `tablet-${principalId}@devices.imula.invalid`;
+  const { data, error } = await admin.auth.admin.createUser({ email, email_confirm: true, app_metadata: { device: true } });
+  let userId = data.user?.id ?? null;
+  if (error && !userId) {
+    for (let page = 1; page <= 50 && !userId; page++) {
+      const { data: list } = await admin.auth.admin.listUsers({ page, perPage: 200 });
+      userId = list?.users.find((u) => u.email === email)?.id ?? null;
+      if (!list?.users.length || list.users.length < 200) break;
+    }
+  }
+  if (!userId) return null;
+  const { error: linkErr } = await admin.from("collaborators").update({ auth_user_id: userId }).eq("id", principalId);
+  return linkErr ? null : userId;
 }
 
-/** Vérifie le mot de passe de l'utilisateur ciblé (modale « Connexion avec QR code »), sans toucher à la session web. */
+/** Vérifie le mot de passe de l'utilisateur ciblé (modale « Connexion avec QR code ») sans ouvrir de session. */
 async function checkPassword(authUserId: string, password: string): Promise<boolean> {
-  const { data } = await createAdminClient().auth.admin.getUserById(authUserId);
-  const email = data.user?.email;
-  if (!email || !password) return false;
-  const client = createSupabaseClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
-  const { error } = await client.auth.signInWithPassword({ email, password });
-  if (error) return false;
-  await client.auth.signOut({ scope: "local" });
-  return true;
+  if (!password) return false;
+  const { data, error } = await createAdminClient().rpc("verify_user_password", { p_user_id: authUserId, p_password: password });
+  return !error && data === true;
 }
 
 /**
@@ -108,7 +113,7 @@ export async function generateQuickConnection(target: QuickConnectionTarget, pas
 
 /** « Dissocier l'appareil actuel » : libère le profil (R-LOG-1) et invalide les QR déjà scannés. */
 export async function unlinkQuickConnectionDevice(target: QuickConnectionTarget): Promise<ActionResult> {
-  const res = await resolve(target);
+  const res = await resolve(target, true);
   if (!res.ok) return res;
   const { principalId } = res.data;
   const admin = createAdminClient();

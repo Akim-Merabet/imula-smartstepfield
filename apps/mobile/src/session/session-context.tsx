@@ -5,6 +5,7 @@ import { createContext, type ReactNode, useCallback, useContext, useEffect, useM
 import { supabase } from "@/lib/supabase";
 import { SupabaseConnector } from "@/powersync/connector";
 import { openProfileDatabase } from "@/powersync/database";
+import { OfflineSubscriptions } from "@/powersync/offline";
 
 import {
   forgetSession, getActiveProfileId, getOfflineMode, listProfiles, loadSession, type Profile, saveProfile,
@@ -12,7 +13,7 @@ import {
 } from "./profiles";
 import { type SignInError, type SignInResult, signInWithCredentials, signInWithQrCode } from "./sign-in";
 
-type Active = { profile: Profile; db: PowerSyncDatabase; connector: SupabaseConnector };
+type Active = { profile: Profile; db: PowerSyncDatabase; connector: SupabaseConnector; subscriptions: OfflineSubscriptions };
 
 type SessionState = {
   status: "starting" | "signedOut" | "ready";
@@ -53,7 +54,10 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   // Ouvre la base du profil et lance la synchro, sauf si l'utilisateur a choisi le mode hors ligne.
   const activate = useCallback(async (profile: Profile) => {
     const previous = activeRef.current;
-    if (previous) await previous.db.close();
+    if (previous) {
+      previous.subscriptions.stop();
+      await previous.db.close();
+    }
     const db = await openProfileDatabase(profile.principalId);
     const connector = new SupabaseConnector(profile.authUserId, {
       onForbidden: (message) => {
@@ -64,11 +68,13 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       },
       onRejected: (count) => setRejected((n) => n + count),
     });
+    const subscriptions = new OfflineSubscriptions(db);
+    subscriptions.start();
     const wantsOffline = await getOfflineMode(profile.principalId);
     setOfflineState(wantsOffline);
     if (!wantsOffline) void db.connect(connector);
     await setActiveProfileId(profile.principalId);
-    activeRef.current = { profile, db, connector };
+    activeRef.current = { profile, db, connector, subscriptions };
     setActive(activeRef.current);
     setForbidden(null);
     setRejected(0);
@@ -130,6 +136,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     await current.db.disconnect();
     await supabase.auth.signOut({ scope: "local" });
     await forgetSession(current.profile.principalId);
+    current.subscriptions.stop();
     await current.db.close();
     await setActiveProfileId(null);
     activeRef.current = null;

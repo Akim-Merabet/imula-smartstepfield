@@ -8159,6 +8159,7 @@ export type Database = {
         Args: { p_opened_at?: string; p_step_id: string }
         Returns: undefined
       }
+      mobile_report_device: { Args: { p: Json }; Returns: undefined }
       mobile_set_flow_status: {
         Args: { p_comment?: string; p_flow_id: string; p_status_id: string }
         Returns: undefined

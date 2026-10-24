@@ -4,6 +4,8 @@
 import type { AbstractPowerSyncDatabase, SyncStreamSubscription } from "@powersync/react-native";
 import { randomUUID } from "expo-crypto";
 
+import { logEvent } from "@/lib/app-log";
+
 /** Les abonnements restent actifs tant que le flow est sélectionné : TTL « infini » (10 ans) côté service. */
 const KEEP = 10 * 365 * 24 * 3600;
 
@@ -79,6 +81,7 @@ export async function selectForOffline(db: AbstractPowerSyncDatabase, flows: { i
       }
     }
   });
+  logEvent("START_CHECKOUT", { flows: flows.map((f) => f.id) });
 }
 
 /**
@@ -103,4 +106,5 @@ export async function pendingWritesForFlow(db: AbstractPowerSyncDatabase, flowId
 export async function unselectForOffline(db: AbstractPowerSyncDatabase, flowIds: string[]) {
   if (!flowIds.length) return;
   await db.execute(`delete from offline_selection where flow_id in (${flowIds.map(() => "?").join(",")})`, flowIds);
+  logEvent("DELETE_FLOW_DATA", { flows: flowIds });
 }

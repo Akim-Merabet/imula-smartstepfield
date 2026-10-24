@@ -9,6 +9,7 @@ import { Button } from "@/components/ui";
 import { useProjects } from "@/data/lists";
 import { listReferentialEntities, type ReferentialEntity } from "@/data/referentials";
 import { t } from "@/i18n/fr";
+import { logEvent } from "@/lib/app-log";
 import { parseFlowQr } from "@/lib/flow-qr";
 import { useSession } from "@/session/session-context";
 import { colors, font, radius, spacing } from "@/theme";
@@ -42,7 +43,11 @@ export default function ProjectsScreen() {
       `select fl.id, ifnull(s.downloadable, 0) as downloadable from flow_summaries fl
          left join custom_statuses s on s.id = fl.custom_status_id where fl.id = ?`, [qr.flowId]);
     const local = flow && await db.getOptional("select 1 from flows where id = ?", [qr!.flowId]);
-    if (!flow || !flow.downloadable || !local) return setQrError(true);
+    if (!flow || !flow.downloadable || !local) {
+      logEvent("SCAN_QRCODE_FLOW_FAIL", { flowId: qr?.flowId ?? null });
+      return setQrError(true);
+    }
+    logEvent("SCAN_QRCODE_FLOW_SUCCESS", { flowId: flow.id });
     router.push({ pathname: "/execution/[flowId]", params: { flowId: flow.id } });
   };
 

@@ -4,8 +4,11 @@ import { createContext, type ReactNode, useCallback, useContext, useEffect, useM
 
 import { supabase } from "@/lib/supabase";
 import { SupabaseConnector } from "@/powersync/connector";
-import { openProfileDatabase } from "@/powersync/database";
+import { clearProfileDatabase, openProfileDatabase } from "@/powersync/database";
 import { AttachmentSyncLoop } from "@/attachments/native";
+import { BackupScheduler } from "@/backup/service";
+import { bindLogger, logEvent } from "@/lib/app-log";
+import { flushLogs } from "@/lib/app-log-flush";
 import { reportDevice } from "@/lib/device-report";
 import { OfflineSubscriptions } from "@/powersync/offline";
 
@@ -18,6 +21,7 @@ import { type SignInError, type SignInResult, signInWithCredentials, signInWithQ
 type Active = {
   profile: Profile; db: PowerSyncDatabase; connector: SupabaseConnector; subscriptions: OfflineSubscriptions;
   attachments: AttachmentSyncLoop;
+  backups: BackupScheduler;
 };
 
 type SessionState = {
@@ -36,6 +40,8 @@ type SessionState = {
   resume: (profile: Profile) => Promise<"SESSION_EXPIRED" | null>;
   signOut: () => Promise<void>;
   setOffline: (offline: boolean) => Promise<void>;
+  /** « Réinitialiser la base de données locale » (spec 05 §5.6) : refusé tant que des écritures attendent l'envoi. */
+  resetLocalData: () => Promise<"PENDING_WRITES" | null>;
   dismissForbidden: () => void;
 };
 
@@ -63,6 +69,8 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     if (!previous) return;
     previous.subscriptions.stop();
     previous.attachments.stop();
+    previous.backups.stop();
+    bindLogger(null);
     await previous.db.disconnect().catch(() => {});
     await previous.db.close();
     activeRef.current = null;
@@ -75,17 +83,28 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     const connector = new SupabaseConnector(profile.authUserId, {
       onForbidden: (message) => {
         setForbidden(message);
+        logEvent("PUSH_FORBIDDEN", { message });
         void setOfflineMode(profile.principalId, true);
         setOfflineState(true);
         activeRef.current?.attachments.stop();
         void db.disconnect();
       },
-      onRejected: (count) => setRejected((n) => n + count),
-      onUploaded: () => void reportDevice().catch(() => {}),
+      onRejected: (count) => {
+        setRejected((n) => n + count);
+        logEvent("PUSH_REJECTED", { count });
+      },
+      onUploaded: () => {
+        logEvent("PUSH_SUCCESS");
+        void reportDevice().catch(() => {});
+        void flushLogs(db, profile).catch(() => {});
+      },
     });
     const subscriptions = new OfflineSubscriptions(db);
     subscriptions.start();
     const attachments = new AttachmentSyncLoop(db);
+    const backups = new BackupScheduler(db, profile);
+    bindLogger(db);
+    backups.start();
     const wantsOffline = await getOfflineMode(profile.principalId);
     setOfflineState(wantsOffline);
     if (!wantsOffline) {
@@ -93,7 +112,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       attachments.start();
     }
     await setActiveProfileId(profile.principalId);
-    activeRef.current = { profile, db, connector, subscriptions, attachments };
+    activeRef.current = { profile, db, connector, subscriptions, attachments, backups };
     setActive(activeRef.current);
     setForbidden(null);
     setRejected(0);
@@ -128,6 +147,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     if (error) return "UNKNOWN";
     await saveProfile(result.profile, result.session);
     await activate(result.profile);
+    logEvent("SIGN_IN");
     return null;
   }, [activate, closeActive]);
 
@@ -157,8 +177,11 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     await current.db.disconnect();
     await supabase.auth.signOut({ scope: "local" });
     await forgetSession(current.profile.principalId);
+    logEvent("SIGN_OUT");
     current.subscriptions.stop();
     current.attachments.stop();
+    current.backups.stop();
+    bindLogger(null);
     await current.db.close();
     await setActiveProfileId(null);
     activeRef.current = null;
@@ -171,20 +194,40 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     if (!current) return;
     await setOfflineMode(current.profile.principalId, value);
     setOfflineState(value);
+    logEvent(value ? "SWITCH_TO_OFFLINE" : "SWITCH_TO_ONLINE");
     if (value) {
       current.attachments.stop();
       await current.db.disconnect();
     } else {
       setForbidden(null);
+      // Passage en ligne avec des écritures en attente : sauvegarde locale avant l'envoi (spec 05 §3.3).
+      if ((await current.db.getUploadQueueStats()).count > 0) await current.backups.runIfDue(true);
       await current.db.connect(current.connector);
       current.attachments.start();
+      void flushLogs(current.db, current.profile).catch(() => {});
     }
+  }, []);
+
+  const resetLocalData = useCallback(async () => {
+    const current = activeRef.current;
+    if (!current) return null;
+    if ((await current.db.getUploadQueueStats()).count > 0) return "PENDING_WRITES";
+    logEvent("RESET_LOCAL_DATA");
+    current.subscriptions.stop();
+    current.attachments.stop();
+    await clearProfileDatabase(current.db);
+    current.subscriptions.start();
+    if (!(await getOfflineMode(current.profile.principalId))) {
+      void current.db.connect(current.connector);
+      current.attachments.start();
+    }
+    return null;
   }, []);
 
   const value = useMemo<SessionState>(() => ({
     status, profile: active?.profile ?? null, offline, forbidden, rejected,
-    signIn, signInWithQr, resume, signOut, setOffline, dismissForbidden: () => setForbidden(null),
-  }), [status, active, offline, forbidden, rejected, signIn, signInWithQr, resume, signOut, setOffline]);
+    signIn, signInWithQr, resume, signOut, setOffline, resetLocalData, dismissForbidden: () => setForbidden(null),
+  }), [status, active, offline, forbidden, rejected, signIn, signInWithQr, resume, signOut, setOffline, resetLocalData]);
 
   return (
     <SessionContext.Provider value={value}>

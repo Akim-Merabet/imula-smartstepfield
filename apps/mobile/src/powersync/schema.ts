@@ -41,6 +41,11 @@ const localTables = {
     { flow_id: column.text, status_id: column.text, comment: column.text, changed_at: column.text },
     { insertOnly: true },
   ),
+  // Journal d'actions de l'appareil (spec 05 §6.5), envoyé après chaque envoi réussi puis effacé.
+  app_logs: new Table(
+    { action: column.text, detail: column.text, occurred_at: column.text },
+    { localOnly: true },
+  ),
   // Écritures refusées par le serveur pour une raison métier (§9.6) : retirées de la file, gardées pour l'écran de détail.
   sync_rejections: new Table(
     {

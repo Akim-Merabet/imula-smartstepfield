@@ -15,6 +15,7 @@ import {
 } from "@/data/signature-rules";
 import { named } from "@/data/sql";
 import { t } from "@/i18n/fr";
+import { logEvent } from "@/lib/app-log";
 import { getDeviceId } from "@/lib/device";
 import { currentPosition } from "@/lib/location";
 import { useSession } from "@/session/session-context";
@@ -100,6 +101,7 @@ function CreateForm({ target, onClose }: { target: Extract<SignatureTarget, { ki
     const columns = Object.keys(row);
     await db.execute(`insert into signatures (${columns.join(", ")}) values (${columns.map(() => "?").join(", ")})`,
       columns.map((c) => (row as Record<string, unknown>)[c]));
+    logEvent("CLICK_TO_SAVE_SIGNATURE", { blockId: target.blockId, nature: target.nature, state: row.state });
     snackbar(t("signature.success"), "success");
     onClose();
   };

@@ -1,0 +1,55 @@
+{
+  "backups": {
+    "title": "Liste des backups MobileApp",
+    "subtitle": "Sauvegardes chiffrées envoyées par les tablettes ; le téléchargement les déchiffre (données locales et modifications non envoyées).",
+    "empty": "Aucune sauvegarde reçue",
+    "download": "Télécharger",
+    "downloadError": "Impossible de télécharger la sauvegarde",
+    "corrupted": "La sauvegarde est illisible (fichier altéré ou clé différente)",
+    "columns": {
+      "date": "Date",
+      "reporter": "Rapporteur",
+      "trigger": "Action utilisateur",
+      "device": "Appareil",
+      "version": "Version",
+      "size": "Taille"
+    },
+    "triggers": {
+      "manual": "Sauvegarde manuelle",
+      "support": "Envoi au support",
+      "auto": "Sauvegarde automatique",
+      "database_error": "Erreur de base de données"
+    }
+  },
+  "logs": {
+    "title": "Logs push",
+    "subtitle": "Journal d'actions envoyé par les applications mobiles après chaque envoi de données.",
+    "empty": "Aucun journal reçu",
+    "columns": {
+      "date": "Date",
+      "user": "Utilisateur",
+      "action": "Action",
+      "detail": "Détail",
+      "device": "Appareil",
+      "version": "Version"
+    },
+    "actions": {
+      "SIGN_IN": "Connexion",
+      "SIGN_OUT": "Déconnexion",
+      "SWITCH_TO_ONLINE": "Passage en ligne",
+      "SWITCH_TO_OFFLINE": "Passage hors ligne",
+      "PUSH_SUCCESS": "Envoi des données réussi",
+      "PUSH_REJECTED": "Modifications refusées",
+      "PUSH_FORBIDDEN": "Envoi impossible (accès retiré)",
+      "START_CHECKOUT": "Téléchargement de flows",
+      "DELETE_FLOW_DATA": "Suppression de flows de la tablette",
+      "SCAN_QRCODE_FLOW_SUCCESS": "Scan de QR code de flow",
+      "SCAN_QRCODE_FLOW_FAIL": "Échec de scan de QR code de flow",
+      "CLICK_TO_SAVE_SIGNATURE": "Enregistrement d'une signature",
+      "BACKUP_LOCAL": "Sauvegarde locale",
+      "BACKUP_SUPPORT": "Sauvegarde envoyée au support",
+      "BACKUP_FAIL": "Échec de sauvegarde",
+      "RESET_LOCAL_DATA": "Réinitialisation des données locales"
+    }
+  }
+}

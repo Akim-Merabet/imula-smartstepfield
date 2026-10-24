@@ -1,0 +1,55 @@
+{
+  "backups": {
+    "title": "MobileApp backups",
+    "subtitle": "Encrypted backups sent by tablets; downloading decrypts them (local data and unsent changes).",
+    "empty": "No backup received",
+    "download": "Download",
+    "downloadError": "Unable to download the backup",
+    "corrupted": "The backup cannot be read (altered file or different key)",
+    "columns": {
+      "date": "Date",
+      "reporter": "Reporter",
+      "trigger": "User action",
+      "device": "Device",
+      "version": "Version",
+      "size": "Size"
+    },
+    "triggers": {
+      "manual": "Manual backup",
+      "support": "Sent to support",
+      "auto": "Automatic backup",
+      "database_error": "Database error"
+    }
+  },
+  "logs": {
+    "title": "Push logs",
+    "subtitle": "Action log sent by mobile apps after each data upload.",
+    "empty": "No log received",
+    "columns": {
+      "date": "Date",
+      "user": "User",
+      "action": "Action",
+      "detail": "Detail",
+      "device": "Device",
+      "version": "Version"
+    },
+    "actions": {
+      "SIGN_IN": "Sign in",
+      "SIGN_OUT": "Sign out",
+      "SWITCH_TO_ONLINE": "Switched online",
+      "SWITCH_TO_OFFLINE": "Switched offline",
+      "PUSH_SUCCESS": "Data upload succeeded",
+      "PUSH_REJECTED": "Changes rejected",
+      "PUSH_FORBIDDEN": "Upload impossible (access removed)",
+      "START_CHECKOUT": "Flows downloaded",
+      "DELETE_FLOW_DATA": "Flows removed from tablet",
+      "SCAN_QRCODE_FLOW_SUCCESS": "Flow QR code scanned",
+      "SCAN_QRCODE_FLOW_FAIL": "Flow QR code scan failed",
+      "CLICK_TO_SAVE_SIGNATURE": "Signature saved",
+      "BACKUP_LOCAL": "Local backup",
+      "BACKUP_SUPPORT": "Backup sent to support",
+      "BACKUP_FAIL": "Backup failed",
+      "RESET_LOCAL_DATA": "Local data reset"
+    }
+  }
+}

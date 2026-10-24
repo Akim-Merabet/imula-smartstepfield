@@ -840,6 +840,8 @@ Notes :
 
 - ✅ Documents PDF : versions des documents liés aux flows et des documents d'entité synchronisées (métadonnées seules) ; PDF à afficher = pièce jointe du bloc, sinon version figée ou épinglée, sinon dernière version ayant un PDF ; PDF des documents liés aux flows téléchargés par la file des pièces jointes (bucket `documents`, jamais pour `is_large_file`) ; ouverture dans la visionneuse du système (`File.preview`), en ligne si non téléchargé, messages d'origine sinon ; liste « Documents du projet » (spec 05 §2.9). Limite : un document de bibliothèque lié directement à un bloc n'est lisible par une tablette que si une copie existe dans l'entité (règle Storage `library/…`).
 
+- ✅ « Paramètres des signatures » : ajout de points d'arrêt internes / externes des surveillants applicables (jamais de retrait), RPC `mobile_add_dsi_breakpoints(block_id, natures)` (étape saisissable, mode simplifié refusé, événement `update`/`add_breakpoint`) ; « Tableau des signatures » du flow (par étape, natures attendues et état), depuis le bloc Contrôles et le détail du flow.
+
 ### 9.7 Conflits
 
 | Situation | Règle |

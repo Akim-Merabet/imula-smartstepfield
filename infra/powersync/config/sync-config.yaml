@@ -110,6 +110,7 @@ streams:
       - SELECT * FROM phases WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
       - SELECT * FROM steps WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
       - SELECT * FROM step_navigations WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
+      - SELECT * FROM step_navigation_events WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
       - SELECT * FROM blocks WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows AND enabled
       - SELECT block_id AS id, * FROM block_dsi_configs
         WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows

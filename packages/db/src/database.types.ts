@@ -8136,6 +8136,14 @@ export type Database = {
       }
       mark_step_opened: { Args: { p_step_id: string }; Returns: undefined }
       merge_sequence: { Args: { p_sequence_id: string }; Returns: undefined }
+      mobile_mark_step_opened: {
+        Args: { p_opened_at?: string; p_step_id: string }
+        Returns: undefined
+      }
+      mobile_validate_step: {
+        Args: { p_step_id: string; p_validated_at?: string }
+        Returns: string[]
+      }
       move_step: {
         Args: { p_index: number; p_step_id: string; p_target_phase_id: string }
         Returns: undefined

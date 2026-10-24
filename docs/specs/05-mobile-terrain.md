@@ -811,10 +811,10 @@ Notes :
 | `signatures` PATCH (compléter une signature en attente) | RPC `mobile_complete_signature(id, signature_path, comment, signed_at)` | transition `waiting → signed` uniquement |
 | `block_multi_pr_items` PATCH (statut, observation) | RPC `mobile_update_multi_pr_item` (+ `block_multi_pr_events`) | statuts autorisés |
 | `block_multi_pr_signatures` INSERT | RPC `mobile_sign_multi_pr` | |
-| `steps` PATCH `validated_at` | RPC `set_step_validation(step_id, true)` (existante, à compléter : source mobile, date locale) | éléments obligatoires (re-vérifiés), séquence |
-| `steps` PATCH `first_opened_at` | RPC `mark_step_opened` (existante) | |
+| `steps` PATCH `validated_at` | ✅ RPC `mobile_validate_step(step_id, validated_at)` : source `mobile`, date locale bornée à maintenant, rejouable ; renvoie les manquants (`sequence`, `dsi`, `form`, `multi_pr`) → rejet `STEP_REQUIREMENTS_NOT_MET` | éléments obligatoires (re-vérifiés), séquence (le flow déverrouillé lève le séquencement, aussi côté serveur) |
+| `steps` PATCH `first_opened_at` | ✅ RPC `mobile_mark_step_opened(step_id, opened_at)` | |
 | `flow_fill_unlocks` INSERT | RPC `mobile_unlock_flow` | droits (chef de chantier : rôle `responsible`/`expert` [I]), commentaire obligatoire |
-| `step_navigation_events` INSERT | insert direct (RLS) | |
+| `step_navigation_events` INSERT | ✅ insert direct (RLS), synchronisé avec le flow | |
 | `flows` PATCH `custom_status_id` (+ commentaire) | RPC `set_flow_status` (existante) | transitions autorisées |
 | `flow_geometries` PUT/PATCH/DELETE | upsert/delete direct (RLS) | |
 | `form_block_links` INSERT (formulaire ajouté / aléa) | RPC `mobile_add_form_link` | formulaire générique autorisé |

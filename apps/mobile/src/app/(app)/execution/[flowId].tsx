@@ -1,14 +1,17 @@
-import { Stack } from "expo-router";
+import { useQuery } from "@powersync/react";
+import { Stack, useLocalSearchParams } from "expo-router";
 
-import { Empty } from "@/components/kit";
+import { ExecutionView } from "@/components/execution/execution-view";
 import { t } from "@/i18n/fr";
 
-// Écran d'exécution (spec 05 §4) : livré à l'étape suivante.
+/** Exécution d'un flow ouvert depuis une liste (« Ouvrir » / « Mode lecture »). */
 export default function ExecutionScreen() {
+  const { flowId, stepId, readonly } = useLocalSearchParams<{ flowId: string; stepId?: string; readonly?: string }>();
+  const { data } = useQuery<{ name: string }>("select name from flow_summaries where id = ?", [flowId]);
   return (
     <>
-      <Stack.Screen options={{ title: t("layout.execution") }} />
-      <Empty>{t("common.noOpenFlow")}</Empty>
+      <Stack.Screen options={{ title: data[0]?.name ?? t("layout.execution") }} />
+      <ExecutionView key={flowId} flowId={flowId} initialStepId={stepId} readonly={readonly === "1"} />
     </>
   );
 }

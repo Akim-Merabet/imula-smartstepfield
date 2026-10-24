@@ -9,6 +9,18 @@ const localTables = {
     { flow_id: column.text, project_id: column.text, subscribed_at: column.text },
     { localOnly: true, indexes: { flow: ["flow_id"] } },
   ),
+  // Flows ouverts (Exécution, Accès rapide, reprise à la dernière étape consultée — spec 05 §2.5, §2.6).
+  flow_executions: new Table(
+    {
+      flow_id: column.text,
+      project_id: column.text,
+      phase_id: column.text,
+      step_id: column.text,
+      readonly: column.integer,
+      last_access_at: column.text,
+    },
+    { localOnly: true, indexes: { flow: ["flow_id"] } },
+  ),
   // Écritures refusées par le serveur pour une raison métier (§9.6) : retirées de la file, gardées pour l'écran de détail.
   sync_rejections: new Table(
     {

@@ -33,9 +33,27 @@ const direct = (table: "step_navigation_events" | "flow_geometries"): Uploader =
   check(await supabase.from(table).update(op.opData as never).eq("id", op.id));
 };
 
+// Étape : seules l'ouverture (pastille) et la validation partent de l'appareil, par RPC (contrôles re-vérifiés).
+const steps: Uploader = async (op) => {
+  const data = op.opData ?? {};
+  const allowed = new Set(["first_opened_at", "validated_at"]);
+  if (op.op !== UpdateType.PATCH || Object.keys(data).some((k) => !allowed.has(k))) {
+    throw new UploadError("rejected", "NOT_ALLOWED", "Modification d'étape non autorisée depuis l'appareil");
+  }
+  if (data.first_opened_at) {
+    check(await supabase.rpc("mobile_mark_step_opened", { p_step_id: op.id, p_opened_at: data.first_opened_at as string }));
+  }
+  if (data.validated_at) {
+    const result = await supabase.rpc("mobile_validate_step", { p_step_id: op.id, p_validated_at: data.validated_at as string });
+    check(result);
+    if (result.data?.length) throw new UploadError("rejected", "STEP_REQUIREMENTS_NOT_MET", result.data.join(","));
+  }
+};
+
 // Table locale → appel serveur. Les RPC métier (réponses, signatures, validation d'étape…) s'ajoutent
 // ici avec les écrans qui produisent ces écritures (spec 05 §9.6).
 const uploaders: Partial<Record<string, Uploader>> = {
+  steps,
   step_navigation_events: direct("step_navigation_events"),
   flow_geometries: direct("flow_geometries"),
 };

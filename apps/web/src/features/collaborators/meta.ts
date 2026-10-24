@@ -1,7 +1,8 @@
 import type { Enums } from "@/lib/supabase/database.types";
 
 export type Authority = Enums<"authority">;
-export type CollaboratorKind = Enums<"collaborator_kind">;
+// Les collaborateurs « appareil » (tablettes) sont gérés depuis l'écran Tablettes, pas ici.
+export type CollaboratorKind = Exclude<Enums<"collaborator_kind">, "device">;
 export type CollaboratorStatus = Enums<"collaborator_status">;
 export type TabletStatus = Enums<"tablet_status">;
 export type TabletNature = Enums<"tablet_nature">;

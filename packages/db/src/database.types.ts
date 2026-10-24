@@ -2106,7 +2106,9 @@ export type Database = {
           account_id: string
           business_class: Database["public"]["Enums"]["business_class"]
           custom_field_id: string
+          flow_id: string | null
           object_id: string
+          project_id: string | null
           updated_at: string
           updated_by: string | null
           value_json: Json | null
@@ -2116,7 +2118,9 @@ export type Database = {
           account_id: string
           business_class: Database["public"]["Enums"]["business_class"]
           custom_field_id: string
+          flow_id?: string | null
           object_id: string
+          project_id?: string | null
           updated_at?: string
           updated_by?: string | null
           value_json?: Json | null
@@ -2126,7 +2130,9 @@ export type Database = {
           account_id?: string
           business_class?: Database["public"]["Enums"]["business_class"]
           custom_field_id?: string
+          flow_id?: string | null
           object_id?: string
+          project_id?: string | null
           updated_at?: string
           updated_by?: string | null
           value_json?: Json | null
@@ -3534,6 +3540,57 @@ export type Database = {
           },
         ]
       }
+      flow_fill_unlocks: {
+        Row: {
+          comment: string
+          created_at: string
+          flow_id: string
+          id: string
+          sign_with_qr_code: boolean
+          signature_path: string | null
+          signed_at: string
+          source: Database["public"]["Enums"]["event_source"]
+          unlocked_by: string | null
+        }
+        Insert: {
+          comment: string
+          created_at?: string
+          flow_id: string
+          id?: string
+          sign_with_qr_code?: boolean
+          signature_path?: string | null
+          signed_at?: string
+          source?: Database["public"]["Enums"]["event_source"]
+          unlocked_by?: string | null
+        }
+        Update: {
+          comment?: string
+          created_at?: string
+          flow_id?: string
+          id?: string
+          sign_with_qr_code?: boolean
+          signature_path?: string | null
+          signed_at?: string
+          source?: Database["public"]["Enums"]["event_source"]
+          unlocked_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "flow_fill_unlocks_flow_id_fkey"
+            columns: ["flow_id"]
+            isOneToOne: false
+            referencedRelation: "flows"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "flow_fill_unlocks_unlocked_by_fkey"
+            columns: ["unlocked_by"]
+            isOneToOne: false
+            referencedRelation: "collaborators"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       flow_geometries: {
         Row: {
           altitude: number | null
@@ -3786,6 +3843,7 @@ export type Database = {
           external_supervisor_name_2: string | null
           external_supervisor_name_3: string | null
           family_id: string | null
+          fill_restrictions_skipped: boolean
           finish_date: string | null
           flow_type: Database["public"]["Enums"]["flow_type"]
           functional_marker: string | null
@@ -3845,6 +3903,7 @@ export type Database = {
           external_supervisor_name_2?: string | null
           external_supervisor_name_3?: string | null
           family_id?: string | null
+          fill_restrictions_skipped?: boolean
           finish_date?: string | null
           flow_type: Database["public"]["Enums"]["flow_type"]
           functional_marker?: string | null
@@ -3904,6 +3963,7 @@ export type Database = {
           external_supervisor_name_2?: string | null
           external_supervisor_name_3?: string | null
           family_id?: string | null
+          fill_restrictions_skipped?: boolean
           finish_date?: string | null
           flow_type?: Database["public"]["Enums"]["flow_type"]
           functional_marker?: string | null
@@ -4600,6 +4660,7 @@ export type Database = {
       form_response_values: {
         Row: {
           coord: string
+          flow_id: string | null
           id: string
           is_valid: boolean | null
           locked: boolean
@@ -4609,6 +4670,7 @@ export type Database = {
           option_code: string | null
           option_lineage_id: string
           organization_id: string
+          project_id: string | null
           provenance: Database["public"]["Enums"]["event_source"]
           question_lineage_id: string
           question_type: Database["public"]["Enums"]["question_type"]
@@ -4626,6 +4688,7 @@ export type Database = {
         }
         Insert: {
           coord: string
+          flow_id?: string | null
           id?: string
           is_valid?: boolean | null
           locked?: boolean
@@ -4635,6 +4698,7 @@ export type Database = {
           option_code?: string | null
           option_lineage_id: string
           organization_id: string
+          project_id?: string | null
           provenance?: Database["public"]["Enums"]["event_source"]
           question_lineage_id: string
           question_type: Database["public"]["Enums"]["question_type"]
@@ -4652,6 +4716,7 @@ export type Database = {
         }
         Update: {
           coord?: string
+          flow_id?: string | null
           id?: string
           is_valid?: boolean | null
           locked?: boolean
@@ -4661,6 +4726,7 @@ export type Database = {
           option_code?: string | null
           option_lineage_id?: string
           organization_id?: string
+          project_id?: string | null
           provenance?: Database["public"]["Enums"]["event_source"]
           question_lineage_id?: string
           question_type?: Database["public"]["Enums"]["question_type"]
@@ -4730,6 +4796,7 @@ export type Database = {
           form_version_id: string
           id: string
           last_rubric_lineage_id: string | null
+          mobile_visible: boolean
           organization_id: string
           phase_id: string | null
           project_id: string
@@ -4762,6 +4829,7 @@ export type Database = {
           form_version_id: string
           id?: string
           last_rubric_lineage_id?: string | null
+          mobile_visible?: boolean
           organization_id: string
           phase_id?: string | null
           project_id: string
@@ -4794,6 +4862,7 @@ export type Database = {
           form_version_id?: string
           id?: string
           last_rubric_lineage_id?: string | null
+          mobile_visible?: boolean
           organization_id?: string
           phase_id?: string | null
           project_id?: string
@@ -5775,6 +5844,104 @@ export type Database = {
           },
         ]
       }
+      mobile_device_bindings: {
+        Row: {
+          bound_at: string
+          device_id: string
+          last_seen_at: string
+          principal_id: string
+        }
+        Insert: {
+          bound_at?: string
+          device_id: string
+          last_seen_at?: string
+          principal_id: string
+        }
+        Update: {
+          bound_at?: string
+          device_id?: string
+          last_seen_at?: string
+          principal_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mobile_device_bindings_principal_id_fkey"
+            columns: ["principal_id"]
+            isOneToOne: true
+            referencedRelation: "collaborators"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mobile_flow_access: {
+        Row: {
+          auth_user_id: string | null
+          flow_id: string
+          principal_id: string
+          project_id: string
+        }
+        Insert: {
+          auth_user_id?: string | null
+          flow_id: string
+          principal_id: string
+          project_id: string
+        }
+        Update: {
+          auth_user_id?: string | null
+          flow_id?: string
+          principal_id?: string
+          project_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mobile_flow_access_flow_id_fkey"
+            columns: ["flow_id"]
+            isOneToOne: false
+            referencedRelation: "flows"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mobile_flow_access_principal_id_fkey"
+            columns: ["principal_id"]
+            isOneToOne: false
+            referencedRelation: "collaborators"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mobile_project_access: {
+        Row: {
+          auth_user_id: string | null
+          principal_id: string
+          project_id: string
+        }
+        Insert: {
+          auth_user_id?: string | null
+          principal_id: string
+          project_id: string
+        }
+        Update: {
+          auth_user_id?: string | null
+          principal_id?: string
+          project_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mobile_project_access_principal_id_fkey"
+            columns: ["principal_id"]
+            isOneToOne: false
+            referencedRelation: "collaborators"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mobile_project_access_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       organizations: {
         Row: {
           allowed_download_response: number | null
@@ -5786,6 +5953,7 @@ export type Database = {
           link_expiration_days: number
           links_form_attributes_enabled: boolean
           local_form_allowed: boolean
+          map_config: Json | null
           name: string
           number_format: Database["public"]["Enums"]["number_format"]
           rubric_permissions_enabled: boolean
@@ -5803,6 +5971,7 @@ export type Database = {
           link_expiration_days?: number
           links_form_attributes_enabled?: boolean
           local_form_allowed?: boolean
+          map_config?: Json | null
           name: string
           number_format?: Database["public"]["Enums"]["number_format"]
           rubric_permissions_enabled?: boolean
@@ -5820,6 +5989,7 @@ export type Database = {
           link_expiration_days?: number
           links_form_attributes_enabled?: boolean
           local_form_allowed?: boolean
+          map_config?: Json | null
           name?: string
           number_format?: Database["public"]["Enums"]["number_format"]
           rubric_permissions_enabled?: boolean
@@ -6785,6 +6955,54 @@ export type Database = {
           },
         ]
       }
+      quick_connection_tokens: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          device_id: string | null
+          expires_at: string
+          id: string
+          principal_id: string
+          revoked_at: string | null
+          token_hash: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          device_id?: string | null
+          expires_at: string
+          id?: string
+          principal_id: string
+          revoked_at?: string | null
+          token_hash: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          device_id?: string | null
+          expires_at?: string
+          id?: string
+          principal_id?: string
+          revoked_at?: string | null
+          token_hash?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quick_connection_tokens_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "collaborators"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "quick_connection_tokens_principal_id_fkey"
+            columns: ["principal_id"]
+            isOneToOne: false
+            referencedRelation: "collaborators"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       reference_counters: {
         Row: {
           current_value: number
@@ -6918,37 +7136,55 @@ export type Database = {
           action: string
           actor_id: string | null
           block_id: string
+          client_event_id: string
+          event_sequence: number | null
           flow_id: string
+          from_state: Database["public"]["Enums"]["signature_state"] | null
           id: number
           nature: Database["public"]["Enums"]["signature_nature"] | null
           occurred_at: string
+          payload_path: string | null
+          reason: string | null
           signature_id: string | null
           source: Database["public"]["Enums"]["event_source"]
           supervisor_name: string | null
+          to_state: Database["public"]["Enums"]["signature_state"] | null
         }
         Insert: {
           action: string
           actor_id?: string | null
           block_id: string
+          client_event_id?: string
+          event_sequence?: number | null
           flow_id: string
+          from_state?: Database["public"]["Enums"]["signature_state"] | null
           id?: never
           nature?: Database["public"]["Enums"]["signature_nature"] | null
           occurred_at?: string
+          payload_path?: string | null
+          reason?: string | null
           signature_id?: string | null
           source?: Database["public"]["Enums"]["event_source"]
           supervisor_name?: string | null
+          to_state?: Database["public"]["Enums"]["signature_state"] | null
         }
         Update: {
           action?: string
           actor_id?: string | null
           block_id?: string
+          client_event_id?: string
+          event_sequence?: number | null
           flow_id?: string
+          from_state?: Database["public"]["Enums"]["signature_state"] | null
           id?: never
           nature?: Database["public"]["Enums"]["signature_nature"] | null
           occurred_at?: string
+          payload_path?: string | null
+          reason?: string | null
           signature_id?: string | null
           source?: Database["public"]["Enums"]["event_source"]
           supervisor_name?: string | null
+          to_state?: Database["public"]["Enums"]["signature_state"] | null
         }
         Relationships: [
           {
@@ -6979,9 +7215,11 @@ export type Database = {
           block_id: string
           comment: string | null
           company_name: string | null
+          connection_mode: string | null
           contributor_type: Database["public"]["Enums"]["contributor_type"]
           created_at: string
           created_by: string | null
+          device_id: string | null
           disabled: boolean
           email: string | null
           first_name: string | null
@@ -6989,10 +7227,16 @@ export type Database = {
           hash: string | null
           id: string
           last_name: string | null
+          latitude: number | null
+          local_created_at: string | null
+          longitude: number | null
           nature: Database["public"]["Enums"]["signature_nature"]
           profession: string | null
           proxied: boolean
           proxy_date: string | null
+          proxy_holder_name: string | null
+          proxy_principal_first_name: string | null
+          proxy_principal_last_name: string | null
           proxy_principal_name: string | null
           sign_with_qr_code: boolean
           signatory_id: string | null
@@ -7006,9 +7250,11 @@ export type Database = {
           block_id: string
           comment?: string | null
           company_name?: string | null
+          connection_mode?: string | null
           contributor_type: Database["public"]["Enums"]["contributor_type"]
           created_at?: string
           created_by?: string | null
+          device_id?: string | null
           disabled?: boolean
           email?: string | null
           first_name?: string | null
@@ -7016,10 +7262,16 @@ export type Database = {
           hash?: string | null
           id?: string
           last_name?: string | null
+          latitude?: number | null
+          local_created_at?: string | null
+          longitude?: number | null
           nature: Database["public"]["Enums"]["signature_nature"]
           profession?: string | null
           proxied?: boolean
           proxy_date?: string | null
+          proxy_holder_name?: string | null
+          proxy_principal_first_name?: string | null
+          proxy_principal_last_name?: string | null
           proxy_principal_name?: string | null
           sign_with_qr_code?: boolean
           signatory_id?: string | null
@@ -7033,9 +7285,11 @@ export type Database = {
           block_id?: string
           comment?: string | null
           company_name?: string | null
+          connection_mode?: string | null
           contributor_type?: Database["public"]["Enums"]["contributor_type"]
           created_at?: string
           created_by?: string | null
+          device_id?: string | null
           disabled?: boolean
           email?: string | null
           first_name?: string | null
@@ -7043,10 +7297,16 @@ export type Database = {
           hash?: string | null
           id?: string
           last_name?: string | null
+          latitude?: number | null
+          local_created_at?: string | null
+          longitude?: number | null
           nature?: Database["public"]["Enums"]["signature_nature"]
           profession?: string | null
           proxied?: boolean
           proxy_date?: string | null
+          proxy_holder_name?: string | null
+          proxy_principal_first_name?: string | null
+          proxy_principal_last_name?: string | null
           proxy_principal_name?: string | null
           sign_with_qr_code?: boolean
           signatory_id?: string | null
@@ -7142,6 +7402,71 @@ export type Database = {
             columns: ["unlocked_by"]
             isOneToOne: false
             referencedRelation: "collaborators"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      step_navigation_events: {
+        Row: {
+          action: string
+          actor_id: string | null
+          comment: string | null
+          flow_id: string
+          id: string
+          occurred_at: string
+          source: Database["public"]["Enums"]["event_source"]
+          step_id: string
+          step_navigation_id: string | null
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          comment?: string | null
+          flow_id: string
+          id?: string
+          occurred_at?: string
+          source?: Database["public"]["Enums"]["event_source"]
+          step_id: string
+          step_navigation_id?: string | null
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          comment?: string | null
+          flow_id?: string
+          id?: string
+          occurred_at?: string
+          source?: Database["public"]["Enums"]["event_source"]
+          step_id?: string
+          step_navigation_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "step_navigation_events_actor_id_fkey"
+            columns: ["actor_id"]
+            isOneToOne: false
+            referencedRelation: "collaborators"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "step_navigation_events_flow_id_fkey"
+            columns: ["flow_id"]
+            isOneToOne: false
+            referencedRelation: "flows"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "step_navigation_events_step_id_fkey"
+            columns: ["step_id"]
+            isOneToOne: false
+            referencedRelation: "steps"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "step_navigation_events_step_navigation_id_fkey"
+            columns: ["step_navigation_id"]
+            isOneToOne: false
+            referencedRelation: "step_navigations"
             referencedColumns: ["id"]
           },
         ]
@@ -7345,6 +7670,7 @@ export type Database = {
           android_version: string | null
           app_version: string | null
           battery_level: number | null
+          collaborator_id: string | null
           comment: string | null
           company_id: string
           created_at: string
@@ -7370,6 +7696,7 @@ export type Database = {
           android_version?: string | null
           app_version?: string | null
           battery_level?: number | null
+          collaborator_id?: string | null
           comment?: string | null
           company_id: string
           created_at?: string
@@ -7395,6 +7722,7 @@ export type Database = {
           android_version?: string | null
           app_version?: string | null
           battery_level?: number | null
+          collaborator_id?: string | null
           comment?: string | null
           company_id?: string
           created_at?: string
@@ -7421,6 +7749,13 @@ export type Database = {
             columns: ["account_id"]
             isOneToOne: false
             referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tablets_collaborator_id_fkey"
+            columns: ["collaborator_id"]
+            isOneToOne: true
+            referencedRelation: "collaborators"
             referencedColumns: ["id"]
           },
           {
@@ -7906,7 +8241,7 @@ export type Database = {
         | "client_response"
         | "document_large_file"
         | "closing_folder"
-      collaborator_kind: "user" | "operator"
+      collaborator_kind: "user" | "operator" | "device"
       collaborator_status:
         | "active"
         | "inactive"
@@ -8361,7 +8696,7 @@ export const Constants = {
         "document_large_file",
         "closing_folder",
       ],
-      collaborator_kind: ["user", "operator"],
+      collaborator_kind: ["user", "operator", "device"],
       collaborator_status: [
         "active",
         "inactive",

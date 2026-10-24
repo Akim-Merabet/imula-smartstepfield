@@ -131,7 +131,7 @@ export async function createCollaborator(input: CollaboratorInput, options?: { e
 export async function updateCollaborator(id: string, input: CollaboratorInput): Promise<ActionResult> {
   const supabase = await createClient();
   const { data: before } = await supabase.from("collaborators").select("kind, authority, email, auth_user_id").eq("id", id).maybeSingle();
-  if (!before) return fail("not_found");
+  if (!before || before.kind === "device") return fail("not_found");
   const auth = await authorize(routeOf(before.kind), "edit");
   if ("error" in auth) return fail(auth.error);
   const prepared = await prepare({ ...input, kind: before.kind }, auth.session.collaborator.authority, before.authority);
@@ -170,7 +170,7 @@ async function collaboratorDependencies(id: string): Promise<Dependency[]> {
 export async function deleteCollaborator(id: string): Promise<ActionResult<undefined>> {
   const supabase = await createClient();
   const { data: c } = await supabase.from("collaborators").select("kind, status").eq("id", id).maybeSingle();
-  if (!c) return fail("not_found");
+  if (!c || c.kind === "device") return fail("not_found");
   const auth = await authorize(routeOf(c.kind), "delete");
   if ("error" in auth) return fail(auth.error);
   if (id === auth.session.collaborator.id) return fail("self");
@@ -186,7 +186,7 @@ export async function deleteCollaborator(id: string): Promise<ActionResult<undef
 export async function setCollaboratorStatus(id: string, action: "deactivate" | "activate" | "unlock" | "restore"): Promise<ActionResult> {
   const supabase = await createClient();
   const { data: c } = await supabase.from("collaborators").select("kind, status").eq("id", id).maybeSingle();
-  if (!c) return fail("not_found");
+  if (!c || c.kind === "device") return fail("not_found");
   const permission = action === "unlock" ? "unlock" : action === "restore" ? "restore" : "edit";
   const auth = await authorize(routeOf(c.kind), permission);
   if ("error" in auth) return fail(auth.error);
@@ -263,7 +263,7 @@ export async function moveCollaborator(id: string, accountId: string): Promise<A
   if ("error" in auth) return fail(auth.error);
   const supabase = await createClient();
   const { data: c } = await supabase.from("collaborators").select("kind").eq("id", id).maybeSingle();
-  if (!c) return fail("not_found");
+  if (!c || c.kind === "device") return fail("not_found");
   const { error } = await supabase.from("collaborators").update({ account_id: accountId }).eq("id", id);
   if (error) return fail(dbError(error));
   revalidatePath(pathOf(c.kind));

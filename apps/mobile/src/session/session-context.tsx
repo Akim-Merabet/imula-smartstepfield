@@ -10,7 +10,7 @@ import {
   forgetSession, getActiveProfileId, getOfflineMode, listProfiles, loadSession, type Profile, saveProfile,
   setActiveProfileId, setOfflineMode, storeSession,
 } from "./profiles";
-import { type SignInError, signInWithCredentials } from "./sign-in";
+import { type SignInError, type SignInResult, signInWithCredentials, signInWithQrCode } from "./sign-in";
 
 type Active = { profile: Profile; db: PowerSyncDatabase; connector: SupabaseConnector };
 
@@ -24,6 +24,8 @@ type SessionState = {
   /** Nombre d'écritures refusées par le serveur depuis l'ouverture de la session. */
   rejected: number;
   signIn: (email: string, password: string, company: string) => Promise<SignInError | null>;
+  /** Connexion rapide : contenu brut du QR code scanné. */
+  signInWithQr: (raw: string) => Promise<SignInError | null>;
   /** Reprise d'un profil déjà connecté sur l'appareil (session mémorisée). */
   resume: (profile: Profile) => Promise<"SESSION_EXPIRED" | null>;
   signOut: () => Promise<void>;
@@ -94,8 +96,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     return () => data.subscription.unsubscribe();
   }, []);
 
-  const signIn = useCallback(async (email: string, password: string, company: string) => {
-    const result = await signInWithCredentials(email, password, company);
+  const complete = useCallback(async (result: SignInResult) => {
     if (!result.ok) return result.error;
     const { error } = await supabase.auth.setSession(result.session);
     if (error) return "UNKNOWN";
@@ -103,6 +104,13 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     await activate(result.profile);
     return null;
   }, [activate]);
+
+  const signIn = useCallback(
+    async (email: string, password: string, company: string) => complete(await signInWithCredentials(email, password, company)),
+    [complete],
+  );
+
+  const signInWithQr = useCallback(async (raw: string) => complete(await signInWithQrCode(raw)), [complete]);
 
   const resume = useCallback(async (profile: Profile) => {
     const stored = await loadSession(profile.principalId);
@@ -143,8 +151,8 @@ export function SessionProvider({ children }: { children: ReactNode }) {
 
   const value = useMemo<SessionState>(() => ({
     status, profile: active?.profile ?? null, offline, forbidden, rejected,
-    signIn, resume, signOut, setOffline, dismissForbidden: () => setForbidden(null),
-  }), [status, active, offline, forbidden, rejected, signIn, resume, signOut, setOffline]);
+    signIn, signInWithQr, resume, signOut, setOffline, dismissForbidden: () => setForbidden(null),
+  }), [status, active, offline, forbidden, rejected, signIn, signInWithQr, resume, signOut, setOffline]);
 
   return (
     <SessionContext.Provider value={value}>

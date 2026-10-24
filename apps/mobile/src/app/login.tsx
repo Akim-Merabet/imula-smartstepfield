@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { QrScanner } from "@/components/qr-scanner";
 import { Banner, Button, TextField } from "@/components/ui";
 import { config } from "@/config";
 import { t } from "@/i18n/fr";
@@ -29,7 +30,7 @@ const formatDate = (iso: string) =>
   new Date(iso).toLocaleString("fr-FR", { dateStyle: "short", timeStyle: "short" });
 
 export default function LoginScreen() {
-  const { signIn, resume } = useSession();
+  const { signIn, signInWithQr, resume } = useSession();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [company, setCompany] = useState("");
@@ -39,6 +40,7 @@ export default function LoginScreen() {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [deviceId, setDeviceId] = useState<string | null>(null);
   const [showDeviceId, setShowDeviceId] = useState(false);
+  const [scanning, setScanning] = useState(false);
 
   useEffect(() => {
     listProfiles().then((list) => {
@@ -55,6 +57,15 @@ export default function LoginScreen() {
     if (Object.keys(errors).length) return;
     setBusy(true);
     const result: SignInError | null = await signIn(email, password, company);
+    setBusy(false);
+    if (result) setError(t(`login.errors.${result}`));
+  };
+
+  const onQrScanned = async (data: string) => {
+    setScanning(false);
+    setBusy(true);
+    setError(null);
+    const result = await signInWithQr(data);
     setBusy(false);
     if (result) setError(t(`login.errors.${result}`));
   };
@@ -80,6 +91,10 @@ export default function LoginScreen() {
             <Text style={styles.subtitle}>{t("login.signToAccount")}</Text>
           </View>
 
+          <View style={styles.card}>
+            <Button label={t("login.scanQrCode")} onPress={() => setScanning(true)} disabled={busy} />
+          </View>
+
           {profiles.length > 0 && (
             <View style={styles.card}>
               <Text style={styles.sectionTitle}>{t("login.knownProfiles")}</Text>
@@ -97,9 +112,10 @@ export default function LoginScreen() {
                   </Text>
                 </Pressable>
               ))}
-              <Text style={styles.separator}>{t("login.orUseYourLoginCredentials")}</Text>
             </View>
           )}
+
+          <Text style={styles.separator}>{t("login.orUseYourLoginCredentials")}</Text>
 
           <View style={styles.card}>
             {!!error && <Banner tone="danger">{error}</Banner>}
@@ -126,6 +142,8 @@ export default function LoginScreen() {
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
+
+      <QrScanner visible={scanning} title={t("login.scanQrCode")} onScanned={onQrScanned} onClose={() => setScanning(false)} />
 
       <Modal visible={showDeviceId} transparent animationType="fade" onRequestClose={() => setShowDeviceId(false)}>
         <View style={styles.backdrop}>

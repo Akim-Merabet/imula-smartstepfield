@@ -37,8 +37,8 @@ describe("saisie d'une signature (spec 05 §7.4)", () => {
     const full = { ...d, principalFirstName: "P", principalLastName: "Q" };
     expect(validateDraft({ ...full, proxyTime: "15:31" }, ctx, me)).toBe("proxyDateAfter");
     expect(validateDraft({ ...full, proxyTime: "15:00" }, ctx, me)).toBeNull();
-    const row = draftToRow({ ...full, proxyTime: "15:00" }, { ...ctx, blockId: "b", stepId: "s", flowId: "f", me }, { deviceId: "d", offline: true, holderName: "Moi" }, "id");
-    expect(row).toMatchObject({ proxied: 1, signatory_id: "me", contributor_type: "intern", proxy_principal_name: "P Q", connection_mode: "offline" });
+    const row = draftToRow({ ...full, proxyTime: "15:00" }, { ...ctx, blockId: "b", stepId: "s", flowId: "f", me }, { deviceId: "d", offline: true, holderName: "Moi", latitude: 45.7, longitude: 4.8 }, "id");
+    expect(row).toMatchObject({ latitude: 45.7, longitude: 4.8, proxied: 1, signatory_id: "me", contributor_type: "intern", proxy_principal_name: "P Q", connection_mode: "offline" });
   });
 
   it("non applicable : commentaire obligatoire, pas de dessin", () => {

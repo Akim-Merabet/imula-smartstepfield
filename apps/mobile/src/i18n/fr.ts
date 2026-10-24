@@ -320,6 +320,12 @@ export const fr = {
     noExecutedFlow: "Il semblerait qu’aucun flow ne soit ouvert",
     lastStep: "Dernière ouverture depuis l'étape {step}",
   },
+  location: {
+    dataCollection: "Siteflow collecte les données de localisation pour géolocaliser les tablettes lors des interventions terrain lorsque l’application est active.",
+    authorizeDataSharing: "Souhaitez vous autoriser le partage des données ?",
+    allow: "Autoriser",
+    refuse: "Refuser",
+  },
   onlineOffline: {
     offlineMessage: "Vous êtes maintenant hors ligne. Vos données seront sauvegardées sur la tablette jusqu'à votre prochaine connexion",
     onlineMessage: "Vous êtes maintenant en ligne et pouvez à nouveau télécharger. Vos données vont être automatiquement envoyées sur la WebApp.",

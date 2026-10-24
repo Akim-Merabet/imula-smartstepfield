@@ -10,6 +10,8 @@ export type ConnectorEvents = {
   onForbidden: (message: string) => void;
   /** Écritures refusées pour une raison métier, consignées dans sync_rejections. */
   onRejected: (count: number) => void;
+  /** File vidée après au moins un envoi accepté (remontée d'informations de l'appareil, §1.8). */
+  onUploaded?: () => void;
 };
 
 export class SupabaseConnector implements PowerSyncBackendConnector {
@@ -33,10 +35,14 @@ export class SupabaseConnector implements PowerSyncBackendConnector {
     const { data: auth } = await supabase.auth.getSession();
     if (auth.session?.user.id !== this.authUserId) throw new Error("Session d'un autre profil : envoi différé");
     let rejected = 0;
+    let uploaded = 0;
     try {
       for (;;) {
         const tx = await db.getNextCrudTransaction();
-        if (!tx) return;
+        if (!tx) {
+          if (uploaded) this.events.onUploaded?.();
+          return;
+        }
         try {
           for (const op of tx.crud) await uploadEntry(op, db);
         } catch (e) {
@@ -55,7 +61,10 @@ export class SupabaseConnector implements PowerSyncBackendConnector {
             );
           }
           rejected += tx.crud.length;
+          await tx.complete();
+          continue;
         }
+        uploaded += 1;
         await tx.complete();
       }
     } finally {

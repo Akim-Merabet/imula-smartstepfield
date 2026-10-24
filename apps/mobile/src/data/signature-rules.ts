@@ -105,7 +105,11 @@ export function validateDraft(d: SignatureDraft, ctx: SignatureContext, me: stri
   return null;
 }
 
-export type DeviceContext = { deviceId: string | null; offline: boolean; holderName: string | null };
+export type DeviceContext = {
+  deviceId: string | null; offline: boolean; holderName: string | null;
+  /** Position au moment de la signature (localisation autorisée, R-SEC-2), sinon null. */
+  latitude?: number | null; longitude?: number | null;
+};
 
 /** Ligne locale `signatures` (envoyée telle quelle à mobile_sign). */
 export function draftToRow(d: SignatureDraft, ctx: SignatureContext & { blockId: string; stepId: string; flowId: string; me: string },
@@ -144,8 +148,8 @@ export function draftToRow(d: SignatureDraft, ctx: SignatureContext & { blockId:
     local_created_at: new Date().toISOString(),
     device_id: device.deviceId,
     connection_mode: device.offline ? "offline" : "online",
-    latitude: null,
-    longitude: null,
+    latitude: device.latitude ?? null,
+    longitude: device.longitude ?? null,
   };
 }
 

@@ -6,6 +6,7 @@ import { supabase } from "@/lib/supabase";
 import { SupabaseConnector } from "@/powersync/connector";
 import { openProfileDatabase } from "@/powersync/database";
 import { AttachmentSyncLoop } from "@/attachments/native";
+import { reportDevice } from "@/lib/device-report";
 import { OfflineSubscriptions } from "@/powersync/offline";
 
 import {
@@ -80,6 +81,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
         void db.disconnect();
       },
       onRejected: (count) => setRejected((n) => n + count),
+      onUploaded: () => void reportDevice().catch(() => {}),
     });
     const subscriptions = new OfflineSubscriptions(db);
     subscriptions.start();

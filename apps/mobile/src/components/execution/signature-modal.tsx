@@ -16,6 +16,7 @@ import {
 import { named } from "@/data/sql";
 import { t } from "@/i18n/fr";
 import { getDeviceId } from "@/lib/device";
+import { currentPosition } from "@/lib/location";
 import { useSession } from "@/session/session-context";
 import { colors, font, radius, spacing } from "@/theme";
 
@@ -94,7 +95,8 @@ function CreateForm({ target, onClose }: { target: Extract<SignatureTarget, { ki
     const key = validateDraft(d, ctx, me);
     if (key) return setError(t(`signature.errors.${key}`));
     const row = draftToRow(d, { ...ctx, blockId: target.blockId, stepId: target.stepId, flowId: target.flowId, me },
-      { deviceId: await getDeviceId().catch(() => null), offline, holderName: profile?.displayName ?? null }, randomUUID());
+      { deviceId: await getDeviceId().catch(() => null), offline, holderName: profile?.displayName ?? null, ...(await currentPosition()) },
+      randomUUID());
     const columns = Object.keys(row);
     await db.execute(`insert into signatures (${columns.join(", ")}) values (${columns.map(() => "?").join(", ")})`,
       columns.map((c) => (row as Record<string, unknown>)[c]));

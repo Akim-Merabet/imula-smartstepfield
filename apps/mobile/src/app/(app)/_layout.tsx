@@ -2,6 +2,7 @@ import { Stack } from "expo-router";
 import { Modal, StyleSheet, Text, View } from "react-native";
 
 import { SnackbarProvider } from "@/components/kit";
+import { LocationConsent } from "@/components/location-consent";
 import { Button } from "@/components/ui";
 import { t } from "@/i18n/fr";
 import { useSession } from "@/session/session-context";
@@ -22,6 +23,8 @@ export default function AppLayout() {
       >
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
+
+      <LocationConsent />
 
       {/* R-SES-2 : accès retiré pendant un envoi. */}
       <Modal visible={!!forbidden} transparent animationType="fade" onRequestClose={dismissForbidden}>

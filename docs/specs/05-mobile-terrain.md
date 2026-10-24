@@ -281,7 +281,7 @@ L'utilisateur bascule **manuellement** via le bouton En ligne/Hors ligne de l'en
 
 Phase : transparent si `readOnlyOnMobileApp`, gris si désactivée ou sans étape colorée ; sinon la couleur commune de ses étapes actives si toutes identiques, **orange** si mélange.
 
-Écart à noter : la note RN105 définit « gris = étape pas encore ouverte, bleu = ouverte sans élément réalisé ». Le code observé ne distingue pas ouverte/non ouverte (bleu par défaut). [P] Suivre la note de version (gris tant que `steps.first_opened_at` est nul — colonne déjà présente, RPC `mark_step_opened`) et réserver le gris barré aux étapes désactivées.
+Écart à noter : la note RN105 définit « gris = étape pas encore ouverte, bleu = ouverte sans élément réalisé ». Le code observé ne distingue pas ouverte/non ouverte (bleu par défaut). [P, tranché le 2026-10-24] Suivre la note de version (gris tant que `steps.first_opened_at` est nul — colonne déjà présente, RPC `mark_step_opened`) et réserver le gris barré aux étapes désactivées.
 
 Compteurs par étape (`getStepProgressMapData`) : `expectedSignatureCount`, `doneSignatureCount`, `pendingSignatureCount` (signatures « en attente »), `multiPrStatusDoneCount`, `mandatoryFormCount`, `mandatoryFormWithResponseCount`.
 
@@ -738,129 +738,44 @@ Légende : ✅ table existante adaptée · 🟡 existante avec colonnes à ajout
 **Problème** : le schéma actuel lie l'authentification aux seuls `collaborators.auth_user_id` ; `tablets` n'a pas de compte, et toutes les colonnes d'acteur (`validated_by`, `actor_id`, `created_by`, `signatory_id`…) référencent `collaborators`.
 
 **Proposition** :
-- ❌ Ajouter la valeur `device` à l'enum `collaborator_kind` et créer pour chaque tablette un **collaborateur fantôme** `kind='device'` (porteur de `auth_user_id`, `account_id`, `company_id`) ; ❌ `tablets.collaborator_id uuid unique references collaborators(id)`. Toutes les FK d'acteur restent valables ; le libellé affiché est le nom de la tablette.
-- **Claims JWT** (hook *custom access token*) : `org_id`, `account_id`, `principal_id` (collaborator), `principal_kind` (`user`|`operator`|`device`), `tablet_id` éventuel. Utilisés par RLS et Sync Streams (`auth.parameter('…')`).
-- **Connexion identifiants** : Edge Function `mobile-sign-in` (email, mot de passe, sous-domaine, `device_id`, infos appareil) : vérifie l'organisation du sous-domaine, `authorized_devices` (si la liste n'est pas vide), l'**unicité d'appareil par profil** (❌ table `mobile_device_bindings(principal_id pk, device_id, bound_at, last_seen_at)`), puis ouvre la session (codes d'erreur alignés sur §1.1 : `ANOTHER_DEVICE`, `DEVICE_UNAUTHORIZED`, `INVALID_CREDENTIALS`).
-- **Connexion QR** : ❌ `quick_connection_tokens(id, principal_id, token_hash, device_id null, expires_at, revoked_at)` (prévu spec 01) ; QR = `{v:1, host, token}` ; Edge Function `mobile-qr-sign-in` : refuse expiré (`EXPIRED_QR`), lié à un autre appareil (`QR_ALREADY_BOUND`), lie le jeton à l'appareil au premier usage, renvoie une session. « Dissocier l'appareil actuel » (WebApp) = suppression du binding.
+- ✅ Ajouter la valeur `device` à l'enum `collaborator_kind` et créer pour chaque tablette un **collaborateur fantôme** `kind='device'` (porteur de `auth_user_id`, `account_id`, `company_id`) ; ✅ `tablets.collaborator_id uuid unique references collaborators(id)`. Toutes les FK d'acteur restent valables ; le libellé affiché est le nom de la tablette.
+- ✅ Collaborateur « appareil » créé/renommé automatiquement par déclencheur sur `tablets` ; `private.project_role` donne le rôle `operator` à une tablette sur les entités de `project_tablets` (RLS WebApp inchangée).
+- **Pas de claims JWT personnalisés nécessaires** : les Sync Streams n'utilisent que `auth.user_id()` (rapproché de `collaborators.auth_user_id` et des tables d'accès mobiles). Un hook *custom access token* reste possible plus tard pour les RPC, sans impact sur la synchro.
+- **Connexion identifiants** : Edge Function `mobile-sign-in` (email, mot de passe, sous-domaine, `device_id`, infos appareil) : vérifie l'organisation du sous-domaine, `authorized_devices` (si la liste n'est pas vide), l'**unicité d'appareil par profil** (✅ table `mobile_device_bindings(principal_id pk, device_id, bound_at, last_seen_at)`), puis ouvre la session (codes d'erreur alignés sur §1.1 : `ANOTHER_DEVICE`, `DEVICE_UNAUTHORIZED`, `INVALID_CREDENTIALS`).
+- **Connexion QR** : ✅ `quick_connection_tokens(id, principal_id, token_hash, device_id null, expires_at, revoked_at)` (prévu spec 01) ; QR = `{v:1, host, token}` ; Edge Function `mobile-qr-sign-in` : refuse expiré (`EXPIRED_QR`), lié à un autre appareil (`QR_ALREADY_BOUND`), lie le jeton à l'appareil au premier usage, renvoie une session. « Dissocier l'appareil actuel » (WebApp) = suppression du binding.
 - **Tablette partagée / changement de profil** : **une base SQLite par profil** (`dbFilename: imula-<principal_id>.db`, clé SQLCipher distincte). Changer de profil = fermer la base courante, ouvrir celle du profil. Conséquences : plus d'erreur RN 2.8 (les données de X ne sont jamais envoyées avec le jeton de Y) ; si X a des écritures en attente au moment du changement, modale « Le profil X a n modifications non envoyées. Elles seront envoyées à sa prochaine connexion. [Passer en ligne et envoyer] [Continuer] ». Écran de connexion : liste des **profils déjà connectés** sur l'appareil (« Dernière connexion : … ») pour reprise rapide.
 - Déconnexion : garde la base du profil (comme l'origine) ; « Réinitialiser les données locales » supprime la base du profil courant (avec garde-fou file non vide, §5.6).
 - Sécurité appareil : `expo-local-authentication` (`getEnrolledLevelAsync`) → écran bloquant si aucun verrouillage (R-SEC-1) ; clé SQLCipher générée aléatoirement et stockée dans `expo-secure-store` (Keystore Android).
 
 ### 9.3 Compléments de schéma Supabase (récapitulatif)
 
+✅ = livré (migrations `20261024115900`, `20261024120000`, `20261024121000`). Restent à faire avec leurs fonctionnalités : `mobile_backups`, `mobile_logs`.
+
 | Objet | Type | Raison |
 |---|---|---|
-| `collaborator_kind += 'device'`, `tablets.collaborator_id` | colonne/enum | profils tablette authentifiables (§9.2) |
-| `mobile_device_bindings`, `quick_connection_tokens` | tables | un appareil par profil, QR |
-| `mobile_access(principal_id, auth_user_id, project_id, flow_id, can_write)` | table maintenue par triggers (`project_members`, `project_tablets`, `flows`, `flow_*`, `custom_statuses.downloadable`) | filtre simple et performant pour les Sync Streams (évite les sous-requêtes imbriquées) |
-| `form_response_values.flow_id`, `.project_id` ; `custom_field_values.flow_id`, `.project_id` | colonnes dénormalisées (trigger) | synchro par flow/projet |
-| `form_responses.mobile_visible boolean` | colonne (trigger) | applique `organizations.allowed_download_response` : vrai pour toute réponse `in_progress` et pour les N dernières `done` par lien |
-| `signatures` : `local_created_at`, `device_id`, `connection_mode`, `latitude`, `longitude`, `proxy_principal_first_name`, `proxy_principal_last_name`, `proxy_holder_name` | colonnes | parité §7.5 |
-| `signature_events` : `client_event_id uuid unique`, `event_sequence`, `from_state`, `to_state`, `payload_path`, `reason` | colonnes | journal d'événements idempotent |
-| `flow_fill_unlocks(id, flow_id, unlocked_by, signature_path, comment, sign_with_qr_code, signed_at, source)` | table | déverrouillage de flow signé (R-SEQ-4) ; positionne ❌ `flows.fill_restrictions_skipped = true` |
-| `step_navigation_events(id, step_navigation_id, step_id, flow_id, action NAVIGATE/EXIT/SKIP, comment, actor_id, source, occurred_at)` | table | traçabilité des redirections |
+| ✅ `collaborator_kind += 'device'`, `tablets.collaborator_id` | colonne/enum | profils tablette authentifiables (§9.2) |
+| ✅ `mobile_device_bindings`, `quick_connection_tokens` | tables | un appareil par profil, QR |
+| ✅ `mobile_project_access(project_id, principal_id, auth_user_id)` et `mobile_flow_access(flow_id, principal_id, project_id, auth_user_id)` | tables maintenues par déclencheurs (`project_members`, `project_tablets`, `projects.type/archived/deleted_at`, `flows.custom_status_id/project_id/deleted_at`, `custom_statuses.downloadable`, `collaborators.auth_user_id/deleted_at`, `tablets.collaborator_id`) | filtre des Sync Streams. Entité visible = membre ou tablette affectée, type `project`, non archivée ; flow téléchargeable = entité visible + statut `downloadable`. Les droits d'écriture restent vérifiés par la RLS / les RPC |
+| ✅ `form_response_values.flow_id`, `.project_id` ; `custom_field_values.flow_id`, `.project_id` | colonnes dénormalisées (trigger) | synchro par flow/projet |
+| ✅ `form_responses.mobile_visible boolean` | colonne (trigger) | applique `organizations.allowed_download_response` : vrai pour toute réponse `in_progress` et pour les N dernières `done` par lien (contexte entité : par entité + lignée de formulaire ; `null` = toutes) |
+| ✅ `signatures` : `local_created_at`, `device_id`, `connection_mode`, `latitude`, `longitude`, `proxy_principal_first_name`, `proxy_principal_last_name`, `proxy_holder_name` | colonnes | parité §7.5 |
+| ✅ `signature_events` : `client_event_id uuid unique`, `event_sequence`, `from_state`, `to_state`, `payload_path`, `reason` | colonnes | journal d'événements idempotent |
+| ✅ `flow_fill_unlocks(id, flow_id, unlocked_by, signature_path, comment, sign_with_qr_code, signed_at, source)` | table | déverrouillage de flow signé (R-SEQ-4) ; positionne `flows.fill_restrictions_skipped = true` (déclencheur) |
+| ✅ `step_navigation_events(id, step_navigation_id, step_id, flow_id, action NAVIGATE/EXIT/SKIP, comment, actor_id, source, occurred_at)` | table | traçabilité des redirections |
 | `mobile_backups(id, principal_id, device_id, storage_path, size, created_at, trigger)` + bucket `mobile-backups` | table + Storage | « Liste des backups MobileApp » WebApp |
 | `mobile_logs(id, principal_id, device_id, storage_path, created_at)` | table + Storage | « Logs push » |
-| `organizations.map_config jsonb` | colonne | tuiles de carte |
+| ✅ `organizations.map_config jsonb` | colonne | tuiles de carte |
 
-### 9.4 Sync Streams (proposition `infra/powersync/config/sync-config.yaml`)
+### 9.4 Sync Streams (`infra/powersync/config/sync-config.yaml`)
 
-Principes : streams **globaux** auto-souscrits (profil, organisation, référentiels, liste des entités et des flows accessibles) ; streams **paramétrés** souscrits à la demande : `project_offline` (contenu d'une entité nécessaire hors ligne) et `flow_offline` (contenu complet d'un flow = « checkout »). Les colonnes sélectionnées sont limitées à ce que le mobile affiche. Syntaxe à valider contre la version du service PowerSync (édition 3 du fichier existant).
+Streams **globaux** auto-souscrits (`me`, `organization`, `my_projects` : profil, organisation, référentiels, entités accessibles et liste légère de **tous** leurs flows, les non téléchargeables étant grisés) ; streams **paramétrés** souscrits à la demande : `project_offline(project_id)`, `flow_offline(flow_id)` (= checkout), `flow_forms(form_id)`. Le fichier de configuration fait foi ; il est validé (`POST /api/sync-rules/v1/validate`) et testé de bout en bout sur le service local (édition 3).
 
-```yaml
-config:
-  edition: 3
-
-streams:
-  # ---------- Globaux (toujours synchronisés) ----------
-  me:
-    auto_subscribe: true
-    queries:
-      - SELECT id, kind, first_name, last_name, trigram, email, profession, authority,
-               account_id, organization_id, language, function_id, group_id, legal_id,
-               contract_type_id, register_number
-        FROM collaborators WHERE auth_user_id = auth.user_id()
-      - SELECT * FROM tablets WHERE collaborator_id = auth.parameter('principal_id')
-
-  organization:
-    auto_subscribe: true
-    queries:
-      - SELECT id, name, subdomain, allowed_download_response, block_form_response_edition,
-               diagram_enabled, number_format, rubric_permissions_enabled, map_config
-        FROM organizations WHERE id = auth.parameter('org_id')
-      - SELECT * FROM custom_statuses WHERE organization_id = auth.parameter('org_id') AND active
-      - SELECT * FROM label_families WHERE organization_id = auth.parameter('org_id') AND deleted_at IS NULL
-      - SELECT * FROM custom_fields WHERE account_id = auth.parameter('account_id') AND deleted_at IS NULL
-
-  my_projects:            # liste des entités + liste légère des flows (écrans 2.2/2.3 hors ligne)
-    auto_subscribe: true
-    queries:
-      - SELECT * FROM projects
-        WHERE id IN (SELECT project_id FROM mobile_access WHERE auth_user_id = auth.user_id())
-      - SELECT id, project_id, flow_type, name, ref_int, ref_ext, family_id, category_id,
-               custom_status_id, start_date, finish_date, estimated_start_date, estimated_end_date,
-               tablet_1_id, tablet_2_id, tablet_3_id, reporter_id, location_site, location_area,
-               location_local, fill_restrictions_skipped, simplified_signature_mode, updated_at
-        FROM flows
-        WHERE deleted_at IS NULL
-          AND id IN (SELECT flow_id FROM mobile_access WHERE auth_user_id = auth.user_id())
-      - SELECT * FROM flow_assignees
-        WHERE flow_id IN (SELECT flow_id FROM mobile_access WHERE auth_user_id = auth.user_id())
-      - SELECT * FROM flow_collaborators
-        WHERE flow_id IN (SELECT flow_id FROM mobile_access WHERE auth_user_id = auth.user_id())
-
-  # ---------- Entité téléchargée (souscrit avec le premier flow de l'entité) ----------
-  project_offline:
-    queries:
-      - SELECT * FROM project_members WHERE project_id = subscription.parameter('project_id')
-          AND project_id IN (SELECT project_id FROM mobile_access WHERE auth_user_id = auth.user_id())
-      - SELECT c.* FROM collaborators c   # signataires possibles (à remplacer par une table d'annuaire projet si JOIN non supporté)
-        WHERE c.id IN (SELECT collaborator_id FROM project_members
-                       WHERE project_id = subscription.parameter('project_id'))
-      - SELECT * FROM custom_field_values WHERE project_id = subscription.parameter('project_id')
-          AND flow_id IS NULL
-      - SELECT * FROM flow_geometries WHERE project_id = subscription.parameter('project_id')
-      - SELECT * FROM documents WHERE project_id = subscription.parameter('project_id')
-      - SELECT * FROM forms WHERE project_id = subscription.parameter('project_id')
-          AND nature = 'generic' AND enabled AND NOT archived
-      - SELECT * FROM form_responses WHERE project_id = subscription.parameter('project_id')
-          AND context = 'project' AND mobile_visible AND deleted_at IS NULL
-
-  # ---------- Flow téléchargé (= checkout) ----------
-  flow_offline:
-    queries:
-      - SELECT * FROM flows WHERE id = subscription.parameter('flow_id')
-          AND id IN (SELECT flow_id FROM mobile_access WHERE auth_user_id = auth.user_id())
-      - SELECT * FROM sequences WHERE flow_id = subscription.parameter('flow_id')
-      - SELECT * FROM phases WHERE flow_id = subscription.parameter('flow_id')
-      - SELECT * FROM steps WHERE flow_id = subscription.parameter('flow_id')
-      - SELECT * FROM step_navigations WHERE flow_id = subscription.parameter('flow_id')
-      - SELECT * FROM blocks WHERE flow_id = subscription.parameter('flow_id') AND enabled
-      - SELECT * FROM block_dsi_configs WHERE flow_id = subscription.parameter('flow_id')
-      - SELECT * FROM block_multi_pr_items WHERE flow_id = subscription.parameter('flow_id')
-      - SELECT * FROM block_multi_pr_signatures WHERE flow_id = subscription.parameter('flow_id')
-      - SELECT * FROM block_emm_items WHERE flow_id = subscription.parameter('flow_id')
-      - SELECT * FROM block_adr_items WHERE flow_id = subscription.parameter('flow_id')
-      - SELECT * FROM block_rhp_items WHERE flow_id = subscription.parameter('flow_id')
-      - SELECT * FROM block_documents WHERE flow_id = subscription.parameter('flow_id')
-      - SELECT * FROM signatures WHERE flow_id = subscription.parameter('flow_id') AND NOT disabled
-      - SELECT * FROM signature_events WHERE flow_id = subscription.parameter('flow_id')
-      - SELECT * FROM flow_status_history WHERE flow_id = subscription.parameter('flow_id')
-      - SELECT * FROM flow_fill_unlocks WHERE flow_id = subscription.parameter('flow_id')
-      - SELECT * FROM custom_field_values WHERE flow_id = subscription.parameter('flow_id')
-      - SELECT * FROM form_block_links WHERE flow_id = subscription.parameter('flow_id') AND enabled
-      - SELECT * FROM form_responses WHERE flow_id = subscription.parameter('flow_id')
-          AND mobile_visible AND deleted_at IS NULL
-      - SELECT * FROM form_response_values WHERE flow_id = subscription.parameter('flow_id')
-      - SELECT * FROM form_response_dynamic_items
-        WHERE response_id IN (SELECT id FROM form_responses WHERE flow_id = subscription.parameter('flow_id'))
-      - SELECT * FROM flow_geometries WHERE flow_id = subscription.parameter('flow_id')
-
-  flow_forms:             # versions de formulaires référencées par les flows/entités téléchargés
-    queries:
-      - SELECT * FROM form_versions WHERE form_id = subscription.parameter('form_id')
-      - SELECT * FROM forms WHERE id = subscription.parameter('form_id')
-```
+Contraintes vérifiées sur le service PowerSync (2026-10-24) :
+- **Chaque requête d'un stream paramétré revérifie l'accès** (`… AND flow_id IN my_flows`, bloc `with:` partagé). Sinon un client authentifié pourrait s'abonner à n'importe quel `flow_id` : la première proposition ne contrôlait que la ligne `flows`. Vérifié : un abonnement à un flow non téléchargeable ou à une entité non autorisée ne renvoie aucune donnée.
+- **Colonne `id` obligatoire** dans chaque ligne synchronisée : `flow_id || ':' || collaborator_id AS id` pour `flow_assignees`, `flow_collaborators`, `project_members`, `custom_field_values` (`custom_field_id:object_id`) ; `block_id AS id` pour `block_dsi_configs` ; `client_event_id AS id` pour `signature_events` (l'id serveur est un `bigint`, inutilisable hors ligne). Le connecteur d'upload refait la correspondance.
+- Un **alias de table** (`FROM collaborators c`) devient le nom de la table côté client : ne pas en utiliser.
+- Sous-requêtes imbriquées sur deux niveaux acceptées ; le corps du message `/sync/stream` exige `override_priority` (peut valoir `null`) pour chaque abonnement.
+- Pas de commentaire YAML en fin de ligne à l'intérieur d'une requête sur plusieurs lignes.
 
 Notes :
 - Les **référentiels de bibliothèque** utilisés par les blocs (risques, parades, moyens) sont ajoutés à `flow_offline` via leurs identifiants (sous-requête sur `block_adr_items.library_risk_id`) ou dénormalisés dans les items [P : dénormaliser nom/pictogramme dans `block_adr_items` pour éviter la sous-requête].
@@ -996,13 +911,13 @@ Composants transverses : `SignaturePad` (Skia/`react-native-signature-canvas`), 
 
 ## 11. Incertitudes
 
-1. **Pastille grise** : la note RN105 (gris = non ouverte) contredit le code observé (gris = désactivée, bleu par défaut). Choix proposé : suivre la note avec `first_opened_at` (§4.2). À valider produit.
+1. **Pastille grise** : la note RN105 (gris = non ouverte) contredit le code observé (gris = désactivée, bleu par défaut). **Tranché (2026-10-24)** : suivre la note avec `first_opened_at` (§4.2).
 2. **« Mes flows »** : critères exacts (collaborateurs, responsables, tablettes 1–3, rapporteur ?) non lus dans la requête locale ; déduits des tables et de R2.1.
 3. **Qui peut déverrouiller un flow** (« chef de chantier ») : aucun contrôle de rôle observé côté mobile (la modale accepte un signataire collaborateur ou QR) ; le serveur filtre peut-être. Proposition : rôle projet `responsible`/`expert`.
-4. **Déverrouillage par flow (mobile) vs par étape (WebApp reconstruite)** : à arbitrer ; la proposition ajoute `flow_fill_unlocks` sans supprimer `step_fill_unlocks`.
+4. **Déverrouillage par flow (mobile) vs par étape (WebApp reconstruite)** : à arbitrer ; **tranché (2026-10-24)** : `flow_fill_unlocks` + `flows.fill_restrictions_skipped` sont ajoutés, `step_fill_unlocks` est conservé.
 5. **Redirection déclenchée par un statut** (« X a changé le statut ») : le déclencheur exact (statut de sous-instruction ? statut de flow ?) n'est pas établi ; seule la mécanique NAVIGATE/EXIT/SKIP + commentaire est observée.
 6. **Modèle de signature événementiel** : aucun endpoint de push observé pour `receptacle/signature/signature_event` (migration en cours chez l'éditeur). Types d'événements autres que `CREATED`/`DRAWING_ADDED` (révocation…) inconnus.
-7. **`allowed_download_response`** : appliqué côté serveur (non visible dans le JS) ; l'ordre (« N dernières réponses terminées » par lien ? par formulaire ?) est supposé.
+7. **`allowed_download_response`** : appliqué côté serveur (non visible dans le JS) ; l'ordre (« N dernières réponses terminées » par lien ? par formulaire ?) est supposé. Implémenté : par lien bloc↔formulaire, par (entité, lignée de formulaire) pour le contexte entité, tri `done_at` décroissant.
 8. **Checkout différentiel** (`sfp-16808`) : critère « flow modifié » supposé = `modificationDates` serveur > dernier `checkout_log` réussi.
 9. **Purge automatique** (RN97) : moment exact (au checkout suivant, au démarrage ?) non observé.
 10. **Modales en ligne/hors ligne** : affichées une seule fois par session/profil (drapeaux) — interprétation à confirmer.

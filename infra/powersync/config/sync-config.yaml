@@ -1,13 +1,143 @@
 # yaml-language-server: $schema=https://unpkg.com/@powersync/service-sync-rules@latest/schema/sync_rules.json
-# Sync Streams (https://docs.powersync.com/sync/streams/overview).
+# Sync Streams de l'app mobile terrain (spec 05 §9.4, https://docs.powersync.com/sync/streams/overview).
 # Le service ne relit pas ce fichier à chaud : redémarrer après modification (`pnpm powersync:up`).
+#
+# Règles :
+# - les droits passent toujours par mobile_project_access / mobile_flow_access (tables maintenues par
+#   déclencheurs) : chaque requête d'un stream paramétré revérifie l'accès, un client ne peut pas
+#   s'abonner à un flow qui ne lui est pas ouvert ;
+# - toute ligne synchronisée doit porter une colonne `id` : les tables à clé composée en reçoivent
+#   une synthétique (`a:b`) ;
+# - pas de commentaire YAML en fin de ligne à l'intérieur d'une requête sur plusieurs lignes.
 config:
   edition: 3
 
 streams:
-  # Profil du collaborateur connecté (validation de l'infrastructure).
+  # ---------- Globaux (toujours synchronisés) ----------
   me:
     auto_subscribe: true
     queries:
-      - SELECT id, first_name, last_name, trigram, authority, account_id, organization_id, language
+      - SELECT id, kind, first_name, last_name, trigram, email, profession, authority,
+               account_id, organization_id, company_id, language, function_id, group_id, legal_id,
+               contract_type_id, register_number
         FROM collaborators WHERE auth_user_id = auth.user_id()
+      - SELECT id, account_id, name, nature, family_id, company_id, status, collaborator_id
+        FROM tablets
+        WHERE collaborator_id IN (SELECT id FROM collaborators WHERE auth_user_id = auth.user_id())
+
+  organization:
+    auto_subscribe: true
+    with:
+      my_org: SELECT organization_id FROM collaborators WHERE auth_user_id = auth.user_id()
+      my_account: SELECT account_id FROM collaborators WHERE auth_user_id = auth.user_id()
+    queries:
+      - SELECT id, name, subdomain, allowed_download_response, block_form_response_edition,
+               diagram_enabled, number_format, rubric_permissions_enabled, map_config
+        FROM organizations WHERE id IN my_org
+      - SELECT * FROM custom_statuses WHERE organization_id IN my_org AND active
+      - SELECT * FROM label_families WHERE organization_id IN my_org AND deleted_at IS NULL
+      - SELECT * FROM custom_fields WHERE account_id IN my_account AND deleted_at IS NULL
+
+  # Liste des entités et liste légère de leurs flows (écrans 2.2 / 2.3, y compris hors ligne).
+  # Les flows non téléchargeables sont listés (grisés) ; seul flow_offline en apporte le contenu.
+  my_projects:
+    auto_subscribe: true
+    with:
+      my_projects: SELECT project_id FROM mobile_project_access WHERE auth_user_id = auth.user_id()
+      my_flows: SELECT flow_id FROM mobile_flow_access WHERE auth_user_id = auth.user_id()
+    queries:
+      - SELECT * FROM projects WHERE id IN my_projects
+      - SELECT id, project_id, flow_type, name, ref_int, ref_ext, family_id, category_id,
+               custom_status_id, start_date, finish_date, estimated_start_date, estimated_end_date,
+               tablet_1_id, tablet_2_id, tablet_3_id, reporter_id, location_site, location_area,
+               location_local, fill_restrictions_skipped, simplified_signature_mode, updated_at
+        FROM flows WHERE project_id IN my_projects AND deleted_at IS NULL
+      - SELECT flow_id || ':' || collaborator_id AS id, flow_id, collaborator_id
+        FROM flow_assignees WHERE flow_id IN my_flows
+      - SELECT flow_id || ':' || collaborator_id AS id, *
+        FROM flow_collaborators WHERE flow_id IN my_flows
+
+  # ---------- Entité téléchargée (souscrit avec le premier flow de l'entité) ----------
+  project_offline:
+    with:
+      my_projects: SELECT project_id FROM mobile_project_access WHERE auth_user_id = auth.user_id()
+    queries:
+      - SELECT project_id || ':' || collaborator_id AS id, *
+        FROM project_members
+        WHERE project_id = subscription.parameter('project_id') AND project_id IN my_projects
+      - SELECT id, kind, first_name, last_name, trigram, email, profession, company_id, function_id
+        FROM collaborators
+        WHERE id IN (SELECT principal_id FROM mobile_project_access
+                     WHERE project_id = subscription.parameter('project_id')
+                       AND project_id IN (SELECT project_id FROM mobile_project_access
+                                          WHERE auth_user_id = auth.user_id()))
+      - SELECT custom_field_id || ':' || object_id AS id, *
+        FROM custom_field_values
+        WHERE project_id = subscription.parameter('project_id') AND project_id IN my_projects
+          AND flow_id IS NULL
+      - SELECT * FROM flow_geometries
+        WHERE project_id = subscription.parameter('project_id') AND project_id IN my_projects
+      - SELECT * FROM documents
+        WHERE project_id = subscription.parameter('project_id') AND project_id IN my_projects
+          AND deleted_at IS NULL
+      - SELECT * FROM forms
+        WHERE project_id = subscription.parameter('project_id') AND project_id IN my_projects
+          AND nature = 'generic' AND enabled AND NOT archived AND deleted_at IS NULL
+      - SELECT * FROM form_responses
+        WHERE project_id = subscription.parameter('project_id') AND project_id IN my_projects
+          AND context = 'project' AND mobile_visible AND deleted_at IS NULL
+
+  # ---------- Flow téléchargé (= checkout d'origine) ----------
+  flow_offline:
+    with:
+      my_flows: SELECT flow_id FROM mobile_flow_access WHERE auth_user_id = auth.user_id()
+    queries:
+      - SELECT * FROM flows WHERE id = subscription.parameter('flow_id') AND id IN my_flows
+      - SELECT * FROM sequences WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
+      - SELECT * FROM phases WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
+      - SELECT * FROM steps WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
+      - SELECT * FROM step_navigations WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
+      - SELECT * FROM blocks WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows AND enabled
+      - SELECT block_id AS id, * FROM block_dsi_configs
+        WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
+      - SELECT * FROM block_multi_pr_items WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
+      - SELECT * FROM block_multi_pr_signatures WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
+      - SELECT * FROM block_emm_items WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
+      - SELECT * FROM block_adr_items WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
+      - SELECT * FROM block_rhp_items WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
+      - SELECT * FROM block_documents WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
+      - SELECT * FROM signatures
+        WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows AND NOT disabled
+      # Clé de synchro = identifiant généré par l'appareil (l'id serveur est un bigint).
+      - SELECT client_event_id AS id, block_id, flow_id, signature_id, action, nature, supervisor_name,
+               actor_id, source, occurred_at, event_sequence, from_state, to_state, payload_path, reason
+        FROM signature_events
+        WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
+      - SELECT * FROM flow_status_history WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
+      - SELECT * FROM flow_fill_unlocks WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
+      - SELECT custom_field_id || ':' || object_id AS id, *
+        FROM custom_field_values WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
+      - SELECT * FROM form_block_links
+        WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows AND enabled
+      - SELECT * FROM form_responses
+        WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
+          AND mobile_visible AND deleted_at IS NULL
+      - SELECT * FROM form_response_values WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
+      - SELECT * FROM form_response_dynamic_items
+        WHERE response_id IN (SELECT id FROM form_responses
+                              WHERE flow_id = subscription.parameter('flow_id')
+                                AND flow_id IN (SELECT flow_id FROM mobile_flow_access
+                                                WHERE auth_user_id = auth.user_id()))
+      - SELECT * FROM flow_geometries WHERE flow_id = subscription.parameter('flow_id') AND flow_id IN my_flows
+
+  # Versions de formulaires référencées par les flows / entités téléchargés (le client calcule les form_id).
+  flow_forms:
+    queries:
+      - SELECT * FROM forms
+        WHERE id = subscription.parameter('form_id')
+          AND project_id IN (SELECT project_id FROM mobile_project_access WHERE auth_user_id = auth.user_id())
+      - SELECT * FROM form_versions
+        WHERE form_id = subscription.parameter('form_id')
+          AND form_id IN (SELECT id FROM forms
+                          WHERE project_id IN (SELECT project_id FROM mobile_project_access
+                                               WHERE auth_user_id = auth.user_id()))

@@ -4,6 +4,7 @@
 import type { AbstractPowerSyncDatabase, SyncStreamSubscription } from "@powersync/react-native";
 import { randomUUID } from "expo-crypto";
 
+import { staleOfflineSelectionQuery } from "@/data/sql";
 import { logEvent } from "@/lib/app-log";
 
 /** Les abonnements restent actifs tant que le flow est sélectionné : TTL « infini » (10 ans) côté service. */
@@ -18,6 +19,7 @@ export class OfflineSubscriptions {
   private abort = new AbortController();
   // Les résultats successifs sont appliqués l'un après l'autre (pas de double abonnement).
   private queue: Promise<void> = Promise.resolve();
+  private prunedAt: number | undefined;
 
   constructor(private db: AbstractPowerSyncDatabase) {}
 
@@ -39,6 +41,26 @@ export class OfflineSubscriptions {
       },
       { signal: this.abort.signal },
     );
+    // Après chaque synchro complète (jamais sur une base partiellement reçue), les flows qui ne sont plus
+    // téléchargeables sortent de la sélection : leurs données sont déjà purgées par le service.
+    const dispose = this.db.registerListener({
+      statusChanged: (status) => {
+        const at = status.lastSyncedAt?.getTime();
+        if (!at || at === this.prunedAt || status.dataFlowStatus.downloading) return;
+        this.prunedAt = at;
+        this.queue = this.queue.then(() => this.prune()).catch((e) => console.warn("Purge hors ligne", e));
+      },
+    });
+    this.abort.signal.addEventListener("abort", dispose);
+  }
+
+  /** Les flows ayant encore des écritures en attente restent sélectionnés jusqu'à leur envoi (spec 05 §9.7). */
+  private async prune() {
+    const [sql, params] = staleOfflineSelectionQuery;
+    const stale = await this.db.getAll<{ flow_id: string }>(sql, params);
+    const removable: string[] = [];
+    for (const { flow_id } of stale) if (!(await pendingWritesForFlow(this.db, flow_id))) removable.push(flow_id);
+    await unselectForOffline(this.db, removable, "not_downloadable");
   }
 
   stop() {
@@ -103,8 +125,8 @@ export async function pendingWritesForFlow(db: AbstractPowerSyncDatabase, flowId
 }
 
 /** « Supprimer de la tablette » : retire les flows de la sélection (leurs données disparaissent à la synchro suivante). */
-export async function unselectForOffline(db: AbstractPowerSyncDatabase, flowIds: string[]) {
+export async function unselectForOffline(db: AbstractPowerSyncDatabase, flowIds: string[], reason?: "not_downloadable") {
   if (!flowIds.length) return;
   await db.execute(`delete from offline_selection where flow_id in (${flowIds.map(() => "?").join(",")})`, flowIds);
-  logEvent("DELETE_FLOW_DATA", { flows: flowIds });
+  logEvent("DELETE_FLOW_DATA", reason ? { flows: flowIds, reason } : { flows: flowIds });
 }

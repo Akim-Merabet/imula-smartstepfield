@@ -54,3 +54,12 @@ export const projectFlowsQuery = (p: { projectId: string; principalId: string; t
      ) where (:mineOnly = 0 or mine)
      order by name collate nocase`,
   { project: p.projectId, me: p.principalId, tablet: p.tabletId, search: like(p.search), mineOnly: p.mineOnly ? 1 : 0 });
+
+/**
+ * Flows sélectionnés hors ligne qui ne sont plus téléchargeables (statut non « En opération », accès retiré ou flow
+ * supprimé) : l'app d'origine les fait disparaître de l'appareil (spec 05 §5.2, purge RN97).
+ */
+export const staleOfflineSelectionQuery: Query = [`select o.flow_id from offline_selection o
+       left join flow_summaries fl on fl.id = o.flow_id
+       left join custom_statuses s on s.id = fl.custom_status_id
+      where fl.id is null or ifnull(s.downloadable, 0) = 0`, []];

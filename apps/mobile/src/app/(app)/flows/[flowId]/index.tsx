@@ -1,12 +1,12 @@
 import { usePowerSync, useQuery, useStatus } from "@powersync/react";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { BLOCK_DOCUMENT_FILE_SQL } from "@/attachments/queue";
 import { DocumentRow } from "@/components/execution/blocks";
 import { FlowStatusModal } from "@/components/flow-status-modal";
-import { Card, Empty, Field, formatDate, SectionTitle, StatusChip, useSnackbar } from "@/components/kit";
+import { Card, Empty, Field, formatDate, LinkButton, SectionTitle, StatusChip, useSnackbar } from "@/components/kit";
 import { Button } from "@/components/ui";
 import { named } from "@/data/sql";
 import { t } from "@/i18n/fr";
@@ -73,9 +73,7 @@ export default function FlowDetailScreen() {
         <View style={styles.row}>
           <Text style={styles.meta}>{t("flowDetails.flowStatus")} :</Text>
           <StatusChip color={flow.status_color} label={flow.status_name} />
-          <Pressable accessibilityRole="button" onPress={() => setChangingStatus(true)} hitSlop={8}>
-            <Text style={styles.link}>{t("flowDetails.changeStatus")}</Text>
-          </Pressable>
+          <LinkButton label={t("flowDetails.changeStatus")} onPress={() => setChangingStatus(true)} />
         </View>
         <Field label={t("flowDetails.dateEstimated")}
           value={`${t("flowDetails.startDate")} ${formatDate(flow.estimated_start_date) ?? "—"} · ${t("flowDetails.endDate")} ${formatDate(flow.estimated_end_date) ?? "—"}`} />
@@ -187,7 +185,6 @@ const styles = StyleSheet.create({
   name: { fontSize: font.title, fontWeight: "700", color: colors.text },
   meta: { fontSize: font.small, color: colors.textSecondary },
   row: { flexDirection: "row", alignItems: "center", gap: spacing.sm, flexWrap: "wrap" },
-  link: { fontSize: font.small, color: colors.primary, fontWeight: "600" },
   actions: { flexDirection: "row", gap: spacing.sm, flexWrap: "wrap", marginTop: spacing.sm },
   cardTitle: { fontSize: font.body, fontWeight: "700", color: colors.text },
   item: { paddingVertical: spacing.xs, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.border, gap: 2 },

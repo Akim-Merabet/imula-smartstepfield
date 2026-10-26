@@ -121,6 +121,16 @@ export function ScreenModal({ visible, onRequestClose, onShow, animationType = "
   );
 }
 
+/** Lien d'action en texte : zone tactile d'au moins 44 dp (un texte seul fait ~20 dp, difficile à toucher sur téléphone). */
+export function LinkButton({ label, onPress, role = "button" }: { label: string; onPress: () => void; role?: "button" | "link" }) {
+  return (
+    <Pressable accessibilityRole={role} onPress={onPress} hitSlop={{ left: 8, right: 8 }}
+      style={({ pressed }) => [styles.linkButton, pressed && { opacity: 0.5 }]}>
+      <Text style={styles.linkLabel}>{label}</Text>
+    </Pressable>
+  );
+}
+
 const SnackbarContext = createContext<(message: string, tone?: Snack["tone"]) => void>(() => {});
 
 export function useSnackbar() {
@@ -154,6 +164,8 @@ export const formatDate = (iso: string | null | undefined, withTime = false) =>
   iso ? new Date(iso).toLocaleString("fr-FR", withTime ? { dateStyle: "short", timeStyle: "short" } : { dateStyle: "short" }) : null;
 
 const styles = StyleSheet.create({
+  linkButton: { minHeight: 44, justifyContent: "center", alignSelf: "flex-start" },
+  linkLabel: { color: colors.primary, fontWeight: "600", fontSize: font.small },
   iconButton: { padding: spacing.sm, borderRadius: radius.md },
   segmented: { flexDirection: "row", backgroundColor: colors.surface, borderRadius: radius.md, borderWidth: 1, borderColor: colors.border, padding: 2 },
   segment: { flex: 1, paddingVertical: spacing.sm, paddingHorizontal: spacing.xs, borderRadius: radius.sm, alignItems: "center" },

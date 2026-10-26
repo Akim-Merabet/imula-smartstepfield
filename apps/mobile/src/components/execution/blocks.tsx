@@ -11,7 +11,7 @@ import { MultiPrItems } from "@/components/execution/multi-pr";
 import { FormLinks } from "@/components/forms/form-links";
 import { fileStore, openStoredFile } from "@/attachments/native";
 import { BLOCK_DOCUMENT_FILE_SQL, DOCUMENTS_BUCKET } from "@/attachments/queue";
-import { Checkbox, formatDate, Icon, useSnackbar } from "@/components/kit";
+import { Checkbox, formatDate, Icon, LinkButton, useSnackbar } from "@/components/kit";
 import { Button } from "@/components/ui";
 import type { Db } from "@/data/form-response";
 import { addDsiBreakpoints } from "@/data/flow-writes";
@@ -256,13 +256,9 @@ function Controls({ blockId, flowId, flow, actions }: { blockId: string; flowId:
     );
   })}
     <View style={styles.controlsFooter}>
-      <Pressable accessibilityRole="link" onPress={() => router.push({ pathname: "/flows/[flowId]/signatures", params: { flowId } })}>
-        <Text style={styles.link}>{t("execution.goToSignaturesTable")}</Text>
-      </Pressable>
+      <LinkButton role="link" label={t("execution.goToSignaturesTable")} onPress={() => router.push({ pathname: "/flows/[flowId]/signatures", params: { flowId } })} />
       {!!actions && !on(flow.simplified_signature_mode) && (
-        <Pressable accessibilityRole="button" onPress={() => setSettings(true)}>
-          <Text style={styles.link}>{t("execution.signatureSettings")}</Text>
-        </Pressable>
+        <LinkButton label={t("execution.signatureSettings")} onPress={() => setSettings(true)} />
       )}
     </View>
     {settings && config && <SignatureSettings blockId={blockId} config={config} flow={flow} onClose={() => setSettings(false)} />}
@@ -322,8 +318,7 @@ const styles = StyleSheet.create({
   subItem: { gap: spacing.xs, paddingVertical: spacing.sm, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.border },
   subTitle: { fontSize: font.body, fontWeight: "600", color: colors.text },
   inline: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
-  controlsFooter: { flexDirection: "row", flexWrap: "wrap", gap: spacing.md, paddingTop: spacing.sm },
-  link: { color: colors.primary, fontWeight: "600", fontSize: font.small },
+  controlsFooter: { flexDirection: "row", flexWrap: "wrap", columnGap: spacing.lg },
   backdrop: { flex: 1, backgroundColor: "rgba(0,0,0,0.4)", justifyContent: "center", padding: spacing.lg },
   modal: { backgroundColor: colors.surface, borderRadius: radius.lg, padding: spacing.lg, gap: spacing.md },
   modalTitle: { fontSize: font.title - 2, fontWeight: "700", color: colors.text },

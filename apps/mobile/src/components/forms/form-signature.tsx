@@ -9,7 +9,7 @@ import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from "react-nati
 
 import { fileStore, useAttachmentUri } from "@/attachments/native";
 import { type AttachmentDb, FORM_FILES_BUCKET, responseFilePath, saveLocalFile } from "@/attachments/queue";
-import { Checkbox, formatDate, Icon, ScreenModal } from "@/components/kit";
+import { Checkbox, formatDate, Icon, LinkButton, ScreenModal } from "@/components/kit";
 import { SignaturePad } from "@/components/signature-pad";
 import { Banner, Button, TextField } from "@/components/ui";
 import { t } from "@/i18n/fr";
@@ -45,9 +45,7 @@ export function FormSignature({ slot, value, onChange, disabled, responseId }: {
           </Text>
           {!!value.comment && <Text style={styles.muted}>{value.comment}</Text>}
           {!!value.signaturePath && (
-            <Pressable accessibilityRole="button" onPress={() => setViewing(true)}>
-              <Text style={styles.link}>{t("forms.viewSignature")}</Text>
-            </Pressable>
+            <LinkButton label={t("forms.viewSignature")} onPress={() => setViewing(true)} />
           )}
         </>
       ) : !disabled && (
@@ -163,7 +161,6 @@ const styles = StyleSheet.create({
   slotName: { fontSize: font.small, fontWeight: "600", color: colors.textSecondary },
   text: { fontSize: font.body, color: colors.text },
   muted: { fontSize: font.small, color: colors.textSecondary },
-  link: { fontSize: font.small, color: colors.primary, fontWeight: "600" },
   action: { flexDirection: "row", alignItems: "center", gap: spacing.xs, alignSelf: "flex-start", backgroundColor: colors.primary, borderRadius: radius.md, paddingHorizontal: spacing.md, paddingVertical: spacing.sm },
   actionLabel: { color: colors.onPrimary, fontWeight: "600", fontSize: font.small },
   backdrop: { flex: 1, backgroundColor: "rgba(0,0,0,0.4)", justifyContent: "center", padding: spacing.lg },

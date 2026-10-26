@@ -8,7 +8,7 @@ import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 import { FormSignature } from "@/components/forms/form-signature";
 import { PhotoField } from "@/components/forms/photo-field";
-import { Icon } from "@/components/kit";
+import { Icon, LinkButton } from "@/components/kit";
 import { t } from "@/i18n/fr";
 import { colors, font, radius, spacing } from "@/theme";
 
@@ -59,10 +59,10 @@ export function QuestionInput(p: QuestionProps) {
         {p.error && <Text style={styles.errorTag}>{p.error === "mandatory" ? t("forms.mandatory") : t("forms.invalid")}</Text>}
         {!!p.locked && <Icon name="lock-outline" size={18} color={colors.textSecondary} />}
         {!!p.locked && !p.readOnly && !!p.onUnlock && (
-          <Pressable accessibilityRole="button" onPress={p.onUnlock} hitSlop={6}><Text style={styles.link}>{t("forms.unlockQuestion")}</Text></Pressable>
+          <LinkButton label={t("forms.unlockQuestion")} onPress={p.onUnlock} />
         )}
         {!p.readOnly && !p.locked && !!p.onBulkFill && (
-          <Pressable accessibilityRole="button" onPress={p.onBulkFill} hitSlop={6}><Text style={styles.link}>{t("forms.bulkFill")}</Text></Pressable>
+          <LinkButton label={t("forms.bulkFill")} onPress={p.onBulkFill} />
         )}
       </View>
       {!!q.def.description && <Text style={styles.description}>{q.def.description}</Text>}
@@ -305,6 +305,5 @@ const styles = StyleSheet.create({
   error: { fontSize: font.small, color: colors.danger },
   warning: { fontSize: font.small, color: colors.warning },
   locate: { flexDirection: "row", alignItems: "center", gap: spacing.xs, alignSelf: "flex-start", padding: spacing.xs },
-  link: { color: colors.primary, fontWeight: "600", fontSize: font.small },
   locateLabel: { color: colors.primary, fontWeight: "600", fontSize: font.small },
 });

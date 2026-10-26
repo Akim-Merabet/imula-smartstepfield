@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { LinkButton } from "@/components/kit";
 import { QrScanner } from "@/components/qr-scanner";
 import { Banner, Button, TextField } from "@/components/ui";
 import { config } from "@/config";
@@ -87,7 +88,7 @@ export default function LoginScreen() {
         <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
           <View style={styles.header}>
             <Text style={styles.welcome}>{t("login.welcomeTo")}</Text>
-            <Text style={styles.brand}>Imula Flow</Text>
+            <Text style={styles.brand}>Qiwi Flow</Text>
             <Text style={styles.subtitle}>{t("login.signToAccount")}</Text>
           </View>
 
@@ -136,9 +137,7 @@ export default function LoginScreen() {
 
           <View style={styles.footer}>
             <Text style={styles.footerText}>{t("common.version", { version: config.appVersion })}</Text>
-            <Pressable accessibilityRole="button" onPress={() => setShowDeviceId(true)}>
-              <Text style={styles.link}>{t("login.deviceIdentifier")}</Text>
-            </Pressable>
+            <LinkButton label={t("login.deviceIdentifier")} onPress={() => setShowDeviceId(true)} />
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -173,7 +172,6 @@ const styles = StyleSheet.create({
   separator: { textAlign: "center", fontSize: font.small, color: colors.textSecondary },
   footer: { alignItems: "center", gap: spacing.sm },
   footerText: { fontSize: font.small, color: colors.textSecondary },
-  link: { fontSize: font.small, color: colors.primary, fontWeight: "600" },
   backdrop: { flex: 1, backgroundColor: "rgba(0,0,0,0.4)", justifyContent: "center", padding: spacing.lg },
   modal: { backgroundColor: colors.surface, borderRadius: radius.lg, padding: spacing.lg, gap: spacing.md },
   deviceId: { fontSize: font.body, color: colors.text },

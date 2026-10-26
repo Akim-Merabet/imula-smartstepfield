@@ -1,6 +1,6 @@
 import type { PowerSyncDatabase } from "@powersync/react-native";
 import { PowerSyncContext } from "@powersync/react";
-import { createContext, type ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { createContext, Fragment, type ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 
 import { supabase } from "@/lib/supabase";
 import { SupabaseConnector } from "@/powersync/connector";
@@ -8,6 +8,7 @@ import { clearProfileDatabase, openProfileDatabase } from "@/powersync/database"
 import { AttachmentSyncLoop } from "@/attachments/native";
 import { BackupScheduler } from "@/backup/service";
 import { bindLogger, logEvent } from "@/lib/app-log";
+import { setFlowTerm } from "@/i18n/fr";
 import { flushLogs } from "@/lib/app-log-flush";
 import { reportDevice } from "@/lib/device-report";
 import { OfflineSubscriptions } from "@/powersync/offline";
@@ -22,6 +23,8 @@ type Active = {
   profile: Profile; db: PowerSyncDatabase; connector: SupabaseConnector; subscriptions: OfflineSubscriptions;
   attachments: AttachmentSyncLoop;
   backups: BackupScheduler;
+  /** Arrête le suivi du vocabulaire de l'organisation (organizations.flow_term). */
+  vocabulary: AbortController;
 };
 
 type SessionState = {
@@ -59,6 +62,8 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   const [offline, setOfflineState] = useState(false);
   const [forbidden, setForbidden] = useState<string | null>(null);
   const [rejected, setRejected] = useState(0);
+  // Vocabulaire de l'organisation : sert de clé à l'arbre de l'app, remonté quand il change (libellés de t()).
+  const [flowTerm, setFlowTermState] = useState<string | null>(null);
   // Copie synchrone de `active` pour les callbacks (mise à jour en même temps que l'état).
   const activeRef = useRef<Active | null>(null);
 
@@ -70,6 +75,8 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     previous.subscriptions.stop();
     previous.attachments.stop();
     previous.backups.stop();
+    previous.vocabulary.abort();
+    setFlowTerm(null);
     bindLogger(null);
     await previous.db.disconnect().catch(() => {});
     await previous.db.close();
@@ -112,7 +119,17 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       attachments.start();
     }
     await setActiveProfileId(profile.principalId);
-    activeRef.current = { profile, db, connector, subscriptions, attachments, backups };
+    // Vocabulaire de l'organisation (« Flow » / « Procédure ») : lu avant le premier rendu, puis suivi.
+    const applyTerm = (term: string | null | undefined) => {
+      setFlowTerm(term);
+      setFlowTermState(term ?? null);
+    };
+    applyTerm((await db.getOptional<{ flow_term: string | null }>("select flow_term from organizations limit 1"))?.flow_term);
+    const vocabulary = new AbortController();
+    db.watch("select flow_term from organizations limit 1", [], {
+      onResult: (r) => applyTerm((r.rows?._array?.[0] as { flow_term?: string | null } | undefined)?.flow_term),
+    }, { signal: vocabulary.signal });
+    activeRef.current = { profile, db, connector, subscriptions, attachments, backups, vocabulary };
     setActive(activeRef.current);
     setForbidden(null);
     setRejected(0);
@@ -231,7 +248,9 @@ export function SessionProvider({ children }: { children: ReactNode }) {
 
   return (
     <SessionContext.Provider value={value}>
-      {active ? <PowerSyncContext.Provider value={active.db}>{children}</PowerSyncContext.Provider> : children}
+      {active
+        ? <PowerSyncContext.Provider value={active.db}><Fragment key={flowTerm ?? "flow"}>{children}</Fragment></PowerSyncContext.Provider>
+        : children}
     </SessionContext.Provider>
   );
 }

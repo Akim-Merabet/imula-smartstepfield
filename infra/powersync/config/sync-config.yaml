@@ -35,7 +35,7 @@ streams:
       my_account: SELECT account_id FROM collaborators WHERE auth_user_id = auth.user_id()
     queries:
       - SELECT id, name, subdomain, allowed_download_response, block_form_response_edition,
-               diagram_enabled, number_format, rubric_permissions_enabled, map_config
+               diagram_enabled, number_format, rubric_permissions_enabled, map_config, flow_term
         FROM organizations WHERE id IN my_org
       - SELECT * FROM custom_statuses WHERE organization_id IN my_org AND active
       - SELECT * FROM label_families WHERE organization_id IN my_org AND deleted_at IS NULL

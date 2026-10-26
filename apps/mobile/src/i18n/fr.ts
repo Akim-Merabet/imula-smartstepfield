@@ -1,4 +1,7 @@
 // Libellés français de l'app terrain (clés alignées sur l'outil d'origine, spec 05).
+import { frIntervention } from "./fr-intervention";
+import { frProcedure } from "./fr-procedure";
+
 export const fr = {
   common: {
     close: "Fermer",
@@ -592,7 +595,24 @@ type Leaves<T, P extends string = ""> = {
 
 export type MessageKey = Leaves<typeof fr>;
 
+type DeepPartial<T> = { [K in keyof T]?: T[K] extends string ? string : DeepPartial<T[K]> };
+/** Surcouche de libellés (vocabulaire d'organisation) : sous-ensemble des clés de fr. */
+export type Messages = DeepPartial<typeof fr>;
+
+/** Terme affiché pour désigner les flows (organizations.flow_term) ; « flow » = libellés de base. */
+export type FlowTerm = "flow" | "procedure" | "intervention";
+const OVERLAYS: Record<FlowTerm, Messages | null> = { flow: null, procedure: frProcedure, intervention: frIntervention };
+let overlay: Messages | null = null;
+
+/** Vocabulaire de l'organisation du profil ouvert (fixé par la session). */
+export function setFlowTerm(term: string | null | undefined) {
+  overlay = OVERLAYS[term as FlowTerm] ?? null;
+}
+
+const lookup = (root: unknown, key: string) =>
+  key.split(".").reduce<unknown>((node, part) => (node as Record<string, unknown> | undefined)?.[part], root) as string | undefined;
+
 export function t(key: MessageKey, params?: Record<string, string | number>): string {
-  const value = key.split(".").reduce<unknown>((node, part) => (node as Record<string, unknown>)[part], fr) as string;
+  const value = (overlay && lookup(overlay, key)) ?? (lookup(fr, key) as string);
   return params ? value.replace(/\{(\w+)\}/g, (_, name) => String(params[name] ?? "")) : value;
 }

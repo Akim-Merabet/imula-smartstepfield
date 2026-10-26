@@ -17,6 +17,7 @@
 ### 0.2 Vocabulaire (aligné specs 00–04)
 
 - **Entité** = projet (`projects`) ; sur mobile l'onglet principal s'appelle « Projets » [O] `i18n:layout.Projects`, le second « Référentiels et Modèles » [O] `i18n:layout.ReferentialAndModels` (libellé RN101 : « Référentiel et Modèle »).
+- ✅ Le mot affiché pour « flow » suit le vocabulaire de l'organisation (`organizations.flow_term` : Flow / Procédure / Intervention, spec 01 §6.3), synchronisé par le stream `organization` ; `t()` superpose `fr-procedure.ts` ou `fr-intervention.ts` et l'arbre de l'app est remonté quand le réglage change.
 - **Flow** → **Phases** → **Étapes** → **Blocs** (spec 02). Types de bloc mobiles [O] `room:step.{pr,multiPr,emm,adr,dsi,rhp,txt,form,blocObject}` : Instructions (PR), Instructions multiples (MULTI_PR), Moyens (EMM), Risques (ADR), **Contrôles** (DSI, bloc signatures), Équipe (RHP), Texte (TXT), Formulaires (FORM), Objets (OBJECT).
 - **Checkout** = téléchargement d'un flow (et de ses dépendances) sur l'appareil ; **Push** = envoi des modifications locales vers le serveur. Libellés UI : « Téléchargement » / « Envoi » [O] `i18n:flows.download`, `i18n:flows.upload`.
 - **Profil tablette** = compte de connexion d'une tablette partagée (nature utilisateur `DEVICE` / `DEVICE_EXT`, spec 01 §4.8) par opposition au **profil utilisateur** (collaborateur nominatif).

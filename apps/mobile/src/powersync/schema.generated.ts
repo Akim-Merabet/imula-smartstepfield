@@ -684,6 +684,7 @@ export const syncedTables = {
       number_format: column.text,
       rubric_permissions_enabled: column.integer,
       map_config: column.text,
+      flow_term: column.text,
     },
     { indexes: {  } },
   ),

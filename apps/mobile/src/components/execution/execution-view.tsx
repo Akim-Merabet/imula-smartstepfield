@@ -79,7 +79,9 @@ export function ExecutionView({ flowId, initialStepId, readonly }: { flowId: str
   const phase = current ? model!.phases.find((p) => p.id === current.phase_id)! : null;
   const index = current ? model!.order.findIndex((s) => s.id === current.id) : -1;
   const isLast = index === (model?.order.length ?? 0) - 1;
-  const editable = !!current && !readonly && !current.disabled && !current.read_only_on_mobile_app
+  // Une étape d'une phase désactivée est désactivée elle aussi (le serveur refuse ses écritures : STEP_DISABLED).
+  const stepDisabled = !!current?.disabled || !!phase?.disabled;
+  const editable = !!current && !readonly && !stepDisabled && !current.read_only_on_mobile_app
     && !phase?.read_only_on_mobile_app && current.blockers.length === 0;
 
   // Mémorise le flow ouvert (Accès rapide, reprise) et marque la première ouverture de l'étape (pastille grise → bleue).
@@ -96,7 +98,7 @@ export function ExecutionView({ flowId, initialStepId, readonly }: { flowId: str
           "insert into flow_executions (id, flow_id, project_id, phase_id, step_id, readonly, last_access_at) values (?, ?, ?, ?, ?, ?, ?)",
           [randomUUID(), flowId, model.flow.project_id, current.phase_id, current.id, readonly ? 1 : 0, now]);
       }
-      if (!readonly && !current.first_opened_at && !current.disabled && !current.read_only_on_mobile_app) {
+      if (!readonly && !current.first_opened_at && !stepDisabled && !current.read_only_on_mobile_app) {
         await tx.execute("update steps set first_opened_at = ? where id = ? and first_opened_at is null", [now, current.id]);
       }
     });
@@ -171,14 +173,14 @@ export function ExecutionView({ flowId, initialStepId, readonly }: { flowId: str
 
         <View style={styles.stepHeader}>
           <ChipDot chip={current.chip} size={14} />
-          <Text style={[styles.stepTitle, !!current.disabled && styles.struckText]}>
+          <Text style={[styles.stepTitle, stepDisabled && styles.struckText]}>
             {t("execution.step", { n: current.number })} — {current.name}
           </Text>
         </View>
         {readonly && <Notice icon="eye-outline" text={t("execution.readMode")} />}
-        {!!current.disabled && <Notice icon="cancel" text={t("execution.disabledStep")} detail={current.disabled_comment} />}
+        {stepDisabled && <Notice icon="cancel" text={t("execution.disabledStep")} detail={current.disabled ? current.disabled_comment : phase.disabled_comment} />}
         {(!!current.read_only_on_mobile_app || !!phase.read_only_on_mobile_app) && <Notice icon="monitor" text={t("execution.readOnlyOnMobile")} />}
-        {current.blockers.length > 0 && !current.disabled && (
+        {current.blockers.length > 0 && !stepDisabled && (
           <>
             <Notice icon="lock-outline" text={t("execution.lockedStep")}
               detail={t("execution.lockedBy", { steps: current.blockers.map((id) => stepLabel(model, id)).join(", ") })} />

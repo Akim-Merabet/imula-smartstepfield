@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { type ComponentProps, createContext, type ReactNode, useCallback, useContext, useRef, useState } from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Modal, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { t } from "@/i18n/fr";
 import { colors, font, radius, spacing } from "@/theme";
@@ -107,6 +107,20 @@ export function Empty({ children }: { children: ReactNode }) {
 // ---------- Snackbar (messages de confirmation / d'erreur, 3 s) ----------
 
 type Snack = { message: string; tone: "info" | "success" | "danger" };
+/**
+ * Modale plein écran. Android 15+ affiche les apps bord à bord, modales comprises : le contenu est placé dans les zones
+ * sûres pour ne passer ni sous la barre d'état ni sous la barre de navigation.
+ */
+export function ScreenModal({ visible, onRequestClose, onShow, animationType = "slide", background = colors.background, children }: {
+  visible: boolean; onRequestClose: () => void; onShow?: () => void; animationType?: "slide" | "fade"; background?: string; children: ReactNode;
+}) {
+  return (
+    <Modal visible={visible} animationType={animationType} onRequestClose={onRequestClose} onShow={onShow}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: background }}>{children}</SafeAreaView>
+    </Modal>
+  );
+}
+
 const SnackbarContext = createContext<(message: string, tone?: Snack["tone"]) => void>(() => {});
 
 export function useSnackbar() {

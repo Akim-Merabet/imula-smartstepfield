@@ -1,8 +1,8 @@
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { useRef } from "react";
-import { Modal, StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { StyleSheet, Text, View } from "react-native";
 
+import { ScreenModal } from "@/components/kit";
 import { Button } from "@/components/ui";
 import { t } from "@/i18n/fr";
 import { colors, font, radius, spacing } from "@/theme";
@@ -27,8 +27,8 @@ export function QrScanner({ visible, title, onScanned, onClose }: {
   };
 
   return (
-    <Modal visible={visible} animationType="slide" onRequestClose={onClose} onShow={() => { handled.current = false; }}>
-      <SafeAreaView style={styles.safe}>
+    <ScreenModal visible={visible} onRequestClose={onClose} onShow={() => { handled.current = false; }}>
+      <View style={styles.safe}>
         <Text style={styles.title}>{title ?? t("qrScanner.title")}</Text>
         {permission?.granted ? (
           <View style={styles.cameraBox}>
@@ -51,8 +51,8 @@ export function QrScanner({ visible, title, onScanned, onClose }: {
           </View>
         )}
         <Button label={t("qrScanner.cancel")} variant="secondary" onPress={onClose} />
-      </SafeAreaView>
-    </Modal>
+      </View>
+    </ScreenModal>
   );
 }
 

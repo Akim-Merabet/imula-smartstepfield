@@ -6,11 +6,10 @@ import { randomUUID } from "expo-crypto";
 import { Image } from "expo-image";
 import { useState } from "react";
 import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 import { fileStore, useAttachmentUri } from "@/attachments/native";
 import { type AttachmentDb, FORM_FILES_BUCKET, responseFilePath, saveLocalFile } from "@/attachments/queue";
-import { Checkbox, formatDate, Icon } from "@/components/kit";
+import { Checkbox, formatDate, Icon, ScreenModal } from "@/components/kit";
 import { SignaturePad } from "@/components/signature-pad";
 import { Banner, Button, TextField } from "@/components/ui";
 import { t } from "@/i18n/fr";
@@ -57,9 +56,9 @@ export function FormSignature({ slot, value, onChange, disabled, responseId }: {
           <Text style={styles.actionLabel}>{slot.disableSignature ? t("forms.identify") : t("forms.sign")}</Text>
         </Pressable>
       )}
-      <Modal visible={open} animationType="slide" onRequestClose={() => setOpen(false)}>
+      <ScreenModal visible={open} onRequestClose={() => setOpen(false)}>
         {open && <SignForm slot={slot} responseId={responseId} onClose={() => setOpen(false)} onDone={(v) => { setOpen(false); onChange(v); }} />}
-      </Modal>
+      </ScreenModal>
       <Modal visible={viewing} transparent animationType="fade" onRequestClose={() => setViewing(false)}>
         <Pressable style={styles.backdrop} onPress={() => setViewing(false)}>
           <View style={styles.viewer}>
@@ -120,7 +119,7 @@ function SignForm({ slot, responseId, onClose, onDone }: {
 
   const people = [...members.map((m) => ({ id: m.id, label: `${m.first_name} ${m.last_name}` })), { id: NOT_LISTED, label: t("forms.notListed") }];
   return (
-    <SafeAreaView style={styles.safe}>
+    <View style={styles.safe}>
       <View style={styles.header}>
         <Text style={styles.title}>{slot.name || t("forms.signatoryOrder", { n: slot.position })}</Text>
         <Pressable accessibilityRole="button" accessibilityLabel={t("common.close")} onPress={onClose} hitSlop={8}><Icon name="close" /></Pressable>
@@ -155,7 +154,7 @@ function SignForm({ slot, responseId, onClose, onDone }: {
       <View style={styles.footer}>
         <Button label={slot.disableSignature ? t("forms.identify") : t("forms.sign")} onPress={() => void submit()} loading={submitting} />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

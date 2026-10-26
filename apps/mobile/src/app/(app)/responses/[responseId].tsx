@@ -327,7 +327,7 @@ function Confirm({ visible, title, description, confirm, cancel, onConfirm, onCa
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  ribbonBar: { flexGrow: 0, backgroundColor: colors.surface, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: colors.border },
+  ribbonBar: { flexGrow: 0, flexShrink: 0, backgroundColor: colors.surface, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: colors.border },
   ribbon: { paddingHorizontal: spacing.md, paddingVertical: spacing.sm, gap: spacing.sm },
   tab: { paddingHorizontal: spacing.md, paddingVertical: spacing.sm, borderRadius: radius.md, borderWidth: 1, borderColor: colors.border, maxWidth: 220 },
   tabActive: { backgroundColor: colors.primary, borderColor: colors.primary },

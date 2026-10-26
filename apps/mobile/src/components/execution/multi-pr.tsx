@@ -5,7 +5,7 @@ import { randomUUID } from "expo-crypto";
 import { useState } from "react";
 import { Modal, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
-import { Checkbox, Icon, StatusChip, useSnackbar } from "@/components/kit";
+import { Checkbox, Icon, ScreenModal, StatusChip, useSnackbar } from "@/components/kit";
 import { RichText } from "@/components/rich-text";
 import { SignaturePad } from "@/components/signature-pad";
 import { Banner, Button } from "@/components/ui";
@@ -128,9 +128,9 @@ export function MultiPrItems({ block, editable }: { block: ExecBlock; editable: 
         <ObservationModal item={observationFor} onClose={() => setObservationFor(null)}
           onSave={async (text) => { await setMultiPrObservation(db, observationFor.id, text, me); setObservationFor(null); }} />
       )}
-      <Modal visible={!!signFor} animationType="slide" onRequestClose={() => setSignFor(null)}>
+      <ScreenModal visible={!!signFor} onRequestClose={() => setSignFor(null)}>
         {signFor && <SignItems count={signFor.length} onCancel={() => setSignFor(null)} onSign={applySignature} />}
-      </Modal>
+      </ScreenModal>
     </View>
   );
 }
@@ -191,5 +191,5 @@ const styles = StyleSheet.create({
   modalTitle: { fontSize: font.title - 2, fontWeight: "700", color: colors.text },
   statusRow: { paddingVertical: spacing.sm, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.border },
   input: { minHeight: 100, borderWidth: 1, borderColor: colors.border, borderRadius: radius.md, padding: spacing.sm, fontSize: font.body, color: colors.text, textAlignVertical: "top" },
-  signScreen: { flex: 1, padding: spacing.lg, paddingTop: spacing.xl * 1.5, gap: spacing.md, backgroundColor: colors.background },
+  signScreen: { flex: 1, padding: spacing.lg, gap: spacing.md, backgroundColor: colors.background },
 });

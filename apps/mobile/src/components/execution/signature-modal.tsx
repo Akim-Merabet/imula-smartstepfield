@@ -2,10 +2,9 @@ import type { SignatureNature } from "@imula/flow-core";
 import { usePowerSync, useQuery } from "@powersync/react";
 import { randomUUID } from "expo-crypto";
 import { useMemo, useState } from "react";
-import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
-import { Icon, Segmented, useSnackbar } from "@/components/kit";
+import { Icon, ScreenModal, Segmented, useSnackbar } from "@/components/kit";
 import { QrScanner } from "@/components/qr-scanner";
 import { SignaturePad } from "@/components/signature-pad";
 import { Banner, Button, TextField } from "@/components/ui";
@@ -31,11 +30,11 @@ type Person = { id: string; name: string; profession: string | null };
 /** Modale de signature du bloc Contrôles (spec 05 §7.4) : écrit la signature dans la base locale, envoyée ensuite. */
 export function SignatureModal({ target, onClose }: { target: SignatureTarget | null; onClose: () => void }) {
   return (
-    <Modal visible={!!target} animationType="slide" onRequestClose={onClose}>
+    <ScreenModal visible={!!target} onRequestClose={onClose}>
       {target && (target.kind === "create"
         ? <CreateForm key={`${target.blockId}:${target.nature}`} target={target} onClose={onClose} />
         : <CompleteForm key={target.signatureId} target={target} onClose={onClose} />)}
-    </Modal>
+    </ScreenModal>
   );
 }
 
@@ -118,7 +117,7 @@ function CreateForm({ target, onClose }: { target: Extract<SignatureTarget, { ki
   };
 
   return (
-    <SafeAreaView style={styles.safe}>
+    <View style={styles.safe}>
       <Header title={target.title} subtitle={target.supervisor ? t("signature.supervisor", { name: target.supervisor }) : null} onClose={onClose} />
       <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
         <Segmented<SignMode> value={draft.mode} onChange={(v) => set("mode", v)} options={[
@@ -193,7 +192,7 @@ function CreateForm({ target, onClose }: { target: Extract<SignatureTarget, { ki
         )}
       </View>
       <QrScanner visible={scanning} title={t("signature.scanQr")} onScanned={onQr} onClose={() => setScanning(false)} />
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -237,7 +236,7 @@ function CompleteForm({ target, onClose }: { target: Extract<SignatureTarget, { 
   });
 
   return (
-    <SafeAreaView style={styles.safe}>
+    <View style={styles.safe}>
       <Header title={target.title} onClose={onClose} />
       <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
         <DateTimeFields label={t("signature.date")} day={day} time={time} onDay={setDay} onTime={setTime} />
@@ -246,7 +245,7 @@ function CompleteForm({ target, onClose }: { target: Extract<SignatureTarget, { 
         {!!error && <Banner tone="danger">{error}</Banner>}
       </ScrollView>
       <View style={styles.footer}><Button label={t("signature.sign")} onPress={() => void submit()} loading={submitting} /></View>
-    </SafeAreaView>
+    </View>
   );
 }
 

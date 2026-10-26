@@ -1,5 +1,6 @@
 import { Stack } from "expo-router";
 import { Modal, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { SnackbarProvider } from "@/components/kit";
 import { LocationConsent } from "@/components/location-consent";
@@ -20,6 +21,10 @@ export default function AppLayout() {
           headerBackButtonDisplayMode: "minimal",
           contentStyle: { backgroundColor: colors.background },
         }}
+        // Affichage bord à bord (Android 15+) : le bas des écrans empilés (barres d'actions) ne doit pas passer sous la
+        // barre de navigation du système. Les onglets ont déjà leur barre, qui gère cette marge.
+        screenLayout={({ route, children }) => route.name === "(tabs)" ? children
+          : <SafeAreaView edges={["bottom"]} style={styles.screen}>{children}</SafeAreaView>}
       >
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
@@ -42,6 +47,7 @@ export default function AppLayout() {
 }
 
 const styles = StyleSheet.create({
+  screen: { flex: 1, backgroundColor: colors.background },
   backdrop: { flex: 1, backgroundColor: "rgba(0,0,0,0.4)", justifyContent: "center", padding: spacing.lg },
   modal: { backgroundColor: colors.surface, borderRadius: radius.lg, padding: spacing.lg, gap: spacing.md },
   modalTitle: { fontSize: font.title, fontWeight: "700", color: colors.text },

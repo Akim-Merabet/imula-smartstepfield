@@ -3,12 +3,12 @@
 import { usePowerSync } from "@powersync/react";
 import { randomUUID } from "expo-crypto";
 import { useState } from "react";
-import { Modal, ScrollView, StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { fileStore } from "@/attachments/native";
 import { type AttachmentDb, FORM_FILES_BUCKET, responseFilePath, saveLocalFile } from "@/attachments/queue";
 import { dataUrlBytes } from "@/components/forms/form-signature";
+import { ScreenModal } from "@/components/kit";
 import { SignaturePad } from "@/components/signature-pad";
 import { Banner, Button, TextField } from "@/components/ui";
 import type { ChangeSignature } from "@/data/form-response";
@@ -21,9 +21,9 @@ export function ChangeSignatureModal({ visible, responseId, onCancel, onSigned }
   visible: boolean; responseId: string; onCancel: () => void; onSigned: (s: ChangeSignature) => void;
 }) {
   return (
-    <Modal visible={visible} animationType="slide" onRequestClose={onCancel}>
+    <ScreenModal visible={visible} onRequestClose={onCancel}>
       {visible && <Form responseId={responseId} onCancel={onCancel} onSigned={onSigned} />}
-    </Modal>
+    </ScreenModal>
   );
 }
 
@@ -46,7 +46,7 @@ function Form({ responseId, onCancel, onSigned }: { responseId: string; onCancel
   });
 
   return (
-    <SafeAreaView style={styles.safe}>
+    <View style={styles.safe}>
       <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
         <Text style={styles.title}>{t("forms.changesTitle")}</Text>
         <Text style={styles.text}>{t("forms.changesText")}</Text>
@@ -59,7 +59,7 @@ function Form({ responseId, onCancel, onSigned }: { responseId: string; onCancel
         <Button label={t("forms.sign")} onPress={() => void submit()} loading={submitting} />
         <Button label={t("common.cancel")} variant="secondary" onPress={onCancel} />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

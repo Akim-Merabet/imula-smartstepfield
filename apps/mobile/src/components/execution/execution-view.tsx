@@ -334,7 +334,8 @@ const styles = StyleSheet.create({
   banner: { backgroundColor: colors.surface, paddingHorizontal: spacing.md, paddingVertical: spacing.sm, gap: 2, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: colors.border },
   bannerType: { fontSize: font.small, color: colors.textSecondary },
   bannerName: { fontSize: font.body + 1, fontWeight: "700", color: colors.text },
-  ribbonBar: { flexGrow: 0, backgroundColor: colors.surface, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: colors.border },
+  // flexShrink 0 : une ScrollView rétrécit par défaut, la bande serait écrasée sur un petit écran (téléphone).
+  ribbonBar: { flexGrow: 0, flexShrink: 0, backgroundColor: colors.surface, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: colors.border },
   ribbon: { paddingHorizontal: spacing.md, paddingVertical: spacing.sm, gap: spacing.sm },
   phaseTab: { flexDirection: "row", alignItems: "center", gap: spacing.xs, paddingHorizontal: spacing.md, paddingVertical: spacing.sm, borderRadius: radius.md, borderWidth: 1, borderColor: colors.border },
   phaseTabActive: { backgroundColor: colors.primary, borderColor: colors.primary },

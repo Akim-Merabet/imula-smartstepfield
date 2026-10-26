@@ -10,7 +10,7 @@ import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
 import { fileStore, useAttachmentUri } from "@/attachments/native";
 import { ImageEditor } from "@/components/forms/image-editor";
 import { type AttachmentDb, FORM_FILES_BUCKET, responseFilePath, saveLocalFile } from "@/attachments/queue";
-import { Icon } from "@/components/kit";
+import { Icon, ScreenModal } from "@/components/kit";
 import { Button } from "@/components/ui";
 import { copyToGallery } from "@/lib/gallery";
 import { t } from "@/i18n/fr";
@@ -133,14 +133,14 @@ export function PhotoField({ value, onChange, disabled, responseId }: {
       {editing && (
         <ImageEditor uri={editing.uri} onClose={() => setEditing(null)} onSave={(uri) => replaceEdited(editing.file, uri)} />
       )}
-      <Modal visible={!!viewing} animationType="fade" onRequestClose={() => setViewing(null)}>
+      <ScreenModal visible={!!viewing} animationType="fade" background="#000" onRequestClose={() => setViewing(null)}>
         <View style={styles.viewer}>
           {viewing && <FullImage file={viewing} />}
           <Pressable accessibilityRole="button" accessibilityLabel={t("common.close")} onPress={() => setViewing(null)} style={styles.close}>
             <Icon name="close" color={colors.onPrimary} size={28} />
           </Pressable>
         </View>
-      </Modal>
+      </ScreenModal>
     </View>
   );
 }
@@ -189,5 +189,5 @@ const styles = StyleSheet.create({
   modal: { backgroundColor: colors.surface, borderRadius: radius.lg, padding: spacing.lg, gap: spacing.md },
   title: { fontSize: font.title - 2, fontWeight: "700", color: colors.text },
   viewer: { flex: 1, backgroundColor: "#000", alignItems: "center", justifyContent: "center" },
-  close: { position: "absolute", top: spacing.xl, right: spacing.lg, padding: spacing.sm },
+  close: { position: "absolute", top: spacing.sm, right: spacing.lg, padding: spacing.sm },
 });

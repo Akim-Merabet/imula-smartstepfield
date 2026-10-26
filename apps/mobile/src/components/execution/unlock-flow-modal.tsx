@@ -3,10 +3,9 @@
 import { usePowerSync } from "@powersync/react";
 import { randomUUID } from "expo-crypto";
 import { useState } from "react";
-import { Modal, ScrollView, StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
-import { Checkbox, useSnackbar } from "@/components/kit";
+import { Checkbox, ScreenModal, useSnackbar } from "@/components/kit";
 import { SignaturePad } from "@/components/signature-pad";
 import { Banner, Button, TextField } from "@/components/ui";
 import type { Db } from "@/data/form-response";
@@ -18,9 +17,9 @@ import { colors, font, spacing } from "@/theme";
 
 export function UnlockFlowModal({ flowId, visible, onClose }: { flowId: string; visible: boolean; onClose: () => void }) {
   return (
-    <Modal visible={visible} animationType="slide" onRequestClose={onClose}>
+    <ScreenModal visible={visible} onRequestClose={onClose}>
       {visible && <UnlockForm flowId={flowId} onClose={onClose} />}
-    </Modal>
+    </ScreenModal>
   );
 }
 
@@ -46,7 +45,7 @@ function UnlockForm({ flowId, onClose }: { flowId: string; onClose: () => void }
   });
 
   return (
-    <SafeAreaView style={styles.safe}>
+    <View style={styles.safe}>
       <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
         <Text style={styles.title}>{t("execution.unlockTitle")}</Text>
         <Text style={styles.text}>{t("execution.unlockSubtitle")}</Text>
@@ -61,7 +60,7 @@ function UnlockForm({ flowId, onClose }: { flowId: string; onClose: () => void }
         <Button label={t("execution.unlock")} onPress={() => void submit()} loading={submitting} />
         <Button label={t("common.cancel")} variant="secondary" onPress={onClose} />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

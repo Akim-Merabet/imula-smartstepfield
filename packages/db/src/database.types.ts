@@ -4131,6 +4131,7 @@ export type Database = {
           mandatory: boolean
           pinned_version_id: string | null
           position: number
+          response_count: number
           step_id: string
           technical_object_id: string | null
           unique_mode: Database["public"]["Enums"]["unique_mode"]
@@ -4149,6 +4150,7 @@ export type Database = {
           mandatory?: boolean
           pinned_version_id?: string | null
           position?: number
+          response_count?: number
           step_id: string
           technical_object_id?: string | null
           unique_mode?: Database["public"]["Enums"]["unique_mode"]
@@ -4167,6 +4169,7 @@ export type Database = {
           mandatory?: boolean
           pinned_version_id?: string | null
           position?: number
+          response_count?: number
           step_id?: string
           technical_object_id?: string | null
           unique_mode?: Database["public"]["Enums"]["unique_mode"]

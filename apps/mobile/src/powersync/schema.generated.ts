@@ -479,6 +479,7 @@ export const syncedTables = {
       technical_object_id: column.text,
       additional_comment: column.text,
       created_at: column.text,
+      response_count: column.integer,
     },
     { indexes: { flow: ["flow_id"], step: ["step_id"], block: ["block_id"], form: ["form_id"] } },
   ),

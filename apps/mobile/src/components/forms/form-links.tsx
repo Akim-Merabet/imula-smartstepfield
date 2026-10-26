@@ -13,7 +13,11 @@ import { useSingleFlight } from "@/lib/single-flight";
 import { useSession } from "@/session/session-context";
 import { colors, font, radius, spacing } from "@/theme";
 
-type LinkRow = LinkInfo & { name: string; reference: string | null; index_label: string | null; mandatory: number; project_id: string };
+type LinkRow = LinkInfo & {
+  name: string; reference: string | null; index_label: string | null; mandatory: number; project_id: string;
+  /** Réponses non supprimées sur le serveur, téléchargées ou non (allowed_download_response). */
+  response_count: number | null;
+};
 type ResponseItem = { id: string; reference: string; state: "in_progress" | "done"; created_at: string };
 
 export function FormLinks({ blockId, editable }: { blockId: string; editable: boolean }) {
@@ -34,8 +38,9 @@ function FormLink({ link, editable }: { link: LinkRow; editable: boolean }) {
   const [reopen, setReopen] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // Réponse unique / modes (spec 05 §4.7.2).
-  const exists = responses.length > 0;
+  // Réponse unique / modes (spec 05 §4.7.2) : une réponse peut exister sur le serveur sans être sur l'appareil
+  // (seules les dernières réponses terminées sont téléchargées), le serveur refuserait alors une seconde réponse.
+  const exists = responses.length > 0 || (link.response_count ?? 0) > 0;
   const canCreate = editable && !!link.enabled && !(exists && (!!link.unique_response || link.unique_mode === "resume_response"));
   const canResume = editable && link.unique_mode !== "new_response";
   const canEditDone = editable && !org[0]?.block;

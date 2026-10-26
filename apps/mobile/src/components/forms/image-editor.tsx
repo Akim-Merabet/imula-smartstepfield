@@ -6,7 +6,7 @@ import {
 import Svg, { Ellipse, Line, Path, Rect, Text as SvgText } from "react-native-svg";
 import { captureRef } from "react-native-view-shot";
 
-import { Icon, type IconName } from "@/components/kit";
+import { Icon, type IconName, ScreenModal } from "@/components/kit";
 import { Button } from "@/components/ui";
 import { type MessageKey, t } from "@/i18n/fr";
 import { arrowHead, pathOf, type Pt, type Shape, shapeAt, type Tool } from "@/lib/annotation";
@@ -20,7 +20,7 @@ import { colors, font, radius, spacing } from "@/theme";
 const TOOLS: { tool: Tool; icon: IconName; label: MessageKey }[] = [
   { tool: "sharpie", icon: "draw", label: "imageEditor.sharpie" },
   { tool: "eraser", icon: "eraser", label: "imageEditor.eraser" },
-  { tool: "line", icon: "vector-line", label: "imageEditor.line" },
+  { tool: "line", icon: "slash-forward", label: "imageEditor.line" },
   { tool: "arrow", icon: "arrow-top-right", label: "imageEditor.arrow" },
   { tool: "rectangle", icon: "rectangle-outline", label: "imageEditor.rectangle" },
   { tool: "ellipse", icon: "ellipse-outline", label: "imageEditor.ellipse" },
@@ -83,15 +83,18 @@ export function ImageEditor({ uri, onClose, onSave }: {
         setTextAt(p);
         return;
       }
-      drawing.current = tool === "sharpie" ? { kind: "sharpie", color, width, points: [p] } : { kind: tool, color, width, a: p, b: p };
-      setShapes([...shapes, drawing.current]);
+      const shape: Shape = tool === "sharpie" ? { kind: "sharpie", color, width, points: [p] } : { kind: tool, color, width, a: p, b: p };
+      drawing.current = shape;
+      setShapes((all) => [...all, shape]);
     },
     onResponderMove: (e: GestureResponderEvent) => {
       const s = drawing.current;
       if (!s) return;
       const p = toImage(e);
-      drawing.current = s.kind === "sharpie" ? { ...s, points: [...s.points, p] } : s.kind === "text" ? s : { ...s, b: p };
-      setShapes((all) => [...all.slice(0, -1), drawing.current!]);
+      const next: Shape = s.kind === "sharpie" ? { ...s, points: [...s.points, p] } : s.kind === "text" ? s : { ...s, b: p };
+      drawing.current = next;
+      // `next` et non drawing.current : la mise à jour différée peut s'exécuter après le relâchement (ref remise à null).
+      setShapes((all) => [...all.slice(0, -1), next]);
     },
     onResponderRelease: () => {
       drawing.current = null;
@@ -118,7 +121,7 @@ export function ImageEditor({ uri, onClose, onSave }: {
   };
 
   return (
-    <Modal visible animationType="slide" onRequestClose={() => { if (!saving) onClose(); }}>
+    <ScreenModal visible background="#111" onRequestClose={() => { if (!saving) onClose(); }}>
       <View style={styles.screen}>
         <View style={styles.header}>
           <Text style={styles.title}>{t("imageEditor.title")}</Text>
@@ -181,12 +184,12 @@ export function ImageEditor({ uri, onClose, onSave }: {
           </View>
         </View>
       </Modal>
-    </Modal>
+    </ScreenModal>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: "#111", paddingTop: spacing.xl, paddingBottom: spacing.md, gap: spacing.sm },
+  screen: { flex: 1, backgroundColor: "#111", paddingVertical: spacing.sm, gap: spacing.sm },
   header: { flexDirection: "row", alignItems: "center", paddingHorizontal: spacing.md },
   title: { flex: 1, color: colors.onPrimary, fontSize: font.title - 2, fontWeight: "700" },
   iconButton: { padding: spacing.sm },

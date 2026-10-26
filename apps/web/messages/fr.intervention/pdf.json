@@ -1,0 +1,15 @@
+{
+  "flow": {
+    "noFlow": "Aucune intervention n'est liée à ce document."
+  },
+  "dsi": {
+    "explanation": "Chaque ligne correspond à une étape de l'intervention. Les colonnes de signature indiquent, pour chaque nature de contrôle attendue, le ou la signataire, la date et l'image de signature. Une case grisée signifie que la signature n'est pas attendue pour l'étape."
+  },
+  "form": {
+    "flow": "Intervention / étape"
+  },
+  "module": {
+    "diagramFlows": "Interventions du diagramme",
+    "diagramNote": "Rendu simplifié du diagramme (liste des interventions et des liaisons)."
+  }
+}

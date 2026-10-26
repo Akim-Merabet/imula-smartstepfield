@@ -1,0 +1,10 @@
+{
+  "logs": {
+    "actions": {
+      "START_CHECKOUT": "Procedures downloaded",
+      "DELETE_FLOW_DATA": "Procedures removed from tablet",
+      "SCAN_QRCODE_FLOW_SUCCESS": "Procedure QR code scanned",
+      "SCAN_QRCODE_FLOW_FAIL": "Procedure QR code scan failed"
+    }
+  }
+}

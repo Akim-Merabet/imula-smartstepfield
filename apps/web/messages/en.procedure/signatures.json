@@ -1,0 +1,11 @@
+{
+  "errors": {
+    "notInRestrictedList": "You are not in the list of collaborators restricted to this procedure",
+    "not_in_restricted_list": "You are not in the list of collaborators restricted to this procedure"
+  },
+  "summary": {
+    "selectFlow": "Select a procedure",
+    "noFlowTitle": "No procedure selected yet",
+    "open": "Open procedure"
+  }
+}

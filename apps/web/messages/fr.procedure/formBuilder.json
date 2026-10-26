@@ -1,0 +1,38 @@
+{
+  "variables": {
+    "tabs": {
+      "flow": "Procédure"
+    },
+    "items": {
+      "FlowName": "Nom de la procédure",
+      "FlowDescription": "Description de la procédure",
+      "FlowFamily": "Famille de la procédure",
+      "FlowCategory": "Catégorie de la procédure",
+      "FlowStatus": "Statut de la procédure",
+      "FlowSite": "Site de la procédure",
+      "FlowUnit": "Tranche de la procédure",
+      "FlowLocal": "Local de la procédure",
+      "FlowElementarySystem": "Système élémentaire de la procédure",
+      "FlowFunctionalLandmark": "Repère fonctionnel de la procédure",
+      "FlowTechnicalObject": "Objet technique de la procédure",
+      "FlowChrono": "Référence de la procédure",
+      "FlowEpsilonFolderRef": "Référence de dossier de la procédure",
+      "FlowRapporteur": "Rapporteur affecté à la procédure",
+      "FlowResponsable": "Responsable affecté à la procédure",
+      "FlowTablette1": "Tablette 1 affectée à la procédure",
+      "FlowTablette2": "Tablette 2 affectée à la procédure",
+      "FlowTablette3": "Tablette 3 affectée à la procédure",
+      "FlowDateDebut": "Date de début de la procédure",
+      "FlowDateFin": "Date de fin de la procédure",
+      "FlowGeometryCoordinateLat": "Latitude liée à la procédure",
+      "FlowGeometryCoordinateLng": "Longitude liée à la procédure",
+      "FlowGeometryCoordinateAlt": "Altitude liée à la procédure",
+      "FlowInternalSupervision1": "Surveillant interne 1 de la procédure",
+      "FlowInternalSupervision2": "Surveillant interne 2 de la procédure",
+      "FlowInternalSupervision3": "Surveillant interne 3 de la procédure",
+      "FlowExternalSupervision1": "Surveillant externe 1 de la procédure",
+      "FlowExternalSupervision2": "Surveillant externe 2 de la procédure",
+      "FlowExternalSupervision3": "Surveillant externe 3 de la procédure"
+    }
+  }
+}

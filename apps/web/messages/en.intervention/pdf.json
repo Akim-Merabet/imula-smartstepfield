@@ -1,0 +1,15 @@
+{
+  "flow": {
+    "noFlow": "No intervention is linked to this document."
+  },
+  "dsi": {
+    "explanation": "Each row is a step of the intervention. Signature columns show, for each expected control type, the signatory, the date and the signature image. A greyed cell means the signature is not expected for that step."
+  },
+  "form": {
+    "flow": "Intervention / step"
+  },
+  "module": {
+    "diagramFlows": "Diagram interventions",
+    "diagramNote": "Simplified rendering of the diagram (list of interventions and links)."
+  }
+}

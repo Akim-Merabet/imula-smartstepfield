@@ -1,0 +1,67 @@
+{
+  "natures": {
+    "block_form": "Formulaire unique d'une intervention",
+    "multi_flow_form": "Formulaire unique d'une ou plusieurs interventions",
+    "lfa": "Liste d'interventions"
+  },
+  "natureComments": {
+    "pr": "Contenu d'instructions issu d'une intervention",
+    "emm": "Tableau de moyens issu d'une intervention",
+    "adr": "Tableau de risques issu d'une intervention",
+    "dsi": "Tableau de contrôles issu d'une intervention",
+    "multi_pr": "Contenu d'instructions multiples issu d'une intervention",
+    "flow_form": "Contenu de formulaires issu d'une intervention",
+    "object": "Tableau d'objets issu d'une intervention",
+    "block_form": "Contenu d'un formulaire appelé dans une intervention",
+    "multi_flow_form": "Contenu d'un formulaire appelé dans une ou plusieurs interventions",
+    "lfa": "Tableau d'interventions de l'entité",
+    "list_emm": "Tableau de moyens issu d'une liste de moyens ou de plusieurs interventions",
+    "list_adr": "Tableau de risques issu d'une liste de risques ou de plusieurs interventions",
+    "field_feedback": "Contenu d'un ou plusieurs formulaires de l'entité ou d'interventions",
+    "diagram": "Export de la vue diagramme des interventions"
+  },
+  "sources": {
+    "flow": "Depuis une intervention"
+  },
+  "sourceComments": {
+    "flow": "Documents regroupant des blocs d'une intervention"
+  },
+  "filters": {
+    "flow": "Intervention"
+  },
+  "delete": {
+    "inFlows": "Ce document est utilisé dans une ou plusieurs interventions :"
+  },
+  "dialog": {
+    "readOnlyReferential": "Aucune modification n'est possible quand l'intervention référentielle est bloquée"
+  },
+  "options": {
+    "linkedFlowToggle": "Récupérer les informations d'une intervention pour renseigner des champs spécifiques des trames PDF",
+    "linkedFlow": "Intervention liée"
+  },
+  "content": {
+    "flowTitle": "Générer un document depuis l'intervention",
+    "flowPlaceholder": "Cliquez pour sélectionner une intervention",
+    "flowRequired": "Veuillez d'abord sélectionner une intervention avant de continuer",
+    "fromFlows": "Depuis la ou les intervention(s) suivante(s) :",
+    "flowsRequired": "Au moins une intervention doit être sélectionnée",
+    "fromFlowsMode": "de plusieurs interventions",
+    "opt": {
+      "navigation_conditions": "Redirection(s) de l'intervention dans le tableau",
+      "show_linked_entities_references": "Afficher les références des documents, formulaires et réponses des interventions liées",
+      "child_rendered": "Afficher les documents des interventions enfants en annexe",
+      "include_linked_documents_infos": "Afficher les informations des documents source intervention liés"
+    }
+  },
+  "follow": {
+    "popover": {
+      "fromFlow": "Mettre à jour depuis l'intervention"
+    },
+    "toast": {
+      "vsoSr": "Pensez à prendre les réserves en compte dans votre intervention"
+    },
+    "errors": {
+      "referential_locked": "Aucune action n'est possible quand l'intervention référentielle est bloquée"
+    }
+  }
+}

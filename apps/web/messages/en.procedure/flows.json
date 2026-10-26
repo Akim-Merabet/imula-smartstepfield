@@ -1,0 +1,85 @@
+{
+  "typeHelp": {
+    "specific": "Core of a project; it can also associate one or more generic procedures with various steps",
+    "generic": "Procedure that can be reused several times in one or more specific procedures",
+    "group": "Links several procedures together to group them and follow the sequence of interventions",
+    "template": "Procedure of a Template entity, importable as content into other procedures",
+    "referential": "Standard procedure of a Standard entity, importable into projects",
+    "referential_generic": "Generic standard procedure of a Standard entity",
+    "group_referential": "Head standard procedure of a Standard entity",
+    "referential_intervention": "Intervention standard procedure of a Standard entity",
+    "local_referential": "Local copy of a standard procedure"
+  },
+  "crumbView": "Procedures - {view}",
+  "comingSoon": {
+    "description": "This view is not available yet. Use the list view to manage the entity's procedures."
+  },
+  "list": {
+    "title": "Procedure list",
+    "emptySubtitle": "You can add a procedure from the dashboard \"Procedure management\" module with the \"+\" button"
+  },
+  "filters": {
+    "byType": "Filter by {type} procedure"
+  },
+  "actions": {
+    "edit": "Edit procedure",
+    "history": "Procedure history"
+  },
+  "delete": {
+    "title": "Are you sure you want to delete the procedure {name}?",
+    "subtitle": "The procedure will be kept in the trash for 30 days.",
+    "errors": {
+      "linked_to_steps": "Cannot delete: the procedure is linked to steps of other procedures",
+      "in_diagram": "Cannot delete: the procedure appears in a diagram view",
+      "imported": "Cannot delete: the procedure is imported in another project"
+    }
+  },
+  "advancedSearch": {
+    "fields": {
+      "flow_type": "Procedure type"
+    }
+  },
+  "reorganize": {
+    "button": "Reorganize procedures",
+    "title": "Reorganize procedures",
+    "subtitle": "{count, plural, one {# selected procedure} other {# selected procedures}}",
+    "confirm": "Are you sure you want to change the \"{type}\" to \"{name}\" for {count, plural, one {the selected procedure} other {the # selected procedures}}?",
+    "success": "{count, plural, one {# procedure reorganized} other {# procedures reorganized}} successfully"
+  },
+  "dialog": {
+    "createTitle": "Create a procedure",
+    "editTitle": "Edit {type} procedure {name}",
+    "type": "Procedure type",
+    "namePlaceholder": "Name of the procedure in the application",
+    "descriptionHelp": "Procedure description, only visible inside the company",
+    "noAttributes": "No attribute configured for procedures",
+    "documentsInfo": "Procedure documents that can be generated from the content blocks. Generation is handled by the Documents module.",
+    "assigneesHelp": "An assignee sees the procedure on the MobileApp and can sign without being among the collaborators",
+    "collaborators": "Collaborators restricted to the procedure",
+    "created": "Procedure created successfully",
+    "createdWithRef": "A new procedure has been created with identifier {param}",
+    "errors": {
+      "save": "An error occurred while saving the procedure",
+      "has_signatures": "Cannot enable this option, at least one signature exists in the procedure",
+      "invalid_type": "This procedure type is not available for this entity type"
+    }
+  },
+  "properties": {
+    "title": "Procedure properties"
+  },
+  "duplicate": {
+    "title": "Duplicate a {type} procedure",
+    "success": "Procedure duplicated successfully"
+  },
+  "history": {
+    "title": "History of procedure {name}",
+    "statusCreated": "{user} created the procedure with status {status}",
+    "actions": {
+      "create": "{user} created the procedure",
+      "delete": "{user} deleted the procedure",
+      "reset_flow": "{user} reset the procedure",
+      "add_user_hierarchy_in_flow": "{user} added a collaborator restricted to the procedure",
+      "delete_user_hierarchy_from_flow": "{user} removed a collaborator restricted to the procedure"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "typesLong": {
+    "report": "Report - Report written from a procedure",
+    "certificate": "Certificate - Compilation of the equipment certificates of a procedure",
+    "reference": "Reference - Compilation of the equipment references of a procedure"
+  },
+  "section": {
+    "flow": "Procedure",
+    "reportFlow": "Report procedure",
+    "flowRequired": "Please select a procedure",
+    "reportHelp": "The report includes the signature summary table of the selected procedure.",
+    "allCertificates": "Every certificate of the equipment in the procedure",
+    "allReferences": "Every reference of the equipment in the procedure"
+  }
+}

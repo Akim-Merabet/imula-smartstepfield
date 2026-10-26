@@ -1,0 +1,15 @@
+{
+  "typesLong": {
+    "report": "Compte rendu - Compte rendu rédigé depuis une intervention",
+    "certificate": "Certificat - Compilation des certificats des moyens d'une intervention",
+    "reference": "Référence - Compilation des références des moyens d'une intervention"
+  },
+  "section": {
+    "flow": "Intervention",
+    "reportFlow": "Intervention de compte rendu",
+    "flowRequired": "Veuillez sélectionner une intervention",
+    "reportHelp": "Le compte rendu reprend le tableau récapitulatif des signatures de l'intervention sélectionnée.",
+    "allCertificates": "Chaque certificat des moyens présents dans l'intervention",
+    "allReferences": "Chaque référence des moyens présents dans l'intervention"
+  }
+}

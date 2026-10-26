@@ -1,0 +1,67 @@
+{
+  "natures": {
+    "block_form": "Single form from an intervention",
+    "multi_flow_form": "Single form from one or more interventions",
+    "lfa": "Intervention list"
+  },
+  "natureComments": {
+    "pr": "Instruction content from an intervention",
+    "emm": "Equipment table from an intervention",
+    "adr": "Risk table from an intervention",
+    "dsi": "Control table from an intervention",
+    "multi_pr": "Multiple instruction content from an intervention",
+    "flow_form": "Form content from an intervention",
+    "object": "Object table from an intervention",
+    "block_form": "Content of a form called in an intervention",
+    "multi_flow_form": "Content of a form called in one or more interventions",
+    "lfa": "Table of the entity interventions",
+    "list_emm": "Equipment table from an equipment list or several interventions",
+    "list_adr": "Risk table from a risk list or several interventions",
+    "field_feedback": "Content of one or more forms of the entity or of interventions",
+    "diagram": "Export of the intervention diagram view"
+  },
+  "sources": {
+    "flow": "From an intervention"
+  },
+  "sourceComments": {
+    "flow": "Documents gathering blocks of an intervention"
+  },
+  "filters": {
+    "flow": "Intervention"
+  },
+  "delete": {
+    "inFlows": "This document is used in one or more interventions:"
+  },
+  "dialog": {
+    "readOnlyReferential": "No change is possible while the referential intervention is locked"
+  },
+  "options": {
+    "linkedFlowToggle": "Retrieve information from an intervention to fill specific fields of the PDF templates",
+    "linkedFlow": "Linked intervention"
+  },
+  "content": {
+    "flowTitle": "Generate a document from the intervention",
+    "flowPlaceholder": "Click to select an intervention",
+    "flowRequired": "Please select an intervention before continuing",
+    "fromFlows": "From the following intervention(s):",
+    "flowsRequired": "At least one intervention must be selected",
+    "fromFlowsMode": "several interventions",
+    "opt": {
+      "navigation_conditions": "Intervention redirection(s) in the table",
+      "show_linked_entities_references": "Display references of documents, forms and responses of linked interventions",
+      "child_rendered": "Display child intervention documents as an appendix",
+      "include_linked_documents_infos": "Display information of linked intervention-source documents"
+    }
+  },
+  "follow": {
+    "popover": {
+      "fromFlow": "Update from the intervention"
+    },
+    "toast": {
+      "vsoSr": "Remember to take the reservations into account in your intervention"
+    },
+    "errors": {
+      "referential_locked": "No action is possible while the referential intervention is locked"
+    }
+  }
+}

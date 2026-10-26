@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { flowTerms } from "@/i18n/config";
 
 export const optText = z.string().trim().max(255).optional().nullable().transform((v) => (v ? v : null));
 export const optLongText = z.string().trim().max(5000).optional().nullable().transform((v) => (v ? v : null));
@@ -147,6 +148,7 @@ export const organizationSchema = z.object({
   links_form_attributes_enabled: z.boolean(),
   local_form_allowed: z.boolean(),
   number_format: z.enum(["fr", "en"]),
+  flow_term: z.enum(flowTerms),
   rubric_permissions_enabled: z.boolean(),
   support_chat_enabled: z.boolean(),
 });

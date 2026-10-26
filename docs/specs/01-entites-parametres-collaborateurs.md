@@ -589,6 +589,9 @@ Actions standard des tables de dictionnaires : Activer / Désactiver / Supprimer
 | rubric_permissions_enabled | bool | Activer la restriction de navigation dans les formulaires |
 | zendesk_enabled | bool (rafraîchit la page) | Activer Zendesk |
 | pdf translations | fichier | Personnalisation des PDF : télécharger / charger une traduction |
+| flow_term | enum `flow` / `procedure` / `intervention` (rafraîchit la page) | Section « Vocabulaire » : Nom donné aux flows dans l'interface |
+
+**✅ Écart volontaire — vocabulaire de l'organisation** (absent de l'outil d'origine, qui dit toujours « flow ») : `organizations.flow_term` choisit le terme affiché à la place de « flow » dans la WebApp, les documents PDF et la MobileApp (après synchronisation). Liste fermée, chaque terme ayant ses libellés relus (genre, élision, pluriels) : surcouches `apps/web/messages/<langue>.<terme>/*.json` (seuls les libellés contenant « flow » y sont redéfinis, superposés aux libellés de base par `loadMessages` et par le traducteur des PDF) et `apps/mobile/src/i18n/fr-<terme>.ts`. Avec « Intervention », le type de flow léger (FLOW_FORM) devient « Intervention formulaire ». Ne changent pas : tables, routes, API (`apiAccess`), nom du produit. Un test par application vérifie que tout libellé contenant « flow » a sa version dans chaque surcouche, avec les mêmes paramètres.
 
 ### 6.4 Sociétés (`companies`, SFA + GA) [OBS `companies.*`, DTO `c4`]
 

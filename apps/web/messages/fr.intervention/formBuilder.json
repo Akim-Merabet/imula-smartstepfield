@@ -1,0 +1,38 @@
+{
+  "variables": {
+    "tabs": {
+      "flow": "Intervention"
+    },
+    "items": {
+      "FlowName": "Nom de l'intervention",
+      "FlowDescription": "Description de l'intervention",
+      "FlowFamily": "Famille de l'intervention",
+      "FlowCategory": "Catégorie de l'intervention",
+      "FlowStatus": "Statut de l'intervention",
+      "FlowSite": "Site de l'intervention",
+      "FlowUnit": "Tranche de l'intervention",
+      "FlowLocal": "Local de l'intervention",
+      "FlowElementarySystem": "Système élémentaire de l'intervention",
+      "FlowFunctionalLandmark": "Repère fonctionnel de l'intervention",
+      "FlowTechnicalObject": "Objet technique de l'intervention",
+      "FlowChrono": "Référence de l'intervention",
+      "FlowEpsilonFolderRef": "Référence de dossier de l'intervention",
+      "FlowRapporteur": "Rapporteur affecté à l'intervention",
+      "FlowResponsable": "Responsable affecté à l'intervention",
+      "FlowTablette1": "Tablette 1 affectée à l'intervention",
+      "FlowTablette2": "Tablette 2 affectée à l'intervention",
+      "FlowTablette3": "Tablette 3 affectée à l'intervention",
+      "FlowDateDebut": "Date de début de l'intervention",
+      "FlowDateFin": "Date de fin de l'intervention",
+      "FlowGeometryCoordinateLat": "Latitude liée à l'intervention",
+      "FlowGeometryCoordinateLng": "Longitude liée à l'intervention",
+      "FlowGeometryCoordinateAlt": "Altitude liée à l'intervention",
+      "FlowInternalSupervision1": "Surveillant interne 1 de l'intervention",
+      "FlowInternalSupervision2": "Surveillant interne 2 de l'intervention",
+      "FlowInternalSupervision3": "Surveillant interne 3 de l'intervention",
+      "FlowExternalSupervision1": "Surveillant externe 1 de l'intervention",
+      "FlowExternalSupervision2": "Surveillant externe 2 de l'intervention",
+      "FlowExternalSupervision3": "Surveillant externe 3 de l'intervention"
+    }
+  }
+}

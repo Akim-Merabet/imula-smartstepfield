@@ -6051,6 +6051,7 @@ export type Database = {
           block_form_response_edition: boolean
           created_at: string
           diagram_enabled: boolean
+          flow_term: Database["public"]["Enums"]["flow_term"]
           id: string
           link_expiration_days: number
           links_form_attributes_enabled: boolean
@@ -6069,6 +6070,7 @@ export type Database = {
           block_form_response_edition?: boolean
           created_at?: string
           diagram_enabled?: boolean
+          flow_term?: Database["public"]["Enums"]["flow_term"]
           id?: string
           link_expiration_days?: number
           links_form_attributes_enabled?: boolean
@@ -6087,6 +6089,7 @@ export type Database = {
           block_form_response_edition?: boolean
           created_at?: string
           diagram_enabled?: boolean
+          flow_term?: Database["public"]["Enums"]["flow_term"]
           id?: string
           link_expiration_days?: number
           links_form_attributes_enabled?: boolean
@@ -8281,6 +8284,13 @@ export type Database = {
         Returns: undefined
       }
       mobile_report_device: { Args: { p: Json }; Returns: undefined }
+      mobile_restore_context: {
+        Args: never
+        Returns: {
+          organization_id: string
+          principal_id: string
+        }[]
+      }
       mobile_set_flow_status: {
         Args: { p_comment?: string; p_flow_id: string; p_status_id: string }
         Returns: undefined
@@ -8518,6 +8528,7 @@ export type Database = {
         | "validate_step"
         | "devalidate_step"
       flow_origin: "local" | "derived_from_standard"
+      flow_term: "flow" | "procedure" | "intervention"
       flow_type:
         | "specific"
         | "generic"
@@ -8981,6 +8992,7 @@ export const Constants = {
         "devalidate_step",
       ],
       flow_origin: ["local", "derived_from_standard"],
+      flow_term: ["flow", "procedure", "intervention"],
       flow_type: [
         "specific",
         "generic",

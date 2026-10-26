@@ -1,0 +1,38 @@
+{
+  "variables": {
+    "tabs": {
+      "flow": "Intervention"
+    },
+    "items": {
+      "FlowName": "Intervention name",
+      "FlowDescription": "Intervention description",
+      "FlowFamily": "Intervention family",
+      "FlowCategory": "Intervention category",
+      "FlowStatus": "Intervention status",
+      "FlowSite": "Intervention site",
+      "FlowUnit": "Intervention unit",
+      "FlowLocal": "Intervention room",
+      "FlowElementarySystem": "Intervention elementary system",
+      "FlowFunctionalLandmark": "Intervention functional landmark",
+      "FlowTechnicalObject": "Intervention technical object",
+      "FlowChrono": "Intervention reference",
+      "FlowEpsilonFolderRef": "Intervention folder reference",
+      "FlowRapporteur": "Intervention reporter",
+      "FlowResponsable": "Intervention manager",
+      "FlowTablette1": "Intervention tablet 1",
+      "FlowTablette2": "Intervention tablet 2",
+      "FlowTablette3": "Intervention tablet 3",
+      "FlowDateDebut": "Intervention start date",
+      "FlowDateFin": "Intervention end date",
+      "FlowGeometryCoordinateLat": "Intervention latitude",
+      "FlowGeometryCoordinateLng": "Intervention longitude",
+      "FlowGeometryCoordinateAlt": "Intervention altitude",
+      "FlowInternalSupervision1": "Intervention internal supervisor 1",
+      "FlowInternalSupervision2": "Intervention internal supervisor 2",
+      "FlowInternalSupervision3": "Intervention internal supervisor 3",
+      "FlowExternalSupervision1": "Intervention external supervisor 1",
+      "FlowExternalSupervision2": "Intervention external supervisor 2",
+      "FlowExternalSupervision3": "Intervention external supervisor 3"
+    }
+  }
+}

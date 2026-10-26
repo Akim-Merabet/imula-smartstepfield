@@ -1,0 +1,8 @@
+{
+  "dialog": {
+    "certificateHint": "Library PDF document, appended to the procedures “Objects” document."
+  },
+  "errors": {
+    "in_useSubtitle": "The object is already used (Object block, procedure or linked form)"
+  }
+}

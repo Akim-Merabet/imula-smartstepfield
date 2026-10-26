@@ -1,0 +1,26 @@
+{
+  "delete": {
+    "flow": "Intervention"
+  },
+  "refresh": {
+    "flows": "Toutes les utilisations de ce formulaire dans les interventions seront mises à jour ; une réponse en cours de saisie conserve sa version."
+  },
+  "properties": {
+    "flows": "Interventions utilisant ce formulaire"
+  },
+  "feedback": {
+    "emptySubtitle": "Les réponses créées depuis les formulaires et les interventions apparaissent ici",
+    "columns": {
+      "flow": "Intervention"
+    },
+    "filters": {
+      "flow": "Intervention",
+      "sources": {
+        "flow": "Intervention"
+      }
+    },
+    "xlsx": {
+      "flow": "Intervention"
+    }
+  }
+}

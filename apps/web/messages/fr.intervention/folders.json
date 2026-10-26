@@ -1,0 +1,10 @@
+{
+  "columns": {
+    "flows": "Interventions"
+  },
+  "emptySubtitle": "Créez un sous-dossier avec le bouton « + » pour y ajouter des interventions référentielles.",
+  "prepare": {
+    "info": "{count, plural, one {L'intervention référentielle du sous-dossier sera importée} other {Les # interventions référentielles du sous-dossier seront importées}} dans le module Référentiels d'une nouvelle entité Projet (verrouillées et synchronisables avec leur source), avec les diagrammes référentiels.",
+    "noFlows": "Veuillez d'abord ajouter une ou plusieurs interventions au sous-dossier."
+  }
+}

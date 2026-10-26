@@ -1,0 +1,42 @@
+{
+  "errors": {
+    "usage": {
+      "flows": "{count, plural, one {# procédure} other {# procédures}}"
+    },
+    "response_parent_deleted": "Impossible de restaurer la réponse : sa procédure ou son formulaire est supprimé"
+  },
+  "natures": {
+    "flow": "Procédure"
+  },
+  "statuses": {
+    "fields": {
+      "hideFlow": "Masquer la procédure pour ce statut à un état terminé"
+    }
+  },
+  "statusNatures": {
+    "flow": "Procédure"
+  },
+  "customFields": {
+    "fields": {
+      "display_in_flow_card": "MobileApp - Afficher dans la carte d'une procédure",
+      "display_in_flow_banner": "MobileApp - Afficher dans le bandeau d'une procédure",
+      "display_on_flow_opening": "MobileApp - Afficher à l'ouverture de la procédure"
+    }
+  },
+  "fieldNatures": {
+    "flow": "Procédure"
+  },
+  "referenceNatures": {
+    "flow": "Procédure"
+  },
+  "trash": {
+    "natures": {
+      "flow": "Procédure"
+    }
+  },
+  "kpi": {
+    "counters": {
+      "flows": "Procédures"
+    }
+  }
+}

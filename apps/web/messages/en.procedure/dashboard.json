@@ -1,0 +1,34 @@
+{
+  "members": {
+    "edit": {
+      "hierarchyLocked": "This hierarchy cannot be removed because it is already attached to this collaborator restricted in one or more procedures"
+    },
+    "delete": {
+      "inFlows": "Deletion impossible: the collaborator is assigned to the following procedures: {flows}"
+    }
+  },
+  "tablets": {
+    "delete": {
+      "inFlows": "Deletion impossible: the tablet is assigned to the following procedures: {flows}"
+    }
+  },
+  "metrics": {
+    "flows": {
+      "title": "Procedures progress",
+      "total": "{count, plural, =0 {No procedure} one {# procedure in total} other {# procedures in total}}",
+      "byStatus": "Procedure statuses",
+      "byCategory": "Procedure states"
+    },
+    "blocks": {
+      "usage": "{blocks} blocks over {flows} procedures"
+    },
+    "project": {
+      "flowTypes": {
+        "specific": "Specific procedures",
+        "generic": "Generic procedures",
+        "referential": "Referential procedures"
+      },
+      "other": "Other procedures"
+    }
+  }
+}

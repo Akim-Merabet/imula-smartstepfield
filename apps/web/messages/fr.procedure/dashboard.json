@@ -1,0 +1,34 @@
+{
+  "members": {
+    "edit": {
+      "hierarchyLocked": "Cette hiérarchie ne peut pas être supprimée car elle est déjà rattachée à ce collaborateur restreint au sein d'une ou plusieurs procédures"
+    },
+    "delete": {
+      "inFlows": "Impossible d'effectuer la suppression : le collaborateur est affecté aux procédures suivantes : {flows}"
+    }
+  },
+  "tablets": {
+    "delete": {
+      "inFlows": "Impossible d'effectuer la suppression : la tablette est affectée aux procédures suivantes : {flows}"
+    }
+  },
+  "metrics": {
+    "flows": {
+      "title": "Avancement des procédures",
+      "total": "{count, plural, =0 {Aucune procédure} one {# procédure au total} other {# procédures au total}}",
+      "byStatus": "Statuts des procédures",
+      "byCategory": "États des procédures"
+    },
+    "blocks": {
+      "usage": "{blocks} blocs sur {flows} procédures"
+    },
+    "project": {
+      "flowTypes": {
+        "specific": "Procédures spécifiques",
+        "generic": "Procédures génériques",
+        "referential": "Procédures référentielles"
+      },
+      "other": "Autres procédures"
+    }
+  }
+}

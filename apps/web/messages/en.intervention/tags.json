@@ -1,0 +1,16 @@
+{
+  "actions": {
+    "linkedFlows": "Interventions linked to the tag"
+  },
+  "linkedFlows": {
+    "title": "Interventions linked to the tag {name}",
+    "empty": "No intervention linked to this tag",
+    "filter": "Filter by intervention name",
+    "columns": {
+      "flow": "Intervention"
+    },
+    "levels": {
+      "flow": "Intervention"
+    }
+  }
+}

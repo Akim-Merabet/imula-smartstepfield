@@ -639,7 +639,8 @@
     "sections": {
       "mobile": "MobileApp",
       "features": "Features",
-      "sharing": "Sharing and display"
+      "sharing": "Sharing and display",
+      "vocabulary": "Vocabulary"
     },
     "fields": {
       "allowed_download_response": "Number of completed responses downloaded by default to the MobileApp",
@@ -650,7 +651,8 @@
       "rubric_permissions_enabled": "Enable navigation restrictions in forms",
       "support_chat_enabled": "Enable support chat",
       "link_expiration_days": "Link expiration when sharing forms and/or documents (days)",
-      "number_format": "Number formatting"
+      "number_format": "Number formatting",
+      "flow_term": "Name given to flows in the interface"
     },
     "localFormIrreversible": "Once enabled, this option can no longer be disabled.",
     "supportChatHelp": "The page reloads after saving.",
@@ -659,7 +661,13 @@
       "fr": "12 345,67",
       "en": "12,345.67"
     },
-    "pdfTranslationsUnavailable": "Customizing PDF translations (download / upload) will be available with the Page templates module."
+    "pdfTranslationsUnavailable": "Customizing PDF translations (download / upload) will be available with the Page templates module.",
+    "flowTerms": {
+      "flow": "Flow",
+      "procedure": "Procedure",
+      "intervention": "Intervention"
+    },
+    "flowTermHelp": "Applies to the whole organization: WebApp, PDF documents and MobileApp (after sync). Technical names (API, data exports) do not change. The page is reloaded after saving."
   },
   "wording": {
     "title": "Tracking",

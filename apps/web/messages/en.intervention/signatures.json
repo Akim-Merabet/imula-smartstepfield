@@ -1,0 +1,11 @@
+{
+  "errors": {
+    "notInRestrictedList": "You are not in the list of collaborators restricted to this intervention",
+    "not_in_restricted_list": "You are not in the list of collaborators restricted to this intervention"
+  },
+  "summary": {
+    "selectFlow": "Select an intervention",
+    "noFlowTitle": "No intervention selected yet",
+    "open": "Open intervention"
+  }
+}

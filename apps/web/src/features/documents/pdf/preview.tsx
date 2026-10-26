@@ -19,7 +19,8 @@ async function renderEntries(db: DB, service: DB, entries: FormEntry[], opts: {
   orgId: string; locale: PdfLocale; title: string; reference?: string | null; footer?: string | null; watermark?: string | null; includeEmpty: boolean;
 }) {
   const font = registerPdfFonts();
-  const t = pdfTranslator(opts.locale);
+  const { data: org } = await db.from("organizations").select("flow_term").eq("id", opts.orgId).maybeSingle();
+  const t = pdfTranslator(opts.locale, null, "fr", org?.flow_term ?? "flow");
   const templates = await loadTemplates(service, opts.orgId, null, null);
   const portrait = templates.get("FORM_GENERIC");
   const landscape = templates.get("FORM_GENERIC_H");

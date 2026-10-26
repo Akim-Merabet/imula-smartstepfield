@@ -1,0 +1,51 @@
+{
+  "diagram": {
+    "emptySubtitle": "Créez un diagramme pour représenter l'enchaînement des procédures de l'entité.",
+    "addFlows": "Ajouter des procédures",
+    "addFlowsSubtitle": "Les procédures chapeau ne peuvent pas être utilisées dans la vue diagramme.",
+    "newFlow": "Nouvelle procédure",
+    "emptyImport": "Aucune procédure disponible",
+    "flowReference": "Référence procédure :",
+    "flowMissing": "Procédure introuvable ou supprimée"
+  },
+  "kanban": {
+    "subtitle": "Glissez une carte dans une autre colonne pour changer le statut de la procédure",
+    "count": "{count, plural, =0 {Aucune procédure} one {# procédure} other {# procédures}}",
+    "empty": "Aucune procédure à afficher",
+    "confirmMove": "Passer la procédure « {name} » au statut « {status} » ?",
+    "moved": "La procédure « {name} » est passée au statut « {status} »"
+  },
+  "map": {
+    "popup": {
+      "linkedFlow": "Procédure liée",
+      "openFlow": "Ouvrir la fenêtre d'édition de la procédure",
+      "openContent": "Ouvrir le contenu de la procédure",
+      "noFlow": "Aucune procédure liée à cette géométrie"
+    }
+  },
+  "plan": {
+    "subtitle": "{count, plural, =0 {Aucune procédure} one {# procédure} other {# procédures}} dans l'entité",
+    "emptySubtitle": "Créez un plan pour visualiser les procédures de l'entité sur une échelle de temps.",
+    "scaleHelp": {
+      "default": "Toutes les procédures de l'entité, positionnées sur leurs dates",
+      "temporal": "Seules les procédures ajoutées au plan"
+    },
+    "title": {
+      "default": "Liste des procédures du plan défaut {name}",
+      "temporal": "Liste des procédures du plan temporel {name}",
+      "scheduling": "Liste des procédures du plan ordonnancement {name}"
+    },
+    "addContent": "Ajouter du contenu au plan à partir de procédure(s) existante(s)",
+    "importSuccess": "Procédure(s) ajoutée(s) avec succès",
+    "importFail": "Impossible d'importer la ou les procédure(s)",
+    "emptyImport": "Aucune procédure disponible",
+    "emptyFlows": "Aucune procédure dans l'entité",
+    "emptyTemporal": "Aucune procédure dans ce plan : ajoutez du contenu à partir de procédures existantes.",
+    "datesSaved": "Dates prévues de la procédure « {name} » mises à jour",
+    "linkHint": "Cliquez sur la barre de la procédure à lier (Échap pour annuler)",
+    "actions": {
+      "flowInfo": "Information sur la procédure",
+      "unlinkFlow": "Dissocier la procédure du plan"
+    }
+  }
+}

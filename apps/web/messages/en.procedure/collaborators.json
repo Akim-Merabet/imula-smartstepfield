@@ -1,0 +1,13 @@
+{
+  "errors": {
+    "dep": {
+      "flowAssignee": "Manager of procedure “{name}”",
+      "flowCollaborator": "Restricted to procedure “{name}”",
+      "flowReporter": "Reporter of procedure “{name}”",
+      "flow": "Assigned to procedure “{name}”"
+    }
+  },
+  "properties": {
+    "flows": "Assigned procedure(s)"
+  }
+}

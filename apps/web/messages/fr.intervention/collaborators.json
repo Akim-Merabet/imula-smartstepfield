@@ -1,0 +1,13 @@
+{
+  "errors": {
+    "dep": {
+      "flowAssignee": "Responsable de l'intervention « {name} »",
+      "flowCollaborator": "Restreint à l'intervention « {name} »",
+      "flowReporter": "Rapporteur de l'intervention « {name} »",
+      "flow": "Affectée à l'intervention « {name} »"
+    }
+  },
+  "properties": {
+    "flows": "Intervention(s) affectée(s)"
+  }
+}

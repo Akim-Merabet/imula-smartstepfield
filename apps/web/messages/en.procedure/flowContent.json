@@ -1,0 +1,48 @@
+{
+  "title": "Procedure content",
+  "tabs": {
+    "sequence": "Procedure sequencing"
+  },
+  "options": {
+    "editFlow": "Edit procedure",
+    "viewHistory": "Procedure history",
+    "resetFlow": "Reset procedure"
+  },
+  "reset": {
+    "title": "Reset procedure",
+    "subtitle": "All the content of your procedure and the related documents will be permanently deleted!",
+    "success": "The procedure has been reset"
+  },
+  "tree": {
+    "emptyTitle": "No phase in the procedure"
+  },
+  "comment": {
+    "subtitle": "A comment is required to record this action in the procedure history."
+  },
+  "step": {
+    "openLinked": "Open the procedure linked to step \"{value}\""
+  },
+  "stepDialog": {
+    "linkedFlow": "Linked procedure",
+    "linkFlow": "Link a procedure",
+    "linkedFlowHelp": "Only one procedure can be linked to the step (generic, or linked procedures of a head procedure).",
+    "navigationHelp": "Redirect to one or more other steps of the procedure"
+  },
+  "validation": {
+    "title": "Procedure internal validation",
+    "invalidState": "The block(s) of the procedure are not in a valid state for this action!"
+  },
+  "sequence": {
+    "info": "Order of the procedure phases and how their steps are carried out.",
+    "title": "Procedure sequencing",
+    "helperText": "A procedure is split into ordered sequences. Phases of a linear sequence are carried out one after the other, phases of a parallel sequence in any order. In the field, a step can only be completed once the mandatory elements of the steps before it are filled in; an optional phase does not block.",
+    "unlockInfo": "Unlocking lifts the sequencing restriction for this step. The action is recorded in the procedure history."
+  },
+  "errors": {
+    "resetHasSignatures": "Cannot reset the procedure: at least one signature exists on a Check or Multiple instruction block",
+    "dsi_required_group": "The check block cannot be disabled on a head procedure",
+    "no_valid_block": "The block(s) of the procedure are not in a valid state for this action!",
+    "not_in_restricted_list": "You are not in the list of collaborators restricted to this procedure",
+    "flow_locked": "This referential procedure is locked: unlock it from the Referentials module to edit its content."
+  }
+}

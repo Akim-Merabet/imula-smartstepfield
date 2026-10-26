@@ -1,0 +1,16 @@
+{
+  "actions": {
+    "linkedFlows": "Procedures linked to the tag"
+  },
+  "linkedFlows": {
+    "title": "Procedures linked to the tag {name}",
+    "empty": "No procedure linked to this tag",
+    "filter": "Filter by procedure name",
+    "columns": {
+      "flow": "Procedure"
+    },
+    "levels": {
+      "flow": "Procedure"
+    }
+  }
+}

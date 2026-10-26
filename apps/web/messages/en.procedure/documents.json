@@ -1,0 +1,67 @@
+{
+  "natures": {
+    "block_form": "Single form from a procedure",
+    "multi_flow_form": "Single form from one or more procedures",
+    "lfa": "Procedure list"
+  },
+  "natureComments": {
+    "pr": "Instruction content from a procedure",
+    "emm": "Equipment table from a procedure",
+    "adr": "Risk table from a procedure",
+    "dsi": "Control table from a procedure",
+    "multi_pr": "Multiple instruction content from a procedure",
+    "flow_form": "Form content from a procedure",
+    "object": "Object table from a procedure",
+    "block_form": "Content of a form called in a procedure",
+    "multi_flow_form": "Content of a form called in one or more procedures",
+    "lfa": "Table of the entity procedures",
+    "list_emm": "Equipment table from an equipment list or several procedures",
+    "list_adr": "Risk table from a risk list or several procedures",
+    "field_feedback": "Content of one or more forms of the entity or of procedures",
+    "diagram": "Export of the procedure diagram view"
+  },
+  "sources": {
+    "flow": "From a procedure"
+  },
+  "sourceComments": {
+    "flow": "Documents gathering blocks of a procedure"
+  },
+  "filters": {
+    "flow": "Procedure"
+  },
+  "delete": {
+    "inFlows": "This document is used in one or more procedures:"
+  },
+  "dialog": {
+    "readOnlyReferential": "No change is possible while the referential procedure is locked"
+  },
+  "options": {
+    "linkedFlowToggle": "Retrieve information from a procedure to fill specific fields of the PDF templates",
+    "linkedFlow": "Linked procedure"
+  },
+  "content": {
+    "flowTitle": "Generate a document from the procedure",
+    "flowPlaceholder": "Click to select a procedure",
+    "flowRequired": "Please select a procedure before continuing",
+    "fromFlows": "From the following procedure(s):",
+    "flowsRequired": "At least one procedure must be selected",
+    "fromFlowsMode": "several procedures",
+    "opt": {
+      "navigation_conditions": "Procedure redirection(s) in the table",
+      "show_linked_entities_references": "Display references of documents, forms and responses of linked procedures",
+      "child_rendered": "Display child procedure documents as an appendix",
+      "include_linked_documents_infos": "Display information of linked procedure-source documents"
+    }
+  },
+  "follow": {
+    "popover": {
+      "fromFlow": "Update from the procedure"
+    },
+    "toast": {
+      "vsoSr": "Remember to take the reservations into account in your procedure"
+    },
+    "errors": {
+      "referential_locked": "No action is possible while the referential procedure is locked"
+    }
+  }
+}

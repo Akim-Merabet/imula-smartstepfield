@@ -1,0 +1,89 @@
+{
+  "typeHelp": {
+    "specific": "Core of a project; it can also associate one or more generic interventions with various steps",
+    "generic": "Intervention that can be reused several times in one or more specific interventions",
+    "group": "Links several interventions together to group them and follow their sequence",
+    "template": "Intervention of a Template entity, importable as content into other interventions",
+    "referential": "Standard intervention of a Standard entity, importable into projects",
+    "referential_generic": "Generic standard intervention of a Standard entity",
+    "group_referential": "Head standard intervention of a Standard entity",
+    "referential_intervention": "Standard form intervention of a Standard entity",
+    "local_referential": "Local copy of a standard intervention"
+  },
+  "crumbView": "Interventions - {view}",
+  "comingSoon": {
+    "description": "This view is not available yet. Use the list view to manage the entity's interventions."
+  },
+  "list": {
+    "title": "Intervention list",
+    "emptySubtitle": "You can add an intervention from the dashboard \"Intervention management\" module with the \"+\" button"
+  },
+  "filters": {
+    "byType": "Filter by {type} intervention"
+  },
+  "actions": {
+    "edit": "Edit intervention",
+    "history": "Intervention history"
+  },
+  "delete": {
+    "title": "Are you sure you want to delete the intervention {name}?",
+    "subtitle": "The intervention will be kept in the trash for 30 days.",
+    "errors": {
+      "linked_to_steps": "Cannot delete: the intervention is linked to steps of other interventions",
+      "in_diagram": "Cannot delete: the intervention appears in a diagram view",
+      "imported": "Cannot delete: the intervention is imported in another project"
+    }
+  },
+  "advancedSearch": {
+    "fields": {
+      "flow_type": "Intervention type"
+    }
+  },
+  "reorganize": {
+    "button": "Reorganize interventions",
+    "title": "Reorganize interventions",
+    "subtitle": "{count, plural, one {# selected intervention} other {# selected interventions}}",
+    "confirm": "Are you sure you want to change the \"{type}\" to \"{name}\" for {count, plural, one {the selected intervention} other {the # selected interventions}}?",
+    "success": "{count, plural, one {# intervention reorganized} other {# interventions reorganized}} successfully"
+  },
+  "dialog": {
+    "createTitle": "Create an intervention",
+    "editTitle": "Edit {type} intervention {name}",
+    "type": "Intervention type",
+    "namePlaceholder": "Name of the intervention in the application",
+    "descriptionHelp": "Intervention description, only visible inside the company",
+    "noAttributes": "No attribute configured for interventions",
+    "documentsInfo": "Intervention documents that can be generated from the content blocks. Generation is handled by the Documents module.",
+    "assigneesHelp": "An assignee sees the intervention on the MobileApp and can sign without being among the collaborators",
+    "collaborators": "Collaborators restricted to the intervention",
+    "created": "Intervention created successfully",
+    "createdWithRef": "A new intervention has been created with identifier {param}",
+    "errors": {
+      "save": "An error occurred while saving the intervention",
+      "has_signatures": "Cannot enable this option, at least one signature exists in the intervention",
+      "invalid_type": "This intervention type is not available for this entity type"
+    }
+  },
+  "properties": {
+    "title": "Intervention properties"
+  },
+  "duplicate": {
+    "title": "Duplicate a {type} intervention",
+    "success": "Intervention duplicated successfully"
+  },
+  "history": {
+    "title": "History of intervention {name}",
+    "statusCreated": "{user} created the intervention with status {status}",
+    "actions": {
+      "create": "{user} created the intervention",
+      "delete": "{user} deleted the intervention",
+      "reset_flow": "{user} reset the intervention",
+      "add_user_hierarchy_in_flow": "{user} added a collaborator restricted to the intervention",
+      "delete_user_hierarchy_from_flow": "{user} removed a collaborator restricted to the intervention"
+    }
+  },
+  "types": {
+    "flow_form": "Form intervention",
+    "referential_intervention": "Form intervention standard"
+  }
+}

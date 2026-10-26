@@ -1,0 +1,8 @@
+{
+  "adr": {
+    "specificParades": "Parades spécifiques à la procédure"
+  },
+  "dsi": {
+    "simplifiedInfo": "La procédure est en mode simplifié : seules les signatures « Réalisation » et « Contrôle technique » sont proposées."
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "typeHelp": {
+    "specific": "Cœur d'un projet ; elle permet aussi d'associer une ou plusieurs procédures génériques à différentes étapes",
+    "generic": "Procédure réutilisable plusieurs fois dans une ou plusieurs procédures spécifiques",
+    "group": "Permet de relier plusieurs procédures pour les regrouper et suivre l'enchaînement des interventions",
+    "template": "Procédure d'une entité Modèle, importable comme contenu dans d'autres procédures",
+    "referential": "Procédure standard d'une entité Référentiel, importable dans les projets",
+    "referential_generic": "Procédure générique standard d'une entité Référentiel",
+    "group_referential": "Procédure chapeau standard d'une entité Référentiel",
+    "referential_intervention": "Procédure intervention standard d'une entité Référentiel",
+    "local_referential": "Copie locale d'une procédure référentielle"
+  },
+  "crumbView": "Procédures - {view}",
+  "comingSoon": {
+    "description": "Cette vue n'est pas encore disponible. Utilisez la vue liste pour gérer les procédures de l'entité."
+  },
+  "list": {
+    "title": "Liste des procédures",
+    "emptySubtitle": "Vous pouvez ajouter une procédure depuis le module « Gestion procédure » du tableau de bord avec le bouton « + »"
+  },
+  "filters": {
+    "byType": "Filtrer par procédure {type}"
+  },
+  "actions": {
+    "edit": "Éditer la procédure",
+    "history": "Historique de procédure"
+  },
+  "delete": {
+    "title": "Êtes-vous certain(e) de vouloir supprimer la procédure {name} ?",
+    "subtitle": "La procédure sera placée dans la corbeille pendant 30 jours.",
+    "errors": {
+      "linked_to_steps": "Suppression impossible : la procédure est liée à des étapes d'autres procédures",
+      "in_diagram": "Suppression impossible : la procédure figure dans une vue diagramme",
+      "imported": "Suppression impossible : la procédure est importée dans un autre projet"
+    }
+  },
+  "advancedSearch": {
+    "fields": {
+      "flow_type": "Type de procédure"
+    }
+  },
+  "reorganize": {
+    "button": "Réorganiser les procédures",
+    "title": "Réorganiser les procédures",
+    "subtitle": "{count, plural, one {# procédure sélectionnée} other {# procédures sélectionnées}}",
+    "confirm": "Êtes-vous certain(e) de vouloir changer le.la « {type} » à « {name} » pour {count, plural, one {la procédure sélectionnée} other {les # procédures sélectionnées}} ?",
+    "success": "{count, plural, one {# procédure réorganisée} other {# procédures réorganisées}} avec succès"
+  },
+  "dialog": {
+    "createTitle": "Création d'une procédure",
+    "editTitle": "Édition de la procédure {type} {name}",
+    "type": "Type de procédure",
+    "namePlaceholder": "Désignation de la procédure dans l'application",
+    "descriptionHelp": "Description de la procédure uniquement visible en interne de l'entreprise",
+    "noAttributes": "Aucun attribut paramétré pour les procédures",
+    "documentsInfo": "Documents de procédure générables à partir des blocs du contenu. La génération est assurée par le module Documents.",
+    "assigneesHelp": "Un responsable voit la procédure sur la MobileApp et peut signer sans être dans les collaborateur.trice(s)",
+    "collaborators": "Collaborateur.trice(s) restreint(e)s à la procédure",
+    "created": "Procédure créée avec succès",
+    "createdWithRef": "Une nouvelle procédure a été créée avec l'identifiant {param}",
+    "errors": {
+      "save": "Une erreur s'est produite lors de l'enregistrement de la procédure",
+      "has_signatures": "Impossible d'activer cette option, au moins une signature est présente dans la procédure",
+      "invalid_type": "Ce type de procédure n'est pas disponible pour ce type d'entité"
+    }
+  },
+  "properties": {
+    "title": "Propriétés de la procédure"
+  },
+  "duplicate": {
+    "title": "Dupliquer une procédure {type}",
+    "success": "Procédure dupliquée avec succès"
+  },
+  "history": {
+    "title": "Historique de la procédure {name}",
+    "statusCreated": "{user} a créé la procédure avec le statut {status}",
+    "actions": {
+      "create": "{user} a créé la procédure",
+      "delete": "{user} a supprimé la procédure",
+      "reset_flow": "{user} a réinitialisé la procédure",
+      "add_user_hierarchy_in_flow": "{user} a ajouté un collaborateur.trice restreint(e) à la procédure",
+      "delete_user_hierarchy_from_flow": "{user} a retiré un collaborateur.trice restreint(e) de la procédure"
+    }
+  }
+}

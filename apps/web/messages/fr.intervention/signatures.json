@@ -1,0 +1,11 @@
+{
+  "errors": {
+    "notInRestrictedList": "Vous n'êtes pas présent dans la liste des collaborateur.trice(s) restreint(e)s à cette intervention",
+    "not_in_restricted_list": "Vous n'êtes pas présent dans la liste des collaborateur.trice(s) restreint(e)s à cette intervention"
+  },
+  "summary": {
+    "selectFlow": "Sélection intervention",
+    "noFlowTitle": "Aucune intervention sélectionnée pour le moment",
+    "open": "Ouvrir l'intervention"
+  }
+}

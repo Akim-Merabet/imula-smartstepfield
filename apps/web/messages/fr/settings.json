@@ -639,7 +639,8 @@
     "sections": {
       "mobile": "MobileApp",
       "features": "Fonctionnalités",
-      "sharing": "Partage et affichage"
+      "sharing": "Partage et affichage",
+      "vocabulary": "Vocabulaire"
     },
     "fields": {
       "allowed_download_response": "Nombre de réponses terminées téléchargées par défaut sur la MobileApp",
@@ -650,7 +651,8 @@
       "rubric_permissions_enabled": "Activer la restriction de navigation dans les formulaires",
       "support_chat_enabled": "Activer le chat d'assistance",
       "link_expiration_days": "Durée d'expiration des liens lors du partage de formulaire et/ou document (jours)",
-      "number_format": "Formatage des valeurs numériques"
+      "number_format": "Formatage des valeurs numériques",
+      "flow_term": "Nom donné aux flows dans l'interface"
     },
     "localFormIrreversible": "Une fois activée, cette option ne peut plus être désactivée.",
     "supportChatHelp": "La page est rechargée après l'enregistrement.",
@@ -659,7 +661,13 @@
       "fr": "12 345,67",
       "en": "12,345.67"
     },
-    "pdfTranslationsUnavailable": "La personnalisation des traductions PDF (téléchargement / chargement) sera disponible avec le module Trames."
+    "pdfTranslationsUnavailable": "La personnalisation des traductions PDF (téléchargement / chargement) sera disponible avec le module Trames.",
+    "flowTerms": {
+      "flow": "Flow",
+      "procedure": "Procédure",
+      "intervention": "Intervention"
+    },
+    "flowTermHelp": "S'applique à toute l'organisation : WebApp, documents PDF et MobileApp (après synchronisation). Les noms techniques (API, exports de données) ne changent pas. La page est rechargée après l'enregistrement."
   },
   "wording": {
     "title": "Suivi",

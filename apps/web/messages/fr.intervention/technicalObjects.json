@@ -1,0 +1,8 @@
+{
+  "dialog": {
+    "certificateHint": "Document PDF de la bibliothèque, joint en annexe du document « Objets » des interventions."
+  },
+  "errors": {
+    "in_useSubtitle": "L'objet est déjà utilisé (bloc Objet, intervention ou formulaire lié)"
+  }
+}

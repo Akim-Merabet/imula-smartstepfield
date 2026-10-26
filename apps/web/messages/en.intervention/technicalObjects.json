@@ -1,0 +1,8 @@
+{
+  "dialog": {
+    "certificateHint": "Library PDF document, appended to the interventions “Objects” document."
+  },
+  "errors": {
+    "in_useSubtitle": "The object is already used (Object block, intervention or linked form)"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "duplicate": {
+    "info": {
+      "validation": "Dans l'entité dupliquée, le circuit de validation interne des interventions (blocs remis en rédaction) et le circuit de validation externe des documents (retour à l'état PREL) repartent de zéro.",
+      "template": "Une entité Modèle n'accueille que des interventions modèles : les interventions chapeau ne sont pas reprises et aucun document n'est copié."
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "title": "Contenu de l'intervention",
+  "tabs": {
+    "sequence": "Séquencement de l'intervention"
+  },
+  "options": {
+    "editFlow": "Éditer l'intervention",
+    "viewHistory": "Historique d'intervention",
+    "resetFlow": "Réinitialiser l'intervention"
+  },
+  "reset": {
+    "title": "Réinitialiser l'intervention",
+    "subtitle": "Tout le contenu de votre intervention et les documents associés seront supprimés définitivement !",
+    "success": "L'intervention a été réinitialisée"
+  },
+  "tree": {
+    "emptyTitle": "Aucune phase dans l'intervention"
+  },
+  "comment": {
+    "subtitle": "Un commentaire est obligatoire pour tracer cette action dans l'historique de l'intervention."
+  },
+  "step": {
+    "openLinked": "Ouvrir l'intervention liée à l'étape « {value} »"
+  },
+  "stepDialog": {
+    "linkedFlow": "Intervention liée",
+    "linkFlow": "Lier une intervention",
+    "linkedFlowHelp": "Une seule intervention peut être liée à l'étape (générique, ou interventions liées d'un chapeau).",
+    "navigationHelp": "Rediriger vers une ou plusieurs autres étapes de l'intervention"
+  },
+  "validation": {
+    "title": "Validation interne de l'intervention",
+    "invalidState": "Le ou les blocs présents dans l'intervention ne sont pas dans un état valable pour cette action !"
+  },
+  "sequence": {
+    "info": "Ordre des phases de l'intervention et type de réalisation de leurs étapes.",
+    "title": "Séquencement de l'intervention",
+    "helperText": "Une intervention se découpe en séquences ordonnées. Les phases d'une séquence linéaire se réalisent les unes après les autres, celles d'une séquence parallèle dans n'importe quel ordre. Sur le terrain, une étape ne peut être complétée que lorsque les éléments obligatoires des étapes qui la précèdent sont remplis ; une phase optionnelle n'est pas bloquante.",
+    "unlockInfo": "Le déverrouillage lève la restriction de séquencement pour cette étape. L'action est tracée dans l'historique de l'intervention."
+  },
+  "errors": {
+    "resetHasSignatures": "Impossible de réinitialiser l'intervention : au moins une signature est présente sur un bloc Contrôle ou Instruction multiple",
+    "dsi_required_group": "Impossible de désactiver le bloc contrôle sur une intervention chapeau",
+    "no_valid_block": "Le ou les blocs présents dans l'intervention ne sont pas dans un état valable pour cette action !",
+    "not_in_restricted_list": "Vous n'êtes pas présent dans la liste des collaborateur.trice(s) restreint(e)s à cette intervention",
+    "flow_locked": "Cette intervention référentielle est verrouillée : débloquez-la depuis le module Référentiels pour modifier son contenu."
+  }
+}

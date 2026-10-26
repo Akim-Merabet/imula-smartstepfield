@@ -1,0 +1,59 @@
+{
+  "title": "Liste des interventions référentielles applicables au projet",
+  "emptyTitle": "Aucune intervention référentielle importée",
+  "emptySubtitle": "Importez des interventions depuis une entité référentiel avec le bouton « Importer depuis un référentiel ».",
+  "lockedTooltip": "Intervention référentielle verrouillée : synchronisée avec sa source",
+  "unlockedTooltip": "Cette intervention a été débloquée",
+  "import": {
+    "subtitle": "Seules les interventions au statut « En préparation » sont proposées (10 au maximum). Les blocs Contrôle et Formulaire ne sont pas importés.",
+    "empty": "Aucune intervention en préparation dans cette entité",
+    "conflict": "{count, plural, one {# intervention est déjà importée et sera ignorée} other {# interventions sont déjà importées et seront ignorées}}",
+    "conflictUpdate": "{count, plural, one {# intervention déjà importée sera mise à jour} other {# interventions déjà importées seront mises à jour}}",
+    "inProgressDescription": "Le traitement sera terminé lorsque l'intervention importée sera visible dans la liste."
+  },
+  "execute": {
+    "title": {
+      "referential": "Exécuter depuis une intervention référentielle",
+      "group": "Exécuter depuis une intervention référentielle chapeau",
+      "intervention": "Exécuter depuis une intervention formulaire référentielle"
+    },
+    "selection": "{count} intervention(s) référentielle(s) sélectionnée(s)",
+    "options": "Options sur les interventions et les documents qui vont être générés suite à l'exécution",
+    "resetInternalHelp": "Retour à l'état « Rédaction » pour tous les blocs des interventions générées",
+    "info": "Chaque copie crée une intervention utilisable (Spécifique, Générique, Chapeau ou Formulaire) avec son contenu et ses séquences.",
+    "success": "Intervention référentielle exécutée avec succès",
+    "successList": "{count} intervention(s) référentielle(s) exécutée(s) avec succès",
+    "created": "{count, plural, one {# intervention créée} other {# interventions créées}}",
+    "inProgressDescription": "Les interventions générées apparaîtront dans le module Interventions à la fin du traitement."
+  },
+  "refresh": {
+    "title": "Êtes-vous certain(e) de vouloir mettre à jour votre intervention référentielle ?",
+    "titleAll": "Êtes-vous certain(e) de vouloir mettre à jour les interventions référentielles déjà importées ?",
+    "subtitle": "Tous les contenus seront écrasés par ceux de la source, sans retour en arrière possible. Les interventions déjà exécutées ne sont pas affectées.",
+    "success": "L'intervention référentielle a été mise à jour avec succès",
+    "successAll": "{count} intervention(s) mise(s) à jour avec succès"
+  },
+  "unlock": {
+    "title": {
+      "referential": "Êtes-vous certain(e) de vouloir débloquer l'intervention référentielle ?",
+      "group": "Êtes-vous certain(e) de vouloir débloquer l'intervention référentielle chapeau ?",
+      "intervention": "Êtes-vous certain(e) de vouloir débloquer l'intervention formulaire référentielle ?"
+    },
+    "options": "Options sur les interventions et les documents débloqués",
+    "resetInternal": "Réinitialiser la validation interne de l'intervention référentielle",
+    "resetInternalHelp": "Retour à l'état « Rédaction » pour tous les blocs de l'intervention débloquée",
+    "success": "L'intervention référentielle a été débloquée"
+  },
+  "errors": {
+    "has_signatures_or_responses": "Impossible de mettre à jour le contenu car l'intervention contient au moins une signature ou une réponse de formulaire",
+    "source_missing": "L'intervention référentielle source n'est plus disponible",
+    "not_refreshable": "Cette intervention a été débloquée : elle ne peut plus être mise à jour",
+    "no_selection": "Aucune intervention sélectionnée",
+    "not_lockable": "Cette intervention n'est pas un référentiel verrouillé"
+  },
+  "jobs": {
+    "import": "Import de {count} intervention(s) référentielle(s)",
+    "execute": "Exécution de {count} intervention(s) référentielle(s)",
+    "refresh": "Mise à jour de {count} intervention(s) référentielle(s)"
+  }
+}

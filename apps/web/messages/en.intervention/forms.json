@@ -1,0 +1,26 @@
+{
+  "delete": {
+    "flow": "Intervention"
+  },
+  "refresh": {
+    "flows": "Every use of this form in interventions will be updated; a response being filled keeps its version."
+  },
+  "properties": {
+    "flows": "Interventions using this form"
+  },
+  "feedback": {
+    "emptySubtitle": "Responses created from forms and interventions are listed here",
+    "columns": {
+      "flow": "Intervention"
+    },
+    "filters": {
+      "flow": "Intervention",
+      "sources": {
+        "flow": "Intervention"
+      }
+    },
+    "xlsx": {
+      "flow": "Intervention"
+    }
+  }
+}

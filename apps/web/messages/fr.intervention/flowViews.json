@@ -1,0 +1,51 @@
+{
+  "diagram": {
+    "emptySubtitle": "Créez un diagramme pour représenter l'enchaînement des interventions de l'entité.",
+    "addFlows": "Ajouter des interventions",
+    "addFlowsSubtitle": "Les interventions chapeau ne peuvent pas être utilisées dans la vue diagramme.",
+    "newFlow": "Nouvelle intervention",
+    "emptyImport": "Aucune intervention disponible",
+    "flowReference": "Référence intervention :",
+    "flowMissing": "Intervention introuvable ou supprimée"
+  },
+  "kanban": {
+    "subtitle": "Glissez une carte dans une autre colonne pour changer le statut de l'intervention",
+    "count": "{count, plural, =0 {Aucune intervention} one {# intervention} other {# interventions}}",
+    "empty": "Aucune intervention à afficher",
+    "confirmMove": "Passer l'intervention « {name} » au statut « {status} » ?",
+    "moved": "L'intervention « {name} » est passée au statut « {status} »"
+  },
+  "map": {
+    "popup": {
+      "linkedFlow": "Intervention liée",
+      "openFlow": "Ouvrir la fenêtre d'édition de l'intervention",
+      "openContent": "Ouvrir le contenu de l'intervention",
+      "noFlow": "Aucune intervention liée à cette géométrie"
+    }
+  },
+  "plan": {
+    "subtitle": "{count, plural, =0 {Aucune intervention} one {# intervention} other {# interventions}} dans l'entité",
+    "emptySubtitle": "Créez un plan pour visualiser les interventions de l'entité sur une échelle de temps.",
+    "scaleHelp": {
+      "default": "Toutes les interventions de l'entité, positionnées sur leurs dates",
+      "temporal": "Seules les interventions ajoutées au plan"
+    },
+    "title": {
+      "default": "Liste des interventions du plan défaut {name}",
+      "temporal": "Liste des interventions du plan temporel {name}",
+      "scheduling": "Liste des interventions du plan ordonnancement {name}"
+    },
+    "addContent": "Ajouter du contenu au plan à partir d'intervention(s) existante(s)",
+    "importSuccess": "Intervention(s) ajoutée(s) avec succès",
+    "importFail": "Impossible d'importer la ou les intervention(s)",
+    "emptyImport": "Aucune intervention disponible",
+    "emptyFlows": "Aucune intervention dans l'entité",
+    "emptyTemporal": "Aucune intervention dans ce plan : ajoutez du contenu à partir d'interventions existantes.",
+    "datesSaved": "Dates prévues de l'intervention « {name} » mises à jour",
+    "linkHint": "Cliquez sur la barre de l'intervention à lier (Échap pour annuler)",
+    "actions": {
+      "flowInfo": "Information sur l'intervention",
+      "unlinkFlow": "Dissocier l'intervention du plan"
+    }
+  }
+}

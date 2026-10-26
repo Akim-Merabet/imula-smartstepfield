@@ -1,0 +1,51 @@
+{
+  "diagram": {
+    "emptySubtitle": "Create a diagram to show how the entity's interventions follow one another.",
+    "addFlows": "Add interventions",
+    "addFlowsSubtitle": "Group interventions cannot be used in the diagram view.",
+    "newFlow": "New intervention",
+    "emptyImport": "No intervention available",
+    "flowReference": "Intervention reference:",
+    "flowMissing": "Intervention not found or deleted"
+  },
+  "kanban": {
+    "subtitle": "Drag a card to another column to change the intervention status",
+    "count": "{count, plural, =0 {No intervention} one {# intervention} other {# interventions}}",
+    "empty": "No intervention to display",
+    "confirmMove": "Move intervention \"{name}\" to status \"{status}\"?",
+    "moved": "Intervention \"{name}\" moved to status \"{status}\""
+  },
+  "map": {
+    "popup": {
+      "linkedFlow": "Linked intervention",
+      "openFlow": "Open the intervention edit window",
+      "openContent": "Open the intervention content",
+      "noFlow": "No intervention linked to this geometry"
+    }
+  },
+  "plan": {
+    "subtitle": "{count, plural, =0 {No intervention} one {# intervention} other {# interventions}} in the entity",
+    "emptySubtitle": "Create a plan to display the entity's interventions on a timeline.",
+    "scaleHelp": {
+      "default": "All interventions of the entity, positioned on their dates",
+      "temporal": "Only the interventions added to the plan"
+    },
+    "title": {
+      "default": "Interventions of default plan {name}",
+      "temporal": "Interventions of temporal plan {name}",
+      "scheduling": "Interventions of scheduling plan {name}"
+    },
+    "addContent": "Add content to the plan from existing intervention(s)",
+    "importSuccess": "Intervention(s) added",
+    "importFail": "Unable to add the intervention(s)",
+    "emptyImport": "No intervention available",
+    "emptyFlows": "No intervention in the entity",
+    "emptyTemporal": "No intervention in this plan: add content from existing interventions.",
+    "datesSaved": "Estimated dates of intervention \"{name}\" updated",
+    "linkHint": "Click the bar of the intervention to link (Esc to cancel)",
+    "actions": {
+      "flowInfo": "Intervention information",
+      "unlinkFlow": "Remove the intervention from the plan"
+    }
+  }
+}

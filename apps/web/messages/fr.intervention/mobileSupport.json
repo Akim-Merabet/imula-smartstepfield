@@ -1,0 +1,10 @@
+{
+  "logs": {
+    "actions": {
+      "START_CHECKOUT": "Téléchargement d'interventions",
+      "DELETE_FLOW_DATA": "Suppression d'interventions de la tablette",
+      "SCAN_QRCODE_FLOW_SUCCESS": "Scan de QR code d'intervention",
+      "SCAN_QRCODE_FLOW_FAIL": "Échec de scan de QR code d'intervention"
+    }
+  }
+}

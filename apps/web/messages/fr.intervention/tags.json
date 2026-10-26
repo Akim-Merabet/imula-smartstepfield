@@ -1,0 +1,16 @@
+{
+  "actions": {
+    "linkedFlows": "Intervention(s) liée(s) à l'étiquette"
+  },
+  "linkedFlows": {
+    "title": "Intervention(s) liée(s) à l'étiquette {name}",
+    "empty": "Aucune intervention liée à cette étiquette",
+    "filter": "Filtrer par nom d'intervention",
+    "columns": {
+      "flow": "Intervention"
+    },
+    "levels": {
+      "flow": "Intervention"
+    }
+  }
+}

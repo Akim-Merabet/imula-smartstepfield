@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Spinner } from "@/components/ui/spinner";
 import { Switch } from "@/components/ui/switch";
+import { flowTerms, type FlowTerm } from "@/i18n/config";
 import type { Tables } from "@/lib/supabase/database.types";
 import { updateOrganization } from "../actions/account";
 import type { OrganizationInput } from "../schema";
@@ -28,6 +29,7 @@ export function OrganizationForm({ organization }: { organization: Tables<"organ
     links_form_attributes_enabled: organization.links_form_attributes_enabled,
     local_form_allowed: organization.local_form_allowed,
     number_format: organization.number_format,
+    flow_term: organization.flow_term,
     rubric_permissions_enabled: organization.rubric_permissions_enabled,
     support_chat_enabled: organization.support_chat_enabled,
   });
@@ -46,7 +48,8 @@ export function OrganizationForm({ organization }: { organization: Tables<"organ
   );
 
   const submit = () => startTransition(async () => {
-    const reload = form.support_chat_enabled !== organization.support_chat_enabled;
+    // Le chat et le vocabulaire (libellés chargés côté serveur) s'appliquent au rechargement de la page.
+    const reload = form.support_chat_enabled !== organization.support_chat_enabled || form.flow_term !== organization.flow_term;
     const done = await run(() => updateOrganization(form));
     if (done && reload) window.location.reload();
   });
@@ -88,6 +91,19 @@ export function OrganizationForm({ organization }: { organization: Tables<"organ
                 <SelectItem value="en">{t("numberFormats.en")}</SelectItem>
               </SelectGroup></SelectContent>
             </Select>
+          </Field>
+        </FieldSet>
+        <FieldSet>
+          <FieldLegend>{t("sections.vocabulary")}</FieldLegend>
+          <Field>
+            <FieldLabel>{t("fields.flow_term")}</FieldLabel>
+            <Select value={form.flow_term} onValueChange={(v) => set("flow_term", v as FlowTerm)}>
+              <SelectTrigger className="w-60"><SelectValue /></SelectTrigger>
+              <SelectContent><SelectGroup>
+                {flowTerms.map((term) => <SelectItem key={term} value={term}>{t(`flowTerms.${term}`)}</SelectItem>)}
+              </SelectGroup></SelectContent>
+            </Select>
+            <FieldDescription>{t("flowTermHelp")}</FieldDescription>
           </Field>
         </FieldSet>
         <Alert><AlertDescription>{t("pdfTranslationsUnavailable")}</AlertDescription></Alert>

@@ -1,0 +1,26 @@
+{
+  "delete": {
+    "flow": "Procedure"
+  },
+  "refresh": {
+    "flows": "Every use of this form in procedures will be updated; a response being filled keeps its version."
+  },
+  "properties": {
+    "flows": "Procedures using this form"
+  },
+  "feedback": {
+    "emptySubtitle": "Responses created from forms and procedures are listed here",
+    "columns": {
+      "flow": "Procedure"
+    },
+    "filters": {
+      "flow": "Procedure",
+      "sources": {
+        "flow": "Procedure"
+      }
+    },
+    "xlsx": {
+      "flow": "Procedure"
+    }
+  }
+}

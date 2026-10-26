@@ -1,0 +1,48 @@
+{
+  "title": "Contenu de la procédure",
+  "tabs": {
+    "sequence": "Séquencement de la procédure"
+  },
+  "options": {
+    "editFlow": "Éditer la procédure",
+    "viewHistory": "Historique de procédure",
+    "resetFlow": "Réinitialiser la procédure"
+  },
+  "reset": {
+    "title": "Réinitialiser la procédure",
+    "subtitle": "Tout le contenu de votre procédure et les documents associés seront supprimés définitivement !",
+    "success": "La procédure a été réinitialisée"
+  },
+  "tree": {
+    "emptyTitle": "Aucune phase dans la procédure"
+  },
+  "comment": {
+    "subtitle": "Un commentaire est obligatoire pour tracer cette action dans l'historique de la procédure."
+  },
+  "step": {
+    "openLinked": "Ouvrir la procédure liée à l'étape « {value} »"
+  },
+  "stepDialog": {
+    "linkedFlow": "Procédure liée",
+    "linkFlow": "Lier une procédure",
+    "linkedFlowHelp": "Une seule procédure peut être liée à l'étape (générique, ou procédures liées d'un chapeau).",
+    "navigationHelp": "Rediriger vers une ou plusieurs autres étapes de la procédure"
+  },
+  "validation": {
+    "title": "Validation interne de la procédure",
+    "invalidState": "Le ou les blocs présents dans la procédure ne sont pas dans un état valable pour cette action !"
+  },
+  "sequence": {
+    "info": "Ordre des phases de la procédure et type de réalisation de leurs étapes.",
+    "title": "Séquencement de la procédure",
+    "helperText": "Une procédure se découpe en séquences ordonnées. Les phases d'une séquence linéaire se réalisent les unes après les autres, celles d'une séquence parallèle dans n'importe quel ordre. Sur le terrain, une étape ne peut être complétée que lorsque les éléments obligatoires des étapes qui la précèdent sont remplis ; une phase optionnelle n'est pas bloquante.",
+    "unlockInfo": "Le déverrouillage lève la restriction de séquencement pour cette étape. L'action est tracée dans l'historique de la procédure."
+  },
+  "errors": {
+    "resetHasSignatures": "Impossible de réinitialiser la procédure : au moins une signature est présente sur un bloc Contrôle ou Instruction multiple",
+    "dsi_required_group": "Impossible de désactiver le bloc contrôle sur une procédure chapeau",
+    "no_valid_block": "Le ou les blocs présents dans la procédure ne sont pas dans un état valable pour cette action !",
+    "not_in_restricted_list": "Vous n'êtes pas présent dans la liste des collaborateur.trice(s) restreint(e)s à cette procédure",
+    "flow_locked": "Cette procédure référentielle est verrouillée : débloquez-la depuis le module Référentiels pour modifier son contenu."
+  }
+}

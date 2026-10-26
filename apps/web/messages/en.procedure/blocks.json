@@ -1,0 +1,8 @@
+{
+  "adr": {
+    "specificParades": "Procedure-specific safeguards"
+  },
+  "dsi": {
+    "simplifiedInfo": "The procedure is in simplified mode: only the \"Completion\" and \"Technical check\" signatures are offered."
+  }
+}

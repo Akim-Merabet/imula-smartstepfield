@@ -1,0 +1,26 @@
+{
+  "delete": {
+    "flow": "Procédure"
+  },
+  "refresh": {
+    "flows": "Toutes les utilisations de ce formulaire dans les procédures seront mises à jour ; une réponse en cours de saisie conserve sa version."
+  },
+  "properties": {
+    "flows": "Procédures utilisant ce formulaire"
+  },
+  "feedback": {
+    "emptySubtitle": "Les réponses créées depuis les formulaires et les procédures apparaissent ici",
+    "columns": {
+      "flow": "Procédure"
+    },
+    "filters": {
+      "flow": "Procédure",
+      "sources": {
+        "flow": "Procédure"
+      }
+    },
+    "xlsx": {
+      "flow": "Procédure"
+    }
+  }
+}

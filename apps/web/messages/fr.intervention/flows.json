@@ -1,0 +1,89 @@
+{
+  "typeHelp": {
+    "specific": "Cœur d'un projet ; elle permet aussi d'associer une ou plusieurs interventions génériques à différentes étapes",
+    "generic": "Intervention réutilisable plusieurs fois dans une ou plusieurs interventions spécifiques",
+    "group": "Permet de relier plusieurs interventions pour les regrouper et suivre leur enchaînement",
+    "template": "Intervention d'une entité Modèle, importable comme contenu dans d'autres interventions",
+    "referential": "Intervention standard d'une entité Référentiel, importable dans les projets",
+    "referential_generic": "Intervention générique standard d'une entité Référentiel",
+    "group_referential": "Intervention chapeau standard d'une entité Référentiel",
+    "referential_intervention": "Intervention formulaire standard d'une entité Référentiel",
+    "local_referential": "Copie locale d'une intervention référentielle"
+  },
+  "crumbView": "Interventions - {view}",
+  "comingSoon": {
+    "description": "Cette vue n'est pas encore disponible. Utilisez la vue liste pour gérer les interventions de l'entité."
+  },
+  "list": {
+    "title": "Liste des interventions",
+    "emptySubtitle": "Vous pouvez ajouter une intervention depuis le module « Gestion intervention » du tableau de bord avec le bouton « + »"
+  },
+  "filters": {
+    "byType": "Filtrer par intervention {type}"
+  },
+  "actions": {
+    "edit": "Éditer l'intervention",
+    "history": "Historique d'intervention"
+  },
+  "delete": {
+    "title": "Êtes-vous certain(e) de vouloir supprimer l'intervention {name} ?",
+    "subtitle": "L'intervention sera placée dans la corbeille pendant 30 jours.",
+    "errors": {
+      "linked_to_steps": "Suppression impossible : l'intervention est liée à des étapes d'autres interventions",
+      "in_diagram": "Suppression impossible : l'intervention figure dans une vue diagramme",
+      "imported": "Suppression impossible : l'intervention est importée dans un autre projet"
+    }
+  },
+  "advancedSearch": {
+    "fields": {
+      "flow_type": "Type d'intervention"
+    }
+  },
+  "reorganize": {
+    "button": "Réorganiser les interventions",
+    "title": "Réorganiser les interventions",
+    "subtitle": "{count, plural, one {# intervention sélectionnée} other {# interventions sélectionnées}}",
+    "confirm": "Êtes-vous certain(e) de vouloir changer le.la « {type} » à « {name} » pour {count, plural, one {l'intervention sélectionnée} other {les # interventions sélectionnées}} ?",
+    "success": "{count, plural, one {# intervention réorganisée} other {# interventions réorganisées}} avec succès"
+  },
+  "dialog": {
+    "createTitle": "Création d'une intervention",
+    "editTitle": "Édition de l'intervention {type} {name}",
+    "type": "Type d'intervention",
+    "namePlaceholder": "Désignation de l'intervention dans l'application",
+    "descriptionHelp": "Description de l'intervention uniquement visible en interne de l'entreprise",
+    "noAttributes": "Aucun attribut paramétré pour les interventions",
+    "documentsInfo": "Documents d'intervention générables à partir des blocs du contenu. La génération est assurée par le module Documents.",
+    "assigneesHelp": "Un responsable voit l'intervention sur la MobileApp et peut signer sans être dans les collaborateur.trice(s)",
+    "collaborators": "Collaborateur.trice(s) restreint(e)s à l'intervention",
+    "created": "Intervention créée avec succès",
+    "createdWithRef": "Une nouvelle intervention a été créée avec l'identifiant {param}",
+    "errors": {
+      "save": "Une erreur s'est produite lors de l'enregistrement de l'intervention",
+      "has_signatures": "Impossible d'activer cette option, au moins une signature est présente dans l'intervention",
+      "invalid_type": "Ce type d'intervention n'est pas disponible pour ce type d'entité"
+    }
+  },
+  "properties": {
+    "title": "Propriétés de l'intervention"
+  },
+  "duplicate": {
+    "title": "Dupliquer une intervention {type}",
+    "success": "Intervention dupliquée avec succès"
+  },
+  "history": {
+    "title": "Historique de l'intervention {name}",
+    "statusCreated": "{user} a créé l'intervention avec le statut {status}",
+    "actions": {
+      "create": "{user} a créé l'intervention",
+      "delete": "{user} a supprimé l'intervention",
+      "reset_flow": "{user} a réinitialisé l'intervention",
+      "add_user_hierarchy_in_flow": "{user} a ajouté un collaborateur.trice restreint(e) à l'intervention",
+      "delete_user_hierarchy_from_flow": "{user} a retiré un collaborateur.trice restreint(e) de l'intervention"
+    }
+  },
+  "types": {
+    "flow_form": "Intervention formulaire",
+    "referential_intervention": "Référentiel intervention formulaire"
+  }
+}

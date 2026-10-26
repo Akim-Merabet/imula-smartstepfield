@@ -1,0 +1,42 @@
+{
+  "errors": {
+    "usage": {
+      "flows": "{count, plural, one {# procedure} other {# procedures}}"
+    },
+    "response_parent_deleted": "The response cannot be restored: its procedure or form is deleted"
+  },
+  "natures": {
+    "flow": "Procedure"
+  },
+  "statuses": {
+    "fields": {
+      "hideFlow": "Hide the procedure for this status when done"
+    }
+  },
+  "statusNatures": {
+    "flow": "Procedure"
+  },
+  "customFields": {
+    "fields": {
+      "display_in_flow_card": "MobileApp - Show in the procedure card",
+      "display_in_flow_banner": "MobileApp - Show in the procedure banner",
+      "display_on_flow_opening": "MobileApp - Show when opening the procedure"
+    }
+  },
+  "fieldNatures": {
+    "flow": "Procedure"
+  },
+  "referenceNatures": {
+    "flow": "Procedure"
+  },
+  "trash": {
+    "natures": {
+      "flow": "Procedure"
+    }
+  },
+  "kpi": {
+    "counters": {
+      "flows": "Procedures"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "errors": {
+    "usage": {
+      "flows": "{count, plural, one {# intervention} other {# interventions}}"
+    },
+    "response_parent_deleted": "Impossible de restaurer la réponse : son intervention ou son formulaire est supprimé"
+  },
+  "natures": {
+    "flow": "Intervention"
+  },
+  "statuses": {
+    "fields": {
+      "hideFlow": "Masquer l'intervention pour ce statut à un état terminé"
+    }
+  },
+  "statusNatures": {
+    "flow": "Intervention"
+  },
+  "customFields": {
+    "fields": {
+      "display_in_flow_card": "MobileApp - Afficher dans la carte d'une intervention",
+      "display_in_flow_banner": "MobileApp - Afficher dans le bandeau d'une intervention",
+      "display_on_flow_opening": "MobileApp - Afficher à l'ouverture de l'intervention"
+    }
+  },
+  "fieldNatures": {
+    "flow": "Intervention"
+  },
+  "referenceNatures": {
+    "flow": "Intervention"
+  },
+  "trash": {
+    "natures": {
+      "flow": "Intervention"
+    }
+  },
+  "kpi": {
+    "counters": {
+      "flows": "Interventions"
+    }
+  }
+}

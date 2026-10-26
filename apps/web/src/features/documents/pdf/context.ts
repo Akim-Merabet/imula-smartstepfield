@@ -110,7 +110,8 @@ export async function loadGenContext(db: DB, versionId: string, opts: { withoutF
   const project = (projectRes.data ?? null) as Tables<"projects"> | null;
   const { data: client } = project?.client_id ? await db.from("clients").select("*").eq("id", project.client_id).maybeSingle() : { data: null };
   const lang1 = doc.language_1 !== "none" ? doc.language_1 : project?.export_language_1 !== "none" ? project?.export_language_1 : account.doc_language_1;
-  const t = pdfTranslator(lang1, doc.language_2, opts.uiLocale ?? "fr");
+  const { data: org } = await db.from("organizations").select("flow_term").eq("id", account.organization_id).maybeSingle();
+  const t = pdfTranslator(lang1, doc.language_2, opts.uiLocale ?? "fr", org?.flow_term ?? "flow");
   let wording: WordingFields = {};
   if (family?.wording_configuration_id) {
     const { data: langs } = await db.from("wording_configuration_languages").select("language, fields").eq("wording_configuration_id", family.wording_configuration_id);

@@ -1,0 +1,48 @@
+{
+  "title": "Intervention content",
+  "tabs": {
+    "sequence": "Intervention sequencing"
+  },
+  "options": {
+    "editFlow": "Edit intervention",
+    "viewHistory": "Intervention history",
+    "resetFlow": "Reset intervention"
+  },
+  "reset": {
+    "title": "Reset intervention",
+    "subtitle": "All the content of your intervention and the related documents will be permanently deleted!",
+    "success": "The intervention has been reset"
+  },
+  "tree": {
+    "emptyTitle": "No phase in the intervention"
+  },
+  "comment": {
+    "subtitle": "A comment is required to record this action in the intervention history."
+  },
+  "step": {
+    "openLinked": "Open the intervention linked to step \"{value}\""
+  },
+  "stepDialog": {
+    "linkedFlow": "Linked intervention",
+    "linkFlow": "Link an intervention",
+    "linkedFlowHelp": "Only one intervention can be linked to the step (generic, or linked interventions of a head intervention).",
+    "navigationHelp": "Redirect to one or more other steps of the intervention"
+  },
+  "validation": {
+    "title": "Intervention internal validation",
+    "invalidState": "The block(s) of the intervention are not in a valid state for this action!"
+  },
+  "sequence": {
+    "info": "Order of the intervention phases and how their steps are carried out.",
+    "title": "Intervention sequencing",
+    "helperText": "An intervention is split into ordered sequences. Phases of a linear sequence are carried out one after the other, phases of a parallel sequence in any order. In the field, a step can only be completed once the mandatory elements of the steps before it are filled in; an optional phase does not block.",
+    "unlockInfo": "Unlocking lifts the sequencing restriction for this step. The action is recorded in the intervention history."
+  },
+  "errors": {
+    "resetHasSignatures": "Cannot reset the intervention: at least one signature exists on a Check or Multiple instruction block",
+    "dsi_required_group": "The check block cannot be disabled on a head intervention",
+    "no_valid_block": "The block(s) of the intervention are not in a valid state for this action!",
+    "not_in_restricted_list": "You are not in the list of collaborators restricted to this intervention",
+    "flow_locked": "This referential intervention is locked: unlock it from the Referentials module to edit its content."
+  }
+}

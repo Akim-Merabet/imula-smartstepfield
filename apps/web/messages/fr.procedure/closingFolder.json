@@ -1,0 +1,15 @@
+{
+  "typesLong": {
+    "report": "Compte rendu - Compte rendu rédigé depuis une procédure",
+    "certificate": "Certificat - Compilation des certificats des moyens d'une procédure",
+    "reference": "Référence - Compilation des références des moyens d'une procédure"
+  },
+  "section": {
+    "flow": "Procédure",
+    "reportFlow": "Procédure de compte rendu",
+    "flowRequired": "Veuillez sélectionner une procédure",
+    "reportHelp": "Le compte rendu reprend le tableau récapitulatif des signatures de la procédure sélectionnée.",
+    "allCertificates": "Chaque certificat des moyens présents dans la procédure",
+    "allReferences": "Chaque référence des moyens présents dans la procédure"
+  }
+}

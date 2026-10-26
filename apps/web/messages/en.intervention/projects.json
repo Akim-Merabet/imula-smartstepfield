@@ -1,0 +1,8 @@
+{
+  "duplicate": {
+    "info": {
+      "validation": "In the duplicated entity, the internal validation of interventions (blocks back to drafting) and the external validation of documents (back to PREL) start over.",
+      "template": "A Template entity only hosts template interventions: group interventions are skipped and no document is copied."
+    }
+  }
+}

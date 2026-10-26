@@ -1,0 +1,16 @@
+{
+  "actions": {
+    "linkedFlows": "Procédure(s) liée(s) à l'étiquette"
+  },
+  "linkedFlows": {
+    "title": "Procédure(s) liée(s) à l'étiquette {name}",
+    "empty": "Aucune procédure liée à cette étiquette",
+    "filter": "Filtrer par nom de procédure",
+    "columns": {
+      "flow": "Procédure"
+    },
+    "levels": {
+      "flow": "Procédure"
+    }
+  }
+}

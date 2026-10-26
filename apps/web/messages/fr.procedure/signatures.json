@@ -1,0 +1,11 @@
+{
+  "errors": {
+    "notInRestrictedList": "Vous n'êtes pas présent dans la liste des collaborateur.trice(s) restreint(e)s à cette procédure",
+    "not_in_restricted_list": "Vous n'êtes pas présent dans la liste des collaborateur.trice(s) restreint(e)s à cette procédure"
+  },
+  "summary": {
+    "selectFlow": "Sélection procédure",
+    "noFlowTitle": "Aucune procédure sélectionnée pour le moment",
+    "open": "Ouvrir la procédure"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "variables": {
+    "tabs": {
+      "flow": "Procedure"
+    },
+    "items": {
+      "FlowName": "Procedure name",
+      "FlowDescription": "Procedure description",
+      "FlowFamily": "Procedure family",
+      "FlowCategory": "Procedure category",
+      "FlowStatus": "Procedure status",
+      "FlowSite": "Procedure site",
+      "FlowUnit": "Procedure unit",
+      "FlowLocal": "Procedure room",
+      "FlowElementarySystem": "Procedure elementary system",
+      "FlowFunctionalLandmark": "Procedure functional landmark",
+      "FlowTechnicalObject": "Procedure technical object",
+      "FlowChrono": "Procedure reference",
+      "FlowEpsilonFolderRef": "Procedure folder reference",
+      "FlowRapporteur": "Procedure reporter",
+      "FlowResponsable": "Procedure manager",
+      "FlowTablette1": "Procedure tablet 1",
+      "FlowTablette2": "Procedure tablet 2",
+      "FlowTablette3": "Procedure tablet 3",
+      "FlowDateDebut": "Procedure start date",
+      "FlowDateFin": "Procedure end date",
+      "FlowGeometryCoordinateLat": "Procedure latitude",
+      "FlowGeometryCoordinateLng": "Procedure longitude",
+      "FlowGeometryCoordinateAlt": "Procedure altitude",
+      "FlowInternalSupervision1": "Procedure internal supervisor 1",
+      "FlowInternalSupervision2": "Procedure internal supervisor 2",
+      "FlowInternalSupervision3": "Procedure internal supervisor 3",
+      "FlowExternalSupervision1": "Procedure external supervisor 1",
+      "FlowExternalSupervision2": "Procedure external supervisor 2",
+      "FlowExternalSupervision3": "Procedure external supervisor 3"
+    }
+  }
+}

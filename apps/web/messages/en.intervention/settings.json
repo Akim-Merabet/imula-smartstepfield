@@ -1,0 +1,42 @@
+{
+  "errors": {
+    "usage": {
+      "flows": "{count, plural, one {# intervention} other {# interventions}}"
+    },
+    "response_parent_deleted": "The response cannot be restored: its intervention or form is deleted"
+  },
+  "natures": {
+    "flow": "Intervention"
+  },
+  "statuses": {
+    "fields": {
+      "hideFlow": "Hide the intervention for this status when done"
+    }
+  },
+  "statusNatures": {
+    "flow": "Intervention"
+  },
+  "customFields": {
+    "fields": {
+      "display_in_flow_card": "MobileApp - Show in the intervention card",
+      "display_in_flow_banner": "MobileApp - Show in the intervention banner",
+      "display_on_flow_opening": "MobileApp - Show when opening the intervention"
+    }
+  },
+  "fieldNatures": {
+    "flow": "Intervention"
+  },
+  "referenceNatures": {
+    "flow": "Intervention"
+  },
+  "trash": {
+    "natures": {
+      "flow": "Intervention"
+    }
+  },
+  "kpi": {
+    "counters": {
+      "flows": "Interventions"
+    }
+  }
+}

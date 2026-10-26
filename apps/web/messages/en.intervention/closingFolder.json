@@ -1,0 +1,15 @@
+{
+  "typesLong": {
+    "report": "Report - Report written from an intervention",
+    "certificate": "Certificate - Compilation of the equipment certificates of an intervention",
+    "reference": "Reference - Compilation of the equipment references of an intervention"
+  },
+  "section": {
+    "flow": "Intervention",
+    "reportFlow": "Report intervention",
+    "flowRequired": "Please select an intervention",
+    "reportHelp": "The report includes the signature summary table of the selected intervention.",
+    "allCertificates": "Every certificate of the equipment in the intervention",
+    "allReferences": "Every reference of the equipment in the intervention"
+  }
+}

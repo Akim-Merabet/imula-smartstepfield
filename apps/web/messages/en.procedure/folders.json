@@ -1,0 +1,10 @@
+{
+  "columns": {
+    "flows": "Procedures"
+  },
+  "emptySubtitle": "Create a sub-folder with the “+” button to add referential procedures to it.",
+  "prepare": {
+    "info": "{count, plural, one {The referential procedure of the sub-folder will be imported} other {The # referential procedures of the sub-folder will be imported}} into the Referentials module of a new Project entity (locked and kept in sync with their source), along with the referential diagrams.",
+    "noFlows": "Please add one or more procedures to the sub-folder first."
+  }
+}

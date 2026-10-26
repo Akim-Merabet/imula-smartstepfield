@@ -1,0 +1,59 @@
+{
+  "title": "Liste des procédures référentielles applicables au projet",
+  "emptyTitle": "Aucune procédure référentielle importée",
+  "emptySubtitle": "Importez des procédures depuis une entité référentiel avec le bouton « Importer depuis un référentiel ».",
+  "lockedTooltip": "Procédure référentielle verrouillée : synchronisée avec sa source",
+  "unlockedTooltip": "Cette procédure a été débloquée",
+  "import": {
+    "subtitle": "Seules les procédures au statut « En préparation » sont proposées (10 au maximum). Les blocs Contrôle et Formulaire ne sont pas importés.",
+    "empty": "Aucune procédure en préparation dans cette entité",
+    "conflict": "{count, plural, one {# procédure est déjà importée et sera ignorée} other {# procédures sont déjà importées et seront ignorées}}",
+    "conflictUpdate": "{count, plural, one {# procédure déjà importée sera mise à jour} other {# procédures déjà importées seront mises à jour}}",
+    "inProgressDescription": "Le traitement sera terminé lorsque la procédure importée sera visible dans la liste."
+  },
+  "execute": {
+    "title": {
+      "referential": "Exécuter depuis une procédure référentielle",
+      "group": "Exécuter depuis une procédure référentielle chapeau",
+      "intervention": "Exécuter depuis une procédure référentielle intervention"
+    },
+    "selection": "{count} procédure(s) référentielle(s) sélectionnée(s)",
+    "options": "Options sur les procédures et les documents qui vont être générés suite à l'exécution",
+    "resetInternalHelp": "Retour à l'état « Rédaction » pour tous les blocs des procédures générées",
+    "info": "Chaque copie crée une procédure utilisable (Spécifique, Générique, Chapeau ou Intervention) avec son contenu et ses séquences.",
+    "success": "Procédure référentielle exécutée avec succès",
+    "successList": "{count} procédure(s) référentielle(s) exécutée(s) avec succès",
+    "created": "{count, plural, one {# procédure créée} other {# procédures créées}}",
+    "inProgressDescription": "Les procédures générées apparaîtront dans le module Procédures à la fin du traitement."
+  },
+  "refresh": {
+    "title": "Êtes-vous certain(e) de vouloir mettre à jour votre procédure référentielle ?",
+    "titleAll": "Êtes-vous certain(e) de vouloir mettre à jour les procédures référentielles déjà importées ?",
+    "subtitle": "Tous les contenus seront écrasés par ceux de la source, sans retour en arrière possible. Les procédures déjà exécutées ne sont pas affectées.",
+    "success": "La procédure référentielle a été mise à jour avec succès",
+    "successAll": "{count} procédure(s) mise(s) à jour avec succès"
+  },
+  "unlock": {
+    "title": {
+      "referential": "Êtes-vous certain(e) de vouloir débloquer la procédure référentielle ?",
+      "group": "Êtes-vous certain(e) de vouloir débloquer la procédure référentielle chapeau ?",
+      "intervention": "Êtes-vous certain(e) de vouloir débloquer la procédure référentielle intervention ?"
+    },
+    "options": "Options sur les procédures et les documents débloqués",
+    "resetInternal": "Réinitialiser la validation interne de la procédure référentielle",
+    "resetInternalHelp": "Retour à l'état « Rédaction » pour tous les blocs de la procédure débloquée",
+    "success": "La procédure référentielle a été débloquée"
+  },
+  "errors": {
+    "has_signatures_or_responses": "Impossible de mettre à jour le contenu car la procédure contient au moins une signature ou une réponse de formulaire",
+    "source_missing": "La procédure référentielle source n'est plus disponible",
+    "not_refreshable": "Cette procédure a été débloquée : elle ne peut plus être mise à jour",
+    "no_selection": "Aucune procédure sélectionnée",
+    "not_lockable": "Cette procédure n'est pas un référentiel verrouillé"
+  },
+  "jobs": {
+    "import": "Import de {count} procédure(s) référentielle(s)",
+    "execute": "Exécution de {count} procédure(s) référentielle(s)",
+    "refresh": "Mise à jour de {count} procédure(s) référentielle(s)"
+  }
+}

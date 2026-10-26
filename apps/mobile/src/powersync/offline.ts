@@ -112,18 +112,24 @@ export async function selectForOffline(db: AbstractPowerSyncDatabase, flows: { i
 
 /**
  * Écritures en attente d'envoi concernant un flow (interdit de le retirer de la tablette, spec 05 §9.7).
- * Une modification partielle ne porte pas forcément flow_id : on le relit sur la ligne locale.
+ * Une modification partielle ne porte pas forcément flow_id : on le relit sur la ligne locale, ou sur sa réponse de
+ * formulaire pour les tables qui n'ont que response_id (lignes ajoutées d'un tableau : form_response_dynamic_items).
  */
 export async function pendingWritesForFlow(db: AbstractPowerSyncDatabase, flowId: string): Promise<number> {
   const crud = await db.getAll<{ data: string }>("select data from ps_crud");
+  const flowOfResponse = async (responseId: unknown) => typeof responseId !== "string" ? null
+    : (await db.getOptional<{ flow_id: string | null }>("select flow_id from form_responses where id = ?", [responseId])
+      .catch(() => null))?.flow_id ?? null;
   let n = 0;
   for (const { data } of crud) {
-    const op = JSON.parse(data) as { type: string; id: string; data?: { flow_id?: string } };
-    if (op.data?.flow_id === flowId || (op.type === "flows" && op.id === flowId)) n += 1;
-    else if (!op.data?.flow_id && /^\w+$/.test(op.type)) {
-      const row = await db.getOptional<{ flow_id: string | null }>(`select flow_id from ${op.type} where id = ?`, [op.id]).catch(() => null);
-      if (row?.flow_id === flowId) n += 1;
+    const op = JSON.parse(data) as { type: string; id: string; data?: { flow_id?: string; response_id?: string } };
+    let flow = op.data?.flow_id ?? (op.type === "flows" ? op.id : null) ?? await flowOfResponse(op.data?.response_id);
+    if (!flow && /^\w+$/.test(op.type)) {
+      const row = await db.getOptional<{ flow_id?: string | null; response_id?: string | null }>(
+        `select * from ${op.type} where id = ?`, [op.id]).catch(() => null);
+      flow = row?.flow_id ?? await flowOfResponse(row?.response_id);
     }
+    if (flow === flowId) n += 1;
   }
   return n;
 }

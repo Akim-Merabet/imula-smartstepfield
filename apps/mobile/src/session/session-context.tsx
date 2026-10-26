@@ -195,16 +195,12 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     await supabase.auth.signOut({ scope: "local" });
     await forgetSession(current.profile.principalId);
     logEvent("SIGN_OUT");
-    current.subscriptions.stop();
-    current.attachments.stop();
-    current.backups.stop();
-    bindLogger(null);
-    await current.db.close();
+    // Même arrêt que pour un changement de profil (abonnements, pièces jointes, sauvegardes, vocabulaire, base).
+    await closeActive();
     await setActiveProfileId(null);
-    activeRef.current = null;
     setActive(null);
     setStatus("signedOut");
-  }, []);
+  }, [closeActive]);
 
   const setOffline = useCallback(async (value: boolean) => {
     const current = activeRef.current;

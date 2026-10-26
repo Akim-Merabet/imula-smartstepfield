@@ -24,6 +24,10 @@ export class OfflineSubscriptions {
   constructor(private db: AbstractPowerSyncDatabase) {}
 
   start() {
+    // Nouveau contrôleur à chaque démarrage : stop() puis start() (réinitialisation de la base locale) doit relancer
+    // le suivi, pas réutiliser un signal déjà interrompu.
+    this.abort = new AbortController();
+    this.prunedAt = undefined;
     // Formulaires des flows et entités sélectionnés : versions épinglées ou version courante (flow_forms).
     this.db.watch(
       `select 'flow_offline' as name, flow_id as param from offline_selection

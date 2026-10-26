@@ -37,7 +37,9 @@ streams:
       - SELECT id, name, subdomain, allowed_download_response, block_form_response_edition,
                diagram_enabled, number_format, rubric_permissions_enabled, map_config, flow_term
         FROM organizations WHERE id IN my_org
-      - SELECT * FROM custom_statuses WHERE organization_id IN my_org AND active
+      # Statuts inactifs compris : un flow à statut inactif mais téléchargeable reste accessible (mobile_flow_access) ;
+      # les listes de choix de l'app filtrent `active`.
+      - SELECT * FROM custom_statuses WHERE organization_id IN my_org
       - SELECT * FROM label_families WHERE organization_id IN my_org AND deleted_at IS NULL
       - SELECT * FROM custom_fields WHERE account_id IN my_account AND deleted_at IS NULL
       - SELECT id, organization_id, name, default_sequence_type, hide_multi_pr_titles, date_formats, time_zone

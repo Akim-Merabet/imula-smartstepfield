@@ -35,6 +35,9 @@ export function createAssets(db: DB): Assets {
       images.set(key, (async () => {
         if (src.startsWith("data:")) return imageFromDataUrl(src);
         if (/^https?:\/\//.test(src)) {
+          // Uniquement le stockage du projet : une valeur saisie (signature, image) ne doit pas faire télécharger au
+          // serveur une URL arbitraire (réseau interne, métadonnées du cloud).
+          if (!isStorageUrl(src)) return null;
           try {
             const res = await fetch(src);
             return res.ok ? preparePdfImage(new Uint8Array(await res.arrayBuffer())) : null;
@@ -92,6 +95,13 @@ export function stateLabel(ctx: Pick<GenContext, "t" | "wording">, v: Pick<Versi
 export function personName(ctx: Pick<GenContext, "people">, id: string | null | undefined) {
   return id ? ctx.people.get(id)?.name ?? "" : "";
 }
+
+const storageOrigin = (() => {
+  try { return new URL(process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").origin; } catch { return null; }
+})();
+const isStorageUrl = (src: string) => {
+  try { return !!storageOrigin && new URL(src).origin === storageOrigin; } catch { return false; }
+};
 
 /** Charge le contexte de génération d'une version de document. */
 export async function loadGenContext(db: DB, versionId: string, opts: { withoutFieldData?: boolean; uiLocale?: "fr" | "en"; font: string; assetsDb?: DB; templatesDb?: DB }):

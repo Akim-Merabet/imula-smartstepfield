@@ -88,7 +88,7 @@ export default function LoginScreen() {
         <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
           <View style={styles.header}>
             <Text style={styles.welcome}>{t("login.welcomeTo")}</Text>
-            <Text style={styles.brand}>Qiwi Flow</Text>
+            <Text style={styles.brand}>Qiwi Intervention</Text>
             <Text style={styles.subtitle}>{t("login.signToAccount")}</Text>
           </View>
 

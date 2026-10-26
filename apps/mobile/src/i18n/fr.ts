@@ -548,7 +548,7 @@ export const fr = {
       DEVICE_UNAUTHORIZED: "Cet appareil ne fait pas partie des équipements autorisés sur votre environnement",
       ANOTHER_DEVICE: "Un autre appareil est déjà connecté avec ce compte.",
       NO_INTERNET: "Impossible de se connecter. Vérifier votre connexion internet",
-      INVALID_QR: "Échec de l’identification par QR code: le QR code ne correspond pas à un utilisateur Imula Flow",
+      INVALID_QR: "Échec de l’identification par QR code: le QR code ne correspond pas à un utilisateur Qiwi Intervention",
       EXPIRED_QR: "Échec de l’identification par QR code: le QR code est expiré",
       QR_ALREADY_BOUND: "Échec de l’identification par QR code: le QR code est déjà associé",
       QR_NO_INTERNET: "Échec de l’identification par QR code: pas de connexion internet",
